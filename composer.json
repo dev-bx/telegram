@@ -1,7 +1,7 @@
 {
   "name": "devbx/telegram",
   "description": "Telegram BOT Api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "authors": [
     {
@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "DevBX\\Telegram\\": "Telegram"
+      "DevBX\\Telegram\\": "src"
     }
   }
 }
