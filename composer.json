@@ -1,0 +1,20 @@
+{
+  "name": "devbx/telegram",
+  "description": "Telegram BOT Api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kubeev Ruslan",
+      "email": "ruslan@dev-bx.ru"
+    }
+  ],
+  "require": {
+    "php": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DevBX\\Telegram\\": "Telegram"
+    }
+  }
+}

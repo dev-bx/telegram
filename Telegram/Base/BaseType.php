@@ -1,0 +1,359 @@
+<?php
+
+namespace DevBX\Telegram\Base;
+
+class BaseType extends BaseObject implements \JsonSerializable
+{
+    protected mixed $value;
+
+    protected function __construct($value = null)
+    {
+        $this->setValue($value);
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public static function create($value = null): static|null
+    {
+        $relations = static::getRelations();
+
+        if (empty($relations) || in_array(get_called_class(), $relations)) {
+            return new static($value);
+        }
+
+        foreach ($relations as $relation) {
+            if ($relation::isCompatible($value)) {
+                return $relation::create($value);
+            }
+        }
+
+        if (static::isStrictMode()) {
+            throw new TelegramException('Incompatible values with class ' . get_called_class());
+        }
+
+        return null;
+    }
+
+    /**
+     * @return BaseType[]
+     */
+    public static function getRelations(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param $type
+     * @return BaseType|string
+     * @throws TelegramException
+     */
+    public static function getFieldTypeClass($type): BaseType|string
+    {
+        switch ($type) {
+            case 'int':
+                return ParameterInt::class;
+            case 'bool':
+                return ParameterBool::class;
+            case 'string':
+                return ParameterString::class;
+            case 'float':
+                return ParameterFloat::class;
+        }
+
+        if (!is_a($type, BaseType::class, true))
+            throw new TelegramException("Type '$type' is must be an instance of " . BaseType::class);
+
+        return $type;
+    }
+
+    public static function isCompatible($data): bool
+    {
+        $fields = static::getFields();
+
+        if (empty($fields))
+            return true;
+
+        if ($data instanceof BaseType) {
+            $data = $data->jsonSerialize();
+        }
+
+        if (!is_array($data))
+            return false;
+
+        foreach (static::getConstFields() as $field => $fieldData) {
+            if (!array_key_exists($field, $data))
+                return false;
+
+            if ($data[$field] != $fieldData['value'])
+                return false;
+        }
+
+        foreach ($data as $key => $value) {
+            if (!array_key_exists($key, $fields))
+                return false;
+
+            $fieldData = $fields[$key];
+
+            $isArray = $fieldData['isArray'] ?? false;
+
+            if ($isArray) {
+                if (empty($value))
+                    continue;
+
+                if (!is_array($value))
+                    return false;
+
+            } else {
+                $value = [$value];
+            }
+
+            if ($isArray === 'matrix')
+            {
+                foreach ($value as $matrix) {
+                    if (!is_array($matrix))
+                        return false;
+
+                    foreach ($matrix as $arrayValue) {
+                        $result = false;
+
+                        foreach ($fieldData['type'] as $fieldType) {
+                            $fieldType = static::getFieldTypeClass($fieldType);
+                            if ($fieldType::isCompatible($arrayValue)) {
+                                $result = true;
+                                break;
+                            }
+                        }
+
+                        if (!$result)
+                            return false;
+                    }
+                }
+            } else {
+                foreach ($value as $arrayValue) {
+                    $result = false;
+
+                    foreach ($fieldData['type'] as $fieldType) {
+                        $fieldType = static::getFieldTypeClass($fieldType);
+                        if ($fieldType::isCompatible($arrayValue)) {
+                            $result = true;
+                            break;
+                        }
+                    }
+
+                    if (!$result)
+                        return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static function getFields(): array
+    {
+        return [];
+    }
+
+    public static function getConstFields(): array
+    {
+        $result = [];
+
+        foreach (static::getFields() as $name => $field) {
+            if (isset($field['value'])) {
+                $result[$name] = $field;
+            }
+        }
+
+        return $result;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public function setValue($newValue)
+    {
+        if (empty(static::getFields())) {
+            $this->value = $newValue;
+            return;
+        }
+
+        if ($newValue instanceof BaseType) {
+            $newValue = $newValue->jsonSerialize();
+        }
+
+        $this->value = [];
+
+        if (empty($newValue))
+            return;
+
+        if (!is_array($newValue)) {
+            $this->addError(new Error('Invalid value'));
+            return;
+        }
+
+        foreach ($newValue as $field => $fieldValue) {
+            $this->setFieldValue($field, $fieldValue);
+        }
+
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        if (empty(static::getFields())) {
+            return $this->value;
+        }
+
+        $result = [];
+
+        foreach ($this->value as $field => $fieldValue) {
+            $result[$field] = $fieldValue->jsonSerialize();
+        }
+
+        return $result;
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public function setFieldValue($field, $value): static
+    {
+        $objFields = static::getFields();
+
+        if (!isset($objFields[$field])) {
+            $this->addError(new Error('Unknown field "' . $field . '"'));
+            return $this;
+        }
+
+        $fieldData = $objFields[$field];
+
+        $isArray = $fieldData['isArray'] ?? false;
+
+        if ($isArray) {
+            if (!empty($value) && !is_array($value)) {
+                $this->addError(new Error('Invalid value for field "' . $field . '"'));
+                return $this;
+            }
+
+            if ($isArray === 'matrix')
+            {
+                $this->value[$field] = new ArrayOfArrayObject($fieldData['type']);
+            } else {
+                $this->value[$field] = new ArrayObject($fieldData['type']);
+            }
+
+            if (!empty($value)) {
+                foreach ($value as $fieldValueItem) {
+                    $this->value[$field]->add($fieldValueItem);
+                }
+            }
+
+            return $this;
+        }
+
+        foreach ($fieldData['type'] as $fieldType) {
+            $fieldType = static::getFieldTypeClass($fieldType);
+            if ($fieldType::isCompatible($value)) {
+                $this->value[$field] = new $fieldType($value);
+                return $this;
+            }
+        }
+
+        $this->addError(new Error('Incorrect value for field "' . $fieldData['name'] . '"'));
+
+        return $this;
+    }
+
+    public function getFieldValue($field)
+    {
+        $field = static::camel2snake($field);
+
+        $objFields = static::getFields();
+
+        if (!isset($objFields[$field])) {
+            throw new TelegramException('Unknown field "' . $field . '"');
+        }
+
+        if (isset($this->value[$field])) {
+
+            if ($this->value[$field] instanceof BaseType)
+            {
+                if ($this->value[$field]::getFields())
+                {
+                    return $this->value[$field];
+                }
+
+                return $this->value[$field]->getValue();
+            }
+
+            return $this->value[$field];
+        }
+
+        $fieldType = $objFields[$field];
+
+        $isArray = $fieldType['isArray'] ?? false;
+        if ($isArray) {
+
+            if ($isArray === 'matrix')
+            {
+                $this->value[$field] = new ArrayOfArrayObject($fieldType['type']);
+            } else {
+                $this->value[$field] = new ArrayObject($fieldType['type']);
+            }
+
+            return $this->value[$field];
+        }
+
+        if (count($fieldType['type']) == 1) {
+            $firstObject = reset($fieldType['type']);
+            $objFields[$field] = new $firstObject();
+
+            return $objFields[$field]->getValue();
+        }
+
+        return null;
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public function __get(string $name)
+    {
+        return $this->getFieldValue($name);
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public function validate(): bool
+    {
+        foreach (static::getFields() as $field => $fieldData) {
+            if (!isset($fieldData['required']) || !$fieldData['required'])
+                continue;
+
+            if (!array_key_exists($field, $this->value)) {
+                $this->addError(new Error('Required field "' . $field . '" not found in ' . static::entityName()));
+                continue;
+            }
+
+            if (!$this->value[$field]->validate()) {
+                $this->addError(new Error('Required field "' . $field . '" validation failed in ' . static::entityName()));
+                continue;
+            }
+
+            if ($this->value[$field] instanceof BaseType) {
+                if (empty($this->value[$field]->getValue()))
+                {
+                    $this->addError(new Error('Required field "' . $field . '" is empty in ' . static::entityName()));
+                }
+            }
+        }
+
+        return true;
+    }
+}
