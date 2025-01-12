@@ -28,7 +28,7 @@ class TransactionPartnerOther extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��other�',
+				'value' => 'other',
 				'required' => true,
 			],
 		];

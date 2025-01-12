@@ -32,7 +32,7 @@ class MessageOriginHiddenUser extends MessageOrigin
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��hidden_user�',
+				'value' => 'hidden_user',
 				'required' => true,
 			],
 			'date' => [

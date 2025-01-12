@@ -36,7 +36,7 @@ class ChatBoostSourceGiveaway extends ChatBoostSource
 		return [
 			'source' => [
 				'type' => ['string'],
-				'value' => '��giveaway�',
+				'value' => 'giveaway',
 				'required' => true,
 			],
 			'giveaway_message_id' => [

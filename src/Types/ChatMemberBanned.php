@@ -32,7 +32,7 @@ class ChatMemberBanned extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��kicked�',
+				'value' => 'kicked',
 				'required' => true,
 			],
 			'user' => [

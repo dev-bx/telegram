@@ -30,7 +30,7 @@ class ReactionTypeCustomEmoji extends ReactionType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��custom_emoji�',
+				'value' => 'custom_emoji',
 				'required' => true,
 			],
 			'custom_emoji_id' => [

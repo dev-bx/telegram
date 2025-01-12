@@ -35,7 +35,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Update[]|Base\BaseType
     */
 
-    public function getUpdates(array $params): Base\BaseType
+    public function getUpdates(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -80,7 +80,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setWebhook(array $params): Base\BaseType
+    public function setWebhook(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -124,7 +124,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function deleteWebhook(array $params): Base\BaseType
+    public function deleteWebhook(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -145,11 +145,11 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\WebhookInfo
     */
 
-    public function getWebhookInfo(array $params): Types\WebhookInfo
+    public function getWebhookInfo(): Types\WebhookInfo
     {
         return $this->query(
             __FUNCTION__,
-            $params,
+            [],
             [
                 '@return' => [
                     'type' => Types\WebhookInfo::class,
@@ -166,11 +166,11 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\User
     */
 
-    public function getMe(array $params): Types\User
+    public function getMe(): Types\User
     {
         return $this->query(
             __FUNCTION__,
-            $params,
+            [],
             [
                 '@return' => [
                     'type' => Types\User::class,
@@ -226,7 +226,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendMessage(array $params): Types\Message
+    public function sendMessage(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -297,7 +297,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function forwardMessage(array $params): Types\Message
+    public function forwardMessage(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -347,7 +347,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\MessageId[]|Base\BaseType
     */
 
-    public function forwardMessages(array $params): Base\BaseType
+    public function forwardMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -406,7 +406,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\MessageId
     */
 
-    public function copyMessage(array $params): Types\MessageId
+    public function copyMessage(array $params = []): Types\MessageId
     {
         return $this->query(
             __FUNCTION__,
@@ -479,7 +479,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\MessageId[]|Base\BaseType
     */
 
-    public function copyMessages(array $params): Base\BaseType
+    public function copyMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -543,7 +543,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendPhoto(array $params): Types\Message
+    public function sendPhoto(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -631,7 +631,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function sendAudio(array $params): Base\BaseType
+    public function sendAudio(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -720,7 +720,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendDocument(array $params): Types\Message
+    public function sendDocument(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -811,7 +811,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendVideo(array $params): Types\Message
+    public function sendVideo(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -916,7 +916,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendAnimation(array $params): Types\Message
+    public function sendAnimation(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1013,7 +1013,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendVoice(array $params): Types\Message
+    public function sendVoice(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1094,7 +1094,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendVideoNote(array $params): Types\Message
+    public function sendVideoNote(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1172,7 +1172,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendPaidMedia(array $params): Types\Message
+    public function sendPaidMedia(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1251,7 +1251,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function sendMediaGroup(array $params): Base\BaseType
+    public function sendMediaGroup(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1316,7 +1316,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendLocation(array $params): Types\Message
+    public function sendLocation(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1404,7 +1404,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendVenue(array $params): Types\Message
+    public function sendVenue(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1496,7 +1496,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendContact(array $params): Types\Message
+    public function sendContact(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1584,7 +1584,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendPoll(array $params): Types\Message
+    public function sendPoll(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1692,7 +1692,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Message
     */
 
-    public function sendDice(array $params): Types\Message
+    public function sendDice(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1750,7 +1750,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function sendChatAction(array $params): Base\BaseType
+    public function sendChatAction(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1788,7 +1788,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setMessageReaction(array $params): Base\BaseType
+    public function setMessageReaction(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1826,7 +1826,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\UserProfilePhotos
     */
 
-    public function getUserProfilePhotos(array $params): Types\UserProfilePhotos
+    public function getUserProfilePhotos(array $params = []): Types\UserProfilePhotos
     {
         return $this->query(
             __FUNCTION__,
@@ -1862,7 +1862,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setUserEmojiStatus(array $params): Base\BaseType
+    public function setUserEmojiStatus(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1893,7 +1893,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function getFile(array $params): Base\BaseType
+    public function getFile(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1921,7 +1921,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function banChatMember(array $params): Base\BaseType
+    public function banChatMember(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1958,7 +1958,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unbanChatMember(array $params): Base\BaseType
+    public function unbanChatMember(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1994,7 +1994,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function restrictChatMember(array $params): Base\BaseType
+    public function restrictChatMember(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2049,7 +2049,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function promoteChatMember(array $params): Base\BaseType
+    public function promoteChatMember(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2125,7 +2125,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatAdministratorCustomTitle(array $params): Base\BaseType
+    public function setChatAdministratorCustomTitle(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2159,7 +2159,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function banChatSenderChat(array $params): Base\BaseType
+    public function banChatSenderChat(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2189,7 +2189,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unbanChatSenderChat(array $params): Base\BaseType
+    public function unbanChatSenderChat(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2220,7 +2220,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatPermissions(array $params): Base\BaseType
+    public function setChatPermissions(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2252,7 +2252,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function exportChatInviteLink(array $params): Base\BaseType
+    public function exportChatInviteLink(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2281,7 +2281,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatInviteLink
     */
 
-    public function createChatInviteLink(array $params): Types\ChatInviteLink
+    public function createChatInviteLink(array $params = []): Types\ChatInviteLink
     {
         return $this->query(
             __FUNCTION__,
@@ -2326,7 +2326,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatInviteLink
     */
 
-    public function editChatInviteLink(array $params): Types\ChatInviteLink
+    public function editChatInviteLink(array $params = []): Types\ChatInviteLink
     {
         return $this->query(
             __FUNCTION__,
@@ -2373,7 +2373,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatInviteLink
     */
 
-    public function createChatSubscriptionInviteLink(array $params): Types\ChatInviteLink
+    public function createChatSubscriptionInviteLink(array $params = []): Types\ChatInviteLink
     {
         return $this->query(
             __FUNCTION__,
@@ -2414,7 +2414,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatInviteLink
     */
 
-    public function editChatSubscriptionInviteLink(array $params): Types\ChatInviteLink
+    public function editChatSubscriptionInviteLink(array $params = []): Types\ChatInviteLink
     {
         return $this->query(
             __FUNCTION__,
@@ -2450,7 +2450,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatInviteLink
     */
 
-    public function revokeChatInviteLink(array $params): Types\ChatInviteLink
+    public function revokeChatInviteLink(array $params = []): Types\ChatInviteLink
     {
         return $this->query(
             __FUNCTION__,
@@ -2483,7 +2483,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function approveChatJoinRequest(array $params): Base\BaseType
+    public function approveChatJoinRequest(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2513,7 +2513,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function declineChatJoinRequest(array $params): Base\BaseType
+    public function declineChatJoinRequest(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2543,7 +2543,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatPhoto(array $params): Base\BaseType
+    public function setChatPhoto(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2572,7 +2572,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function deleteChatPhoto(array $params): Base\BaseType
+    public function deleteChatPhoto(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2598,7 +2598,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatTitle(array $params): Base\BaseType
+    public function setChatTitle(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2628,7 +2628,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatDescription(array $params): Base\BaseType
+    public function setChatDescription(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2659,7 +2659,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function pinChatMessage(array $params): Base\BaseType
+    public function pinChatMessage(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2696,7 +2696,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unpinChatMessage(array $params): Base\BaseType
+    public function unpinChatMessage(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2727,7 +2727,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unpinAllChatMessages(array $params): Base\BaseType
+    public function unpinAllChatMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2752,7 +2752,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function leaveChat(array $params): Base\BaseType
+    public function leaveChat(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2777,7 +2777,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatFullInfo
     */
 
-    public function getChat(array $params): Types\ChatFullInfo
+    public function getChat(array $params = []): Types\ChatFullInfo
     {
         return $this->query(
             __FUNCTION__,
@@ -2805,7 +2805,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatMember[]|Base\BaseType
     */
 
-    public function getChatAdministrators(array $params): Base\BaseType
+    public function getChatAdministrators(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2834,7 +2834,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function getChatMemberCount(array $params): Base\BaseType
+    public function getChatMemberCount(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2860,7 +2860,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatMember
     */
 
-    public function getChatMember(array $params): Types\ChatMember
+    public function getChatMember(array $params = []): Types\ChatMember
     {
         return $this->query(
             __FUNCTION__,
@@ -2893,7 +2893,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function setChatStickerSet(array $params): Base\BaseType
+    public function setChatStickerSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2922,7 +2922,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function deleteChatStickerSet(array $params): Base\BaseType
+    public function deleteChatStickerSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -2944,11 +2944,11 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Stickers\Sticker[]|Base\BaseType
     */
 
-    public function getForumTopicIconStickers(array $params): Base\BaseType
+    public function getForumTopicIconStickers(): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
-            $params,
+            [],
             [
                 '@return' => [
                     'type' => Stickers\Sticker::class,
@@ -2972,7 +2972,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ForumTopic
     */
 
-    public function createForumTopic(array $params): Types\ForumTopic
+    public function createForumTopic(array $params = []): Types\ForumTopic
     {
         return $this->query(
             __FUNCTION__,
@@ -3013,7 +3013,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function editForumTopic(array $params): Base\BaseType
+    public function editForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3049,7 +3049,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function closeForumTopic(array $params): Base\BaseType
+    public function closeForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3079,7 +3079,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function reopenForumTopic(array $params): Base\BaseType
+    public function reopenForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3109,7 +3109,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function deleteForumTopic(array $params): Base\BaseType
+    public function deleteForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3139,7 +3139,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unpinAllForumTopicMessages(array $params): Base\BaseType
+    public function unpinAllForumTopicMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3169,7 +3169,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function editGeneralForumTopic(array $params): Base\BaseType
+    public function editGeneralForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3198,7 +3198,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function closeGeneralForumTopic(array $params): Base\BaseType
+    public function closeGeneralForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3223,7 +3223,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function reopenGeneralForumTopic(array $params): Base\BaseType
+    public function reopenGeneralForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3248,7 +3248,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function hideGeneralForumTopic(array $params): Base\BaseType
+    public function hideGeneralForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3273,7 +3273,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unhideGeneralForumTopic(array $params): Base\BaseType
+    public function unhideGeneralForumTopic(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3298,7 +3298,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Base\BaseType
     */
 
-    public function unpinAllGeneralForumTopicMessages(array $params): Base\BaseType
+    public function unpinAllGeneralForumTopicMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3329,7 +3329,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function answerCallbackQuery(array $params): Base\BaseType
+    public function answerCallbackQuery(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3367,7 +3367,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\UserChatBoosts
     */
 
-    public function getUserChatBoosts(array $params): Types\UserChatBoosts
+    public function getUserChatBoosts(array $params = []): Types\UserChatBoosts
     {
         return $this->query(
             __FUNCTION__,
@@ -3399,7 +3399,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BusinessConnection
     */
 
-    public function getBusinessConnection(array $params): Types\BusinessConnection
+    public function getBusinessConnection(array $params = []): Types\BusinessConnection
     {
         return $this->query(
             __FUNCTION__,
@@ -3429,7 +3429,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setMyCommands(array $params): Base\BaseType
+    public function setMyCommands(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3462,7 +3462,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function deleteMyCommands(array $params): Base\BaseType
+    public function deleteMyCommands(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3490,7 +3490,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BotCommand[]|Base\BaseType
     */
 
-    public function getMyCommands(array $params): Base\BaseType
+    public function getMyCommands(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3522,7 +3522,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setMyName(array $params): Base\BaseType
+    public function setMyName(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3549,7 +3549,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BotName
     */
 
-    public function getMyName(array $params): Types\BotName
+    public function getMyName(array $params = []): Types\BotName
     {
         return $this->query(
             __FUNCTION__,
@@ -3577,7 +3577,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setMyDescription(array $params): Base\BaseType
+    public function setMyDescription(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3604,7 +3604,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BotDescription
     */
 
-    public function getMyDescription(array $params): Types\BotDescription
+    public function getMyDescription(array $params = []): Types\BotDescription
     {
         return $this->query(
             __FUNCTION__,
@@ -3632,7 +3632,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setMyShortDescription(array $params): Base\BaseType
+    public function setMyShortDescription(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3659,7 +3659,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BotShortDescription
     */
 
-    public function getMyShortDescription(array $params): Types\BotShortDescription
+    public function getMyShortDescription(array $params = []): Types\BotShortDescription
     {
         return $this->query(
             __FUNCTION__,
@@ -3687,7 +3687,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setChatMenuButton(array $params): Base\BaseType
+    public function setChatMenuButton(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3714,7 +3714,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\MenuButton
     */
 
-    public function getChatMenuButton(array $params): Types\MenuButton
+    public function getChatMenuButton(array $params = []): Types\MenuButton
     {
         return $this->query(
             __FUNCTION__,
@@ -3742,7 +3742,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Base\BaseType
     */
 
-    public function setMyDefaultAdministratorRights(array $params): Base\BaseType
+    public function setMyDefaultAdministratorRights(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -3769,7 +3769,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\ChatAdministratorRights
     */
 
-    public function getMyDefaultAdministratorRights(array $params): Types\ChatAdministratorRights
+    public function getMyDefaultAdministratorRights(array $params = []): Types\ChatAdministratorRights
     {
         return $this->query(
             __FUNCTION__,
@@ -3804,7 +3804,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function editMessageText(array $params): Types\Message
+    public function editMessageText(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -3865,7 +3865,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function editMessageCaption(array $params): Types\Message
+    public function editMessageCaption(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -3922,7 +3922,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function editMessageMedia(array $params): Types\Message
+    public function editMessageMedia(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -3975,7 +3975,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function editMessageLiveLocation(array $params): Types\Message
+    public function editMessageLiveLocation(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -4038,7 +4038,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function stopMessageLiveLocation(array $params): Types\Message
+    public function stopMessageLiveLocation(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -4081,7 +4081,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Message
     */
 
-    public function editMessageReplyMarkup(array $params): Types\Message
+    public function editMessageReplyMarkup(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -4123,7 +4123,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\Poll
     */
 
-    public function stopPoll(array $params): Types\Poll
+    public function stopPoll(array $params = []): Types\Poll
     {
         return $this->query(
             __FUNCTION__,
@@ -4171,7 +4171,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function deleteMessage(array $params): Base\BaseType
+    public function deleteMessage(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4201,7 +4201,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function deleteMessages(array $params): Base\BaseType
+    public function deleteMessages(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4232,7 +4232,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function setPassportDataErrors(array $params): Base\BaseType
+    public function setPassportDataErrors(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4290,7 +4290,7 @@ Returns *True* on success.
      * @return Types\Message
     */
 
-    public function sendInvoice(array $params): Types\Message
+    public function sendInvoice(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -4430,7 +4430,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function createInvoiceLink(array $params): Base\BaseType
+    public function createInvoiceLink(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4527,7 +4527,7 @@ Returns *True* on success.
      * @return Base\ParameterBool
     */
 
-    public function answerShippingQuery(array $params): Base\ParameterBool
+    public function answerShippingQuery(array $params = []): Base\ParameterBool
     {
         return $this->query(
             __FUNCTION__,
@@ -4568,7 +4568,7 @@ Returns *True* on success.
      * @return Base\ParameterBool
     */
 
-    public function answerPreCheckoutQuery(array $params): Base\ParameterBool
+    public function answerPreCheckoutQuery(array $params = []): Base\ParameterBool
     {
         return $this->query(
             __FUNCTION__,
@@ -4604,7 +4604,7 @@ Returns *True* on success.
      * @return Payments\StarTransactions
     */
 
-    public function getStarTransactions(array $params): Payments\StarTransactions
+    public function getStarTransactions(array $params = []): Payments\StarTransactions
     {
         return $this->query(
             __FUNCTION__,
@@ -4635,7 +4635,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function refundStarPayment(array $params): Base\BaseType
+    public function refundStarPayment(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4666,7 +4666,7 @@ Returns *True* on success.
      * @return Base\BaseType
     */
 
-    public function editUserStarSubscription(array $params): Base\BaseType
+    public function editUserStarSubscription(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4705,7 +4705,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function answerInlineQuery(array $params): Base\BaseType
+    public function answerInlineQuery(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4748,7 +4748,7 @@ No more than **50** results per query are allowed.
      * @return InlineMode\SentWebAppMessage
     */
 
-    public function answerWebAppQuery(array $params): InlineMode\SentWebAppMessage
+    public function answerWebAppQuery(array $params = []): InlineMode\SentWebAppMessage
     {
         return $this->query(
             __FUNCTION__,
@@ -4785,7 +4785,7 @@ No more than **50** results per query are allowed.
      * @return InlineMode\PreparedInlineMessage
     */
 
-    public function savePreparedInlineMessage(array $params): InlineMode\PreparedInlineMessage
+    public function savePreparedInlineMessage(array $params = []): InlineMode\PreparedInlineMessage
     {
         return $this->query(
             __FUNCTION__,
@@ -4839,7 +4839,7 @@ No more than **50** results per query are allowed.
      * @return Types\Message
     */
 
-    public function sendSticker(array $params): Types\Message
+    public function sendSticker(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -4898,7 +4898,7 @@ No more than **50** results per query are allowed.
      * @return Stickers\StickerSet
     */
 
-    public function getStickerSet(array $params): Stickers\StickerSet
+    public function getStickerSet(array $params = []): Stickers\StickerSet
     {
         return $this->query(
             __FUNCTION__,
@@ -4926,7 +4926,7 @@ No more than **50** results per query are allowed.
      * @return Stickers\Sticker[]|Base\BaseType
     */
 
-    public function getCustomEmojiStickers(array $params): Base\BaseType
+    public function getCustomEmojiStickers(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4958,7 +4958,7 @@ No more than **50** results per query are allowed.
      * @return Types\File
     */
 
-    public function uploadStickerFile(array $params): Types\File
+    public function uploadStickerFile(array $params = []): Types\File
     {
         return $this->query(
             __FUNCTION__,
@@ -4999,7 +4999,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function createNewStickerSet(array $params): Base\BaseType
+    public function createNewStickerSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5045,7 +5045,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function addStickerToSet(array $params): Base\BaseType
+    public function addStickerToSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5079,7 +5079,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerPositionInSet(array $params): Base\BaseType
+    public function setStickerPositionInSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5108,7 +5108,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function deleteStickerFromSet(array $params): Base\BaseType
+    public function deleteStickerFromSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5136,7 +5136,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function replaceStickerInSet(array $params): Base\BaseType
+    public function replaceStickerInSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5174,7 +5174,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerEmojiList(array $params): Base\BaseType
+    public function setStickerEmojiList(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5205,7 +5205,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerKeywords(array $params): Base\BaseType
+    public function setStickerKeywords(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5235,7 +5235,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerMaskPosition(array $params): Base\BaseType
+    public function setStickerMaskPosition(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5264,7 +5264,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerSetTitle(array $params): Base\BaseType
+    public function setStickerSetTitle(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5296,7 +5296,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setStickerSetThumbnail(array $params): Base\BaseType
+    public function setStickerSetThumbnail(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5333,7 +5333,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function setCustomEmojiStickerSetThumbnail(array $params): Base\BaseType
+    public function setCustomEmojiStickerSetThumbnail(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5361,7 +5361,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function deleteStickerSet(array $params): Base\BaseType
+    public function deleteStickerSet(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5383,11 +5383,11 @@ No more than **50** results per query are allowed.
      * @return Stickers\Gifts
     */
 
-    public function getAvailableGifts(array $params): Stickers\Gifts
+    public function getAvailableGifts(): Stickers\Gifts
     {
         return $this->query(
             __FUNCTION__,
-            $params,
+            [],
             [
                 '@return' => [
                     'type' => Stickers\Gifts::class,
@@ -5412,7 +5412,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function sendGift(array $params): Base\BaseType
+    public function sendGift(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5455,7 +5455,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function verifyUser(array $params): Base\BaseType
+    public function verifyUser(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5484,7 +5484,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function verifyChat(array $params): Base\BaseType
+    public function verifyChat(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5512,7 +5512,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function removeUserVerification(array $params): Base\BaseType
+    public function removeUserVerification(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5537,7 +5537,7 @@ No more than **50** results per query are allowed.
      * @return Base\BaseType
     */
 
-    public function removeChatVerification(array $params): Base\BaseType
+    public function removeChatVerification(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5571,7 +5571,7 @@ No more than **50** results per query are allowed.
      * @return Types\Message
     */
 
-    public function sendGame(array $params): Types\Message
+    public function sendGame(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -5633,7 +5633,7 @@ No more than **50** results per query are allowed.
      * @return Types\Message
     */
 
-    public function setGameScore(array $params): Types\Message
+    public function setGameScore(array $params = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -5683,7 +5683,7 @@ No more than **50** results per query are allowed.
      * @return Games\GameHighScore[]|Base\BaseType
     */
 
-    public function getGameHighScores(array $params): Base\BaseType
+    public function getGameHighScores(array $params = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,

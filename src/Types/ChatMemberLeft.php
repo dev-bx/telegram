@@ -30,7 +30,7 @@ class ChatMemberLeft extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��left�',
+				'value' => 'left',
 				'required' => true,
 			],
 			'user' => [

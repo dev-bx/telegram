@@ -30,7 +30,7 @@ class ChatBoostSourcePremium extends ChatBoostSource
 		return [
 			'source' => [
 				'type' => ['string'],
-				'value' => '��premium�',
+				'value' => 'premium',
 				'required' => true,
 			],
 			'user' => [

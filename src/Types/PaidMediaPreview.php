@@ -34,7 +34,7 @@ class PaidMediaPreview extends PaidMedia
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��preview�',
+				'value' => 'preview',
 				'required' => true,
 			],
 			'width' => [

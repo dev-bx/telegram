@@ -34,7 +34,7 @@ class MessageOriginChat extends MessageOrigin
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��chat�',
+				'value' => 'chat',
 				'required' => true,
 			],
 			'date' => [

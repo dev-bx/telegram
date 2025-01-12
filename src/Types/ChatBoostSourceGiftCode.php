@@ -30,7 +30,7 @@ class ChatBoostSourceGiftCode extends ChatBoostSource
 		return [
 			'source' => [
 				'type' => ['string'],
-				'value' => '��gift_code�',
+				'value' => 'gift_code',
 				'required' => true,
 			],
 			'user' => [

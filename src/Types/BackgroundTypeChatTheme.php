@@ -30,7 +30,7 @@ class BackgroundTypeChatTheme extends BackgroundType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��chat_theme�',
+				'value' => 'chat_theme',
 				'required' => true,
 			],
 			'theme_name' => [

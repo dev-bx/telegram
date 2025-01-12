@@ -30,7 +30,7 @@ class TransactionPartnerTelegramApi extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��telegram_api�',
+				'value' => 'telegram_api',
 				'required' => true,
 			],
 			'request_count' => [

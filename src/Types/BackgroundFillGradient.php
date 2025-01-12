@@ -34,7 +34,7 @@ class BackgroundFillGradient extends BackgroundFill
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��gradient�',
+				'value' => 'gradient',
 				'required' => true,
 			],
 			'top_color' => [

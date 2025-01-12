@@ -32,7 +32,7 @@ class BackgroundTypeFill extends BackgroundType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��fill�',
+				'value' => 'fill',
 				'required' => true,
 			],
 			'fill' => [

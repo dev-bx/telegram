@@ -64,7 +64,7 @@ class ChatMemberAdministrator extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��administrator�',
+				'value' => 'administrator',
 				'required' => true,
 			],
 			'user' => [

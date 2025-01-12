@@ -34,7 +34,7 @@ class ChatMemberOwner extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��creator�',
+				'value' => 'creator',
 				'required' => true,
 			],
 			'user' => [

@@ -28,7 +28,7 @@ class RevenueWithdrawalStatePending extends RevenueWithdrawalState
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��pending�',
+				'value' => 'pending',
 				'required' => true,
 			],
 		];

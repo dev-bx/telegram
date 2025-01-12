@@ -36,7 +36,7 @@ class MessageOriginChannel extends MessageOrigin
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��channel�',
+				'value' => 'channel',
 				'required' => true,
 			],
 			'date' => [

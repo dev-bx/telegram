@@ -32,7 +32,7 @@ class ChatMemberMember extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��member�',
+				'value' => 'member',
 				'required' => true,
 			],
 			'user' => [

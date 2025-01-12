@@ -32,7 +32,7 @@ class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��succeeded�',
+				'value' => 'succeeded',
 				'required' => true,
 			],
 			'date' => [

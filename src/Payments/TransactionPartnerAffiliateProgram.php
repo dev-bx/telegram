@@ -33,7 +33,7 @@ class TransactionPartnerAffiliateProgram extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��affiliate_program�',
+				'value' => 'affiliate_program',
 				'required' => true,
 			],
 			'sponsor_user' => [

@@ -44,7 +44,7 @@ class TransactionPartnerUser extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��user�',
+				'value' => 'user',
 				'required' => true,
 			],
 			'user' => [

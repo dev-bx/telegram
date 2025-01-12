@@ -26,7 +26,7 @@ use DevBX\Telegram;
 $client = new Telegram\BitrixClient([
     'token' => '1234567890:zzz',
     'client_options' => [ // Bitrix client options
-        'verify' => false
+        'disableSslVerification' => false
     ]
 ]);
 
@@ -76,4 +76,32 @@ foreach ($result->photo as $photo) {
 }
 
 
+```
+
+## Using a Local Bot API Server
+
+### Bitrix
+```php
+$client = new Telegram\BitrixClient([
+    'token' => '1234567890:zzz',
+    'api_url' => 'http://localhost:8081/bot'
+]);
+
+$client->sendMessage([
+    'chat_id' => '1234567890',
+    'text' => 'message from Local Bot API Server'
+]);
+```
+
+### Guzzle Http
+```php
+$client = new Telegram\GuzzleClient([
+    'token' => '1234567890:zzz',
+    'api_url' => 'http://localhost:8081/bot'
+]);
+
+$client->sendMessage([
+    'chat_id' => '1234567890',
+    'text' => 'message from Local Bot API Server'
+]);
 ```

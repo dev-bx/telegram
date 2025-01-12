@@ -30,7 +30,7 @@ class PaidMediaVideo extends PaidMedia
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��video�',
+				'value' => 'video',
 				'required' => true,
 			],
 			'video' => [

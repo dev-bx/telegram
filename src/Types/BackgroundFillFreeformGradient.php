@@ -30,7 +30,7 @@ class BackgroundFillFreeformGradient extends BackgroundFill
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��freeform_gradient�',
+				'value' => 'freeform_gradient',
 				'required' => true,
 			],
 			'colors' => [

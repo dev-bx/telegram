@@ -30,7 +30,7 @@ class PaidMediaPhoto extends PaidMedia
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��photo�',
+				'value' => 'photo',
 				'required' => true,
 			],
 			'photo' => [

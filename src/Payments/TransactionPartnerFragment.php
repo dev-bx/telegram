@@ -30,7 +30,7 @@ class TransactionPartnerFragment extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��fragment�',
+				'value' => 'fragment',
 				'required' => true,
 			],
 			'withdrawal_state' => [

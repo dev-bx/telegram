@@ -32,7 +32,7 @@ class MessageOriginUser extends MessageOrigin
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��user�',
+				'value' => 'user',
 				'required' => true,
 			],
 			'date' => [

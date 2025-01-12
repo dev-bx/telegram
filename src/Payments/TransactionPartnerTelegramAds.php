@@ -28,7 +28,7 @@ class TransactionPartnerTelegramAds extends TransactionPartner
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��telegram_ads�',
+				'value' => 'telegram_ads',
 				'required' => true,
 			],
 		];

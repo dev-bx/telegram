@@ -30,7 +30,7 @@ class BackgroundFillSolid extends BackgroundFill
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��solid�',
+				'value' => 'solid',
 				'required' => true,
 			],
 			'color' => [

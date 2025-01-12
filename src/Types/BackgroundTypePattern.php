@@ -38,7 +38,7 @@ class BackgroundTypePattern extends BackgroundType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��pattern�',
+				'value' => 'pattern',
 				'required' => true,
 			],
 			'document' => [

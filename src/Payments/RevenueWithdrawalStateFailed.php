@@ -28,7 +28,7 @@ class RevenueWithdrawalStateFailed extends RevenueWithdrawalState
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��failed�',
+				'value' => 'failed',
 				'required' => true,
 			],
 		];

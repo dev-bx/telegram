@@ -62,7 +62,7 @@ class ChatMemberRestricted extends ChatMember
 		return [
 			'status' => [
 				'type' => ['string'],
-				'value' => '��restricted�',
+				'value' => 'restricted',
 				'required' => true,
 			],
 			'user' => [

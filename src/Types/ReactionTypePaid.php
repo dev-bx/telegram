@@ -28,7 +28,7 @@ class ReactionTypePaid extends ReactionType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��paid�',
+				'value' => 'paid',
 				'required' => true,
 			],
 		];

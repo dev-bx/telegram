@@ -36,7 +36,7 @@ class BackgroundTypeWallpaper extends BackgroundType
 		return [
 			'type' => [
 				'type' => ['string'],
-				'value' => '��wallpaper�',
+				'value' => 'wallpaper',
 				'required' => true,
 			],
 			'document' => [
