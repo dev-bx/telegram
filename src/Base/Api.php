@@ -98,7 +98,7 @@ class Api
                 continue;
             }
 
-            if ($value instanceof BaseType) {
+            if ($value instanceof \JsonSerializable) {
                 $value = $value->jsonSerialize();
             }
 
