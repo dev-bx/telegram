@@ -23,6 +23,13 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             return new static($value);
         }
 
+        usort($relations, function ($a, $b) {
+            /** @var BaseType $a */
+            /** @var BaseType $b */
+
+            return count($a::getConstFields())-count($b::getConstFields());
+        });
+
         foreach ($relations as $relation) {
             if ($relation::isCompatible($value)) {
                 return $relation::create($value);
@@ -87,6 +94,11 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
                 return false;
 
             if ($data[$field] != $fieldData['value'])
+                return false;
+        }
+
+        foreach (static::getRequiredFields() as $field => $fieldData) {
+            if (!array_key_exists($field, $data))
                 return false;
         }
 
@@ -162,6 +174,19 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
         foreach (static::getFields() as $name => $field) {
             if (isset($field['value'])) {
+                $result[$name] = $field;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getRequiredFields(): array
+    {
+        $result = [];
+
+        foreach (static::getFields() as $name => $field) {
+            if ($field['required'] ?? false) {
                 $result[$name] = $field;
             }
         }
@@ -264,7 +289,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         foreach ($fieldData['type'] as $fieldType) {
             $fieldType = static::getFieldTypeClass($fieldType);
             if ($fieldType::isCompatible($value)) {
-                $this->value[$field] = new $fieldType($value);
+                $this->value[$field] = $fieldType::create($value);
                 return $this;
             }
         }

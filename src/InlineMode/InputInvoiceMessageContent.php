@@ -60,7 +60,7 @@ use DevBX\Telegram\Payments;
 * *Optional*. Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
 */
 
-class InputInvoiceMessageContent extends Base\BaseType
+class InputInvoiceMessageContent extends InputMessageContent
 {
 	public static function getFields(): array
 	{

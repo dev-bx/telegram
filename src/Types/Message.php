@@ -193,7 +193,7 @@ use DevBX\Telegram\Passport;
 * *Optional*. Inline keyboard attached to the message. `login_url` buttons are represented as ordinary `url` buttons.
 */
 
-class Message extends Base\BaseType
+class Message extends MaybeInaccessibleMessage
 {
 	public static function getFields(): array
 	{

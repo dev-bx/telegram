@@ -35,7 +35,7 @@ use DevBX\Telegram\Base;
 * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
 */
 
-class InputVenueMessageContent extends Base\BaseType
+class InputVenueMessageContent extends InputMessageContent
 {
 	public static function getFields(): array
 	{

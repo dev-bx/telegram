@@ -28,7 +28,7 @@ use DevBX\Telegram\Types;
 * *Optional*. Link preview generation options for the message
 */
 
-class InputTextMessageContent extends Base\BaseType
+class InputTextMessageContent extends InputMessageContent
 {
 	public static function getFields(): array
 	{

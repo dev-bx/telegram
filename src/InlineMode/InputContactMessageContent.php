@@ -27,7 +27,7 @@ use DevBX\Telegram\Base;
 * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
 */
 
-class InputContactMessageContent extends Base\BaseType
+class InputContactMessageContent extends InputMessageContent
 {
 	public static function getFields(): array
 	{

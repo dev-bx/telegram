@@ -21,6 +21,13 @@ use DevBX\Telegram\Base;
 
 class MaybeInaccessibleMessage extends Base\BaseType
 {
+	public static function getRelations(): array
+	{
+		return [
+			Message::class,
+			InaccessibleMessage::class,
+		];
+	}
 	public static function getFields(): array
 	{
 		return [

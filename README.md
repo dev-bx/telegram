@@ -1,6 +1,7 @@
 # Telegram BOT API Library for PHP
 
-This PHP library provides a convenient and easy-to-use interface for interacting with the Telegram BOT API. It is designed to be used with the Bitrix CMS or the GuzzleHTTP client.
+This PHP library provides a convenient and easy-to-use interface for interacting with the Telegram BOT API. It is
+designed to be used with the Bitrix CMS or the GuzzleHTTP client.
 
 ## Features
 
@@ -81,7 +82,10 @@ foreach ($result->photo as $photo) {
 ## Using a Local Bot API Server
 
 ### Bitrix
+
 ```php
+use DevBX\Telegram;
+
 $client = new Telegram\BitrixClient([
     'token' => '1234567890:zzz',
     'api_url' => 'http://localhost:8081/bot'
@@ -94,7 +98,10 @@ $client->sendMessage([
 ```
 
 ### Guzzle Http
+
 ```php
+use DevBX\Telegram;
+
 $client = new Telegram\GuzzleClient([
     'token' => '1234567890:zzz',
     'api_url' => 'http://localhost:8081/bot'
@@ -104,4 +111,29 @@ $client->sendMessage([
     'chat_id' => '1234567890',
     'text' => 'message from Local Bot API Server'
 ]);
+```
+
+## Getting updates from WebHook
+
+```php
+
+use DevBX\Telegram;
+
+$result = Telegram\Api::getWebhookUpdate();
+
+foreach ($result as $updateType => $update) {
+    if (!is_object($update))
+        continue;
+
+    switch ($updateType)
+    {
+        case 'message':
+            /* @var Telegram\Types\Message $update */
+            
+            echo "Message from: {$update->from->id}\nText: {$update->text}\n";
+            
+            break;
+    }
+}
+
 ```

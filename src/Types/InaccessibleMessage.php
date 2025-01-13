@@ -25,7 +25,7 @@ use DevBX\Telegram\Base;
 * Always 0. The field can be used to differentiate regular and inaccessible messages.
 */
 
-class InaccessibleMessage extends Base\BaseType
+class InaccessibleMessage extends MaybeInaccessibleMessage
 {
 	public static function getFields(): array
 	{
@@ -40,6 +40,7 @@ class InaccessibleMessage extends Base\BaseType
 			],
 			'date' => [
 				'type' => ['int'],
+				'value' => 0,
 				'required' => true,
 			],
 		];

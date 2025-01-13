@@ -31,7 +31,7 @@ use DevBX\Telegram\Base;
 * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
 */
 
-class InputLocationMessageContent extends Base\BaseType
+class InputLocationMessageContent extends InputMessageContent
 {
 	public static function getFields(): array
 	{

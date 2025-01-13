@@ -21,6 +21,16 @@ use DevBX\Telegram\Base;
 
 class InputMessageContent extends Base\BaseType
 {
+	public static function getRelations(): array
+	{
+		return [
+			InputTextMessageContent::class,
+			InputLocationMessageContent::class,
+			InputVenueMessageContent::class,
+			InputContactMessageContent::class,
+			InputInvoiceMessageContent::class,
+		];
+	}
 	public static function getFields(): array
 	{
 		return [
