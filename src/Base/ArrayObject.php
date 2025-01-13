@@ -18,7 +18,7 @@ class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
      * @return $this
      * @throws TelegramException
      */
-    public function add(BaseObject|array $data): static
+    public function add(BaseObject|array $data, $ignoreUnknownFields = false): static
     {
         if (is_array($data))
         {
@@ -26,7 +26,7 @@ class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
             foreach ($this->types as $type) {
                 if ($type::isCompatible($data))
                 {
-                    $this->arrayData[] = $type::create($data);
+                    $this->arrayData[] = $type::create($data, $ignoreUnknownFields);
                     return $this;
                 }
             }

@@ -11,7 +11,7 @@ class ParameterBool extends BaseType {
 
     public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
-        $this->value = ($newValue === true || $newValue === 'True');
+        $this->_value = ($newValue === true || $newValue === 'True');
     }
 
 }

@@ -13,7 +13,7 @@ class ParameterInt extends BaseType {
 
     public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
-        $this->value = (int)$newValue;
+        $this->_value = (int)$newValue;
     }
 
 }

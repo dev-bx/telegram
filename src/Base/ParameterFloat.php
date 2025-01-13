@@ -13,7 +13,7 @@ class ParameterFloat extends BaseType {
 
     public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
-        $this->value = (float)$newValue;
+        $this->_value = (float)$newValue;
     }
 
 }

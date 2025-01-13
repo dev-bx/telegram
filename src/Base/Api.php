@@ -178,10 +178,10 @@ class Api
 
             foreach ($response['result'] as $item)
             {
-                $result->add($item);
+                $result->add($item, true);
             }
         } else {
-            $result->setEntityValue($response['result']);
+            $result->setEntityValue($response['result'], true);
         }
 
         return $result;

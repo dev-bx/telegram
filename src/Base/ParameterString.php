@@ -11,7 +11,7 @@ class ParameterString extends BaseType {
 
     public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
-        $this->value = (string)$newValue;
+        $this->_value = (string)$newValue;
     }
 
 }

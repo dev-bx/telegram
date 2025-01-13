@@ -4,8 +4,9 @@ namespace DevBX\Telegram\Base;
 
 class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 {
-    protected mixed $value;
-    protected $position = 0;
+    protected mixed $_initialValue;
+    protected mixed $_value;
+    protected $_position = 0;
 
     protected function __construct($value = null, $ignoreUnknownFields = false)
     {
@@ -195,9 +196,14 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $result;
     }
 
+    public function getEntityInitialValue()
+    {
+        return $this->_initialValue;
+    }
+
     public function getEntityValue()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     /**
@@ -208,7 +214,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         $fields = static::getFields();
 
         if (empty($fields)) {
-            $this->value = $newValue;
+            $this->_value = $newValue;
             return;
         }
 
@@ -216,7 +222,8 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             $newValue = $newValue->jsonSerialize();
         }
 
-        $this->value = [];
+        $this->_initialValue = $newValue;
+        $this->_value = [];
 
         if (empty($newValue))
             return;
@@ -238,12 +245,12 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     public function jsonSerialize(): mixed
     {
         if (empty(static::getFields())) {
-            return $this->value;
+            return $this->_value;
         }
 
         $result = [];
 
-        foreach ($this->value as $field => $fieldValue) {
+        foreach ($this->_value as $field => $fieldValue) {
             $result[$field] = $fieldValue->jsonSerialize();
         }
 
@@ -280,14 +287,14 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
             if ($isArray === 'matrix')
             {
-                $this->value[$field] = new ArrayOfArrayObject($fieldData['type']);
+                $this->_value[$field] = new ArrayOfArrayObject($fieldData['type']);
             } else {
-                $this->value[$field] = new ArrayObject($fieldData['type']);
+                $this->_value[$field] = new ArrayObject($fieldData['type']);
             }
 
             if (!empty($value)) {
                 foreach ($value as $fieldValueItem) {
-                    $this->value[$field]->add($fieldValueItem);
+                    $this->_value[$field]->add($fieldValueItem);
                 }
             }
 
@@ -297,7 +304,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         foreach ($fieldData['type'] as $fieldType) {
             $fieldType = static::getFieldTypeClass($fieldType);
             if ($fieldType::isCompatible($value)) {
-                $this->value[$field] = $fieldType::create($value, $ignoreUnknownFields);
+                $this->_value[$field] = $fieldType::create($value, $ignoreUnknownFields);
                 return $this;
             }
         }
@@ -317,19 +324,19 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             throw new TelegramException('Unknown field "' . $field . '" entity "'.static::entityName().'"');
         }
 
-        if (isset($this->value[$field])) {
+        if (isset($this->_value[$field])) {
 
-            if ($this->value[$field] instanceof BaseType)
+            if ($this->_value[$field] instanceof BaseType)
             {
-                if ($this->value[$field]::getFields())
+                if ($this->_value[$field]::getFields())
                 {
-                    return $this->value[$field];
+                    return $this->_value[$field];
                 }
 
-                return $this->value[$field]->getEntityValue();
+                return $this->_value[$field]->getEntityValue();
             }
 
-            return $this->value[$field];
+            return $this->_value[$field];
         }
 
         $fieldType = $objFields[$field];
@@ -339,12 +346,12 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
             if ($isArray === 'matrix')
             {
-                $this->value[$field] = new ArrayOfArrayObject($fieldType['type']);
+                $this->_value[$field] = new ArrayOfArrayObject($fieldType['type']);
             } else {
-                $this->value[$field] = new ArrayObject($fieldType['type']);
+                $this->_value[$field] = new ArrayObject($fieldType['type']);
             }
 
-            return $this->value[$field];
+            return $this->_value[$field];
         }
 
         return null;
@@ -375,18 +382,18 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             if (!isset($fieldData['required']) || !$fieldData['required'])
                 continue;
 
-            if (!array_key_exists($field, $this->value)) {
+            if (!array_key_exists($field, $this->_value)) {
                 $this->addError(new Error('Required field "' . $field . '" not found in entity ' . static::entityName()));
                 continue;
             }
 
-            if (!$this->value[$field]->validate()) {
+            if (!$this->_value[$field]->validate()) {
                 $this->addError(new Error('Required field "' . $field . '" validation failed in entity ' . static::entityName()));
                 continue;
             }
 
-            if ($this->value[$field] instanceof BaseType) {
-                if (empty($this->value[$field]->getEntityValue()))
+            if ($this->_value[$field] instanceof BaseType) {
+                if (empty($this->_value[$field]->getEntityValue()))
                 {
                     $this->addError(new Error('Required field "' . $field . '" is empty in entity ' . static::entityName()));
                 }
@@ -398,11 +405,11 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
     public function current(): mixed
     {
-        if (empty($this->value) || !is_array($this->value))
+        if (empty($this->_value) || !is_array($this->_value))
             return null;
 
-        $key = array_keys($this->value)[$this->position];
-        $value = $this->value[$key];
+        $key = array_keys($this->_value)[$this->_position];
+        $value = $this->_value[$key];
 
         if ($value instanceof BaseType) {
             if ($value::getFields())
@@ -418,27 +425,27 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
     public function next(): void
     {
-        $this->position++;
+        $this->_position++;
     }
 
     public function key(): int|string|null
     {
-        if (empty($this->value) || !is_array($this->value))
+        if (empty($this->_value) || !is_array($this->_value))
             return null;
 
-        return array_keys($this->value)[$this->position];
+        return array_keys($this->_value)[$this->_position];
     }
 
     public function valid(): bool
     {
-        if (empty($this->value) || !is_array($this->value))
+        if (empty($this->_value) || !is_array($this->_value))
             return false;
 
-        return $this->position<count(array_keys($this->value));
+        return $this->_position<count(array_keys($this->_value));
     }
 
     public function rewind(): void
     {
-        $this->position = 0;
+        $this->_position = 0;
     }
 }
