@@ -11,7 +11,7 @@ class ParameterFloat extends BaseType {
         return (string)$castInt === (string)$data;
     }
 
-    public function setValue($newValue)
+    public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
         $this->value = (float)$newValue;
     }

@@ -86,7 +86,7 @@ class Api
             return $result;
         }
 
-        $postData = $query->getValue();
+        $postData = $query->getEntityValue();
 
         $multipart = false;
 
@@ -139,7 +139,7 @@ class Api
                 $result->add($item);
             }
         } else {
-            $result->setValue($response['result']);
+            $result->setEntityValue($response['result']);
         }
 
         return $result;
@@ -166,7 +166,7 @@ class Api
             return $webhookUpdate->addError(new Error(json_last_error_msg(), 'json_decode'));
         }
 
-        $webhookUpdate->setValue($postData);
+        $webhookUpdate->setEntityValue($postData, true);
 
         return $webhookUpdate;
     }

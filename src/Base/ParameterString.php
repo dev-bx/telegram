@@ -9,7 +9,7 @@ class ParameterString extends BaseType {
         return (string)$data == $data;
     }
 
-    public function setValue($newValue)
+    public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
         $this->value = (string)$newValue;
     }

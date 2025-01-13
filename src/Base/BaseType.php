@@ -7,20 +7,20 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     protected mixed $value;
     protected $position = 0;
 
-    protected function __construct($value = null)
+    protected function __construct($value = null, $ignoreUnknownFields = false)
     {
-        $this->setValue($value);
+        $this->setEntityValue($value, $ignoreUnknownFields);
     }
 
     /**
      * @throws TelegramException
      */
-    public static function create($value = null): static|null
+    public static function create($value = null, $ignoreUnknownFields = false): static|null
     {
         $relations = static::getRelations();
 
         if (empty($relations) || in_array(get_called_class(), $relations)) {
-            return new static($value);
+            return new static($value, $ignoreUnknownFields);
         }
 
         usort($relations, function ($a, $b) {
@@ -32,7 +32,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
         foreach ($relations as $relation) {
             if ($relation::isCompatible($value)) {
-                return $relation::create($value);
+                return $relation::create($value, $ignoreUnknownFields);
             }
         }
 
@@ -103,8 +103,9 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         }
 
         foreach ($data as $key => $value) {
-            if (!array_key_exists($key, $fields))
-                return false;
+            if (!array_key_exists($key, $fields)) {
+                continue;
+            }
 
             $fieldData = $fields[$key];
 
@@ -194,7 +195,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $result;
     }
 
-    public function getValue()
+    public function getEntityValue()
     {
         return $this->value;
     }
@@ -202,9 +203,11 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     /**
      * @throws TelegramException
      */
-    public function setValue($newValue)
+    public function setEntityValue($newValue, $ignoreUnknownFields = false)
     {
-        if (empty(static::getFields())) {
+        $fields = static::getFields();
+
+        if (empty($fields)) {
             $this->value = $newValue;
             return;
         }
@@ -224,7 +227,10 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         }
 
         foreach ($newValue as $field => $fieldValue) {
-            $this->setFieldValue($field, $fieldValue);
+            if ($ignoreUnknownFields && !array_key_exists($field, $fields))
+                continue;
+
+            $this->setFieldValue($field, $fieldValue, $ignoreUnknownFields);
         }
 
     }
@@ -247,12 +253,14 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     /**
      * @throws TelegramException
      */
-    public function setFieldValue($field, $value): static
+    public function setFieldValue($field, $value, $ignoreUnknownFields = false): static
     {
         $objFields = static::getFields();
 
         if (!isset($objFields[$field])) {
-            $this->addError(new Error('Unknown field "' . $field . '"'));
+            if (!$ignoreUnknownFields) {
+                $this->addError(new Error('Unknown field "' . $field . '"'));
+            }
             return $this;
         }
 
@@ -289,12 +297,12 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         foreach ($fieldData['type'] as $fieldType) {
             $fieldType = static::getFieldTypeClass($fieldType);
             if ($fieldType::isCompatible($value)) {
-                $this->value[$field] = $fieldType::create($value);
+                $this->value[$field] = $fieldType::create($value, $ignoreUnknownFields);
                 return $this;
             }
         }
 
-        $this->addError(new Error('Incorrect value for field "' . $fieldData['name'] . '"'));
+        $this->addError(new Error('Incorrect value for field "' . $field . '"'));
 
         return $this;
     }
@@ -318,7 +326,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
                     return $this->value[$field];
                 }
 
-                return $this->value[$field]->getValue();
+                return $this->value[$field]->getEntityValue();
             }
 
             return $this->value[$field];
@@ -378,7 +386,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             }
 
             if ($this->value[$field] instanceof BaseType) {
-                if (empty($this->value[$field]->getValue()))
+                if (empty($this->value[$field]->getEntityValue()))
                 {
                     $this->addError(new Error('Required field "' . $field . '" is empty in ' . static::entityName()));
                 }
@@ -402,7 +410,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
                 return $value;
             }
 
-            return $value->getValue();
+            return $value->getEntityValue();
         }
 
         return $value;
