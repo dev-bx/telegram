@@ -57,7 +57,7 @@ class Api
     /**
      * @throws TelegramException
      */
-    public function query($method, array $parameters, array|BaseType $structure): mixed
+    public function query($method, array $parameters = [], array|BaseType $structure = []): mixed
     {
         $returnClass = BaseType::class;
         $returnArrayClass = false;
@@ -120,7 +120,7 @@ class Api
             return $result;
 
         $response = json_decode($response, true);
-        if ($response === false)
+        if ($response === null)
         {
             return $result->addError(new Error(json_last_error_msg(), 'json_decode'));
         }
@@ -143,6 +143,32 @@ class Api
         }
 
         return $result;
+    }
+
+    public static function getWebhookUpdate(): Types\Update
+    {
+        static $webhookUpdate = null;
+
+        if ($webhookUpdate)
+            return $webhookUpdate;
+
+        $webhookUpdate = Types\Update::create();
+
+        $postData = file_get_contents('php://input');
+        if (empty($postData))
+        {
+            return $webhookUpdate->addError(new Error('Post data is empty'));
+        }
+
+        $postData = json_decode($postData, true);
+        if ($postData === null)
+        {
+            return $webhookUpdate->addError(new Error(json_last_error_msg(), 'json_decode'));
+        }
+
+        $webhookUpdate->setValue($postData);
+
+        return $webhookUpdate;
     }
 
 }

@@ -2,9 +2,10 @@
 
 namespace DevBX\Telegram\Base;
 
-class BaseType extends BaseObject implements \JsonSerializable
+class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 {
     protected mixed $value;
+    protected $position = 0;
 
     protected function __construct($value = null)
     {
@@ -230,6 +231,10 @@ class BaseType extends BaseObject implements \JsonSerializable
             return $this;
         }
 
+        if ($value instanceof BaseType) {
+            $value = $value->jsonSerialize();
+        }
+
         $fieldData = $objFields[$field];
 
         $isArray = $fieldData['isArray'] ?? false;
@@ -309,13 +314,6 @@ class BaseType extends BaseObject implements \JsonSerializable
             return $this->value[$field];
         }
 
-        if (count($fieldType['type']) == 1) {
-            $firstObject = reset($fieldType['type']);
-            $objFields[$field] = new $firstObject();
-
-            return $objFields[$field]->getValue();
-        }
-
         return null;
     }
 
@@ -325,6 +323,14 @@ class BaseType extends BaseObject implements \JsonSerializable
     public function __get(string $name)
     {
         return $this->getFieldValue($name);
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    public function __set(string $name, $value)
+    {
+        $this->setFieldValue($name, $value);
     }
 
     /**
@@ -355,5 +361,51 @@ class BaseType extends BaseObject implements \JsonSerializable
         }
 
         return true;
+    }
+
+    public function current(): mixed
+    {
+        if (empty($this->value) || !is_array($this->value))
+            return null;
+
+        $key = array_keys($this->value)[$this->position];
+        $value = $this->value[$key];
+
+        if ($value instanceof BaseType) {
+            if ($value::getFields())
+            {
+                return $value;
+            }
+
+            return $value->getValue();
+        }
+
+        return $value;
+    }
+
+    public function next(): void
+    {
+        $this->position++;
+    }
+
+    public function key(): int|string|null
+    {
+        if (empty($this->value) || !is_array($this->value))
+            return null;
+
+        return array_keys($this->value)[$this->position];
+    }
+
+    public function valid(): bool
+    {
+        if (empty($this->value) || !is_array($this->value))
+            return false;
+
+        return $this->position<count(array_keys($this->value));
+    }
+
+    public function rewind(): void
+    {
+        $this->position = 0;
     }
 }
