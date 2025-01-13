@@ -10,6 +10,9 @@ class Api
     protected string $apiUrl;
     protected array $clientOptions;
 
+    protected $onBeforeRequest;
+    protected $onResponse;
+
     public function __construct(array $params = [])
     {
         $this->token = $params['token'];
@@ -55,6 +58,29 @@ class Api
     }
 
     /**
+     * Sets the callback before request.
+     *
+     * @param callable(string, BaseType|ArrayObject, BaseType): mixed $callback
+     */
+
+    public function setOnBeforeRequest(callable $callback)
+    {
+        $this->onBeforeRequest = $callback;
+    }
+
+    /**
+     * Sets the callback response.
+     *
+     * @param callable(array, BaseType|ArrayObject, BaseType): mixed $callback
+     */
+    public function setCallbackResponse(callable $callback)
+    {
+        $this->onResponse = $callback;
+
+
+    }
+
+    /**
      * @throws TelegramException
      */
     public function query($method, array $parameters = [], array|BaseType $structure = []): mixed
@@ -86,6 +112,14 @@ class Api
             return $result;
         }
 
+        if ($this->onBeforeRequest)
+        {
+            if (call_user_func_array($this->onBeforeRequest, [$method, &$result, &$query]) === true)
+            {
+                return $result;
+            }
+        }
+
         $postData = $query->getEntityValue();
 
         $multipart = false;
@@ -93,7 +127,7 @@ class Api
         foreach ($postData as $key=>$value) {
             if ($value instanceof Types\InputFile)
             {
-                $postData[$key] = $value->getValue();
+                $postData[$key] = $value->getEntityValue();
                 $multipart = true;
                 continue;
             }
@@ -128,6 +162,14 @@ class Api
         if (!$response['ok'])
         {
             return $result->addError(new Error($response['description'], $response['error_code'], $response));
+        }
+
+        if ($this->onResponse)
+        {
+            if (call_user_func_array($this->onResponse,[&$response, &$result, $query]) === true)
+            {
+                return $result;
+            }
         }
 
         if ($returnArrayClass)

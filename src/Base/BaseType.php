@@ -222,7 +222,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             return;
 
         if (!is_array($newValue)) {
-            $this->addError(new Error('Invalid value'));
+            $this->addError(new Error('Invalid value '.var_export($newValue, true).' entity '.static::entityName()));
             return;
         }
 
@@ -259,7 +259,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
         if (!isset($objFields[$field])) {
             if (!$ignoreUnknownFields) {
-                $this->addError(new Error('Unknown field "' . $field . '"'));
+                $this->addError(new Error('Unknown field "' . $field . '" entity '.static::entityName()));
             }
             return $this;
         }
@@ -274,7 +274,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
         if ($isArray) {
             if (!empty($value) && !is_array($value)) {
-                $this->addError(new Error('Invalid value for field "' . $field . '"'));
+                $this->addError(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName().'"'));
                 return $this;
             }
 
@@ -302,7 +302,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             }
         }
 
-        $this->addError(new Error('Incorrect value for field "' . $field . '"'));
+        $this->addError(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName()));
 
         return $this;
     }
@@ -314,7 +314,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         $objFields = static::getFields();
 
         if (!isset($objFields[$field])) {
-            throw new TelegramException('Unknown field "' . $field . '"');
+            throw new TelegramException('Unknown field "' . $field . '" entity "'.static::entityName().'"');
         }
 
         if (isset($this->value[$field])) {
@@ -376,19 +376,19 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
                 continue;
 
             if (!array_key_exists($field, $this->value)) {
-                $this->addError(new Error('Required field "' . $field . '" not found in ' . static::entityName()));
+                $this->addError(new Error('Required field "' . $field . '" not found in entity ' . static::entityName()));
                 continue;
             }
 
             if (!$this->value[$field]->validate()) {
-                $this->addError(new Error('Required field "' . $field . '" validation failed in ' . static::entityName()));
+                $this->addError(new Error('Required field "' . $field . '" validation failed in entity ' . static::entityName()));
                 continue;
             }
 
             if ($this->value[$field] instanceof BaseType) {
                 if (empty($this->value[$field]->getEntityValue()))
                 {
-                    $this->addError(new Error('Required field "' . $field . '" is empty in ' . static::entityName()));
+                    $this->addError(new Error('Required field "' . $field . '" is empty in entity ' . static::entityName()));
                 }
             }
         }
