@@ -159,17 +159,17 @@ class Api
             return $result->addError(new Error(json_last_error_msg(), 'json_decode'));
         }
 
-        if (!$response['ok'])
-        {
-            return $result->addError(new Error($response['description'], $response['error_code'], $response));
-        }
-
         if ($this->onResponse)
         {
             if (call_user_func_array($this->onResponse,[&$response, &$result, $query]) === true)
             {
                 return $result;
             }
+        }
+
+        if (!$response['ok'])
+        {
+            return $result->addError(new Error($response['description'], $response['error_code'], $response));
         }
 
         if ($returnArrayClass)
