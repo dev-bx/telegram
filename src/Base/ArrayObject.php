@@ -18,28 +18,20 @@ class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
      * @return $this
      * @throws TelegramException
      */
-    public function add(BaseObject|array $data, $ignoreUnknownFields = false): static
+    public function add(mixed $data, $ignoreUnknownFields = false): static
     {
-        if (is_array($data))
-        {
-            /* @var BaseType $type */
-            foreach ($this->types as $type) {
-                if ($type::isCompatible($data))
-                {
-                    $this->arrayData[] = $type::create($data, $ignoreUnknownFields);
-                    return $this;
-                }
-            }
-        } else {
-            foreach ($this->types as $type) {
-                if (is_a($data, $type, true)) {
-                    $this->arrayData[] = $data;
-                    return $this;
-                }
+        /* @var BaseType $type */
+        foreach ($this->types as $type) {
+            $type = BaseType::getFieldTypeClass($type);
+
+            if ($type::isCompatible($data))
+            {
+                $this->arrayData[] = $type::create($data, $ignoreUnknownFields);
+                return $this;
             }
         }
 
-        throw new TelegramException('Object class '.get_class($data).' are not supported, class must be '.implode(' or ', $this->types));
+        throw new TelegramException('Collection item type '.gettype($data).' are not supported, valid type(s) '.implode(' or ', $this->types));
     }
 
     /**
