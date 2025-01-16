@@ -91,8 +91,8 @@ class Api
 
         if ($structure['@return']) {
             $returnType = $structure['@return']['type'];
-            $returnIsArray = $structure['isArray'] ?? false;
-            $canReturnBool = $structure['canReturnBool'] ?? false;
+            $returnIsArray = $structure['@return']['isArray'] ?? false;
+            $canReturnBool = $structure['@return']['canReturnBool'] ?? false;
 
             if ($returnIsArray) {
                 $result = new ArrayObject($returnType);
