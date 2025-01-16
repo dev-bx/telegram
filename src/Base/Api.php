@@ -85,21 +85,27 @@ class Api
      */
     public function query($method, array $parameters = [], array|BaseType $structure = []): mixed
     {
-        $returnClass = BaseType::class;
-        $returnArrayClass = false;
+        $returnType = BaseType::class;
+        $returnIsArray = false;
+        $canReturnBool = false;
 
         if ($structure['@return']) {
-            if ($structure['isArray'] ?? false) {
-                $returnClass = ArrayObject::class;
-                $returnArrayClass = $structure['@return']['type'];
+            $returnType = $structure['@return']['type'];
+            $returnIsArray = $structure['isArray'] ?? false;
+            $canReturnBool = $structure['canReturnBool'] ?? false;
+
+            if ($returnIsArray) {
+                $result = new ArrayObject($returnType);
             } else {
-                $returnClass = $structure['@return']['type'];
+                /* @var BaseType $returnType */
+
+                $result = $returnType::create([]);
             }
 
             unset($structure['@return']);
+        } else {
+            $result = BaseType::create([]);
         }
-
-        $result = $returnClass::create([]);
 
         $queryClass = static::compileMethodQueryClass($method, $structure);
 
@@ -172,7 +178,12 @@ class Api
             return $result->addError(new Error($response['description'], $response['error_code'], $response));
         }
 
-        if ($returnArrayClass)
+        if ($canReturnBool && is_bool($response['result']))
+        {
+            return $response['result'];
+        }
+
+        if ($returnIsArray)
         {
             /* @var ArrayObject $result */
 

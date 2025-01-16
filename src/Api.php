@@ -3801,10 +3801,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function editMessageText(array $params = []): Types\Message
+    public function editMessageText(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -3841,6 +3841,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -3862,10 +3863,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup             Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function editMessageCaption(array $params = []): Types\Message
+    public function editMessageCaption(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -3901,6 +3902,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -3919,10 +3921,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function editMessageMedia(array $params = []): Types\Message
+    public function editMessageMedia(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -3949,6 +3951,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -3972,10 +3975,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function editMessageLiveLocation(array $params = []): Types\Message
+    public function editMessageLiveLocation(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -4018,6 +4021,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -4035,10 +4039,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function stopMessageLiveLocation(array $params = []): Types\Message
+    public function stopMessageLiveLocation(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -4061,6 +4065,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -4078,10 +4083,10 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function editMessageReplyMarkup(array $params = []): Types\Message
+    public function editMessageReplyMarkup(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -4104,6 +4109,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
@@ -5630,10 +5636,10 @@ No more than **50** results per query are allowed.
      * @var string $inline_message_id    Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
      * ]
      *
-     * @return Types\Message
+     * @return Types\Message|bool
     */
 
-    public function setGameScore(array $params = []): Types\Message
+    public function setGameScore(array $params = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -5664,6 +5670,7 @@ No more than **50** results per query are allowed.
                 ],
                 '@return' => [
                     'type' => Types\Message::class,
+                    'canReturnBool' => true,
                 ],
             ]
             
