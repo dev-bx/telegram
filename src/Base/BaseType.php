@@ -10,6 +10,11 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
     protected function __construct($value = null, $ignoreUnknownFields = false)
     {
+        foreach (static::getConstFields() as $fieldName=>$fieldData)
+        {
+            $this->setFieldValue($fieldName, $fieldData['value']);
+        }
+
         $this->setEntityValue($value, $ignoreUnknownFields);
     }
 
@@ -276,6 +281,15 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         }
 
         $fieldData = $objFields[$field];
+
+        if (isset($fieldData['value']))
+        {
+            if ($fieldData['value'] !== $value)
+            {
+                $this->addError(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName().'"'));
+                return $this;
+            }
+        }
 
         $isArray = $fieldData['isArray'] ?? false;
 
