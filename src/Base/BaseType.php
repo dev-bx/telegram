@@ -98,6 +98,16 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         if (!is_array($data))
             return false;
 
+        foreach ($data as $key=>$value)
+        {
+            if (static::camel2snake($key) != $key)
+            {
+                unset($data[$key]);
+                $key = static::camel2snake($key);
+                $data[$key] = $value;
+            }
+        }
+
         foreach (static::getConstFields() as $field => $fieldData) {
             if (!array_key_exists($field, $data))
                 return false;
