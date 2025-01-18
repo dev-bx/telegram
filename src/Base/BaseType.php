@@ -270,6 +270,8 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
      */
     public function setFieldValue($field, $value, $ignoreUnknownFields = false): static
     {
+        $field = static::camel2snake($field);
+
         $objFields = static::getFields();
 
         if (!isset($objFields[$field])) {
