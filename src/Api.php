@@ -1245,10 +1245,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\ReplyParameters                                                                        $reply_parameters       Optional. Description of the message to reply to
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Base\BaseType
     */
 
-    public function sendMediaGroup(array $params = []): Base\BaseType
+    public function sendMediaGroup(array $params = [], array $attachments = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -1284,7 +1286,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 'reply_parameters' => [
                     'type' => [Types\ReplyParameters::class],
                 ],
-            ]
+            ],
+            $attachments
         );
     }
 
@@ -3846,10 +3849,12 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Types\Message|bool
     */
 
-    public function editMessageMedia(array $params = []): Types\Message|bool
+    public function editMessageMedia(array $params = [], array $attachments = []): Types\Message|bool
     {
         return $this->query(
             __FUNCTION__,
@@ -3878,7 +3883,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\Message::class,
                     'canReturnBool' => true,
                 ],
-            ]
+            ],
+            $attachments
         );
     }
 
@@ -4950,10 +4956,12 @@ No more than **50** results per query are allowed.
      * @var Stickers\InputSticker $sticker Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Base\BaseType
     */
 
-    public function addStickerToSet(array $params = []): Base\BaseType
+    public function addStickerToSet(array $params = [], array $attachments = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -4971,7 +4979,8 @@ No more than **50** results per query are allowed.
                     'type' => [Stickers\InputSticker::class],
                     'required' => true,
                 ],
-            ]
+            ],
+            $attachments
         );
     }
 
@@ -5038,10 +5047,12 @@ No more than **50** results per query are allowed.
      * @var Stickers\InputSticker $sticker     Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Base\BaseType
     */
 
-    public function replaceStickerInSet(array $params = []): Base\BaseType
+    public function replaceStickerInSet(array $params = [], array $attachments = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -5063,7 +5074,8 @@ No more than **50** results per query are allowed.
                     'type' => [Stickers\InputSticker::class],
                     'required' => true,
                 ],
-            ]
+            ],
+            $attachments
         );
     }
 
