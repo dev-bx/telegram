@@ -81,9 +81,14 @@ class Api
     }
 
     /**
+     * @param $method
+     * @param array $parameters
+     * @param array|BaseType $structure
+     * @param Types\InputFile|array[] $attachments
+     * @return mixed
      * @throws TelegramException
      */
-    public function query($method, array $parameters = [], array|BaseType $structure = []): mixed
+    public function query($method, array $parameters = [], array|BaseType $structure = [], array $attachments = []): mixed
     {
         $returnType = BaseType::class;
         $returnIsArray = false;
@@ -152,6 +157,25 @@ class Api
             }
 
             $postData[$key] = $value;
+        }
+
+        foreach ($attachments as $key=>$value)
+        {
+            if (array_key_exists($key, $postData))
+            {
+                $result->add(new \Bitrix\Main\Error('Attachment "'.$key.'" conflict with post values'));
+                continue;
+            }
+
+            if ($value instanceof Types\InputFile)
+            {
+                $postData[$key] = $value->getEntityValue();
+                $multipart = true;
+            } elseif (Types\InputFile::isCompatible($value))
+            {
+                $postData[$key] = $value;
+                $multipart = true;
+            }
         }
 
         $response = $this->sendRequest($this->apiUrl.$this->token.'/'.$method, $postData, $result, $multipart);

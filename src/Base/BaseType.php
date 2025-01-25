@@ -338,7 +338,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             }
         }
 
-        $this->addError(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName()));
+        $this->addError(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName().'"'));
 
         return $this;
     }

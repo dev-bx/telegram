@@ -59,7 +59,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -110,7 +109,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -134,7 +132,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -155,7 +152,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\WebhookInfo::class,
                 ],
             ]
-            
         );
     }
 
@@ -176,7 +172,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\User::class,
                 ],
             ]
-            
         );
     }
 
@@ -278,7 +273,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -328,7 +322,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -380,7 +373,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -459,7 +451,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\MessageId::class,
                 ],
             ]
-            
         );
     }
 
@@ -515,7 +506,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -601,7 +591,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -628,10 +617,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Base\BaseType
     */
 
-    public function sendAudio(array $params = []): Base\BaseType
+    public function sendAudio(array $params = [], array $attachments = []): Base\BaseType
     {
         return $this->query(
             __FUNCTION__,
@@ -691,8 +682,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 'reply_markup' => [
                     'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
                 ],
-            ]
-            
+            ],
+            $attachments
         );
     }
 
@@ -717,10 +708,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup                   Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Types\Message
     */
 
-    public function sendDocument(array $params = []): Types\Message
+    public function sendDocument(array $params = [], array $attachments = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -777,8 +770,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 '@return' => [
                     'type' => Types\Message::class,
                 ],
-            ]
-            
+            ],
+            $attachments
         );
     }
 
@@ -808,10 +801,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Types\Message
     */
 
-    public function sendVideo(array $params = []): Types\Message
+    public function sendVideo(array $params = [], array $attachments = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -883,8 +878,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 '@return' => [
                     'type' => Types\Message::class,
                 ],
-            ]
-            
+            ],
+            $attachments
         );
     }
 
@@ -913,10 +908,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Types\Message
     */
 
-    public function sendAnimation(array $params = []): Types\Message
+    public function sendAnimation(array $params = [], array $attachments = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -985,8 +982,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 '@return' => [
                     'type' => Types\Message::class,
                 ],
-            ]
-            
+            ],
+            $attachments
         );
     }
 
@@ -1068,7 +1065,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1091,10 +1087,12 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
+     * @param Types\InputFile|array[] $attachments
+     *
      * @return Types\Message
     */
 
-    public function sendVideoNote(array $params = []): Types\Message
+    public function sendVideoNote(array $params = [], array $attachments = []): Types\Message
     {
         return $this->query(
             __FUNCTION__,
@@ -1144,8 +1142,8 @@ Please note that this parameter doesn't affect updates created before the call t
                 '@return' => [
                     'type' => Types\Message::class,
                 ],
-            ]
-            
+            ],
+            $attachments
         );
     }
 
@@ -1229,7 +1227,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1288,7 +1285,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => [Types\ReplyParameters::class],
                 ],
             ]
-            
         );
     }
 
@@ -1374,7 +1370,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1470,7 +1465,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1548,7 +1542,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1669,7 +1662,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1733,7 +1725,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -1771,7 +1762,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -1810,7 +1800,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -1846,7 +1835,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\UserProfilePhotos::class,
                 ],
             ]
-            
         );
     }
 
@@ -1879,7 +1867,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['int'],
                 ],
             ]
-            
         );
     }
 
@@ -1904,7 +1891,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -1942,7 +1928,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -1976,7 +1961,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -2019,7 +2003,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['int'],
                 ],
             ]
-            
         );
     }
 
@@ -2109,7 +2092,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -2144,7 +2126,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2174,7 +2155,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2204,7 +2184,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2238,7 +2217,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -2263,7 +2241,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2307,7 +2284,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatInviteLink::class,
                 ],
             ]
-            
         );
     }
 
@@ -2356,7 +2332,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatInviteLink::class,
                 ],
             ]
-            
         );
     }
 
@@ -2398,7 +2373,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatInviteLink::class,
                 ],
             ]
-            
         );
     }
 
@@ -2435,7 +2409,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatInviteLink::class,
                 ],
             ]
-            
         );
     }
 
@@ -2468,7 +2441,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatInviteLink::class,
                 ],
             ]
-            
         );
     }
 
@@ -2498,7 +2470,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2528,7 +2499,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2558,7 +2528,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2583,7 +2552,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2613,7 +2581,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2642,7 +2609,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -2680,7 +2646,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -2713,7 +2678,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['int'],
                 ],
             ]
-            
         );
     }
 
@@ -2738,7 +2702,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2763,7 +2726,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2791,7 +2753,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatFullInfo::class,
                 ],
             ]
-            
         );
     }
 
@@ -2820,7 +2781,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2845,7 +2805,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2878,7 +2837,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ChatMember::class,
                 ],
             ]
-            
         );
     }
 
@@ -2908,7 +2866,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2933,7 +2890,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2955,7 +2911,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -2996,7 +2951,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => Types\ForumTopic::class,
                 ],
             ]
-            
         );
     }
 
@@ -3034,7 +2988,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3064,7 +3017,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3094,7 +3046,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3124,7 +3075,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3154,7 +3104,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3184,7 +3133,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3209,7 +3157,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3234,7 +3181,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3259,7 +3205,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3284,7 +3229,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3309,7 +3253,6 @@ Please note that this parameter doesn't affect updates created before the call t
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3352,7 +3295,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['int'],
                 ],
             ]
-            
         );
     }
 
@@ -3385,7 +3327,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\UserChatBoosts::class,
                 ],
             ]
-            
         );
     }
 
@@ -3413,7 +3354,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\BusinessConnection::class,
                 ],
             ]
-            
         );
     }
 
@@ -3447,7 +3387,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3475,7 +3414,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3507,7 +3445,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3535,7 +3472,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3562,7 +3498,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\BotName::class,
                 ],
             ]
-            
         );
     }
 
@@ -3590,7 +3525,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3617,7 +3551,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\BotDescription::class,
                 ],
             ]
-            
         );
     }
 
@@ -3645,7 +3578,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -3672,7 +3604,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\BotShortDescription::class,
                 ],
             ]
-            
         );
     }
 
@@ -3700,7 +3631,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => [Types\MenuButton::class],
                 ],
             ]
-            
         );
     }
 
@@ -3727,7 +3657,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\MenuButton::class,
                 ],
             ]
-            
         );
     }
 
@@ -3755,7 +3684,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -3782,7 +3710,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\ChatAdministratorRights::class,
                 ],
             ]
-            
         );
     }
 
@@ -3844,7 +3771,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3905,7 +3831,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -3954,7 +3879,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4024,7 +3948,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4068,7 +3991,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4112,7 +4034,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4153,7 +4074,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
                     'type' => Types\Poll::class,
                 ],
             ]
-            
         );
     }
 
@@ -4192,7 +4112,6 @@ Returns *True* on success.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4223,7 +4142,6 @@ Returns *True* on success.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4254,7 +4172,6 @@ Returns *True* on success.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4401,7 +4318,6 @@ Returns *True* on success.
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -4516,7 +4432,6 @@ Returns *True* on success.
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -4558,7 +4473,6 @@ Returns *True* on success.
                     'type' => Base\ParameterBool::class,
                 ],
             ]
-            
         );
     }
 
@@ -4595,7 +4509,6 @@ Returns *True* on success.
                     'type' => Base\ParameterBool::class,
                 ],
             ]
-            
         );
     }
 
@@ -4626,7 +4539,6 @@ Returns *True* on success.
                     'type' => Payments\StarTransactions::class,
                 ],
             ]
-            
         );
     }
 
@@ -4656,7 +4568,6 @@ Returns *True* on success.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4691,7 +4602,6 @@ Returns *True* on success.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4739,7 +4649,6 @@ No more than **50** results per query are allowed.
                     'type' => [InlineMode\InlineQueryResultsButton::class],
                 ],
             ]
-            
         );
     }
 
@@ -4772,7 +4681,6 @@ No more than **50** results per query are allowed.
                     'type' => InlineMode\SentWebAppMessage::class,
                 ],
             ]
-            
         );
     }
 
@@ -4821,7 +4729,6 @@ No more than **50** results per query are allowed.
                     'type' => InlineMode\PreparedInlineMessage::class,
                 ],
             ]
-            
         );
     }
 
@@ -4890,7 +4797,6 @@ No more than **50** results per query are allowed.
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -4918,7 +4824,6 @@ No more than **50** results per query are allowed.
                     'type' => Stickers\StickerSet::class,
                 ],
             ]
-            
         );
     }
 
@@ -4948,7 +4853,6 @@ No more than **50** results per query are allowed.
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -4986,7 +4890,6 @@ No more than **50** results per query are allowed.
                     'type' => Types\File::class,
                 ],
             ]
-            
         );
     }
 
@@ -5035,7 +4938,6 @@ No more than **50** results per query are allowed.
                     'type' => ['bool'],
                 ],
             ]
-            
         );
     }
 
@@ -5070,7 +4972,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5100,7 +5001,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5125,7 +5025,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5165,7 +5064,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5196,7 +5094,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5226,7 +5123,6 @@ No more than **50** results per query are allowed.
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5255,7 +5151,6 @@ No more than **50** results per query are allowed.
                     'type' => [Stickers\MaskPosition::class],
                 ],
             ]
-            
         );
     }
 
@@ -5285,7 +5180,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5324,7 +5218,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5353,7 +5246,6 @@ No more than **50** results per query are allowed.
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -5378,7 +5270,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5399,7 +5290,6 @@ No more than **50** results per query are allowed.
                     'type' => Stickers\Gifts::class,
                 ],
             ]
-            
         );
     }
 
@@ -5446,7 +5336,6 @@ No more than **50** results per query are allowed.
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5475,7 +5364,6 @@ No more than **50** results per query are allowed.
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -5504,7 +5392,6 @@ No more than **50** results per query are allowed.
                     'type' => ['string'],
                 ],
             ]
-            
         );
     }
 
@@ -5529,7 +5416,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5554,7 +5440,6 @@ No more than **50** results per query are allowed.
                     'required' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5619,7 +5504,6 @@ No more than **50** results per query are allowed.
                     'type' => Types\Message::class,
                 ],
             ]
-            
         );
     }
 
@@ -5673,7 +5557,6 @@ No more than **50** results per query are allowed.
                     'canReturnBool' => true,
                 ],
             ]
-            
         );
     }
 
@@ -5714,7 +5597,6 @@ No more than **50** results per query are allowed.
                     'isArray' => true,
                 ],
             ]
-            
         );
     }
 
