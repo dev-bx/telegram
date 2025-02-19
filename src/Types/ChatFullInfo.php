@@ -79,6 +79,8 @@ use DevBX\Telegram\Base;
 * *Optional*. The most recent pinned message (by sending date)
 * @property ChatPermissions $permissions
 * *Optional*. Default chat member permissions, for groups and supergroups
+* @property bool $canSendGift
+* *Optional*. *True*, if gifts can be sent to the chat
 * @property bool $canSendPaidMedia
 * *Optional*. *True*, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
 * @property int $slowModeDelay
@@ -210,6 +212,9 @@ class ChatFullInfo extends Base\BaseType
 			],
 			'permissions' => [
 				'type' => [ChatPermissions::class],
+			],
+			'can_send_gift' => [
+				'type' => ['bool'],
 			],
 			'can_send_paid_media' => [
 				'type' => ['bool'],
@@ -839,6 +844,25 @@ class ChatFullInfo extends Base\BaseType
 	public function setPermissions(mixed $value): static
 	{
 		return $this->setFieldValue('permissions', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanSendGift(): mixed
+	{
+		return $this->getFieldValue('can_send_gift');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanSendGift(mixed $value): static
+	{
+		return $this->setFieldValue('can_send_gift', $value);
 	}
 
 	/**

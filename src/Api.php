@@ -280,12 +280,13 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var int|string $chat_id              Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_thread_id    Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var int|string $from_chat_id         Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
-     * @var bool       $disable_notification Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool       $protect_content      Optional. Protects the contents of the forwarded message from forwarding and saving
-     * @var int        $message_id           Required. Message identifier in the chat specified in *from\_chat\_id*
+     * @var int|string $chat_id               Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int        $message_thread_id     Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @var int|string $from_chat_id          Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
+     * @var int        $video_start_timestamp Optional. New start timestamp for the forwarded video in the message
+     * @var bool       $disable_notification  Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool       $protect_content       Optional. Protects the contents of the forwarded message from forwarding and saving
+     * @var int        $message_id            Required. Message identifier in the chat specified in *from\_chat\_id*
      * ]
      *
      * @return Types\Message
@@ -307,6 +308,9 @@ Please note that this parameter doesn't affect updates created before the call t
                 'from_chat_id' => [
                     'type' => ['int', 'string'],
                     'required' => true,
+                ],
+                'video_start_timestamp' => [
+                    'type' => ['int'],
                 ],
                 'disable_notification' => [
                     'type' => ['bool'],
@@ -384,6 +388,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var int                                                                                             $message_thread_id        Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @var int|string                                                                                      $from_chat_id             Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
      * @var int                                                                                             $message_id               Required. Message identifier in the chat specified in *from\_chat\_id*
+     * @var int                                                                                             $video_start_timestamp    Optional. New start timestamp for the copied video in the message
      * @var string                                                                                          $caption                  Optional. New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the new caption. See [formatting options](#formatting-options) for more details.
      * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
@@ -418,6 +423,9 @@ Please note that this parameter doesn't affect updates created before the call t
                 'message_id' => [
                     'type' => ['int'],
                     'required' => true,
+                ],
+                'video_start_timestamp' => [
+                    'type' => ['int'],
                 ],
                 'caption' => [
                     'type' => ['string'],
@@ -787,6 +795,8 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var int                                                                                             $width                    Optional. Video width
      * @var int                                                                                             $height                   Optional. Video height
      * @var Types\InputFile|string                                                                          $thumbnail                Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var Types\InputFile|string                                                                          $cover                    Optional. Cover for the video in the message. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var int                                                                                             $start_timestamp          Optional. Start timestamp for the video in the message
      * @var string                                                                                          $caption                  Optional. Video caption (may also be used when resending videos by *file\_id*), 0-1024 characters after entities parsing
      * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the video caption. See [formatting options](#formatting-options) for more details.
      * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
@@ -837,6 +847,12 @@ Please note that this parameter doesn't affect updates created before the call t
                 ],
                 'thumbnail' => [
                     'type' => [Types\InputFile::class, 'string'],
+                ],
+                'cover' => [
+                    'type' => [Types\InputFile::class, 'string'],
+                ],
+                'start_timestamp' => [
+                    'type' => ['int'],
                 ],
                 'caption' => [
                     'type' => ['string'],
@@ -1769,7 +1785,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns *True* on success.
+     *Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int|string           $chat_id    Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
@@ -5286,7 +5302,7 @@ No more than **50** results per query are allowed.
     }
 
     /**
-     *Returns the list of gifts that can be sent by the bot to users. Requires no parameters. Returns a @see Stickers\Gifts object.
+     *Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a @see Stickers\Gifts object.
      *
      *
      * @return Stickers\Gifts
@@ -5306,13 +5322,14 @@ No more than **50** results per query are allowed.
     }
 
     /**
-     *Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user. Returns *True* on success.
+     *Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns *True* on success.
      *
      * @param array    $params    [
-     * @var int                   $user_id         Required. Unique identifier of the target user that will receive the gift
+     * @var int                   $user_id         Optional. Required if *chat\_id* is not specified. Unique identifier of the target user who will receive the gift.
+     * @var int|string            $chat_id         Optional. Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
      * @var string                $gift_id         Required. Identifier of the gift
      * @var bool                  $pay_for_upgrade Optional. Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
-     * @var string                $text            Optional. Text that will be shown along with the gift; 0-255 characters
+     * @var string                $text            Optional. Text that will be shown along with the gift; 0-128 characters
      * @var string                $text_parse_mode Optional. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
      * @var Types\MessageEntity[] $text_entities   Optional. A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
      * ]
@@ -5328,7 +5345,9 @@ No more than **50** results per query are allowed.
             [
                 'user_id' => [
                     'type' => ['int'],
-                    'required' => true,
+                ],
+                'chat_id' => [
+                    'type' => ['int', 'string'],
                 ],
                 'gift_id' => [
                     'type' => ['string'],

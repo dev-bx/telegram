@@ -29,6 +29,10 @@ use DevBX\Telegram\Base;
 * Duration of the video in seconds as defined by the sender
 * @property PhotoSize $thumbnail
 * *Optional*. Video thumbnail
+* @property Base\ArrayObject|PhotoSize[] $cover
+* *Optional*. Available sizes of the cover of the video in the message
+* @property int $startTimestamp
+* *Optional*. Timestamp in seconds from which the video will play in the message
 * @property string $fileName
 * *Optional*. Original filename as defined by the sender
 * @property string $mimeType
@@ -64,6 +68,13 @@ class Video extends Base\BaseType
 			],
 			'thumbnail' => [
 				'type' => [PhotoSize::class],
+			],
+			'cover' => [
+				'type' => [PhotoSize::class],
+				'isArray' => true,
+			],
+			'start_timestamp' => [
+				'type' => ['int'],
 			],
 			'file_name' => [
 				'type' => ['string'],
@@ -188,6 +199,44 @@ class Video extends Base\BaseType
 	public function setThumbnail(mixed $value): static
 	{
 		return $this->setFieldValue('thumbnail', $value);
+	}
+
+	/**
+	* @return Base\ArrayObject|PhotoSize[]
+	*/
+
+	public function getCover(): mixed
+	{
+		return $this->getFieldValue('cover');
+	}
+
+	/**
+	* @param Base\ArrayObject|PhotoSize[] $value
+	* @return static
+	*/
+
+	public function setCover(mixed $value): static
+	{
+		return $this->setFieldValue('cover', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getStartTimestamp(): mixed
+	{
+		return $this->getFieldValue('start_timestamp');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setStartTimestamp(mixed $value): static
+	{
+		return $this->setFieldValue('start_timestamp', $value);
 	}
 
 	/**

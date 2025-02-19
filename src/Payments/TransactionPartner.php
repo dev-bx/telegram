@@ -25,6 +25,7 @@ class TransactionPartner extends Base\BaseType
 	{
 		return [
 			TransactionPartnerUser::class,
+			TransactionPartnerChat::class,
 			TransactionPartnerAffiliateProgram::class,
 			TransactionPartnerFragment::class,
 			TransactionPartnerTelegramAds::class,
