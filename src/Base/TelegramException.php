@@ -78,6 +78,6 @@ class MessageToBeRepliedNotFoundException extends MessageNotFoundException
 
 }
 
-class MessageToEditNotFoundException extends TelegramException
+class MessageToEditNotFoundException extends MessageNotFoundException
 {
 }
