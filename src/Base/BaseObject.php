@@ -21,7 +21,8 @@ class BaseObject
     {
         if (static::isStrictMode())
         {
-            throw new TelegramException($error->getMessage());
+            $exceptionClass = TelegramException::getExceptionClass($error->getMessage());
+            throw new $exceptionClass($error->getMessage(), $error->getCode(), $error->getCustomData());
         }
 
         $this->isSuccess = false;
