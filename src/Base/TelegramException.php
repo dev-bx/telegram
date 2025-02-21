@@ -7,7 +7,7 @@ class TelegramException extends \Exception
     protected array|null $data = null;
     public function __construct($message, $errorCode = null, array $data = null, $previous = null)
     {
-        parent::__construct($message, $errorCode, $previous);
+        parent::__construct($message, (int)$errorCode, $previous);
 
         $this->data = $data;
     }
