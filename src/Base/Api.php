@@ -191,7 +191,7 @@ class Api
 
         if ($this->onResponse)
         {
-            if (call_user_func_array($this->onResponse,[&$response, &$result, $query]) === true)
+            if (call_user_func_array($this->onResponse,[&$response, &$result, $query, $postData, $multipart]) === true)
             {
                 return $result;
             }
