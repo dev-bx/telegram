@@ -17,7 +17,7 @@ use DevBX\Telegram\Base;
 
 /**
 * This object represents a chat background.
-* @property BackgroundType $type
+* @property BackgroundType|BackgroundTypeFill|BackgroundTypeWallpaper|BackgroundTypePattern|BackgroundTypeChatTheme $type
 * Type of the background
 */
 
@@ -33,7 +33,7 @@ class ChatBackground extends Base\BaseType
 		];
 	}
 	/**
-	* @return BackgroundType
+	* @return BackgroundType|BackgroundTypeFill|BackgroundTypeWallpaper|BackgroundTypePattern|BackgroundTypeChatTheme
 	*/
 
 	public function getType(): mixed
@@ -42,7 +42,7 @@ class ChatBackground extends Base\BaseType
 	}
 
 	/**
-	* @param BackgroundType $value
+	* @param BackgroundType|BackgroundTypeFill|BackgroundTypeWallpaper|BackgroundTypePattern|BackgroundTypeChatTheme $value
 	* @return static
 	*/
 

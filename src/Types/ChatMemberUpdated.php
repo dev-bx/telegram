@@ -23,9 +23,9 @@ use DevBX\Telegram\Base;
 * Performer of the action, which resulted in the change
 * @property int $date
 * Date the change was done in Unix time
-* @property ChatMember $oldChatMember
+* @property ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned $oldChatMember
 * Previous information about the chat member
-* @property ChatMember $newChatMember
+* @property ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned $newChatMember
 * New information about the chat member
 * @property ChatInviteLink $inviteLink
 * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
@@ -129,7 +129,7 @@ class ChatMemberUpdated extends Base\BaseType
 	}
 
 	/**
-	* @return ChatMember
+	* @return ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned
 	*/
 
 	public function getOldChatMember(): mixed
@@ -138,7 +138,7 @@ class ChatMemberUpdated extends Base\BaseType
 	}
 
 	/**
-	* @param ChatMember $value
+	* @param ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned $value
 	* @return static
 	*/
 
@@ -148,7 +148,7 @@ class ChatMemberUpdated extends Base\BaseType
 	}
 
 	/**
-	* @return ChatMember
+	* @return ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned
 	*/
 
 	public function getNewChatMember(): mixed
@@ -157,7 +157,7 @@ class ChatMemberUpdated extends Base\BaseType
 	}
 
 	/**
-	* @param ChatMember $value
+	* @param ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned $value
 	* @return static
 	*/
 

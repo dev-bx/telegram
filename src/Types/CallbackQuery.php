@@ -21,7 +21,7 @@ use DevBX\Telegram\Base;
 * Unique identifier for this query
 * @property User $from
 * Sender
-* @property MaybeInaccessibleMessage $message
+* @property MaybeInaccessibleMessage|Message|InaccessibleMessage $message
 * *Optional*. Message sent by the bot with the callback button that originated the query
 * @property string $inlineMessageId
 * *Optional*. Identifier of the message sent via the bot in inline mode, that originated the query.
@@ -103,7 +103,7 @@ class CallbackQuery extends Base\BaseType
 	}
 
 	/**
-	* @return MaybeInaccessibleMessage
+	* @return MaybeInaccessibleMessage|Message|InaccessibleMessage
 	*/
 
 	public function getMessage(): mixed
@@ -112,7 +112,7 @@ class CallbackQuery extends Base\BaseType
 	}
 
 	/**
-	* @param MaybeInaccessibleMessage $value
+	* @param MaybeInaccessibleMessage|Message|InaccessibleMessage $value
 	* @return static
 	*/
 

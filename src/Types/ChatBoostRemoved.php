@@ -23,7 +23,7 @@ use DevBX\Telegram\Base;
 * Unique identifier of the boost
 * @property int $removeDate
 * Point in time (Unix timestamp) when the boost was removed
-* @property ChatBoostSource $source
+* @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
 * Source of the removed boost
 */
 
@@ -108,7 +108,7 @@ class ChatBoostRemoved extends Base\BaseType
 	}
 
 	/**
-	* @return ChatBoostSource
+	* @return ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway
 	*/
 
 	public function getSource(): mixed
@@ -117,7 +117,7 @@ class ChatBoostRemoved extends Base\BaseType
 	}
 
 	/**
-	* @param ChatBoostSource $value
+	* @param ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $value
 	* @return static
 	*/
 

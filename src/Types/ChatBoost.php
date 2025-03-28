@@ -23,7 +23,7 @@ use DevBX\Telegram\Base;
 * Point in time (Unix timestamp) when the chat was boosted
 * @property int $expirationDate
 * Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
-* @property ChatBoostSource $source
+* @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
 * Source of the added boost
 */
 
@@ -108,7 +108,7 @@ class ChatBoost extends Base\BaseType
 	}
 
 	/**
-	* @return ChatBoostSource
+	* @return ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway
 	*/
 
 	public function getSource(): mixed
@@ -117,7 +117,7 @@ class ChatBoost extends Base\BaseType
 	}
 
 	/**
-	* @param ChatBoostSource $value
+	* @param ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $value
 	* @return static
 	*/
 

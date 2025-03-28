@@ -21,7 +21,7 @@ use DevBX\Telegram\Base;
 * Type of the background, always “pattern”
 * @property Document $document
 * Document with the pattern
-* @property BackgroundFill $fill
+* @property BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $fill
 * The background fill that is combined with the pattern
 * @property int $intensity
 * Intensity of the pattern when it is shown above the filled background; 0-100
@@ -100,7 +100,7 @@ class BackgroundTypePattern extends BackgroundType
 	}
 
 	/**
-	* @return BackgroundFill
+	* @return BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient
 	*/
 
 	public function getFill(): mixed
@@ -109,7 +109,7 @@ class BackgroundTypePattern extends BackgroundType
 	}
 
 	/**
-	* @param BackgroundFill $value
+	* @param BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $value
 	* @return static
 	*/
 

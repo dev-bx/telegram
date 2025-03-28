@@ -46,7 +46,7 @@ use DevBX\Telegram\Types;
 * *Optional*. Pass *True*, if the caption must be shown above the message media
 * @property Types\InlineKeyboardMarkup $replyMarkup
 * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent $inputMessageContent
+* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
 * *Optional*. Content of the message to be sent instead of the GIF animation
 */
 
@@ -375,7 +375,7 @@ class InlineQueryResultGif extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -384,7 +384,7 @@ class InlineQueryResultGif extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

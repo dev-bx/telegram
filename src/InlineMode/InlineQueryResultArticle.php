@@ -24,7 +24,7 @@ use DevBX\Telegram\Types;
 * Unique identifier for this result, 1-64 Bytes
 * @property string $title
 * Title of the result
-* @property InputMessageContent $inputMessageContent
+* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
 * Content of the message to be sent
 * @property Types\InlineKeyboardMarkup $replyMarkup
 * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
@@ -140,7 +140,7 @@ class InlineQueryResultArticle extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -149,7 +149,7 @@ class InlineQueryResultArticle extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

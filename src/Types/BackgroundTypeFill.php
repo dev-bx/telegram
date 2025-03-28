@@ -19,7 +19,7 @@ use DevBX\Telegram\Base;
 * The background is automatically filled based on the selected colors.
 * @property string $type
 * Type of the background, always “fill”
-* @property BackgroundFill $fill
+* @property BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $fill
 * The background fill
 * @property int $darkThemeDimming
 * Dimming of the background in dark themes, as a percentage; 0-100
@@ -65,7 +65,7 @@ class BackgroundTypeFill extends BackgroundType
 	}
 
 	/**
-	* @return BackgroundFill
+	* @return BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient
 	*/
 
 	public function getFill(): mixed
@@ -74,7 +74,7 @@ class BackgroundTypeFill extends BackgroundType
 	}
 
 	/**
-	* @param BackgroundFill $value
+	* @param BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $value
 	* @return static
 	*/
 

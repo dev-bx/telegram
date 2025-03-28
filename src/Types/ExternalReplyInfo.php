@@ -20,7 +20,7 @@ use DevBX\Telegram\Payments;
 
 /**
 * This object contains information about a message that is being replied to, which may come from another chat or forum topic.
-* @property MessageOrigin $origin
+* @property MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $origin
 * Origin of the message replied to by the given message
 * @property Chat $chat
 * *Optional*. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
@@ -152,7 +152,7 @@ class ExternalReplyInfo extends Base\BaseType
 		];
 	}
 	/**
-	* @return MessageOrigin
+	* @return MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel
 	*/
 
 	public function getOrigin(): mixed
@@ -161,7 +161,7 @@ class ExternalReplyInfo extends Base\BaseType
 	}
 
 	/**
-	* @param MessageOrigin $value
+	* @param MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $value
 	* @return static
 	*/
 

@@ -38,7 +38,7 @@ use DevBX\Telegram\Types;
 * *Optional*. Short description of the result
 * @property Types\InlineKeyboardMarkup $replyMarkup
 * *Optional*. Inline keyboard attached to the message
-* @property InputMessageContent $inputMessageContent
+* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
 * *Optional*. Content of the message to be sent instead of the file
 * @property string $thumbnailUrl
 * *Optional*. URL of the thumbnail (JPEG only) for the file
@@ -295,7 +295,7 @@ class InlineQueryResultDocument extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -304,7 +304,7 @@ class InlineQueryResultDocument extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

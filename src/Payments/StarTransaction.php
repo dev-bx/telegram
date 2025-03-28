@@ -25,9 +25,9 @@ use DevBX\Telegram\Base;
 * *Optional*. The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999
 * @property int $date
 * Date the transaction was created in Unix time
-* @property TransactionPartner $source
+* @property TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther $source
 * *Optional*. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions
-* @property TransactionPartner $receiver
+* @property TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther $receiver
 * *Optional*. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions
 */
 
@@ -136,7 +136,7 @@ class StarTransaction extends Base\BaseType
 	}
 
 	/**
-	* @return TransactionPartner
+	* @return TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther
 	*/
 
 	public function getSource(): mixed
@@ -145,7 +145,7 @@ class StarTransaction extends Base\BaseType
 	}
 
 	/**
-	* @param TransactionPartner $value
+	* @param TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther $value
 	* @return static
 	*/
 
@@ -155,7 +155,7 @@ class StarTransaction extends Base\BaseType
 	}
 
 	/**
-	* @return TransactionPartner
+	* @return TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther
 	*/
 
 	public function getReceiver(): mixed
@@ -164,7 +164,7 @@ class StarTransaction extends Base\BaseType
 	}
 
 	/**
-	* @param TransactionPartner $value
+	* @param TransactionPartner|TransactionPartnerUser|TransactionPartnerChat|TransactionPartnerAffiliateProgram|TransactionPartnerFragment|TransactionPartnerTelegramAds|TransactionPartnerTelegramApi|TransactionPartnerOther $value
 	* @return static
 	*/
 

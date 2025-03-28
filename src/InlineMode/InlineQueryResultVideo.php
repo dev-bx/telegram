@@ -48,7 +48,7 @@ use DevBX\Telegram\Types;
 * *Optional*. Short description of the result
 * @property Types\InlineKeyboardMarkup $replyMarkup
 * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent $inputMessageContent
+* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
 * *Optional*. Content of the message to be sent instead of the video. This field is **required** if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
 */
 
@@ -401,7 +401,7 @@ class InlineQueryResultVideo extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -410,7 +410,7 @@ class InlineQueryResultVideo extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

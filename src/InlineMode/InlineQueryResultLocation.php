@@ -38,7 +38,7 @@ use DevBX\Telegram\Types;
 * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
 * @property Types\InlineKeyboardMarkup $replyMarkup
 * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent $inputMessageContent
+* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
 * *Optional*. Content of the message to be sent instead of the location
 * @property string $thumbnailUrl
 * *Optional*. Url of the thumbnail for the result
@@ -294,7 +294,7 @@ class InlineQueryResultLocation extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -303,7 +303,7 @@ class InlineQueryResultLocation extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

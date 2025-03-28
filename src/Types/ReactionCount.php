@@ -17,7 +17,7 @@ use DevBX\Telegram\Base;
 
 /**
 * Represents a reaction added to a message along with the number of times it was added.
-* @property ReactionType $type
+* @property ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $type
 * Type of the reaction
 * @property int $totalCount
 * Number of times the reaction was added
@@ -39,7 +39,7 @@ class ReactionCount extends Base\BaseType
 		];
 	}
 	/**
-	* @return ReactionType
+	* @return ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid
 	*/
 
 	public function getType(): mixed
@@ -48,7 +48,7 @@ class ReactionCount extends Base\BaseType
 	}
 
 	/**
-	* @param ReactionType $value
+	* @param ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $value
 	* @return static
 	*/
 

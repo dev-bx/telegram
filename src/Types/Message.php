@@ -39,7 +39,7 @@ use DevBX\Telegram\Passport;
 * *Optional*. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
 * @property Chat $chat
 * Chat the message belongs to
-* @property MessageOrigin $forwardOrigin
+* @property MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $forwardOrigin
 * *Optional*. Information about the original message for forwarded messages
 * @property bool $isTopicMessage
 * *Optional*. *True*, if the message is sent to a forum topic
@@ -135,7 +135,7 @@ use DevBX\Telegram\Passport;
 * *Optional*. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
 * @property int $migrateFromChatId
 * *Optional*. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-* @property MaybeInaccessibleMessage $pinnedMessage
+* @property MaybeInaccessibleMessage|Message|InaccessibleMessage $pinnedMessage
 * *Optional*. Specified message was pinned. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
 * @property Payments\Invoice $invoice
 * *Optional*. Message is an invoice for a [payment](#payments), information about the invoice. [More about payments »](#payments)
@@ -635,7 +635,7 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
-	* @return MessageOrigin
+	* @return MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel
 	*/
 
 	public function getForwardOrigin(): mixed
@@ -644,7 +644,7 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
-	* @param MessageOrigin $value
+	* @param MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $value
 	* @return static
 	*/
 
@@ -1547,7 +1547,7 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
-	* @return MaybeInaccessibleMessage
+	* @return MaybeInaccessibleMessage|Message|InaccessibleMessage
 	*/
 
 	public function getPinnedMessage(): mixed
@@ -1556,7 +1556,7 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
-	* @param MaybeInaccessibleMessage $value
+	* @param MaybeInaccessibleMessage|Message|InaccessibleMessage $value
 	* @return static
 	*/
 

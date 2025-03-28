@@ -19,7 +19,7 @@ use DevBX\Telegram\Base;
 * Describes a withdrawal transaction with Fragment.
 * @property string $type
 * Type of the transaction partner, always “fragment”
-* @property RevenueWithdrawalState $withdrawalState
+* @property RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $withdrawalState
 * *Optional*. State of the transaction if the transaction is outgoing
 */
 
@@ -58,7 +58,7 @@ class TransactionPartnerFragment extends TransactionPartner
 	}
 
 	/**
-	* @return RevenueWithdrawalState
+	* @return RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed
 	*/
 
 	public function getWithdrawalState(): mixed
@@ -67,7 +67,7 @@ class TransactionPartnerFragment extends TransactionPartner
 	}
 
 	/**
-	* @param RevenueWithdrawalState $value
+	* @param RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $value
 	* @return static
 	*/
 
