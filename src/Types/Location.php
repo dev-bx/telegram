@@ -16,21 +16,20 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a point on the map.
-* @property float $latitude
-* Latitude as defined by the sender
-* @property float $longitude
-* Longitude as defined by the sender
-* @property float $horizontalAccuracy
-* *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
-* @property int $livePeriod
-* *Optional*. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
-* @property int $heading
-* *Optional*. The direction in which user is moving, in degrees; 1-360. For active live locations only.
-* @property int $proximityAlertRadius
-* *Optional*. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
-*/
-
+ * This object represents a point on the map.
+ * @property float $latitude
+ * Latitude as defined by the sender
+ * @property float $longitude
+ * Longitude as defined by the sender
+ * @property float $horizontalAccuracy
+ * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
+ * @property int $livePeriod
+ * *Optional*. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
+ * @property int $heading
+ * *Optional*. The direction in which user is moving, in degrees; 1-360. For active live locations only.
+ * @property int $proximityAlertRadius
+ * *Optional*. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
+ */
 class Location extends Base\BaseType
 {
 	public static function getFields(): array

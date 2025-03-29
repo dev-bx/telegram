@@ -18,25 +18,24 @@ use DevBX\Telegram\Stickers;
 
 
 /**
-* Describes a transaction with a user.
-* @property string $type
-* Type of the transaction partner, always “user”
-* @property Types\User $user
-* Information about the user
-* @property AffiliateInfo $affiliate
-* *Optional*. Information about the affiliate that received a commission via this transaction
-* @property string $invoicePayload
-* *Optional*. Bot-specified invoice payload
-* @property int $subscriptionPeriod
-* *Optional*. The duration of the paid subscription
-* @property Base\ArrayObject|Types\PaidMedia[] $paidMedia
-* *Optional*. Information about the paid media bought by the user
-* @property string $paidMediaPayload
-* *Optional*. Bot-specified paid media payload
-* @property Stickers\Gift $gift
-* *Optional*. The gift sent to the user by the bot
-*/
-
+ * Describes a transaction with a user.
+ * @property string $type
+ * Type of the transaction partner, always “user”
+ * @property Types\User $user
+ * Information about the user
+ * @property AffiliateInfo $affiliate
+ * *Optional*. Information about the affiliate that received a commission via this transaction
+ * @property string $invoicePayload
+ * *Optional*. Bot-specified invoice payload
+ * @property int $subscriptionPeriod
+ * *Optional*. The duration of the paid subscription
+ * @property Base\ArrayObject|Types\PaidMedia[] $paidMedia
+ * *Optional*. Information about the paid media bought by the user
+ * @property string $paidMediaPayload
+ * *Optional*. Bot-specified paid media payload
+ * @property Stickers\Gift $gift
+ * *Optional*. The gift sent to the user by the bot
+ */
 class TransactionPartnerUser extends TransactionPartner
 {
 	public static function getFields(): array

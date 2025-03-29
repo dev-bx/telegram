@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes a [Web App](/bots/webapps).
-* @property string $url
-* An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](/bots/webapps#initializing-mini-apps)
-*/
-
+ * Describes a [Web App](/bots/webapps).
+ * @property string $url
+ * An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](/bots/webapps#initializing-mini-apps)
+ */
 class WebAppInfo extends Base\BaseType
 {
 	public static function getFields(): array

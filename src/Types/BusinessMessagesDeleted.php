@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object is received when messages are deleted from a connected business account.
-* @property string $businessConnectionId
-* Unique identifier of the business connection
-* @property Chat $chat
-* Information about a chat in the business account. The bot may not have access to the chat or the corresponding user.
-* @property int[] $messageIds
-* The list of identifiers of deleted messages in the chat of the business account
-*/
-
+ * This object is received when messages are deleted from a connected business account.
+ * @property string $businessConnectionId
+ * Unique identifier of the business connection
+ * @property Chat $chat
+ * Information about a chat in the business account. The bot may not have access to the chat or the corresponding user.
+ * @property int[] $messageIds
+ * The list of identifiers of deleted messages in the chat of the business account
+ */
 class BusinessMessagesDeleted extends Base\BaseType
 {
 	public static function getFields(): array

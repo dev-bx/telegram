@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a [chat member](#chatmember) that isn't currently a member of the chat, but may join it themselves.
-* @property string $status
-* The member's status in the chat, always “left”
-* @property User $user
-* Information about the user
-*/
-
+ * Represents a [chat member](#chatmember) that isn't currently a member of the chat, but may join it themselves.
+ * @property string $status
+ * The member's status in the chat, always “left”
+ * @property User $user
+ * Information about the user
+ */
 class ChatMemberLeft extends ChatMember
 {
 	public static function getFields(): array

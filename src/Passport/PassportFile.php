@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.
-* @property string $fileId
-* Identifier for this file, which can be used to download or reuse the file
-* @property string $fileUniqueId
-* Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-* @property int $fileSize
-* File size in bytes
-* @property int $fileDate
-* Unix time when the file was uploaded
-*/
-
+ * This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.
+ * @property string $fileId
+ * Identifier for this file, which can be used to download or reuse the file
+ * @property string $fileUniqueId
+ * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property int $fileSize
+ * File size in bytes
+ * @property int $fileDate
+ * Unix time when the file was uploaded
+ */
 class PassportFile extends Base\BaseType
 {
 	public static function getFields(): array

@@ -17,7 +17,7 @@ class BaseObject
      * @return $this
      * @throws TelegramException
      */
-    public function addError(Error $error): static
+    public function addErrorItem(Error $error): static
     {
         if (static::isStrictMode())
         {
@@ -36,7 +36,7 @@ class BaseObject
      * @param Error[] $errors
      * @return $this
      */
-    public function addErrors(array $errors): static
+    public function addErrorsCollection(array $errors): static
     {
         if ($errors)
         {
@@ -52,7 +52,7 @@ class BaseObject
      *
      * @return Error[]
      */
-    public function getErrors(): array
+    public function getErrorsCollection(): array
     {
         return $this->errors;
     }
@@ -66,7 +66,7 @@ class BaseObject
     {
         $messages = array();
 
-        foreach ($this->getErrors() as $error)
+        foreach ($this->getErrorsCollection() as $error)
             $messages[] = $error->getMessage();
 
         return $messages;

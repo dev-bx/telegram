@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a menu button, which opens the bot's list of commands.
-* @property string $type
-* Type of the button, must be *commands*
-*/
-
+ * Represents a menu button, which opens the bot's list of commands.
+ * @property string $type
+ * Type of the button, must be *commands*
+ */
 class MenuButtonCommands extends MenuButton
 {
 	public static function getFields(): array

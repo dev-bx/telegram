@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about the creation of a scheduled giveaway.
-* @property int $prizeStarCount
-* *Optional*. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
-*/
-
+ * This object represents a service message about the creation of a scheduled giveaway.
+ * @property int $prizeStarCount
+ * *Optional*. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
+ */
 class GiveawayCreated extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The message was originally sent by an unknown user.
-* @property string $type
-* Type of the message origin, always “hidden\_user”
-* @property int $date
-* Date the message was sent originally in Unix time
-* @property string $senderUserName
-* Name of the user that sent the message originally
-*/
-
+ * The message was originally sent by an unknown user.
+ * @property string $type
+ * Type of the message origin, always “hidden\_user”
+ * @property int $date
+ * Date the message was sent originally in Unix time
+ * @property string $senderUserName
+ * Name of the user that sent the message originally
+ */
 class MessageOriginHiddenUser extends MessageOrigin
 {
 	public static function getFields(): array

@@ -18,15 +18,14 @@ use DevBX\Telegram\Stickers;
 
 
 /**
-* Describes a transaction with a chat.
-* @property string $type
-* Type of the transaction partner, always “chat”
-* @property Types\Chat $chat
-* Information about the chat
-* @property Stickers\Gift $gift
-* *Optional*. The gift sent to the chat by the bot
-*/
-
+ * Describes a transaction with a chat.
+ * @property string $type
+ * Type of the transaction partner, always “chat”
+ * @property Types\Chat $chat
+ * Information about the chat
+ * @property Stickers\Gift $gift
+ * *Optional*. The gift sent to the chat by the bot
+ */
 class TransactionPartnerChat extends TransactionPartner
 {
 	public static function getFields(): array

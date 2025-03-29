@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a video chat started in the chat. Currently holds no information.
-*/
-
+ * This object represents a service message about a video chat started in the chat. Currently holds no information.
+ */
 class VideoChatStarted extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,27 +16,26 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents an audio file to be treated as music by the Telegram clients.
-* @property string $fileId
-* Identifier for this file, which can be used to download or reuse the file
-* @property string $fileUniqueId
-* Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-* @property int $duration
-* Duration of the audio in seconds as defined by the sender
-* @property string $performer
-* *Optional*. Performer of the audio as defined by the sender or by audio tags
-* @property string $title
-* *Optional*. Title of the audio as defined by the sender or by audio tags
-* @property string $fileName
-* *Optional*. Original filename as defined by the sender
-* @property string $mimeType
-* *Optional*. MIME type of the file as defined by the sender
-* @property int $fileSize
-* *Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
-* @property PhotoSize $thumbnail
-* *Optional*. Thumbnail of the album cover to which the music file belongs
-*/
-
+ * This object represents an audio file to be treated as music by the Telegram clients.
+ * @property string $fileId
+ * Identifier for this file, which can be used to download or reuse the file
+ * @property string $fileUniqueId
+ * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property int $duration
+ * Duration of the audio in seconds as defined by the sender
+ * @property string $performer
+ * *Optional*. Performer of the audio as defined by the sender or by audio tags
+ * @property string $title
+ * *Optional*. Title of the audio as defined by the sender or by audio tags
+ * @property string $fileName
+ * *Optional*. Original filename as defined by the sender
+ * @property string $mimeType
+ * *Optional*. MIME type of the file as defined by the sender
+ * @property int $fileSize
+ * *Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+ * @property PhotoSize $thumbnail
+ * *Optional*. Thumbnail of the album cover to which the music file belongs
+ */
 class Audio extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a new forum topic created in the chat.
-* @property string $name
-* Name of the topic
-* @property int $iconColor
-* Color of the topic icon in RGB format
-* @property string $iconCustomEmojiId
-* *Optional*. Unique identifier of the custom emoji shown as the topic icon
-*/
-
+ * This object represents a service message about a new forum topic created in the chat.
+ * @property string $name
+ * Name of the topic
+ * @property int $iconColor
+ * Color of the topic icon in RGB format
+ * @property string $iconCustomEmojiId
+ * *Optional*. Unique identifier of the custom emoji shown as the topic icon
+ */
 class ForumTopicCreated extends Base\BaseType
 {
 	public static function getFields(): array

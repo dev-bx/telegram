@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The paid media is a video.
-* @property string $type
-* Type of the paid media, always “video”
-* @property Video $video
-* The video
-*/
-
+ * The paid media is a video.
+ * @property string $type
+ * Type of the paid media, always “video”
+ * @property Video $video
+ * The video
+ */
 class PaidMediaVideo extends PaidMedia
 {
 	public static function getFields(): array

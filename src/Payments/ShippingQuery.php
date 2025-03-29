@@ -17,17 +17,16 @@ use DevBX\Telegram\Types;
 
 
 /**
-* This object contains information about an incoming shipping query.
-* @property string $id
-* Unique query identifier
-* @property Types\User $from
-* User who sent the query
-* @property string $invoicePayload
-* Bot-specified invoice payload
-* @property ShippingAddress $shippingAddress
-* User specified shipping address
-*/
-
+ * This object contains information about an incoming shipping query.
+ * @property string $id
+ * Unique query identifier
+ * @property Types\User $from
+ * User who sent the query
+ * @property string $invoicePayload
+ * Bot-specified invoice payload
+ * @property ShippingAddress $shippingAddress
+ * User specified shipping address
+ */
 class ShippingQuery extends Base\BaseType
 {
 	public static function getFields(): array

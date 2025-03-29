@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes a transaction with payment for [paid broadcasting](#paid-broadcasts).
-* @property string $type
-* Type of the transaction partner, always “telegram\_api”
-* @property int $requestCount
-* The number of successful requests that exceeded regular limits and were therefore billed
-*/
-
+ * Describes a transaction with payment for [paid broadcasting](#paid-broadcasts).
+ * @property string $type
+ * Type of the transaction partner, always “telegram\_api”
+ * @property int $requestCount
+ * The number of successful requests that exceeded regular limits and were therefore billed
+ */
 class TransactionPartnerTelegramApi extends TransactionPartner
 {
 	public static function getFields(): array

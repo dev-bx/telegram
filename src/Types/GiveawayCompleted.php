@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about the completion of a giveaway without public winners.
-* @property int $winnerCount
-* Number of winners in the giveaway
-* @property int $unclaimedPrizeCount
-* *Optional*. Number of undistributed prizes
-* @property Message $giveawayMessage
-* *Optional*. Message with the giveaway that was completed, if it wasn't deleted
-* @property bool $isStarGiveaway
-* *Optional*. *True*, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway.
-*/
-
+ * This object represents a service message about the completion of a giveaway without public winners.
+ * @property int $winnerCount
+ * Number of winners in the giveaway
+ * @property int $unclaimedPrizeCount
+ * *Optional*. Number of undistributed prizes
+ * @property Message $giveawayMessage
+ * *Optional*. Message with the giveaway that was completed, if it wasn't deleted
+ * @property bool $isStarGiveaway
+ * *Optional*. *True*, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway.
+ */
 class GiveawayCompleted extends Base\BaseType
 {
 	public static function getFields(): array

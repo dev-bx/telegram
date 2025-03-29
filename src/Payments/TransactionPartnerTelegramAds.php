@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes a withdrawal transaction to the Telegram Ads platform.
-* @property string $type
-* Type of the transaction partner, always “telegram\_ads”
-*/
-
+ * Describes a withdrawal transaction to the Telegram Ads platform.
+ * @property string $type
+ * Type of the transaction partner, always “telegram\_ads”
+ */
 class TransactionPartnerTelegramAds extends TransactionPartner
 {
 	public static function getFields(): array

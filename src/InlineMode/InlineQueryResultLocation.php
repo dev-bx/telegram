@@ -17,37 +17,36 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the location.
-* @property string $type
-* Type of the result, must be *location*
-* @property string $id
-* Unique identifier for this result, 1-64 Bytes
-* @property float $latitude
-* Location latitude in degrees
-* @property float $longitude
-* Location longitude in degrees
-* @property string $title
-* Location title
-* @property float $horizontalAccuracy
-* *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
-* @property int $livePeriod
-* *Optional*. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
-* @property int $heading
-* *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-* @property int $proximityAlertRadius
-* *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the location
-* @property string $thumbnailUrl
-* *Optional*. Url of the thumbnail for the result
-* @property int $thumbnailWidth
-* *Optional*. Thumbnail width
-* @property int $thumbnailHeight
-* *Optional*. Thumbnail height
-*/
-
+ * Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the location.
+ * @property string $type
+ * Type of the result, must be *location*
+ * @property string $id
+ * Unique identifier for this result, 1-64 Bytes
+ * @property float $latitude
+ * Location latitude in degrees
+ * @property float $longitude
+ * Location longitude in degrees
+ * @property string $title
+ * Location title
+ * @property float $horizontalAccuracy
+ * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
+ * @property int $livePeriod
+ * *Optional*. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+ * @property int $heading
+ * *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+ * @property int $proximityAlertRadius
+ * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the location
+ * @property string $thumbnailUrl
+ * *Optional*. Url of the thumbnail for the result
+ * @property int $thumbnailWidth
+ * *Optional*. Thumbnail width
+ * @property int $thumbnailHeight
+ * *Optional*. Thumbnail height
+ */
 class InlineQueryResultLocation extends InlineQueryResult
 {
 	public static function getFields(): array

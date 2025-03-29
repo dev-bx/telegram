@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The background is taken directly from a built-in chat theme.
-* @property string $type
-* Type of the background, always “chat\_theme”
-* @property string $themeName
-* Name of the chat theme, which is usually an emoji
-*/
-
+ * The background is taken directly from a built-in chat theme.
+ * @property string $type
+ * Type of the background, always “chat\_theme”
+ * @property string $themeName
+ * Name of the chat theme, which is usually an emoji
+ */
 class BackgroundTypeChatTheme extends BackgroundType
 {
 	public static function getFields(): array

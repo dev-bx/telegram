@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object contains information about one answer option in a poll.
-* @property string $text
-* Option text, 1-100 characters
-* @property Base\ArrayObject|MessageEntity[] $textEntities
-* *Optional*. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts
-* @property int $voterCount
-* Number of users that voted for this option
-*/
-
+ * This object contains information about one answer option in a poll.
+ * @property string $text
+ * Option text, 1-100 characters
+ * @property Base\ArrayObject|MessageEntity[] $textEntities
+ * *Optional*. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts
+ * @property int $voterCount
+ * Number of users that voted for this option
+ */
 class PollOption extends Base\BaseType
 {
 	public static function getFields(): array

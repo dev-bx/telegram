@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents an animated emoji that displays a random value.
-* @property string $emoji
-* Emoji on which the dice throw animation is based
-* @property int $value
-* Value of the dice, 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)” base emoji, 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)” base emoji, 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)” base emoji
-*/
-
+ * This object represents an animated emoji that displays a random value.
+ * @property string $emoji
+ * Emoji on which the dice throw animation is based
+ * @property int $value
+ * Value of the dice, 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)” base emoji, 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)” base emoji, 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)” base emoji
+ */
 class Dice extends Base\BaseType
 {
 	public static function getFields(): array

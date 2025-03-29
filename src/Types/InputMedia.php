@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents the content of a media message to be sent. It should be one of
-*/
-
+ * This object represents the content of a media message to be sent. It should be one of
+ */
 class InputMedia extends Base\BaseType
 {
 	public static function getRelations(): array

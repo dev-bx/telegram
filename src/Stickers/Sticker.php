@@ -17,39 +17,38 @@ use DevBX\Telegram\Types;
 
 
 /**
-* This object represents a sticker.
-* @property string $fileId
-* Identifier for this file, which can be used to download or reuse the file
-* @property string $fileUniqueId
-* Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-* @property string $type
-* Type of the sticker, currently one of “regular”, “mask”, “custom\_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*.
-* @property int $width
-* Sticker width
-* @property int $height
-* Sticker height
-* @property bool $isAnimated
-* *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
-* @property bool $isVideo
-* *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
-* @property Types\PhotoSize $thumbnail
-* *Optional*. Sticker thumbnail in the .WEBP or .JPG format
-* @property string $emoji
-* *Optional*. Emoji associated with the sticker
-* @property string $setName
-* *Optional*. Name of the sticker set to which the sticker belongs
-* @property Types\File $premiumAnimation
-* *Optional*. For premium regular stickers, premium animation for the sticker
-* @property MaskPosition $maskPosition
-* *Optional*. For mask stickers, the position where the mask should be placed
-* @property string $customEmojiId
-* *Optional*. For custom emoji stickers, unique identifier of the custom emoji
-* @property bool $needsRepainting
-* *Optional*. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
-* @property int $fileSize
-* *Optional*. File size in bytes
-*/
-
+ * This object represents a sticker.
+ * @property string $fileId
+ * Identifier for this file, which can be used to download or reuse the file
+ * @property string $fileUniqueId
+ * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property string $type
+ * Type of the sticker, currently one of “regular”, “mask”, “custom\_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*.
+ * @property int $width
+ * Sticker width
+ * @property int $height
+ * Sticker height
+ * @property bool $isAnimated
+ * *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
+ * @property bool $isVideo
+ * *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
+ * @property Types\PhotoSize $thumbnail
+ * *Optional*. Sticker thumbnail in the .WEBP or .JPG format
+ * @property string $emoji
+ * *Optional*. Emoji associated with the sticker
+ * @property string $setName
+ * *Optional*. Name of the sticker set to which the sticker belongs
+ * @property Types\File $premiumAnimation
+ * *Optional*. For premium regular stickers, premium animation for the sticker
+ * @property MaskPosition $maskPosition
+ * *Optional*. For mask stickers, the position where the mask should be placed
+ * @property string $customEmojiId
+ * *Optional*. For custom emoji stickers, unique identifier of the custom emoji
+ * @property bool $needsRepainting
+ * *Optional*. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+ * @property int $fileSize
+ * *Optional*. File size in bytes
+ */
 class Sticker extends Base\BaseType
 {
 	public static function getFields(): array

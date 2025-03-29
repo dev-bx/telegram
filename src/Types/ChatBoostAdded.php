@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a user boosting a chat.
-* @property int $boostCount
-* Number of boosts added by the user
-*/
-
+ * This object represents a service message about a user boosting a chat.
+ * @property int $boostCount
+ * Number of boosts added by the user
+ */
 class ChatBoostAdded extends Base\BaseType
 {
 	public static function getFields(): array

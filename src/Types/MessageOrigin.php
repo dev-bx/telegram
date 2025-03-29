@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the origin of a message. It can be one of
-*/
-
+ * This object describes the origin of a message. It can be one of
+ */
 class MessageOrigin extends Base\BaseType
 {
 	public static function getRelations(): array

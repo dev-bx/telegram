@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
-* @property string $source
-* Error source, must be *translation\_file*
-* @property string $type
-* Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
-* @property string $fileHash
-* Base64-encoded file hash
-* @property string $message
-* Error message
-*/
-
+ * Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
+ * @property string $source
+ * Error source, must be *translation\_file*
+ * @property string $type
+ * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
+ * @property string $fileHash
+ * Base64-encoded file hash
+ * @property string $message
+ * Error message
+ */
 class PassportElementErrorTranslationFile extends PassportElementError
 {
 	public static function getFields(): array

@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes a withdrawal transaction with Fragment.
-* @property string $type
-* Type of the transaction partner, always “fragment”
-* @property RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $withdrawalState
-* *Optional*. State of the transaction if the transaction is outgoing
-*/
-
+ * Describes a withdrawal transaction with Fragment.
+ * @property string $type
+ * Type of the transaction partner, always “fragment”
+ * @property RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $withdrawalState
+ * *Optional*. State of the transaction if the transaction is outgoing
+ */
 class TransactionPartnerFragment extends TransactionPartner
 {
 	public static function getFields(): array

@@ -17,17 +17,16 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents the [content](#inputmessagecontent) of a text message to be sent as the result of an inline query.
-* @property string $messageText
-* Text of the message to be sent, 1-4096 characters
-* @property string $parseMode
-* *Optional*. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
-* @property Base\ArrayObject|Types\MessageEntity[] $entities
-* *Optional*. List of special entities that appear in message text, which can be specified instead of *parse\_mode*
-* @property Types\LinkPreviewOptions $linkPreviewOptions
-* *Optional*. Link preview generation options for the message
-*/
-
+ * Represents the [content](#inputmessagecontent) of a text message to be sent as the result of an inline query.
+ * @property string $messageText
+ * Text of the message to be sent, 1-4096 characters
+ * @property string $parseMode
+ * *Optional*. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
+ * @property Base\ArrayObject|Types\MessageEntity[] $entities
+ * *Optional*. List of special entities that appear in message text, which can be specified instead of *parse\_mode*
+ * @property Types\LinkPreviewOptions $linkPreviewOptions
+ * *Optional*. Link preview generation options for the message
+ */
 class InputTextMessageContent extends InputMessageContent
 {
 	public static function getFields(): array

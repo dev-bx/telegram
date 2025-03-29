@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes an inline message sent by a [Web App](/bots/webapps) on behalf of a user.
-* @property string $inlineMessageId
-* *Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](#inlinekeyboardmarkup) attached to the message.
-*/
-
+ * Describes an inline message sent by a [Web App](/bots/webapps) on behalf of a user.
+ * @property string $inlineMessageId
+ * *Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](#inlinekeyboardmarkup) attached to the message.
+ */
 class SentWebAppMessage extends Base\BaseType
 {
 	public static function getFields(): array

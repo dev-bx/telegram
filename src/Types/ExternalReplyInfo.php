@@ -19,57 +19,56 @@ use DevBX\Telegram\Payments;
 
 
 /**
-* This object contains information about a message that is being replied to, which may come from another chat or forum topic.
-* @property MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $origin
-* Origin of the message replied to by the given message
-* @property Chat $chat
-* *Optional*. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
-* @property int $messageId
-* *Optional*. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
-* @property LinkPreviewOptions $linkPreviewOptions
-* *Optional*. Options used for link preview generation for the original message, if it is a text message
-* @property Animation $animation
-* *Optional*. Message is an animation, information about the animation
-* @property Audio $audio
-* *Optional*. Message is an audio file, information about the file
-* @property Document $document
-* *Optional*. Message is a general file, information about the file
-* @property PaidMediaInfo $paidMedia
-* *Optional*. Message contains paid media; information about the paid media
-* @property Base\ArrayObject|PhotoSize[] $photo
-* *Optional*. Message is a photo, available sizes of the photo
-* @property Stickers\Sticker $sticker
-* *Optional*. Message is a sticker, information about the sticker
-* @property Story $story
-* *Optional*. Message is a forwarded story
-* @property Video $video
-* *Optional*. Message is a video, information about the video
-* @property VideoNote $videoNote
-* *Optional*. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
-* @property Voice $voice
-* *Optional*. Message is a voice message, information about the file
-* @property bool $hasMediaSpoiler
-* *Optional*. *True*, if the message media is covered by a spoiler animation
-* @property Contact $contact
-* *Optional*. Message is a shared contact, information about the contact
-* @property Dice $dice
-* *Optional*. Message is a dice with random value
-* @property Games\Game $game
-* *Optional*. Message is a game, information about the game. [More about games »](#games)
-* @property Giveaway $giveaway
-* *Optional*. Message is a scheduled giveaway, information about the giveaway
-* @property GiveawayWinners $giveawayWinners
-* *Optional*. A giveaway with public winners was completed
-* @property Payments\Invoice $invoice
-* *Optional*. Message is an invoice for a [payment](#payments), information about the invoice. [More about payments »](#payments)
-* @property Location $location
-* *Optional*. Message is a shared location, information about the location
-* @property Poll $poll
-* *Optional*. Message is a native poll, information about the poll
-* @property Venue $venue
-* *Optional*. Message is a venue, information about the venue
-*/
-
+ * This object contains information about a message that is being replied to, which may come from another chat or forum topic.
+ * @property MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $origin
+ * Origin of the message replied to by the given message
+ * @property Chat $chat
+ * *Optional*. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
+ * @property int $messageId
+ * *Optional*. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
+ * @property LinkPreviewOptions $linkPreviewOptions
+ * *Optional*. Options used for link preview generation for the original message, if it is a text message
+ * @property Animation $animation
+ * *Optional*. Message is an animation, information about the animation
+ * @property Audio $audio
+ * *Optional*. Message is an audio file, information about the file
+ * @property Document $document
+ * *Optional*. Message is a general file, information about the file
+ * @property PaidMediaInfo $paidMedia
+ * *Optional*. Message contains paid media; information about the paid media
+ * @property Base\ArrayObject|PhotoSize[] $photo
+ * *Optional*. Message is a photo, available sizes of the photo
+ * @property Stickers\Sticker $sticker
+ * *Optional*. Message is a sticker, information about the sticker
+ * @property Story $story
+ * *Optional*. Message is a forwarded story
+ * @property Video $video
+ * *Optional*. Message is a video, information about the video
+ * @property VideoNote $videoNote
+ * *Optional*. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
+ * @property Voice $voice
+ * *Optional*. Message is a voice message, information about the file
+ * @property bool $hasMediaSpoiler
+ * *Optional*. *True*, if the message media is covered by a spoiler animation
+ * @property Contact $contact
+ * *Optional*. Message is a shared contact, information about the contact
+ * @property Dice $dice
+ * *Optional*. Message is a dice with random value
+ * @property Games\Game $game
+ * *Optional*. Message is a game, information about the game. [More about games »](#games)
+ * @property Giveaway $giveaway
+ * *Optional*. Message is a scheduled giveaway, information about the giveaway
+ * @property GiveawayWinners $giveawayWinners
+ * *Optional*. A giveaway with public winners was completed
+ * @property Payments\Invoice $invoice
+ * *Optional*. Message is an invoice for a [payment](#payments), information about the invoice. [More about payments »](#payments)
+ * @property Location $location
+ * *Optional*. Message is a shared location, information about the location
+ * @property Poll $poll
+ * *Optional*. Message is a native poll, information about the poll
+ * @property Venue $venue
+ * *Optional*. Message is a venue, information about the venue
+ */
 class ExternalReplyInfo extends Base\BaseType
 {
 	public static function getFields(): array

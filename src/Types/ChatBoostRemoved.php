@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a boost removed from a chat.
-* @property Chat $chat
-* Chat which was boosted
-* @property string $boostId
-* Unique identifier of the boost
-* @property int $removeDate
-* Point in time (Unix timestamp) when the boost was removed
-* @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
-* Source of the removed boost
-*/
-
+ * This object represents a boost removed from a chat.
+ * @property Chat $chat
+ * Chat which was boosted
+ * @property string $boostId
+ * Unique identifier of the boost
+ * @property int $removeDate
+ * Point in time (Unix timestamp) when the boost was removed
+ * @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
+ * Source of the removed boost
+ */
 class ChatBoostRemoved extends Base\BaseType
 {
 	public static function getFields(): array

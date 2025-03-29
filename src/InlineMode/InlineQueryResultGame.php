@@ -17,17 +17,16 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a [Game](#games).
-* @property string $type
-* Type of the result, must be *game*
-* @property string $id
-* Unique identifier for this result, 1-64 bytes
-* @property string $gameShortName
-* Short name of the game
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-*/
-
+ * Represents a [Game](#games).
+ * @property string $type
+ * Type of the result, must be *game*
+ * @property string $id
+ * Unique identifier for this result, 1-64 bytes
+ * @property string $gameShortName
+ * Short name of the game
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ */
 class InlineQueryResultGame extends InlineQueryResult
 {
 	public static function getFields(): array

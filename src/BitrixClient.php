@@ -17,11 +17,11 @@ class BitrixClient extends \DevBX\Telegram\Api
 
         if ($response === false) {
             foreach ($client->getError() as $error_code => $error) {
-                $result->addError(new Error($error, $error_code));
+                $result->addErrorItem(new Error($error, $error_code));
             }
 
             if ($result->isSuccess()) {
-                $result->addError(new Error('Unknown error'));
+                $result->addErrorItem(new Error('Unknown error'));
             }
 
             return false;

@@ -17,19 +17,18 @@ use DevBX\Telegram\Types;
 
 
 /**
-* This object represents a sticker set.
-* @property string $name
-* Sticker set name
-* @property string $title
-* Sticker set title
-* @property string $stickerType
-* Type of stickers in the set, currently one of “regular”, “mask”, “custom\_emoji”
-* @property Base\ArrayObject|Sticker[] $stickers
-* List of all set stickers
-* @property Types\PhotoSize $thumbnail
-* *Optional*. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
-*/
-
+ * This object represents a sticker set.
+ * @property string $name
+ * Sticker set name
+ * @property string $title
+ * Sticker set title
+ * @property string $stickerType
+ * Type of stickers in the set, currently one of “regular”, “mask”, “custom\_emoji”
+ * @property Base\ArrayObject|Sticker[] $stickers
+ * List of all set stickers
+ * @property Types\PhotoSize $thumbnail
+ * *Optional*. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
+ */
 class StickerSet extends Base\BaseType
 {
 	public static function getFields(): array

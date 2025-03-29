@@ -17,31 +17,30 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the contact.
-* @property string $type
-* Type of the result, must be *contact*
-* @property string $id
-* Unique identifier for this result, 1-64 Bytes
-* @property string $phoneNumber
-* Contact's phone number
-* @property string $firstName
-* Contact's first name
-* @property string $lastName
-* *Optional*. Contact's last name
-* @property string $vcard
-* *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the contact
-* @property string $thumbnailUrl
-* *Optional*. Url of the thumbnail for the result
-* @property int $thumbnailWidth
-* *Optional*. Thumbnail width
-* @property int $thumbnailHeight
-* *Optional*. Thumbnail height
-*/
-
+ * Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the contact.
+ * @property string $type
+ * Type of the result, must be *contact*
+ * @property string $id
+ * Unique identifier for this result, 1-64 Bytes
+ * @property string $phoneNumber
+ * Contact's phone number
+ * @property string $firstName
+ * Contact's first name
+ * @property string $lastName
+ * *Optional*. Contact's last name
+ * @property string $vcard
+ * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the contact
+ * @property string $thumbnailUrl
+ * *Optional*. Url of the thumbnail for the result
+ * @property int $thumbnailWidth
+ * *Optional*. Thumbnail width
+ * @property int $thumbnailHeight
+ * *Optional*. Thumbnail height
+ */
 class InlineQueryResultContact extends InlineQueryResult
 {
 	public static function getFields(): array

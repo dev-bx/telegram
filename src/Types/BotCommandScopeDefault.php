@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the default [scope](#botcommandscope) of bot commands. Default commands are used if no commands with a [narrower scope](#determining-list-of-commands) are specified for the user.
-* @property string $type
-* Scope type, must be *default*
-*/
-
+ * Represents the default [scope](#botcommandscope) of bot commands. Default commands are used if no commands with a [narrower scope](#determining-list-of-commands) are specified for the user.
+ * @property string $type
+ * Scope type, must be *default*
+ */
 class BotCommandScopeDefault extends BotCommandScope
 {
 	public static function getFields(): array

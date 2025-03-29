@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes data sent from a [Web App](/bots/webapps) to the bot.
-* @property string $data
-* The data. Be aware that a bad client can send arbitrary data in this field.
-* @property string $buttonText
-* Text of the *web\_app* keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field.
-*/
-
+ * Describes data sent from a [Web App](/bots/webapps) to the bot.
+ * @property string $data
+ * The data. Be aware that a bad client can send arbitrary data in this field.
+ * @property string $buttonText
+ * Text of the *web\_app* keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field.
+ */
 class WebAppData extends Base\BaseType
 {
 	public static function getFields(): array

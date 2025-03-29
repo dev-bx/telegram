@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
-* @property string $source
-* Error source, must be *front\_side*
-* @property string $type
-* The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
-* @property string $fileHash
-* Base64-encoded hash of the file with the front side of the document
-* @property string $message
-* Error message
-*/
-
+ * Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
+ * @property string $source
+ * Error source, must be *front\_side*
+ * @property string $type
+ * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
+ * @property string $fileHash
+ * Base64-encoded hash of the file with the front side of the document
+ * @property string $message
+ * Error message
+ */
 class PassportElementErrorFrontSide extends PassportElementError
 {
 	public static function getFields(): array

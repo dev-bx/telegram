@@ -16,21 +16,20 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a shipping address.
-* @property string $countryCode
-* Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
-* @property string $state
-* State, if applicable
-* @property string $city
-* City
-* @property string $streetLine1
-* First line for the address
-* @property string $streetLine2
-* Second line for the address
-* @property string $postCode
-* Address post code
-*/
-
+ * This object represents a shipping address.
+ * @property string $countryCode
+ * Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
+ * @property string $state
+ * State, if applicable
+ * @property string $city
+ * City
+ * @property string $streetLine1
+ * First line for the address
+ * @property string $streetLine2
+ * Second line for the address
+ * @property string $postCode
+ * Address post code
+ */
 class ShippingAddress extends Base\BaseType
 {
 	public static function getFields(): array

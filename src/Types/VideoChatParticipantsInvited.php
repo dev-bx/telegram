@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about new members invited to a video chat.
-* @property Base\ArrayObject|User[] $users
-* New members that were invited to the video chat
-*/
-
+ * This object represents a service message about new members invited to a video chat.
+ * @property Base\ArrayObject|User[] $users
+ * New members that were invited to the video chat
+ */
 class VideoChatParticipantsInvited extends Base\BaseType
 {
 	public static function getFields(): array

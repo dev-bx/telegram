@@ -17,37 +17,36 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the photo.
-* @property string $type
-* Type of the result, must be *photo*
-* @property string $id
-* Unique identifier for this result, 1-64 bytes
-* @property string $photoUrl
-* A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB
-* @property string $thumbnailUrl
-* URL of the thumbnail for the photo
-* @property int $photoWidth
-* *Optional*. Width of the photo
-* @property int $photoHeight
-* *Optional*. Height of the photo
-* @property string $title
-* *Optional*. Title for the result
-* @property string $description
-* *Optional*. Short description of the result
-* @property string $caption
-* *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
-* @property string $parseMode
-* *Optional*. Mode for parsing entities in the photo caption. See [formatting options](#formatting-options) for more details.
-* @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
-* *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-* @property bool $showCaptionAboveMedia
-* *Optional*. Pass *True*, if the caption must be shown above the message media
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the photo
-*/
-
+ * Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the photo.
+ * @property string $type
+ * Type of the result, must be *photo*
+ * @property string $id
+ * Unique identifier for this result, 1-64 bytes
+ * @property string $photoUrl
+ * A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB
+ * @property string $thumbnailUrl
+ * URL of the thumbnail for the photo
+ * @property int $photoWidth
+ * *Optional*. Width of the photo
+ * @property int $photoHeight
+ * *Optional*. Height of the photo
+ * @property string $title
+ * *Optional*. Title for the result
+ * @property string $description
+ * *Optional*. Short description of the result
+ * @property string $caption
+ * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
+ * @property string $parseMode
+ * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](#formatting-options) for more details.
+ * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
+ * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+ * @property bool $showCaptionAboveMedia
+ * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the photo
+ */
 class InlineQueryResultPhoto extends InlineQueryResult
 {
 	public static function getFields(): array

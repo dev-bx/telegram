@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a reaction added to a message along with the number of times it was added.
-* @property ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $type
-* Type of the reaction
-* @property int $totalCount
-* Number of times the reaction was added
-*/
-
+ * Represents a reaction added to a message along with the number of times it was added.
+ * @property ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $type
+ * Type of the reaction
+ * @property int $totalCount
+ * Number of times the reaction was added
+ */
 class ReactionCount extends Base\BaseType
 {
 	public static function getFields(): array

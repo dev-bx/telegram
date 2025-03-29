@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The reaction is based on a custom emoji.
-* @property string $type
-* Type of the reaction, always “custom\_emoji”
-* @property string $customEmojiId
-* Custom emoji identifier
-*/
-
+ * The reaction is based on a custom emoji.
+ * @property string $type
+ * Type of the reaction, always “custom\_emoji”
+ * @property string $customEmojiId
+ * Custom emoji identifier
+ */
 class ReactionTypeCustomEmoji extends ReactionType
 {
 	public static function getFields(): array

@@ -17,15 +17,14 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Describes the affiliate program that issued the affiliate commission received via this transaction.
-* @property string $type
-* Type of the transaction partner, always “affiliate\_program”
-* @property Types\User $sponsorUser
-* *Optional*. Information about the bot that sponsored the affiliate program
-* @property int $commissionPerMille
-* The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users
-*/
-
+ * Describes the affiliate program that issued the affiliate commission received via this transaction.
+ * @property string $type
+ * Type of the transaction partner, always “affiliate\_program”
+ * @property Types\User $sponsorUser
+ * *Optional*. Information about the bot that sponsored the affiliate program
+ * @property int $commissionPerMille
+ * The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users
+ */
 class TransactionPartnerAffiliateProgram extends TransactionPartner
 {
 	public static function getFields(): array

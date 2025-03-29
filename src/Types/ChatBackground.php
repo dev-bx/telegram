@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a chat background.
-* @property BackgroundType|BackgroundTypeFill|BackgroundTypeWallpaper|BackgroundTypePattern|BackgroundTypeChatTheme $type
-* Type of the background
-*/
-
+ * This object represents a chat background.
+ * @property BackgroundType|BackgroundTypeFill|BackgroundTypeWallpaper|BackgroundTypePattern|BackgroundTypeChatTheme $type
+ * Type of the background
+ */
 class ChatBackground extends Base\BaseType
 {
 	public static function getFields(): array

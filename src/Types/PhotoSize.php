@@ -16,19 +16,18 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents one size of a photo or a [file](#document) / [sticker](#sticker) thumbnail.
-* @property string $fileId
-* Identifier for this file, which can be used to download or reuse the file
-* @property string $fileUniqueId
-* Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-* @property int $width
-* Photo width
-* @property int $height
-* Photo height
-* @property int $fileSize
-* *Optional*. File size in bytes
-*/
-
+ * This object represents one size of a photo or a [file](#document) / [sticker](#sticker) thumbnail.
+ * @property string $fileId
+ * Identifier for this file, which can be used to download or reuse the file
+ * @property string $fileUniqueId
+ * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property int $width
+ * Photo width
+ * @property int $height
+ * Photo height
+ * @property int $fileSize
+ * *Optional*. File size in bytes
+ */
 class PhotoSize extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents the bot's short description.
-* @property string $shortDescription
-* The bot's short description
-*/
-
+ * This object represents the bot's short description.
+ * @property string $shortDescription
+ * The bot's short description
+ */
 class BotShortDescription extends Base\BaseType
 {
 	public static function getFields(): array

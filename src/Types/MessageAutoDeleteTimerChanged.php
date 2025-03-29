@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a change in auto-delete timer settings.
-* @property int $messageAutoDeleteTime
-* New auto-delete time for messages in the chat; in seconds
-*/
-
+ * This object represents a service message about a change in auto-delete timer settings.
+ * @property int $messageAutoDeleteTime
+ * New auto-delete time for messages in the chat; in seconds
+ */
 class MessageAutoDeleteTimerChanged extends Base\BaseType
 {
 	public static function getFields(): array

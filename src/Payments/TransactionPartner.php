@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the source of a transaction, or its recipient for outgoing transactions. Currently, it can be one of
-*/
-
+ * This object describes the source of a transaction, or its recipient for outgoing transactions. Currently, it can be one of
+ */
 class TransactionPartner extends Base\BaseType
 {
 	public static function getRelations(): array

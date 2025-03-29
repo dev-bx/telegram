@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a video chat scheduled in the chat.
-* @property int $startDate
-* Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator
-*/
-
+ * This object represents a service message about a video chat scheduled in the chat.
+ * @property int $startDate
+ * Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator
+ */
 class VideoChatScheduled extends Base\BaseType
 {
 	public static function getFields(): array

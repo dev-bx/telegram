@@ -16,39 +16,38 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the rights of an administrator in a chat.
-* @property bool $isAnonymous
-* *True*, if the user's presence in the chat is hidden
-* @property bool $canManageChat
-* *True*, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
-* @property bool $canDeleteMessages
-* *True*, if the administrator can delete messages of other users
-* @property bool $canManageVideoChats
-* *True*, if the administrator can manage video chats
-* @property bool $canRestrictMembers
-* *True*, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
-* @property bool $canPromoteMembers
-* *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)
-* @property bool $canChangeInfo
-* *True*, if the user is allowed to change the chat title, photo and other settings
-* @property bool $canInviteUsers
-* *True*, if the user is allowed to invite new users to the chat
-* @property bool $canPostStories
-* *True*, if the administrator can post stories to the chat
-* @property bool $canEditStories
-* *True*, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
-* @property bool $canDeleteStories
-* *True*, if the administrator can delete stories posted by other users
-* @property bool $canPostMessages
-* *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; for channels only
-* @property bool $canEditMessages
-* *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; for channels only
-* @property bool $canPinMessages
-* *Optional*. *True*, if the user is allowed to pin messages; for groups and supergroups only
-* @property bool $canManageTopics
-* *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
-*/
-
+ * Represents the rights of an administrator in a chat.
+ * @property bool $isAnonymous
+ * *True*, if the user's presence in the chat is hidden
+ * @property bool $canManageChat
+ * *True*, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+ * @property bool $canDeleteMessages
+ * *True*, if the administrator can delete messages of other users
+ * @property bool $canManageVideoChats
+ * *True*, if the administrator can manage video chats
+ * @property bool $canRestrictMembers
+ * *True*, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
+ * @property bool $canPromoteMembers
+ * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+ * @property bool $canChangeInfo
+ * *True*, if the user is allowed to change the chat title, photo and other settings
+ * @property bool $canInviteUsers
+ * *True*, if the user is allowed to invite new users to the chat
+ * @property bool $canPostStories
+ * *True*, if the administrator can post stories to the chat
+ * @property bool $canEditStories
+ * *True*, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
+ * @property bool $canDeleteStories
+ * *True*, if the administrator can delete stories posted by other users
+ * @property bool $canPostMessages
+ * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; for channels only
+ * @property bool $canEditMessages
+ * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; for channels only
+ * @property bool $canPinMessages
+ * *Optional*. *True*, if the user is allowed to pin messages; for groups and supergroups only
+ * @property bool $canManageTopics
+ * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+ */
 class ChatAdministratorRights extends Base\BaseType
 {
 	public static function getFields(): array

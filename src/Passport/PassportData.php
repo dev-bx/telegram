@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes Telegram Passport data shared with the bot by the user.
-* @property Base\ArrayObject|EncryptedPassportElement[] $data
-* Array with information about documents and other Telegram Passport elements that was shared with the bot
-* @property EncryptedCredentials $credentials
-* Encrypted credentials required to decrypt the data
-*/
-
+ * Describes Telegram Passport data shared with the bot by the user.
+ * @property Base\ArrayObject|EncryptedPassportElement[] $data
+ * Array with information about documents and other Telegram Passport elements that was shared with the bot
+ * @property EncryptedCredentials $credentials
+ * Encrypted credentials required to decrypt the data
+ */
 class PassportData extends Base\BaseType
 {
 	public static function getFields(): array

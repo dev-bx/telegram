@@ -25,16 +25,16 @@ class PsrClient extends \DevBX\Telegram\Api
         try {
             $response = $client->sendRequest($request);
         } catch (NetworkExceptionInterface $e) {
-            $result->addError(new Error('Network error: ' . $e->getMessage()));
+            $result->addErrorItem(new Error('Network error: ' . $e->getMessage()));
             return false;
         } catch (ClientExceptionInterface $e) {
-            $result->addError(new Error('Client error: ' . $e->getMessage()));
+            $result->addErrorItem(new Error('Client error: ' . $e->getMessage()));
             return false;
         }
 
         if (!str_starts_with($response->getStatusCode(), '2'))
         {
-            $result->addError(new Error('HTTP status code: ' . $response->getStatusCode()));
+            $result->addErrorItem(new Error('HTTP status code: ' . $response->getStatusCode()));
         }
 
         return (string)$response->getBody();

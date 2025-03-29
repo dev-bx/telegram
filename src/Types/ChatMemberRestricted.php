@@ -16,45 +16,44 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a [chat member](#chatmember) that is under certain restrictions in the chat. Supergroups only.
-* @property string $status
-* The member's status in the chat, always “restricted”
-* @property User $user
-* Information about the user
-* @property bool $isMember
-* *True*, if the user is a member of the chat at the moment of the request
-* @property bool $canSendMessages
-* *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
-* @property bool $canSendAudios
-* *True*, if the user is allowed to send audios
-* @property bool $canSendDocuments
-* *True*, if the user is allowed to send documents
-* @property bool $canSendPhotos
-* *True*, if the user is allowed to send photos
-* @property bool $canSendVideos
-* *True*, if the user is allowed to send videos
-* @property bool $canSendVideoNotes
-* *True*, if the user is allowed to send video notes
-* @property bool $canSendVoiceNotes
-* *True*, if the user is allowed to send voice notes
-* @property bool $canSendPolls
-* *True*, if the user is allowed to send polls
-* @property bool $canSendOtherMessages
-* *True*, if the user is allowed to send animations, games, stickers and use inline bots
-* @property bool $canAddWebPagePreviews
-* *True*, if the user is allowed to add web page previews to their messages
-* @property bool $canChangeInfo
-* *True*, if the user is allowed to change the chat title, photo and other settings
-* @property bool $canInviteUsers
-* *True*, if the user is allowed to invite new users to the chat
-* @property bool $canPinMessages
-* *True*, if the user is allowed to pin messages
-* @property bool $canManageTopics
-* *True*, if the user is allowed to create forum topics
-* @property int $untilDate
-* Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
-*/
-
+ * Represents a [chat member](#chatmember) that is under certain restrictions in the chat. Supergroups only.
+ * @property string $status
+ * The member's status in the chat, always “restricted”
+ * @property User $user
+ * Information about the user
+ * @property bool $isMember
+ * *True*, if the user is a member of the chat at the moment of the request
+ * @property bool $canSendMessages
+ * *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+ * @property bool $canSendAudios
+ * *True*, if the user is allowed to send audios
+ * @property bool $canSendDocuments
+ * *True*, if the user is allowed to send documents
+ * @property bool $canSendPhotos
+ * *True*, if the user is allowed to send photos
+ * @property bool $canSendVideos
+ * *True*, if the user is allowed to send videos
+ * @property bool $canSendVideoNotes
+ * *True*, if the user is allowed to send video notes
+ * @property bool $canSendVoiceNotes
+ * *True*, if the user is allowed to send voice notes
+ * @property bool $canSendPolls
+ * *True*, if the user is allowed to send polls
+ * @property bool $canSendOtherMessages
+ * *True*, if the user is allowed to send animations, games, stickers and use inline bots
+ * @property bool $canAddWebPagePreviews
+ * *True*, if the user is allowed to add web page previews to their messages
+ * @property bool $canChangeInfo
+ * *True*, if the user is allowed to change the chat title, photo and other settings
+ * @property bool $canInviteUsers
+ * *True*, if the user is allowed to invite new users to the chat
+ * @property bool $canPinMessages
+ * *True*, if the user is allowed to pin messages
+ * @property bool $canManageTopics
+ * *True*, if the user is allowed to create forum topics
+ * @property int $untilDate
+ * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
+ */
 class ChatMemberRestricted extends ChatMember
 {
 	public static function getFields(): array

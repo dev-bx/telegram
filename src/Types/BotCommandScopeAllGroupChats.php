@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the [scope](#botcommandscope) of bot commands, covering all group and supergroup chats.
-* @property string $type
-* Scope type, must be *all\_group\_chats*
-*/
-
+ * Represents the [scope](#botcommandscope) of bot commands, covering all group and supergroup chats.
+ * @property string $type
+ * Scope type, must be *all\_group\_chats*
+ */
 class BotCommandScopeAllGroupChats extends BotCommandScope
 {
 	public static function getFields(): array

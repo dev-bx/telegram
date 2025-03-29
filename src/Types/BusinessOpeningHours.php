@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes the opening hours of a business.
-* @property string $timeZoneName
-* Unique name of the time zone for which the opening hours are defined
-* @property Base\ArrayObject|BusinessOpeningHoursInterval[] $openingHours
-* List of time intervals describing business opening hours
-*/
-
+ * Describes the opening hours of a business.
+ * @property string $timeZoneName
+ * Unique name of the time zone for which the opening hours are defined
+ * @property Base\ArrayObject|BusinessOpeningHoursInterval[] $openingHours
+ * List of time intervals describing business opening hours
+ */
 class BusinessOpeningHours extends Base\BaseType
 {
 	public static function getFields(): array

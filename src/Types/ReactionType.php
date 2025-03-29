@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the type of a reaction. Currently, it can be one of
-*/
-
+ * This object describes the type of a reaction. Currently, it can be one of
+ */
 class ReactionType extends Base\BaseType
 {
 	public static function getRelations(): array

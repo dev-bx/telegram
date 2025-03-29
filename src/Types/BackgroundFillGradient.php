@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The background is a gradient fill.
-* @property string $type
-* Type of the background fill, always “gradient”
-* @property int $topColor
-* Top color of the gradient in the RGB24 format
-* @property int $bottomColor
-* Bottom color of the gradient in the RGB24 format
-* @property int $rotationAngle
-* Clockwise rotation angle of the background fill in degrees; 0-359
-*/
-
+ * The background is a gradient fill.
+ * @property string $type
+ * Type of the background fill, always “gradient”
+ * @property int $topColor
+ * Top color of the gradient in the RGB24 format
+ * @property int $bottomColor
+ * Bottom color of the gradient in the RGB24 format
+ * @property int $rotationAngle
+ * Clockwise rotation angle of the background fill in degrees; 0-359
+ */
 class BackgroundFillGradient extends BackgroundFill
 {
 	public static function getFields(): array

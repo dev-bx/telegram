@@ -17,19 +17,18 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the sticker.
-* @property string $type
-* Type of the result, must be *sticker*
-* @property string $id
-* Unique identifier for this result, 1-64 bytes
-* @property string $stickerFileId
-* A valid file identifier of the sticker
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the sticker
-*/
-
+ * Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the sticker.
+ * @property string $type
+ * Type of the result, must be *sticker*
+ * @property string $id
+ * Unique identifier for this result, 1-64 bytes
+ * @property string $stickerFileId
+ * A valid file identifier of the sticker
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the sticker
+ */
 class InlineQueryResultCachedSticker extends InlineQueryResult
 {
 	public static function getFields(): array

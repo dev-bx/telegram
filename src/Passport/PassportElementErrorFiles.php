@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
-* @property string $source
-* Error source, must be *files*
-* @property string $type
-* The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
-* @property string[] $fileHashes
-* List of base64-encoded file hashes
-* @property string $message
-* Error message
-*/
-
+ * Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
+ * @property string $source
+ * Error source, must be *files*
+ * @property string $type
+ * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
+ * @property string[] $fileHashes
+ * List of base64-encoded file hashes
+ * @property string $message
+ * Error message
+ */
 class PassportElementErrorFiles extends PassportElementError
 {
 	public static function getFields(): array

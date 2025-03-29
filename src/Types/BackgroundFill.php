@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the way a background is filled based on the selected colors. Currently, it can be one of
-*/
-
+ * This object describes the way a background is filled based on the selected colors. Currently, it can be one of
+ */
 class BackgroundFill extends Base\BaseType
 {
 	public static function getRelations(): array

@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the source of a chat boost. It can be one of
-*/
-
+ * This object describes the source of a chat boost. It can be one of
+ */
 class ChatBoostSource extends Base\BaseType
 {
 	public static function getRelations(): array

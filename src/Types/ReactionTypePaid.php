@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The reaction is paid.
-* @property string $type
-* Type of the reaction, always “paid”
-*/
-
+ * The reaction is paid.
+ * @property string $type
+ * Type of the reaction, always “paid”
+ */
 class ReactionTypePaid extends ReactionType
 {
 	public static function getFields(): array

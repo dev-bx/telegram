@@ -16,19 +16,18 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The message was originally sent to a channel chat.
-* @property string $type
-* Type of the message origin, always “channel”
-* @property int $date
-* Date the message was sent originally in Unix time
-* @property Chat $chat
-* Channel chat to which the message was originally sent
-* @property int $messageId
-* Unique message identifier inside the chat
-* @property string $authorSignature
-* *Optional*. Signature of the original post author
-*/
-
+ * The message was originally sent to a channel chat.
+ * @property string $type
+ * Type of the message origin, always “channel”
+ * @property int $date
+ * Date the message was sent originally in Unix time
+ * @property Chat $chat
+ * Channel chat to which the message was originally sent
+ * @property int $messageId
+ * Unique message identifier inside the chat
+ * @property string $authorSignature
+ * *Optional*. Signature of the original post author
+ */
 class MessageOriginChannel extends MessageOrigin
 {
 	public static function getFields(): array

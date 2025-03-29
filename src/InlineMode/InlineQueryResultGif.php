@@ -17,39 +17,38 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
-* @property string $type
-* Type of the result, must be *gif*
-* @property string $id
-* Unique identifier for this result, 1-64 bytes
-* @property string $gifUrl
-* A valid URL for the GIF file
-* @property int $gifWidth
-* *Optional*. Width of the GIF
-* @property int $gifHeight
-* *Optional*. Height of the GIF
-* @property int $gifDuration
-* *Optional*. Duration of the GIF in seconds
-* @property string $thumbnailUrl
-* URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
-* @property string $thumbnailMimeType
-* *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
-* @property string $title
-* *Optional*. Title for the result
-* @property string $caption
-* *Optional*. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
-* @property string $parseMode
-* *Optional*. Mode for parsing entities in the caption. See [formatting options](#formatting-options) for more details.
-* @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
-* *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-* @property bool $showCaptionAboveMedia
-* *Optional*. Pass *True*, if the caption must be shown above the message media
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the GIF animation
-*/
-
+ * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
+ * @property string $type
+ * Type of the result, must be *gif*
+ * @property string $id
+ * Unique identifier for this result, 1-64 bytes
+ * @property string $gifUrl
+ * A valid URL for the GIF file
+ * @property int $gifWidth
+ * *Optional*. Width of the GIF
+ * @property int $gifHeight
+ * *Optional*. Height of the GIF
+ * @property int $gifDuration
+ * *Optional*. Duration of the GIF in seconds
+ * @property string $thumbnailUrl
+ * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
+ * @property string $thumbnailMimeType
+ * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+ * @property string $title
+ * *Optional*. Title for the result
+ * @property string $caption
+ * *Optional*. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+ * @property string $parseMode
+ * *Optional*. Mode for parsing entities in the caption. See [formatting options](#formatting-options) for more details.
+ * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
+ * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+ * @property bool $showCaptionAboveMedia
+ * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the GIF animation
+ */
 class InlineQueryResultGif extends InlineQueryResult
 {
 	public static function getFields(): array

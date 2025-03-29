@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object contains information about a chat boost.
-* @property string $boostId
-* Unique identifier of the boost
-* @property int $addDate
-* Point in time (Unix timestamp) when the chat was boosted
-* @property int $expirationDate
-* Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
-* @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
-* Source of the added boost
-*/
-
+ * This object contains information about a chat boost.
+ * @property string $boostId
+ * Unique identifier of the boost
+ * @property int $addDate
+ * Point in time (Unix timestamp) when the chat was boosted
+ * @property int $expirationDate
+ * Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
+ * @property ChatBoostSource|ChatBoostSourcePremium|ChatBoostSourceGiftCode|ChatBoostSourceGiveaway $source
+ * Source of the added boost
+ */
 class ChatBoost extends Base\BaseType
 {
 	public static function getFields(): array

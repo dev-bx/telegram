@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes the paid media added to a message.
-* @property int $starCount
-* The number of Telegram Stars that must be paid to buy access to the media
-* @property Base\ArrayObject|PaidMedia[] $paidMedia
-* Information about the paid media
-*/
-
+ * Describes the paid media added to a message.
+ * @property int $starCount
+ * The number of Telegram Stars that must be paid to buy access to the media
+ * @property Base\ArrayObject|PaidMedia[] $paidMedia
+ * Information about the paid media
+ */
 class PaidMediaInfo extends Base\BaseType
 {
 	public static function getFields(): array

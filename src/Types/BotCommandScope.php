@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
-*/
-
+ * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
+ */
 class BotCommandScope extends Base\BaseType
 {
 	public static function getRelations(): array

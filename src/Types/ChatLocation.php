@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a location to which a chat is connected.
-* @property Location $location
-* The location to which the supergroup is connected. Can't be a live location.
-* @property string $address
-* Location address; 1-64 characters, as defined by the chat owner
-*/
-
+ * Represents a location to which a chat is connected.
+ * @property Location $location
+ * The location to which the supergroup is connected. Can't be a live location.
+ * @property string $address
+ * Location address; 1-64 characters, as defined by the chat owner
+ */
 class ChatLocation extends Base\BaseType
 {
 	public static function getFields(): array

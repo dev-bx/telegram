@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represent a user's profile pictures.
-* @property int $totalCount
-* Total number of profile pictures the target user has
-* @property Base\ArrayOfArrayObject|PhotoSize[][] $photos
-* Requested profile pictures (in up to 4 sizes each)
-*/
-
+ * This object represent a user's profile pictures.
+ * @property int $totalCount
+ * Total number of profile pictures the target user has
+ * @property Base\ArrayOfArrayObject|PhotoSize[][] $photos
+ * Requested profile pictures (in up to 4 sizes each)
+ */
 class UserProfilePhotos extends Base\BaseType
 {
 	public static function getFields(): array

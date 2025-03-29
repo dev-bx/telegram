@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents one shipping option.
-* @property string $id
-* Shipping option identifier
-* @property string $title
-* Option title
-* @property Base\ArrayObject|LabeledPrice[] $prices
-* List of price portions
-*/
-
+ * This object represents one shipping option.
+ * @property string $id
+ * Shipping option identifier
+ * @property string $title
+ * Option title
+ * @property Base\ArrayObject|LabeledPrice[] $prices
+ * List of price portions
+ */
 class ShippingOption extends Base\BaseType
 {
 	public static function getFields(): array

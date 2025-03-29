@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a service message about a forum topic reopened in the chat. Currently holds no information.
-*/
-
+ * This object represents a service message about a forum topic reopened in the chat. Currently holds no information.
+ */
 class ForumTopicReopened extends Base\BaseType
 {
 	public static function getFields(): array

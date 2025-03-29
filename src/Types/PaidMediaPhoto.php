@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The paid media is a photo.
-* @property string $type
-* Type of the paid media, always “photo”
-* @property Base\ArrayObject|PhotoSize[] $photo
-* The photo
-*/
-
+ * The paid media is a photo.
+ * @property string $type
+ * Type of the paid media, always “photo”
+ * @property Base\ArrayObject|PhotoSize[] $photo
+ * The photo
+ */
 class PaidMediaPhoto extends PaidMedia
 {
 	public static function getFields(): array

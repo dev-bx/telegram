@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the paid media to be sent. Currently, it can be one of
-*/
-
+ * This object describes the paid media to be sent. Currently, it can be one of
+ */
 class InputPaidMedia extends Base\BaseType
 {
 	public static function getRelations(): array

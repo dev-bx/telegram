@@ -16,27 +16,26 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes the current status of a webhook.
-* @property string $url
-* Webhook URL, may be empty if webhook is not set up
-* @property bool $hasCustomCertificate
-* *True*, if a custom certificate was provided for webhook certificate checks
-* @property int $pendingUpdateCount
-* Number of updates awaiting delivery
-* @property string $ipAddress
-* *Optional*. Currently used webhook IP address
-* @property int $lastErrorDate
-* *Optional*. Unix time for the most recent error that happened when trying to deliver an update via webhook
-* @property string $lastErrorMessage
-* *Optional*. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
-* @property int $lastSynchronizationErrorDate
-* *Optional*. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
-* @property int $maxConnections
-* *Optional*. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
-* @property string[] $allowedUpdates
-* *Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*
-*/
-
+ * Describes the current status of a webhook.
+ * @property string $url
+ * Webhook URL, may be empty if webhook is not set up
+ * @property bool $hasCustomCertificate
+ * *True*, if a custom certificate was provided for webhook certificate checks
+ * @property int $pendingUpdateCount
+ * Number of updates awaiting delivery
+ * @property string $ipAddress
+ * *Optional*. Currently used webhook IP address
+ * @property int $lastErrorDate
+ * *Optional*. Unix time for the most recent error that happened when trying to deliver an update via webhook
+ * @property string $lastErrorMessage
+ * *Optional*. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
+ * @property int $lastSynchronizationErrorDate
+ * *Optional*. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
+ * @property int $maxConnections
+ * *Optional*. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+ * @property string[] $allowedUpdates
+ * *Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*
+ */
 class WebhookInfo extends Base\BaseType
 {
 	public static function getFields(): array

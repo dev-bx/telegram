@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents an [inline keyboard](/bots/features#inline-keyboards) that appears right next to the message it belongs to.
-* @property Base\ArrayOfArrayObject|InlineKeyboardButton[][] $inlineKeyboard
-* Array of button rows, each represented by an Array of [InlineKeyboardButton](#inlinekeyboardbutton) objects
-*/
-
+ * This object represents an [inline keyboard](/bots/features#inline-keyboards) that appears right next to the message it belongs to.
+ * @property Base\ArrayOfArrayObject|InlineKeyboardButton[][] $inlineKeyboard
+ * Array of button rows, each represented by an Array of [InlineKeyboardButton](#inlinekeyboardbutton) objects
+ */
 class InlineKeyboardMarkup extends Base\BaseType
 {
 	public static function getFields(): array

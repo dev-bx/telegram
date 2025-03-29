@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.
-* @property User $traveler
-* User that triggered the alert
-* @property User $watcher
-* User that set the alert
-* @property int $distance
-* The distance between the users
-*/
-
+ * This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.
+ * @property User $traveler
+ * User that triggered the alert
+ * @property User $watcher
+ * User that set the alert
+ * @property int $distance
+ * The distance between the users
+ */
 class ProximityAlertTriggered extends Base\BaseType
 {
 	public static function getFields(): array

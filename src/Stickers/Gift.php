@@ -16,21 +16,20 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a gift that can be sent by the bot.
-* @property string $id
-* Unique identifier of the gift
-* @property Sticker $sticker
-* The sticker that represents the gift
-* @property int $starCount
-* The number of Telegram Stars that must be paid to send the sticker
-* @property int $upgradeStarCount
-* *Optional*. The number of Telegram Stars that must be paid to upgrade the gift to a unique one
-* @property int $totalCount
-* *Optional*. The total number of the gifts of this type that can be sent; for limited gifts only
-* @property int $remainingCount
-* *Optional*. The number of remaining gifts of this type that can be sent; for limited gifts only
-*/
-
+ * This object represents a gift that can be sent by the bot.
+ * @property string $id
+ * Unique identifier of the gift
+ * @property Sticker $sticker
+ * The sticker that represents the gift
+ * @property int $starCount
+ * The number of Telegram Stars that must be paid to send the sticker
+ * @property int $upgradeStarCount
+ * *Optional*. The number of Telegram Stars that must be paid to upgrade the gift to a unique one
+ * @property int $totalCount
+ * *Optional*. The total number of the gifts of this type that can be sent; for limited gifts only
+ * @property int $remainingCount
+ * *Optional*. The number of remaining gifts of this type that can be sent; for limited gifts only
+ */
 class Gift extends Base\BaseType
 {
 	public static function getFields(): array

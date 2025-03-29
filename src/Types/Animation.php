@@ -16,27 +16,26 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
-* @property string $fileId
-* Identifier for this file, which can be used to download or reuse the file
-* @property string $fileUniqueId
-* Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
-* @property int $width
-* Video width as defined by the sender
-* @property int $height
-* Video height as defined by the sender
-* @property int $duration
-* Duration of the video in seconds as defined by the sender
-* @property PhotoSize $thumbnail
-* *Optional*. Animation thumbnail as defined by the sender
-* @property string $fileName
-* *Optional*. Original animation filename as defined by the sender
-* @property string $mimeType
-* *Optional*. MIME type of the file as defined by the sender
-* @property int $fileSize
-* *Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
-*/
-
+ * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
+ * @property string $fileId
+ * Identifier for this file, which can be used to download or reuse the file
+ * @property string $fileUniqueId
+ * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property int $width
+ * Video width as defined by the sender
+ * @property int $height
+ * Video height as defined by the sender
+ * @property int $duration
+ * Duration of the video in seconds as defined by the sender
+ * @property PhotoSize $thumbnail
+ * *Optional*. Animation thumbnail as defined by the sender
+ * @property string $fileName
+ * *Optional*. Original animation filename as defined by the sender
+ * @property string $mimeType
+ * *Optional*. MIME type of the file as defined by the sender
+ * @property int $fileSize
+ * *Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+ */
 class Animation extends Base\BaseType
 {
 	public static function getFields(): array

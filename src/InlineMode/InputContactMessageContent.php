@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the [content](#inputmessagecontent) of a contact message to be sent as the result of an inline query.
-* @property string $phoneNumber
-* Contact's phone number
-* @property string $firstName
-* Contact's first name
-* @property string $lastName
-* *Optional*. Contact's last name
-* @property string $vcard
-* *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
-*/
-
+ * Represents the [content](#inputmessagecontent) of a contact message to be sent as the result of an inline query.
+ * @property string $phoneNumber
+ * Contact's phone number
+ * @property string $firstName
+ * Contact's first name
+ * @property string $lastName
+ * *Optional*. Contact's last name
+ * @property string $vcard
+ * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
+ */
 class InputContactMessageContent extends InputMessageContent
 {
 	public static function getFields(): array

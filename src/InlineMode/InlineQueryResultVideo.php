@@ -17,41 +17,40 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the video.
-* @property string $type
-* Type of the result, must be *video*
-* @property string $id
-* Unique identifier for this result, 1-64 bytes
-* @property string $videoUrl
-* A valid URL for the embedded video player or video file
-* @property string $mimeType
-* MIME type of the content of the video URL, “text/html” or “video/mp4”
-* @property string $thumbnailUrl
-* URL of the thumbnail (JPEG only) for the video
-* @property string $title
-* Title for the result
-* @property string $caption
-* *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
-* @property string $parseMode
-* *Optional*. Mode for parsing entities in the video caption. See [formatting options](#formatting-options) for more details.
-* @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
-* *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-* @property bool $showCaptionAboveMedia
-* *Optional*. Pass *True*, if the caption must be shown above the message media
-* @property int $videoWidth
-* *Optional*. Video width
-* @property int $videoHeight
-* *Optional*. Video height
-* @property int $videoDuration
-* *Optional*. Video duration in seconds
-* @property string $description
-* *Optional*. Short description of the result
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* *Optional*. Content of the message to be sent instead of the video. This field is **required** if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
-*/
-
+ * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the video.
+ * @property string $type
+ * Type of the result, must be *video*
+ * @property string $id
+ * Unique identifier for this result, 1-64 bytes
+ * @property string $videoUrl
+ * A valid URL for the embedded video player or video file
+ * @property string $mimeType
+ * MIME type of the content of the video URL, “text/html” or “video/mp4”
+ * @property string $thumbnailUrl
+ * URL of the thumbnail (JPEG only) for the video
+ * @property string $title
+ * Title for the result
+ * @property string $caption
+ * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
+ * @property string $parseMode
+ * *Optional*. Mode for parsing entities in the video caption. See [formatting options](#formatting-options) for more details.
+ * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
+ * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+ * @property bool $showCaptionAboveMedia
+ * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * @property int $videoWidth
+ * *Optional*. Video width
+ * @property int $videoHeight
+ * *Optional*. Video height
+ * @property int $videoDuration
+ * *Optional*. Video duration in seconds
+ * @property string $description
+ * *Optional*. Short description of the result
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * *Optional*. Content of the message to be sent instead of the video. This field is **required** if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
+ */
 class InlineQueryResultVideo extends InlineQueryResult
 {
 	public static function getFields(): array

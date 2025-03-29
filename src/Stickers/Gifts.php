@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represent a list of gifts.
-* @property Base\ArrayObject|Gift[] $gifts
-* The list of gifts
-*/
-
+ * This object represent a list of gifts.
+ * @property Base\ArrayObject|Gift[] $gifts
+ * The list of gifts
+ */
 class Gifts extends Base\BaseType
 {
 	public static function getFields(): array

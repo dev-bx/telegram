@@ -14,11 +14,28 @@ class Api
     protected $onResponse;
     protected $onResult;
 
+    protected static $instance = null;
+
     public function __construct(array $params = [])
     {
         $this->token = $params['token'];
         $this->apiUrl = $params['api_url'] ?? 'https://api.telegram.org/bot';
         $this->clientOptions = $params['client_options'] ?? [];
+        static::$instance = $this;
+    }
+
+    public static function getInstance(): static|null
+    {
+        if (!static::$instance)
+        {
+            if (function_exists('devbx_telegram_init'))
+            {
+                /** @noinspection PhpUndefinedFunctionInspection */
+                devbx_telegram_init();
+            }
+        }
+
+        return static::$instance;
     }
 
     /**
@@ -103,6 +120,10 @@ class Api
         $returnIsArray = false;
         $canReturnBool = false;
 
+        if ($structure instanceof BaseType) {
+            $structure = $structure::getFields();
+        }
+
         if ($structure['@return']) {
             $returnType = $structure['@return']['type'];
             $returnIsArray = $structure['@return']['isArray'] ?? false;
@@ -128,7 +149,7 @@ class Api
 
         if (!$query->isSuccess())
         {
-            $result->addErrors($query->getErrors());
+            $result->addErrorsCollection($query->getErrorsCollection());
             return $result;
         }
 
@@ -161,7 +182,7 @@ class Api
                 $value = json_encode($value);
                 if ($value === false)
                 {
-                    return $result->addError(new Error(json_last_error_msg(), 'json_encode'));
+                    return $result->addErrorItem(new Error(json_last_error_msg(), 'json_encode'));
                 }
             }
 
@@ -195,7 +216,7 @@ class Api
         $response = json_decode($response, true);
         if ($response === null)
         {
-            return $result->addError(new Error(json_last_error_msg(), 'json_decode'));
+            return $result->addErrorItem(new Error(json_last_error_msg(), 'json_decode'));
         }
 
         if ($this->onResponse)
@@ -208,7 +229,7 @@ class Api
 
         if (!$response['ok'])
         {
-            return $result->addError(new Error($response['description'], $response['error_code'], $response));
+            return $result->addErrorItem(new Error($response['description'], $response['error_code'], $response));
         }
 
         if ($canReturnBool && is_bool($response['result']))
@@ -248,13 +269,13 @@ class Api
         $postData = file_get_contents('php://input');
         if (empty($postData))
         {
-            return $webhookUpdate->addError(new Error('Post data is empty'));
+            return $webhookUpdate->addErrorItem(new Error('Post data is empty'));
         }
 
         $postData = json_decode($postData, true);
         if ($postData === null)
         {
-            return $webhookUpdate->addError(new Error(json_last_error_msg(), 'json_decode'));
+            return $webhookUpdate->addErrorItem(new Error(json_last_error_msg(), 'json_decode'));
         }
 
         $webhookUpdate->setEntityValue($postData, true);

@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents a [chat member](#chatmember) that has no additional privileges or restrictions.
-* @property string $status
-* The member's status in the chat, always “member”
-* @property User $user
-* Information about the user
-* @property int $untilDate
-* *Optional*. Date when the user's subscription will expire; Unix time
-*/
-
+ * Represents a [chat member](#chatmember) that has no additional privileges or restrictions.
+ * @property string $status
+ * The member's status in the chat, always “member”
+ * @property User $user
+ * Information about the user
+ * @property int $untilDate
+ * *Optional*. Date when the user's subscription will expire; Unix time
+ */
 class ChatMemberMember extends ChatMember
 {
 	public static function getFields(): array

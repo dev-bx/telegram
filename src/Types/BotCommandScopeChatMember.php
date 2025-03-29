@@ -16,15 +16,14 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the [scope](#botcommandscope) of bot commands, covering a specific member of a group or supergroup chat.
-* @property string $type
-* Scope type, must be *chat\_member*
-* @property int|string $chatId
-* Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
-* @property int $userId
-* Unique identifier of the target user
-*/
-
+ * Represents the [scope](#botcommandscope) of bot commands, covering a specific member of a group or supergroup chat.
+ * @property string $type
+ * Scope type, must be *chat\_member*
+ * @property int|string $chatId
+ * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ * @property int $userId
+ * Unique identifier of the target user
+ */
 class BotCommandScopeChatMember extends BotCommandScope
 {
 	public static function getFields(): array

@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a boost added to a chat or changed.
-* @property Chat $chat
-* Chat which was boosted
-* @property ChatBoost $boost
-* Information about the chat boost
-*/
-
+ * This object represents a boost added to a chat or changed.
+ * @property Chat $chat
+ * Chat which was boosted
+ * @property ChatBoost $boost
+ * Information about the chat boost
+ */
 class ChatBoostUpdated extends Base\BaseType
 {
 	public static function getFields(): array

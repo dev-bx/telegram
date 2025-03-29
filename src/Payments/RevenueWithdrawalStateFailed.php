@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The withdrawal failed and the transaction was refunded.
-* @property string $type
-* Type of the state, always “failed”
-*/
-
+ * The withdrawal failed and the transaction was refunded.
+ * @property string $type
+ * Type of the state, always “failed”
+ */
 class RevenueWithdrawalStateFailed extends RevenueWithdrawalState
 {
 	public static function getFields(): array

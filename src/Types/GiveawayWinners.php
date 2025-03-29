@@ -16,33 +16,32 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a message about the completion of a giveaway with public winners.
-* @property Chat $chat
-* The chat that created the giveaway
-* @property int $giveawayMessageId
-* Identifier of the message with the giveaway in the chat
-* @property int $winnersSelectionDate
-* Point in time (Unix timestamp) when winners of the giveaway were selected
-* @property int $winnerCount
-* Total number of winners in the giveaway
-* @property Base\ArrayObject|User[] $winners
-* List of up to 100 winners of the giveaway
-* @property int $additionalChatCount
-* *Optional*. The number of other chats the user had to join in order to be eligible for the giveaway
-* @property int $prizeStarCount
-* *Optional*. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only
-* @property int $premiumSubscriptionMonthCount
-* *Optional*. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only
-* @property int $unclaimedPrizeCount
-* *Optional*. Number of undistributed prizes
-* @property bool $onlyNewMembers
-* *Optional*. *True*, if only users who had joined the chats after the giveaway started were eligible to win
-* @property bool $wasRefunded
-* *Optional*. *True*, if the giveaway was canceled because the payment for it was refunded
-* @property string $prizeDescription
-* *Optional*. Description of additional giveaway prize
-*/
-
+ * This object represents a message about the completion of a giveaway with public winners.
+ * @property Chat $chat
+ * The chat that created the giveaway
+ * @property int $giveawayMessageId
+ * Identifier of the message with the giveaway in the chat
+ * @property int $winnersSelectionDate
+ * Point in time (Unix timestamp) when winners of the giveaway were selected
+ * @property int $winnerCount
+ * Total number of winners in the giveaway
+ * @property Base\ArrayObject|User[] $winners
+ * List of up to 100 winners of the giveaway
+ * @property int $additionalChatCount
+ * *Optional*. The number of other chats the user had to join in order to be eligible for the giveaway
+ * @property int $prizeStarCount
+ * *Optional*. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only
+ * @property int $premiumSubscriptionMonthCount
+ * *Optional*. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only
+ * @property int $unclaimedPrizeCount
+ * *Optional*. Number of undistributed prizes
+ * @property bool $onlyNewMembers
+ * *Optional*. *True*, if only users who had joined the chats after the giveaway started were eligible to win
+ * @property bool $wasRefunded
+ * *Optional*. *True*, if the giveaway was canceled because the payment for it was refunded
+ * @property string $prizeDescription
+ * *Optional*. Description of additional giveaway prize
+ */
 class GiveawayWinners extends Base\BaseType
 {
 	public static function getFields(): array

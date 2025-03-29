@@ -16,19 +16,18 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object contains basic information about a refunded payment.
-* @property string $currency
-* Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90). Currently, always “XTR”
-* @property int $totalAmount
-* Total refunded price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45`, `total_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-* @property string $invoicePayload
-* Bot-specified invoice payload
-* @property string $telegramPaymentChargeId
-* Telegram payment identifier
-* @property string $providerPaymentChargeId
-* *Optional*. Provider payment identifier
-*/
-
+ * This object contains basic information about a refunded payment.
+ * @property string $currency
+ * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90). Currently, always “XTR”
+ * @property int $totalAmount
+ * Total refunded price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45`, `total_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+ * @property string $invoicePayload
+ * Bot-specified invoice payload
+ * @property string $telegramPaymentChargeId
+ * Telegram payment identifier
+ * @property string $providerPaymentChargeId
+ * *Optional*. Provider payment identifier
+ */
 class RefundedPayment extends Base\BaseType
 {
 	public static function getFields(): array

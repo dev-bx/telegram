@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* A placeholder, currently holds no information. Use [BotFather](https://t.me/botfather) to set up your game.
-*/
-
+ * A placeholder, currently holds no information. Use [BotFather](https://t.me/botfather) to set up your game.
+ */
 class CallbackGame extends Base\BaseType
 {
 	public static function getFields(): array

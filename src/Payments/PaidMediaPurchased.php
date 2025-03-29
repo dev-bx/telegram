@@ -17,13 +17,12 @@ use DevBX\Telegram\Types;
 
 
 /**
-* This object contains information about a paid media purchase.
-* @property Types\User $from
-* User who purchased the media
-* @property string $paidMediaPayload
-* Bot-specified paid media payload
-*/
-
+ * This object contains information about a paid media purchase.
+ * @property Types\User $from
+ * User who purchased the media
+ * @property string $paidMediaPayload
+ * Bot-specified paid media payload
+ */
 class PaidMediaPurchased extends Base\BaseType
 {
 	public static function getFields(): array

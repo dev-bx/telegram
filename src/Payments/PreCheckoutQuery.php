@@ -17,23 +17,22 @@ use DevBX\Telegram\Types;
 
 
 /**
-* This object contains information about an incoming pre-checkout query.
-* @property string $id
-* Unique query identifier
-* @property Types\User $from
-* User who sent the query
-* @property string $currency
-* Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90)
-* @property int $totalAmount
-* Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-* @property string $invoicePayload
-* Bot-specified invoice payload
-* @property string $shippingOptionId
-* *Optional*. Identifier of the shipping option chosen by the user
-* @property OrderInfo $orderInfo
-* *Optional*. Order information provided by the user
-*/
-
+ * This object contains information about an incoming pre-checkout query.
+ * @property string $id
+ * Unique query identifier
+ * @property Types\User $from
+ * User who sent the query
+ * @property string $currency
+ * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90)
+ * @property int $totalAmount
+ * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+ * @property string $invoicePayload
+ * Bot-specified invoice payload
+ * @property string $shippingOptionId
+ * *Optional*. Identifier of the shipping option chosen by the user
+ * @property OrderInfo $orderInfo
+ * *Optional*. Order information provided by the user
+ */
 class PreCheckoutQuery extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents information about an order.
-* @property string $name
-* *Optional*. User name
-* @property string $phoneNumber
-* *Optional*. User's phone number
-* @property string $email
-* *Optional*. User email
-* @property ShippingAddress $shippingAddress
-* *Optional*. User shipping address
-*/
-
+ * This object represents information about an order.
+ * @property string $name
+ * *Optional*. User name
+ * @property string $phoneNumber
+ * *Optional*. User's phone number
+ * @property string $email
+ * *Optional*. User email
+ * @property ShippingAddress $shippingAddress
+ * *Optional*. User shipping address
+ */
 class OrderInfo extends Base\BaseType
 {
 	public static function getFields(): array

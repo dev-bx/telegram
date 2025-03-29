@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Contains a list of Telegram Star transactions.
-* @property Base\ArrayObject|StarTransaction[] $transactions
-* The list of transactions
-*/
-
+ * Contains a list of Telegram Star transactions.
+ * @property Base\ArrayObject|StarTransaction[] $transactions
+ * The list of transactions
+ */
 class StarTransactions extends Base\BaseType
 {
 	public static function getFields(): array

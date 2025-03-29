@@ -16,31 +16,30 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents an invite link for a chat.
-* @property string $inviteLink
-* The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
-* @property User $creator
-* Creator of the link
-* @property bool $createsJoinRequest
-* *True*, if users joining the chat via the link need to be approved by chat administrators
-* @property bool $isPrimary
-* *True*, if the link is primary
-* @property bool $isRevoked
-* *True*, if the link is revoked
-* @property string $name
-* *Optional*. Invite link name
-* @property int $expireDate
-* *Optional*. Point in time (Unix timestamp) when the link will expire or has been expired
-* @property int $memberLimit
-* *Optional*. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
-* @property int $pendingJoinRequestCount
-* *Optional*. Number of pending join requests created using this link
-* @property int $subscriptionPeriod
-* *Optional*. The number of seconds the subscription will be active for before the next payment
-* @property int $subscriptionPrice
-* *Optional*. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
-*/
-
+ * Represents an invite link for a chat.
+ * @property string $inviteLink
+ * The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+ * @property User $creator
+ * Creator of the link
+ * @property bool $createsJoinRequest
+ * *True*, if users joining the chat via the link need to be approved by chat administrators
+ * @property bool $isPrimary
+ * *True*, if the link is primary
+ * @property bool $isRevoked
+ * *True*, if the link is revoked
+ * @property string $name
+ * *Optional*. Invite link name
+ * @property int $expireDate
+ * *Optional*. Point in time (Unix timestamp) when the link will expire or has been expired
+ * @property int $memberLimit
+ * *Optional*. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+ * @property int $pendingJoinRequestCount
+ * *Optional*. Number of pending join requests created using this link
+ * @property int $subscriptionPeriod
+ * *Optional*. The number of seconds the subscription will be active for before the next payment
+ * @property int $subscriptionPrice
+ * *Optional*. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
+ */
 class ChatInviteLink extends Base\BaseType
 {
 	public static function getFields(): array

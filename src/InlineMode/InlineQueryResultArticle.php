@@ -17,29 +17,28 @@ use DevBX\Telegram\Types;
 
 
 /**
-* Represents a link to an article or web page.
-* @property string $type
-* Type of the result, must be *article*
-* @property string $id
-* Unique identifier for this result, 1-64 Bytes
-* @property string $title
-* Title of the result
-* @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
-* Content of the message to be sent
-* @property Types\InlineKeyboardMarkup $replyMarkup
-* *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
-* @property string $url
-* *Optional*. URL of the result
-* @property string $description
-* *Optional*. Short description of the result
-* @property string $thumbnailUrl
-* *Optional*. Url of the thumbnail for the result
-* @property int $thumbnailWidth
-* *Optional*. Thumbnail width
-* @property int $thumbnailHeight
-* *Optional*. Thumbnail height
-*/
-
+ * Represents a link to an article or web page.
+ * @property string $type
+ * Type of the result, must be *article*
+ * @property string $id
+ * Unique identifier for this result, 1-64 Bytes
+ * @property string $title
+ * Title of the result
+ * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * Content of the message to be sent
+ * @property Types\InlineKeyboardMarkup $replyMarkup
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
+ * @property string $url
+ * *Optional*. URL of the result
+ * @property string $description
+ * *Optional*. Short description of the result
+ * @property string $thumbnailUrl
+ * *Optional*. Url of the thumbnail for the result
+ * @property int $thumbnailWidth
+ * *Optional*. Thumbnail width
+ * @property int $thumbnailHeight
+ * *Optional*. Thumbnail height
+ */
 class InlineQueryResultArticle extends InlineQueryResult
 {
 	public static function getFields(): array

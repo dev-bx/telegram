@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the [scope](#botcommandscope) of bot commands, covering all administrators of a specific group or supergroup chat.
-* @property string $type
-* Scope type, must be *chat\_administrators*
-* @property int|string $chatId
-* Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
-*/
-
+ * Represents the [scope](#botcommandscope) of bot commands, covering all administrators of a specific group or supergroup chat.
+ * @property string $type
+ * Scope type, must be *chat\_administrators*
+ * @property int|string $chatId
+ * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ */
 class BotCommandScopeChatAdministrators extends BotCommandScope
 {
 	public static function getFields(): array

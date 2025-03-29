@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The paid media isn't available before the payment.
-* @property string $type
-* Type of the paid media, always “preview”
-* @property int $width
-* *Optional*. Media width as defined by the sender
-* @property int $height
-* *Optional*. Media height as defined by the sender
-* @property int $duration
-* *Optional*. Duration of the media in seconds as defined by the sender
-*/
-
+ * The paid media isn't available before the payment.
+ * @property string $type
+ * Type of the paid media, always “preview”
+ * @property int $width
+ * *Optional*. Media width as defined by the sender
+ * @property int $height
+ * *Optional*. Media height as defined by the sender
+ * @property int $duration
+ * *Optional*. Duration of the media in seconds as defined by the sender
+ */
 class PaidMediaPreview extends PaidMedia
 {
 	public static function getFields(): array

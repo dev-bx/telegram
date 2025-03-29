@@ -16,13 +16,12 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object contains information about the users whose identifiers were shared with the bot using a [KeyboardButtonRequestUsers](#keyboardbuttonrequestusers) button.
-* @property int $requestId
-* Identifier of the request
-* @property Base\ArrayObject|SharedUser[] $users
-* Information about users shared with the bot.
-*/
-
+ * This object contains information about the users whose identifiers were shared with the bot using a [KeyboardButtonRequestUsers](#keyboardbuttonrequestusers) button.
+ * @property int $requestId
+ * Identifier of the request
+ * @property Base\ArrayObject|SharedUser[] $users
+ * Information about users shared with the bot.
+ */
 class UsersShared extends Base\BaseType
 {
 	public static function getFields(): array

@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object describes the state of a revenue withdrawal operation. Currently, it can be one of
-*/
-
+ * This object describes the state of a revenue withdrawal operation. Currently, it can be one of
+ */
 class RevenueWithdrawalState extends Base\BaseType
 {
 	public static function getRelations(): array

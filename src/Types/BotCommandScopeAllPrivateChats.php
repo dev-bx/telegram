@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Represents the [scope](#botcommandscope) of bot commands, covering all private chats.
-* @property string $type
-* Scope type, must be *all\_private\_chats*
-*/
-
+ * Represents the [scope](#botcommandscope) of bot commands, covering all private chats.
+ * @property string $type
+ * Scope type, must be *all\_private\_chats*
+ */
 class BotCommandScopeAllPrivateChats extends BotCommandScope
 {
 	public static function getFields(): array

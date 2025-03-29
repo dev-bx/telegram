@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents the bot's name.
-* @property string $name
-* The bot's name
-*/
-
+ * This object represents the bot's name.
+ * @property string $name
+ * The bot's name
+ */
 class BotName extends Base\BaseType
 {
 	public static function getFields(): array

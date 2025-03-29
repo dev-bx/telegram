@@ -17,16 +17,15 @@ use DevBX\Telegram\Types;
 
 
 /**
-* And that's about all we've got for now.  
+ * And that's about all we've got for now.  
 If you've got any questions, please check out our [**Bot FAQ »**](/bots/faq)
-* @property int $position
-* Position in high score table for the game
-* @property Types\User $user
-* User
-* @property int $score
-* Score
-*/
-
+ * @property int $position
+ * Position in high score table for the game
+ * @property Types\User $user
+ * User
+ * @property int $score
+ * Score
+ */
 class GameHighScore extends Base\BaseType
 {
 	public static function getFields(): array

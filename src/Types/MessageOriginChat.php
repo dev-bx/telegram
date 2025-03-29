@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* The message was originally sent on behalf of a chat to a group chat.
-* @property string $type
-* Type of the message origin, always “chat”
-* @property int $date
-* Date the message was sent originally in Unix time
-* @property Chat $senderChat
-* Chat that sent the message originally
-* @property string $authorSignature
-* *Optional*. For messages originally sent by an anonymous chat administrator, original message author signature
-*/
-
+ * The message was originally sent on behalf of a chat to a group chat.
+ * @property string $type
+ * Type of the message origin, always “chat”
+ * @property int $date
+ * Date the message was sent originally in Unix time
+ * @property Chat $senderChat
+ * Chat that sent the message originally
+ * @property string $authorSignature
+ * *Optional*. For messages originally sent by an anonymous chat administrator, original message author signature
+ */
 class MessageOriginChat extends MessageOrigin
 {
 	public static function getFields(): array

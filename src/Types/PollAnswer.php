@@ -16,17 +16,16 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents an answer of a user in a non-anonymous poll.
-* @property string $pollId
-* Unique poll identifier
-* @property Chat $voterChat
-* *Optional*. The chat that changed the answer to the poll, if the voter is anonymous
-* @property User $user
-* *Optional*. The user that changed the answer to the poll, if the voter isn't anonymous
-* @property int[] $optionIds
-* 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
-*/
-
+ * This object represents an answer of a user in a non-anonymous poll.
+ * @property string $pollId
+ * Unique poll identifier
+ * @property Chat $voterChat
+ * *Optional*. The chat that changed the answer to the poll, if the voter is anonymous
+ * @property User $user
+ * *Optional*. The user that changed the answer to the poll, if the voter isn't anonymous
+ * @property int[] $optionIds
+ * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
+ */
 class PollAnswer extends Base\BaseType
 {
 	public static function getFields(): array

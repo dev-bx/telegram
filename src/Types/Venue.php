@@ -16,23 +16,22 @@ use DevBX\Telegram\Base;
 
 
 /**
-* This object represents a venue.
-* @property Location $location
-* Venue location. Can't be a live location
-* @property string $title
-* Name of the venue
-* @property string $address
-* Address of the venue
-* @property string $foursquareId
-* *Optional*. Foursquare identifier of the venue
-* @property string $foursquareType
-* *Optional*. Foursquare type of the venue. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
-* @property string $googlePlaceId
-* *Optional*. Google Places identifier of the venue
-* @property string $googlePlaceType
-* *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
-*/
-
+ * This object represents a venue.
+ * @property Location $location
+ * Venue location. Can't be a live location
+ * @property string $title
+ * Name of the venue
+ * @property string $address
+ * Address of the venue
+ * @property string $foursquareId
+ * *Optional*. Foursquare identifier of the venue
+ * @property string $foursquareType
+ * *Optional*. Foursquare type of the venue. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
+ * @property string $googlePlaceId
+ * *Optional*. Google Places identifier of the venue
+ * @property string $googlePlaceType
+ * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+ */
 class Venue extends Base\BaseType
 {
 	public static function getFields(): array

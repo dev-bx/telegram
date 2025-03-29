@@ -16,9 +16,8 @@ use DevBX\Telegram\Base;
 
 
 /**
-* If a menu button other than [MenuButtonDefault](#menubuttondefault) is set for a private chat, then it is applied in the chat. Otherwise the default menu button is applied. By default, the menu button opens the list of bot commands.
-*/
-
+ * If a menu button other than [MenuButtonDefault](#menubuttondefault) is set for a private chat, then it is applied in the chat. Otherwise the default menu button is applied. By default, the menu button opens the list of bot commands.
+ */
 class MenuButton extends Base\BaseType
 {
 	public static function getRelations(): array

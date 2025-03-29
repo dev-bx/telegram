@@ -16,11 +16,10 @@ use DevBX\Telegram\Base;
 
 
 /**
-* Describes a transaction with an unknown source or recipient.
-* @property string $type
-* Type of the transaction partner, always “other”
-*/
-
+ * Describes a transaction with an unknown source or recipient.
+ * @property string $type
+ * Type of the transaction partner, always “other”
+ */
 class TransactionPartnerOther extends TransactionPartner
 {
 	public static function getFields(): array

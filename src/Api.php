@@ -14,10 +14,12 @@ namespace DevBX\Telegram;
 
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
+use DevBX\Telegram\Requests;
+use DevBX\Telegram\Stickers;
 use DevBX\Telegram\Passport;
 use DevBX\Telegram\Payments;
 use DevBX\Telegram\InlineMode;
-use DevBX\Telegram\Stickers;
+use DevBX\Telegram\Games;
 
 class Api extends Base\Api {
     /**
@@ -37,29 +39,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getUpdates(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'offset' => [
-                    'type' => ['int'],
-                ],
-                'limit' => [
-                    'type' => ['int'],
-                ],
-                'timeout' => [
-                    'type' => ['int'],
-                ],
-                'allowed_updates' => [
-                    'type' => ['string'],
-                    'isArray' => true,
-                ],
-                '@return' => [
-                    'type' => Types\Update::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetUpdates::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -81,35 +62,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setWebhook(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'url' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'certificate' => [
-                    'type' => [Types\InputFile::class],
-                ],
-                'ip_address' => [
-                    'type' => ['string'],
-                ],
-                'max_connections' => [
-                    'type' => ['int'],
-                ],
-                'allowed_updates' => [
-                    'type' => ['string'],
-                    'isArray' => true,
-                ],
-                'drop_pending_updates' => [
-                    'type' => ['bool'],
-                ],
-                'secret_token' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetWebhook::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -124,15 +78,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function deleteWebhook(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'drop_pending_updates' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\DeleteWebhook::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -223,57 +170,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendMessage(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'text' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'link_preview_options' => [
-                    'type' => [Types\LinkPreviewOptions::class],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -294,39 +192,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function forwardMessage(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'from_chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'video_start_timestamp' => [
-                    'type' => ['int'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\ForwardMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -346,38 +213,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function forwardMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'from_chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_ids' => [
-                    'type' => ['int'],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => Types\MessageId::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\ForwardMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -405,61 +242,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function copyMessage(array $params = []): Types\MessageId
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'from_chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'video_start_timestamp' => [
-                    'type' => ['int'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\MessageId::class,
-                ],
-            ]
-        );
+        $request = Requests\CopyMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -480,41 +264,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function copyMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'from_chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_ids' => [
-                    'type' => ['int'],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'remove_caption' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => Types\MessageId::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\CopyMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -543,63 +294,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendPhoto(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'photo' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'has_spoiler' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendPhoto::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -632,67 +328,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendAudio(array $params = [], array $attachments = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'audio' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'duration' => [
-                    'type' => ['int'],
-                ],
-                'performer' => [
-                    'type' => ['string'],
-                ],
-                'title' => [
-                    'type' => ['string'],
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendAudio::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -723,64 +361,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendDocument(array $params = [], array $attachments = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'document' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'disable_content_type_detection' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendDocument::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -818,85 +401,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendVideo(array $params = [], array $attachments = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'video' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'duration' => [
-                    'type' => ['int'],
-                ],
-                'width' => [
-                    'type' => ['int'],
-                ],
-                'height' => [
-                    'type' => ['int'],
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'cover' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'start_timestamp' => [
-                    'type' => ['int'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'has_spoiler' => [
-                    'type' => ['bool'],
-                ],
-                'supports_streaming' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendVideo::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -931,76 +438,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendAnimation(array $params = [], array $attachments = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'animation' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'duration' => [
-                    'type' => ['int'],
-                ],
-                'width' => [
-                    'type' => ['int'],
-                ],
-                'height' => [
-                    'type' => ['int'],
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'has_spoiler' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendAnimation::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -1028,60 +468,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendVoice(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'voice' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'duration' => [
-                    'type' => ['int'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendVoice::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1110,57 +498,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendVideoNote(array $params = [], array $attachments = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'video_note' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'duration' => [
-                    'type' => ['int'],
-                ],
-                'length' => [
-                    'type' => ['int'],
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendVideoNote::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -1188,62 +528,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendPaidMedia(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'star_count' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'media' => [
-                    'type' => [Types\InputPaidMedia::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'payload' => [
-                    'type' => ['string'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendPaidMedia::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1268,43 +554,9 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendMediaGroup(array $params = [], array $attachments = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'media' => [
-                    'type' => [Types\InputMediaAudio::class, Types\InputMediaDocument::class, Types\InputMediaPhoto::class, Types\InputMediaVideo::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\SendMediaGroup::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -1333,63 +585,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendLocation(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'latitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'longitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'horizontal_accuracy' => [
-                    'type' => ['float'],
-                ],
-                'live_period' => [
-                    'type' => ['int'],
-                ],
-                'heading' => [
-                    'type' => ['int'],
-                ],
-                'proximity_alert_radius' => [
-                    'type' => ['int'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendLocation::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1420,71 +617,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendVenue(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'latitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'longitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'address' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'foursquare_id' => [
-                    'type' => ['string'],
-                ],
-                'foursquare_type' => [
-                    'type' => ['string'],
-                ],
-                'google_place_id' => [
-                    'type' => ['string'],
-                ],
-                'google_place_type' => [
-                    'type' => ['string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendVenue::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1511,57 +645,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendContact(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'phone_number' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'first_name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'last_name' => [
-                    'type' => ['string'],
-                ],
-                'vcard' => [
-                    'type' => ['string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendContact::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1598,90 +683,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendPoll(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'question' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'question_parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'question_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'options' => [
-                    'type' => [Types\InputPollOption::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'is_anonymous' => [
-                    'type' => ['bool'],
-                ],
-                'type' => [
-                    'type' => ['string'],
-                ],
-                'allows_multiple_answers' => [
-                    'type' => ['bool'],
-                ],
-                'correct_option_id' => [
-                    'type' => ['int'],
-                ],
-                'explanation' => [
-                    'type' => ['string'],
-                ],
-                'explanation_parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'explanation_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'open_period' => [
-                    'type' => ['int'],
-                ],
-                'close_date' => [
-                    'type' => ['int'],
-                ],
-                'is_closed' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendPoll::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1705,46 +708,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendDice(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'emoji' => [
-                    'type' => ['string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendDice::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1762,26 +727,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function sendChatAction(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'action' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SendChatAction::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1799,27 +746,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setMessageReaction(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'reaction' => [
-                    'type' => [Types\ReactionType::class],
-                    'isArray' => true,
-                ],
-                'is_big' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\SetMessageReaction::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1836,25 +764,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getUserProfilePhotos(array $params = []): Types\UserProfilePhotos
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'offset' => [
-                    'type' => ['int'],
-                ],
-                'limit' => [
-                    'type' => ['int'],
-                ],
-                '@return' => [
-                    'type' => Types\UserProfilePhotos::class,
-                ],
-            ]
-        );
+        $request = Requests\GetUserProfilePhotos::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1871,22 +782,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setUserEmojiStatus(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'emoji_status_custom_emoji_id' => [
-                    'type' => ['string'],
-                ],
-                'emoji_status_expiration_date' => [
-                    'type' => ['int'],
-                ],
-            ]
-        );
+        $request = Requests\SetUserEmojiStatus::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1901,16 +798,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getFile(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'file_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetFile::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1928,26 +817,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function banChatMember(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'until_date' => [
-                    'type' => ['int'],
-                ],
-                'revoke_messages' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\BanChatMember::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1964,23 +835,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unbanChatMember(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'only_if_banned' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\UnbanChatMember::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -1999,30 +855,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function restrictChatMember(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'permissions' => [
-                    'type' => [Types\ChatPermissions::class],
-                    'required' => true,
-                ],
-                'use_independent_chat_permissions' => [
-                    'type' => ['bool'],
-                ],
-                'until_date' => [
-                    'type' => ['int'],
-                ],
-            ]
-        );
+        $request = Requests\RestrictChatMember::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2053,65 +887,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function promoteChatMember(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'is_anonymous' => [
-                    'type' => ['bool'],
-                ],
-                'can_manage_chat' => [
-                    'type' => ['bool'],
-                ],
-                'can_delete_messages' => [
-                    'type' => ['bool'],
-                ],
-                'can_manage_video_chats' => [
-                    'type' => ['bool'],
-                ],
-                'can_restrict_members' => [
-                    'type' => ['bool'],
-                ],
-                'can_promote_members' => [
-                    'type' => ['bool'],
-                ],
-                'can_change_info' => [
-                    'type' => ['bool'],
-                ],
-                'can_invite_users' => [
-                    'type' => ['bool'],
-                ],
-                'can_post_stories' => [
-                    'type' => ['bool'],
-                ],
-                'can_edit_stories' => [
-                    'type' => ['bool'],
-                ],
-                'can_delete_stories' => [
-                    'type' => ['bool'],
-                ],
-                'can_post_messages' => [
-                    'type' => ['bool'],
-                ],
-                'can_edit_messages' => [
-                    'type' => ['bool'],
-                ],
-                'can_pin_messages' => [
-                    'type' => ['bool'],
-                ],
-                'can_manage_topics' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\PromoteChatMember::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2128,24 +905,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatAdministratorCustomTitle(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'custom_title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetChatAdministratorCustomTitle::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2161,20 +922,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function banChatSenderChat(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'sender_chat_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\BanChatSenderChat::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2190,20 +939,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unbanChatSenderChat(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'sender_chat_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\UnbanChatSenderChat::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2220,23 +957,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatPermissions(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'permissions' => [
-                    'type' => [Types\ChatPermissions::class],
-                    'required' => true,
-                ],
-                'use_independent_chat_permissions' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\SetChatPermissions::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2251,16 +973,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function exportChatInviteLink(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\ExportChatInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2279,31 +993,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function createChatInviteLink(array $params = []): Types\ChatInviteLink
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                ],
-                'expire_date' => [
-                    'type' => ['int'],
-                ],
-                'member_limit' => [
-                    'type' => ['int'],
-                ],
-                'creates_join_request' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => Types\ChatInviteLink::class,
-                ],
-            ]
-        );
+        $request = Requests\CreateChatInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2323,35 +1014,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function editChatInviteLink(array $params = []): Types\ChatInviteLink
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'invite_link' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                ],
-                'expire_date' => [
-                    'type' => ['int'],
-                ],
-                'member_limit' => [
-                    'type' => ['int'],
-                ],
-                'creates_join_request' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => Types\ChatInviteLink::class,
-                ],
-            ]
-        );
+        $request = Requests\EditChatInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2369,30 +1033,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function createChatSubscriptionInviteLink(array $params = []): Types\ChatInviteLink
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                ],
-                'subscription_period' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'subscription_price' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\ChatInviteLink::class,
-                ],
-            ]
-        );
+        $request = Requests\CreateChatSubscriptionInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2409,26 +1051,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function editChatSubscriptionInviteLink(array $params = []): Types\ChatInviteLink
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'invite_link' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\ChatInviteLink::class,
-                ],
-            ]
-        );
+        $request = Requests\EditChatSubscriptionInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2444,23 +1068,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function revokeChatInviteLink(array $params = []): Types\ChatInviteLink
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'invite_link' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\ChatInviteLink::class,
-                ],
-            ]
-        );
+        $request = Requests\RevokeChatInviteLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2476,20 +1085,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function approveChatJoinRequest(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\ApproveChatJoinRequest::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2505,20 +1102,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function declineChatJoinRequest(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeclineChatJoinRequest::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2534,20 +1119,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatPhoto(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'photo' => [
-                    'type' => [Types\InputFile::class],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetChatPhoto::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2562,16 +1135,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function deleteChatPhoto(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteChatPhoto::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2587,20 +1152,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatTitle(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetChatTitle::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2616,19 +1169,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatDescription(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'description' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetChatDescription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2646,26 +1188,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function pinChatMessage(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\PinChatMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2682,22 +1206,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unpinChatMessage(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-            ]
-        );
+        $request = Requests\UnpinChatMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2712,16 +1222,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unpinAllChatMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\UnpinAllChatMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2736,16 +1238,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function leaveChat(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\LeaveChat::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2760,19 +1254,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getChat(array $params = []): Types\ChatFullInfo
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\ChatFullInfo::class,
-                ],
-            ]
-        );
+        $request = Requests\GetChat::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2787,20 +1270,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getChatAdministrators(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\ChatMember::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetChatAdministrators::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2815,16 +1286,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getChatMemberCount(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetChatMemberCount::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2840,23 +1303,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function getChatMember(array $params = []): Types\ChatMember
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\ChatMember::class,
-                ],
-            ]
-        );
+        $request = Requests\GetChatMember::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2872,20 +1320,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function setChatStickerSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'sticker_set_name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetChatStickerSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2900,16 +1336,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function deleteChatStickerSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteChatStickerSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2948,29 +1376,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function createForumTopic(array $params = []): Types\ForumTopic
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'icon_color' => [
-                    'type' => ['int'],
-                ],
-                'icon_custom_emoji_id' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\ForumTopic::class,
-                ],
-            ]
-        );
+        $request = Requests\CreateForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -2988,26 +1395,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function editForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                ],
-                'icon_custom_emoji_id' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\EditForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3023,20 +1412,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function closeForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\CloseForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3052,20 +1429,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function reopenForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\ReopenForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3081,20 +1446,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function deleteForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3110,20 +1463,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unpinAllForumTopicMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\UnpinAllForumTopicMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3139,20 +1480,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function editGeneralForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditGeneralForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3167,16 +1496,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function closeGeneralForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\CloseGeneralForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3191,16 +1512,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function reopenGeneralForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\ReopenGeneralForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3215,16 +1528,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function hideGeneralForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\HideGeneralForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3239,16 +1544,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unhideGeneralForumTopic(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\UnhideGeneralForumTopic::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3263,16 +1560,8 @@ Please note that this parameter doesn't affect updates created before the call t
 
     public function unpinAllGeneralForumTopicMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\UnpinAllGeneralForumTopicMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3293,28 +1582,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function answerCallbackQuery(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'callback_query_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'text' => [
-                    'type' => ['string'],
-                ],
-                'show_alert' => [
-                    'type' => ['bool'],
-                ],
-                'url' => [
-                    'type' => ['string'],
-                ],
-                'cache_time' => [
-                    'type' => ['int'],
-                ],
-            ]
-        );
+        $request = Requests\AnswerCallbackQuery::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3330,23 +1599,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getUserChatBoosts(array $params = []): Types\UserChatBoosts
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\UserChatBoosts::class,
-                ],
-            ]
-        );
+        $request = Requests\GetUserChatBoosts::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3361,19 +1615,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getBusinessConnection(array $params = []): Types\BusinessConnection
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\BusinessConnection::class,
-                ],
-            ]
-        );
+        $request = Requests\GetBusinessConnection::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3390,23 +1633,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setMyCommands(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'commands' => [
-                    'type' => [Types\BotCommand::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'scope' => [
-                    'type' => [Types\BotCommandScope::class],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetMyCommands::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3422,18 +1650,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function deleteMyCommands(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'scope' => [
-                    'type' => [Types\BotCommandScope::class],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\DeleteMyCommands::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3449,22 +1667,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getMyCommands(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'scope' => [
-                    'type' => [Types\BotCommandScope::class],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\BotCommand::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetMyCommands::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3480,18 +1684,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setMyName(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetMyName::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3506,18 +1700,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getMyName(array $params = []): Types\BotName
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\BotName::class,
-                ],
-            ]
-        );
+        $request = Requests\GetMyName::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3533,18 +1717,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setMyDescription(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'description' => [
-                    'type' => ['string'],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetMyDescription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3559,18 +1733,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getMyDescription(array $params = []): Types\BotDescription
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\BotDescription::class,
-                ],
-            ]
-        );
+        $request = Requests\GetMyDescription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3586,18 +1750,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setMyShortDescription(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'short_description' => [
-                    'type' => ['string'],
-                ],
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetMyShortDescription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3612,18 +1766,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getMyShortDescription(array $params = []): Types\BotShortDescription
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'language_code' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\BotShortDescription::class,
-                ],
-            ]
-        );
+        $request = Requests\GetMyShortDescription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3639,18 +1783,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setChatMenuButton(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int'],
-                ],
-                'menu_button' => [
-                    'type' => [Types\MenuButton::class],
-                ],
-            ]
-        );
+        $request = Requests\SetChatMenuButton::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3665,18 +1799,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getChatMenuButton(array $params = []): Types\MenuButton
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int'],
-                ],
-                '@return' => [
-                    'type' => Types\MenuButton::class,
-                ],
-            ]
-        );
+        $request = Requests\GetChatMenuButton::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3692,18 +1816,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function setMyDefaultAdministratorRights(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'rights' => [
-                    'type' => [Types\ChatAdministratorRights::class],
-                ],
-                'for_channels' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\SetMyDefaultAdministratorRights::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3718,18 +1832,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function getMyDefaultAdministratorRights(array $params = []): Types\ChatAdministratorRights
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'for_channels' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => Types\ChatAdministratorRights::class,
-                ],
-            ]
-        );
+        $request = Requests\GetMyDefaultAdministratorRights::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3752,45 +1856,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function editMessageText(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'text' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'link_preview_options' => [
-                    'type' => [Types\LinkPreviewOptions::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditMessageText::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3813,44 +1880,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function editMessageCaption(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'caption' => [
-                    'type' => ['string'],
-                ],
-                'parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'caption_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-                'show_caption_above_media' => [
-                    'type' => ['bool'],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditMessageCaption::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3872,36 +1903,9 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function editMessageMedia(array $params = [], array $attachments = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'media' => [
-                    'type' => [Types\InputMedia::class],
-                    'required' => true,
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\EditMessageMedia::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -3926,51 +1930,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function editMessageLiveLocation(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'latitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'longitude' => [
-                    'type' => ['float'],
-                    'required' => true,
-                ],
-                'live_period' => [
-                    'type' => ['int'],
-                ],
-                'horizontal_accuracy' => [
-                    'type' => ['float'],
-                ],
-                'heading' => [
-                    'type' => ['int'],
-                ],
-                'proximity_alert_radius' => [
-                    'type' => ['int'],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditMessageLiveLocation::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -3989,31 +1950,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function stopMessageLiveLocation(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\StopMessageLiveLocation::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4032,31 +1970,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function editMessageReplyMarkup(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditMessageReplyMarkup::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4074,29 +1989,8 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
 
     public function stopPoll(array $params = []): Types\Poll
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Poll::class,
-                ],
-            ]
-        );
+        $request = Requests\StopPoll::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4121,20 +2015,8 @@ Returns *True* on success.
 
     public function deleteMessage(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4150,21 +2032,8 @@ Returns *True* on success.
 
     public function deleteMessages(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_ids' => [
-                    'type' => ['int'],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteMessages::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4180,21 +2049,8 @@ Returns *True* on success.
 
     public function setPassportDataErrors(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'errors' => [
-                    'type' => [Passport\PassportElementError::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetPassportDataErrors::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4237,110 +2093,8 @@ Returns *True* on success.
 
     public function sendInvoice(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'description' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'payload' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'provider_token' => [
-                    'type' => ['string'],
-                ],
-                'currency' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'prices' => [
-                    'type' => [Payments\LabeledPrice::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'max_tip_amount' => [
-                    'type' => ['int'],
-                ],
-                'suggested_tip_amounts' => [
-                    'type' => ['int'],
-                    'isArray' => true,
-                ],
-                'start_parameter' => [
-                    'type' => ['string'],
-                ],
-                'provider_data' => [
-                    'type' => ['string'],
-                ],
-                'photo_url' => [
-                    'type' => ['string'],
-                ],
-                'photo_size' => [
-                    'type' => ['int'],
-                ],
-                'photo_width' => [
-                    'type' => ['int'],
-                ],
-                'photo_height' => [
-                    'type' => ['int'],
-                ],
-                'need_name' => [
-                    'type' => ['bool'],
-                ],
-                'need_phone_number' => [
-                    'type' => ['bool'],
-                ],
-                'need_email' => [
-                    'type' => ['bool'],
-                ],
-                'need_shipping_address' => [
-                    'type' => ['bool'],
-                ],
-                'send_phone_number_to_provider' => [
-                    'type' => ['bool'],
-                ],
-                'send_email_to_provider' => [
-                    'type' => ['bool'],
-                ],
-                'is_flexible' => [
-                    'type' => ['bool'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendInvoice::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4376,85 +2130,8 @@ Returns *True* on success.
 
     public function createInvoiceLink(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'description' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'payload' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'provider_token' => [
-                    'type' => ['string'],
-                ],
-                'currency' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'prices' => [
-                    'type' => [Payments\LabeledPrice::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'subscription_period' => [
-                    'type' => ['int'],
-                ],
-                'max_tip_amount' => [
-                    'type' => ['int'],
-                ],
-                'suggested_tip_amounts' => [
-                    'type' => ['int'],
-                    'isArray' => true,
-                ],
-                'provider_data' => [
-                    'type' => ['string'],
-                ],
-                'photo_url' => [
-                    'type' => ['string'],
-                ],
-                'photo_size' => [
-                    'type' => ['int'],
-                ],
-                'photo_width' => [
-                    'type' => ['int'],
-                ],
-                'photo_height' => [
-                    'type' => ['int'],
-                ],
-                'need_name' => [
-                    'type' => ['bool'],
-                ],
-                'need_phone_number' => [
-                    'type' => ['bool'],
-                ],
-                'need_email' => [
-                    'type' => ['bool'],
-                ],
-                'need_shipping_address' => [
-                    'type' => ['bool'],
-                ],
-                'send_phone_number_to_provider' => [
-                    'type' => ['bool'],
-                ],
-                'send_email_to_provider' => [
-                    'type' => ['bool'],
-                ],
-                'is_flexible' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\CreateInvoiceLink::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4472,30 +2149,8 @@ Returns *True* on success.
 
     public function answerShippingQuery(array $params = []): Base\ParameterBool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'shipping_query_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'ok' => [
-                    'type' => ['bool'],
-                    'required' => true,
-                ],
-                'shipping_options' => [
-                    'type' => [Payments\ShippingOption::class],
-                    'isArray' => true,
-                ],
-                'error_message' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Base\ParameterBool::class,
-                ],
-            ]
-        );
+        $request = Requests\AnswerShippingQuery::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4512,26 +2167,8 @@ Returns *True* on success.
 
     public function answerPreCheckoutQuery(array $params = []): Base\ParameterBool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'pre_checkout_query_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'ok' => [
-                    'type' => ['bool'],
-                    'required' => true,
-                ],
-                'error_message' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Base\ParameterBool::class,
-                ],
-            ]
-        );
+        $request = Requests\AnswerPreCheckoutQuery::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4547,21 +2184,8 @@ Returns *True* on success.
 
     public function getStarTransactions(array $params = []): Payments\StarTransactions
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'offset' => [
-                    'type' => ['int'],
-                ],
-                'limit' => [
-                    'type' => ['int'],
-                ],
-                '@return' => [
-                    'type' => Payments\StarTransactions::class,
-                ],
-            ]
-        );
+        $request = Requests\GetStarTransactions::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4577,20 +2201,8 @@ Returns *True* on success.
 
     public function refundStarPayment(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'telegram_payment_charge_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\RefundStarPayment::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4607,24 +2219,8 @@ Returns *True* on success.
 
     public function editUserStarSubscription(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'telegram_payment_charge_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'is_canceled' => [
-                    'type' => ['bool'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\EditUserStarSubscription::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4645,33 +2241,8 @@ No more than **50** results per query are allowed.
 
     public function answerInlineQuery(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'inline_query_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'results' => [
-                    'type' => [InlineMode\InlineQueryResult::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'cache_time' => [
-                    'type' => ['int'],
-                ],
-                'is_personal' => [
-                    'type' => ['bool'],
-                ],
-                'next_offset' => [
-                    'type' => ['string'],
-                ],
-                'button' => [
-                    'type' => [InlineMode\InlineQueryResultsButton::class],
-                ],
-            ]
-        );
+        $request = Requests\AnswerInlineQuery::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4687,23 +2258,8 @@ No more than **50** results per query are allowed.
 
     public function answerWebAppQuery(array $params = []): InlineMode\SentWebAppMessage
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'web_app_query_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'result' => [
-                    'type' => [InlineMode\InlineQueryResult::class],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => InlineMode\SentWebAppMessage::class,
-                ],
-            ]
-        );
+        $request = Requests\AnswerWebAppQuery::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4723,35 +2279,8 @@ No more than **50** results per query are allowed.
 
     public function savePreparedInlineMessage(array $params = []): InlineMode\PreparedInlineMessage
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'result' => [
-                    'type' => [InlineMode\InlineQueryResult::class],
-                    'required' => true,
-                ],
-                'allow_user_chats' => [
-                    'type' => ['bool'],
-                ],
-                'allow_bot_chats' => [
-                    'type' => ['bool'],
-                ],
-                'allow_group_chats' => [
-                    'type' => ['bool'],
-                ],
-                'allow_channel_chats' => [
-                    'type' => ['bool'],
-                ],
-                '@return' => [
-                    'type' => InlineMode\PreparedInlineMessage::class,
-                ],
-            ]
-        );
+        $request = Requests\SavePreparedInlineMessage::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4776,50 +2305,8 @@ No more than **50** results per query are allowed.
 
     public function sendSticker(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'sticker' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                    'required' => true,
-                ],
-                'emoji' => [
-                    'type' => ['string'],
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class, Types\ReplyKeyboardMarkup::class, Types\ReplyKeyboardRemove::class, Types\ForceReply::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendSticker::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4834,19 +2321,8 @@ No more than **50** results per query are allowed.
 
     public function getStickerSet(array $params = []): Stickers\StickerSet
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Stickers\StickerSet::class,
-                ],
-            ]
-        );
+        $request = Requests\GetStickerSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4861,21 +2337,8 @@ No more than **50** results per query are allowed.
 
     public function getCustomEmojiStickers(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'custom_emoji_ids' => [
-                    'type' => ['string'],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Stickers\Sticker::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetCustomEmojiStickers::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4892,27 +2355,8 @@ No more than **50** results per query are allowed.
 
     public function uploadStickerFile(array $params = []): Types\File
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'sticker' => [
-                    'type' => [Types\InputFile::class],
-                    'required' => true,
-                ],
-                'sticker_format' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                '@return' => [
-                    'type' => Types\File::class,
-                ],
-            ]
-        );
+        $request = Requests\UploadStickerFile::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4932,35 +2376,8 @@ No more than **50** results per query are allowed.
 
     public function createNewStickerSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'stickers' => [
-                    'type' => [Stickers\InputSticker::class],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-                'sticker_type' => [
-                    'type' => ['string'],
-                ],
-                'needs_repainting' => [
-                    'type' => ['bool'],
-                ],
-            ]
-        );
+        $request = Requests\CreateNewStickerSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -4979,25 +2396,9 @@ No more than **50** results per query are allowed.
 
     public function addStickerToSet(array $params = [], array $attachments = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'sticker' => [
-                    'type' => [Stickers\InputSticker::class],
-                    'required' => true,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\AddStickerToSet::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -5013,20 +2414,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerPositionInSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'position' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetStickerPositionInSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5041,16 +2430,8 @@ No more than **50** results per query are allowed.
 
     public function deleteStickerFromSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteStickerFromSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5070,29 +2451,9 @@ No more than **50** results per query are allowed.
 
     public function replaceStickerInSet(array $params = [], array $attachments = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'old_sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'sticker' => [
-                    'type' => [Stickers\InputSticker::class],
-                    'required' => true,
-                ],
-            ],
-            $attachments
-        );
+        $request = Requests\ReplaceStickerInSet::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
     }
 
     /**
@@ -5108,21 +2469,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerEmojiList(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'emoji_list' => [
-                    'type' => ['string'],
-                    'isArray' => true,
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetStickerEmojiList::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5138,20 +2486,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerKeywords(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'keywords' => [
-                    'type' => ['string'],
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetStickerKeywords::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5167,19 +2503,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerMaskPosition(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'sticker' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'mask_position' => [
-                    'type' => [Stickers\MaskPosition::class],
-                ],
-            ]
-        );
+        $request = Requests\SetStickerMaskPosition::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5195,20 +2520,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerSetTitle(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'title' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetStickerSetTitle::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5226,27 +2539,8 @@ No more than **50** results per query are allowed.
 
     public function setStickerSetThumbnail(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'thumbnail' => [
-                    'type' => [Types\InputFile::class, 'string'],
-                ],
-                'format' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetStickerSetThumbnail::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5262,19 +2556,8 @@ No more than **50** results per query are allowed.
 
     public function setCustomEmojiStickerSetThumbnail(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'custom_emoji_id' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\SetCustomEmojiStickerSetThumbnail::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5289,16 +2572,8 @@ No more than **50** results per query are allowed.
 
     public function deleteStickerSet(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\DeleteStickerSet::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5339,35 +2614,8 @@ No more than **50** results per query are allowed.
 
     public function sendGift(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                ],
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                ],
-                'gift_id' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'pay_for_upgrade' => [
-                    'type' => ['bool'],
-                ],
-                'text' => [
-                    'type' => ['string'],
-                ],
-                'text_parse_mode' => [
-                    'type' => ['string'],
-                ],
-                'text_entities' => [
-                    'type' => [Types\MessageEntity::class],
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\SendGift::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5383,19 +2631,8 @@ No more than **50** results per query are allowed.
 
     public function verifyUser(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'custom_description' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\VerifyUser::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5411,19 +2648,8 @@ No more than **50** results per query are allowed.
 
     public function verifyChat(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-                'custom_description' => [
-                    'type' => ['string'],
-                ],
-            ]
-        );
+        $request = Requests\VerifyChat::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5438,16 +2664,8 @@ No more than **50** results per query are allowed.
 
     public function removeUserVerification(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\RemoveUserVerification::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5462,16 +2680,8 @@ No more than **50** results per query are allowed.
 
     public function removeChatVerification(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'chat_id' => [
-                    'type' => ['int', 'string'],
-                    'required' => true,
-                ],
-            ]
-        );
+        $request = Requests\RemoveChatVerification::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5495,47 +2705,8 @@ No more than **50** results per query are allowed.
 
     public function sendGame(array $params = []): Types\Message
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'business_connection_id' => [
-                    'type' => ['string'],
-                ],
-                'chat_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'message_thread_id' => [
-                    'type' => ['int'],
-                ],
-                'game_short_name' => [
-                    'type' => ['string'],
-                    'required' => true,
-                ],
-                'disable_notification' => [
-                    'type' => ['bool'],
-                ],
-                'protect_content' => [
-                    'type' => ['bool'],
-                ],
-                'allow_paid_broadcast' => [
-                    'type' => ['bool'],
-                ],
-                'message_effect_id' => [
-                    'type' => ['string'],
-                ],
-                'reply_parameters' => [
-                    'type' => [Types\ReplyParameters::class],
-                ],
-                'reply_markup' => [
-                    'type' => [Types\InlineKeyboardMarkup::class],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                ],
-            ]
-        );
+        $request = Requests\SendGame::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5556,39 +2727,8 @@ No more than **50** results per query are allowed.
 
     public function setGameScore(array $params = []): Types\Message|bool
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'score' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'force' => [
-                    'type' => ['bool'],
-                ],
-                'disable_edit_message' => [
-                    'type' => ['bool'],
-                ],
-                'chat_id' => [
-                    'type' => ['int'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Types\Message::class,
-                    'canReturnBool' => true,
-                ],
-            ]
-        );
+        $request = Requests\SetGameScore::create($params);
+        return $request->send($this);
     }
 
     /**
@@ -5606,29 +2746,8 @@ No more than **50** results per query are allowed.
 
     public function getGameHighScores(array $params = []): Base\BaseType
     {
-        return $this->query(
-            __FUNCTION__,
-            $params,
-            [
-                'user_id' => [
-                    'type' => ['int'],
-                    'required' => true,
-                ],
-                'chat_id' => [
-                    'type' => ['int'],
-                ],
-                'message_id' => [
-                    'type' => ['int'],
-                ],
-                'inline_message_id' => [
-                    'type' => ['string'],
-                ],
-                '@return' => [
-                    'type' => Games\GameHighScore::class,
-                    'isArray' => true,
-                ],
-            ]
-        );
+        $request = Requests\GetGameHighScores::create($params);
+        return $request->send($this);
     }
 
 }
