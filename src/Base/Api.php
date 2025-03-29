@@ -12,6 +12,7 @@ class Api
 
     protected $onBeforeRequest;
     protected $onResponse;
+    protected $onResult;
 
     public function __construct(array $params = [])
     {
@@ -71,13 +72,21 @@ class Api
     /**
      * Sets the callback response.
      *
-     * @param callable(array, BaseType|ArrayObject, BaseType): mixed $callback
+     * @param callable(array, BaseType|ArrayObject, BaseType, array, array, array|null): mixed $callback
      */
     public function setCallbackResponse(callable $callback)
     {
         $this->onResponse = $callback;
+    }
 
-
+    /**
+     * Sets the callback result.
+     *
+     * @param callable(mixed):void $callback
+     */
+    public function setCallbackResult(callable $callback)
+    {
+        $this->onResult = $callback;
     }
 
     /**
@@ -217,6 +226,11 @@ class Api
             }
         } else {
             $result->setEntityValue($response['result'], true);
+        }
+
+        if ($this->onResult)
+        {
+            call_user_func_array($this->onResult, [$result]);
         }
 
         return $result;
