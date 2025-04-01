@@ -23,6 +23,7 @@ class TelegramException extends \Exception
             '#^Too Many Requests: retry after (\d+)$#' => TooManyRequestsException::class,
             '#^Bad Request: message to be replied not found$#' => MessageToBeRepliedNotFoundException::class,
             '#^Bad Request: message to edit not found$#' => MessageToEditNotFoundException::class,
+            '#^Bad Request: dimensions of the photo are too big$#' => DimensionsPhotoTooBigException::class,
         ];
 
         foreach ($classMap as $pattern => $class)
@@ -80,4 +81,9 @@ class MessageToBeRepliedNotFoundException extends MessageNotFoundException
 
 class MessageToEditNotFoundException extends MessageNotFoundException
 {
+}
+
+class DimensionsPhotoTooBigException extends TelegramException
+{
+
 }
