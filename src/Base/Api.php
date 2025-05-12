@@ -130,6 +130,11 @@ class Api
             $canReturnBool = $structure['@return']['canReturnBool'] ?? false;
 
             if ($returnIsArray) {
+                if (!is_array($returnType))
+                {
+                    $returnType = [$returnType];
+                }
+
                 $result = new ArrayObject($returnType);
             } else {
                 /* @var BaseType $returnType */
