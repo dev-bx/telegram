@@ -9,7 +9,7 @@ use DevBX\Telegram\Base\Error;
 class BitrixClient extends \DevBX\Telegram\Api
 {
 
-    public function sendRequest(string $url, array $params, Base\BaseType $result, bool $multipart)
+    public function sendRequest(string $url, array $params, Base\BaseObject $result, bool $multipart)
     {
         $client = new Web\HttpClient($this->clientOptions);
 

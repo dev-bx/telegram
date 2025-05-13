@@ -70,7 +70,7 @@ class Api
         return $fullClassName;
     }
 
-    public function sendRequest(string $url, array $params, BaseType $result, bool $multipart)
+    public function sendRequest(string $url, array $params, BaseObject $result, bool $multipart)
     {
         throw new TelegramException('sendRequest method not implemented');
     }

@@ -17,7 +17,7 @@ class PsrClient extends \DevBX\Telegram\Api
         throw new \Exception('Method getHttpClient() must be overridden');
     }
 
-    public function sendRequest(string $url, array $params, Base\BaseType $result, bool $multipart)
+    public function sendRequest(string $url, array $params, Base\BaseObject $result, bool $multipart)
     {
         $client = $this->getHttpClient();
         $request = $this->createRequest($url, $params);

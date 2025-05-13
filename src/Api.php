@@ -37,7 +37,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\Update[]|Base\BaseType
     */
 
-    public function getUpdates(array $params = []): Base\BaseType
+    public function getUpdates(array $params = []): mixed
     {
         $request = Requests\GetUpdates::create($params);
         return $request->send($this);
@@ -211,7 +211,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\MessageId[]|Base\BaseType
     */
 
-    public function forwardMessages(array $params = []): Base\BaseType
+    public function forwardMessages(array $params = []): mixed
     {
         $request = Requests\ForwardMessages::create($params);
         return $request->send($this);
@@ -262,7 +262,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\MessageId[]|Base\BaseType
     */
 
-    public function copyMessages(array $params = []): Base\BaseType
+    public function copyMessages(array $params = []): mixed
     {
         $request = Requests\CopyMessages::create($params);
         return $request->send($this);
@@ -1268,7 +1268,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Types\ChatMember[]|Base\BaseType
     */
 
-    public function getChatAdministrators(array $params = []): Base\BaseType
+    public function getChatAdministrators(array $params = []): mixed
     {
         $request = Requests\GetChatAdministrators::create($params);
         return $request->send($this);
@@ -1347,7 +1347,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @return Stickers\Sticker[]|Base\BaseType
     */
 
-    public function getForumTopicIconStickers(): Base\BaseType
+    public function getForumTopicIconStickers(): mixed
     {
         return $this->query(
             __FUNCTION__,
@@ -1665,7 +1665,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @return Types\BotCommand[]|Base\BaseType
     */
 
-    public function getMyCommands(array $params = []): Base\BaseType
+    public function getMyCommands(array $params = []): mixed
     {
         $request = Requests\GetMyCommands::create($params);
         return $request->send($this);
@@ -2335,7 +2335,7 @@ No more than **50** results per query are allowed.
      * @return Stickers\Sticker[]|Base\BaseType
     */
 
-    public function getCustomEmojiStickers(array $params = []): Base\BaseType
+    public function getCustomEmojiStickers(array $params = []): mixed
     {
         $request = Requests\GetCustomEmojiStickers::create($params);
         return $request->send($this);
@@ -2744,7 +2744,7 @@ No more than **50** results per query are allowed.
      * @return Games\GameHighScore[]|Base\BaseType
     */
 
-    public function getGameHighScores(array $params = []): Base\BaseType
+    public function getGameHighScores(array $params = []): mixed
     {
         $request = Requests\GetGameHighScores::create($params);
         return $request->send($this);
