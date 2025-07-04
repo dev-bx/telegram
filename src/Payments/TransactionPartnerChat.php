@@ -14,7 +14,6 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
-use DevBX\Telegram\Stickers;
 
 
 /**
@@ -23,7 +22,7 @@ use DevBX\Telegram\Stickers;
  * Type of the transaction partner, always “chat”
  * @property Types\Chat $chat
  * Information about the chat
- * @property Stickers\Gift $gift
+ * @property Types\Gift $gift
  * *Optional*. The gift sent to the chat by the bot
  */
 class TransactionPartnerChat extends TransactionPartner
@@ -41,7 +40,7 @@ class TransactionPartnerChat extends TransactionPartner
 				'required' => true,
 			],
 			'gift' => [
-				'type' => [Stickers\Gift::class],
+				'type' => [Types\Gift::class],
 			],
 		];
 	}
@@ -84,7 +83,7 @@ class TransactionPartnerChat extends TransactionPartner
 	}
 
 	/**
-	* @return Stickers\Gift
+	* @return Types\Gift
 	*/
 
 	public function getGift(): mixed
@@ -93,7 +92,7 @@ class TransactionPartnerChat extends TransactionPartner
 	}
 
 	/**
-	* @param Stickers\Gift $value
+	* @param Types\Gift $value
 	* @return static
 	*/
 

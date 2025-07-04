@@ -24,7 +24,7 @@ use DevBX\Telegram\Api;
  * @property bool $isAnonymous
  * Pass *True* if the administrator's presence in the chat is hidden
  * @property bool $canManageChat
- * Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+ * Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
  * @property bool $canDeleteMessages
  * Pass *True* if the administrator can delete messages of other users
  * @property bool $canManageVideoChats
@@ -44,7 +44,7 @@ use DevBX\Telegram\Api;
  * @property bool $canDeleteStories
  * Pass *True* if the administrator can delete stories posted by other users
  * @property bool $canPostMessages
- * Pass *True* if the administrator can post messages in the channel, or access channel statistics; for channels only
+ * Pass *True* if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
  * @property bool $canEditMessages
  * Pass *True* if the administrator can edit messages of other users and can pin messages; for channels only
  * @property bool $canPinMessages

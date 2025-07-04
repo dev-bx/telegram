@@ -509,7 +509,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @param array    $params    [
      * @var string                                                                                          $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
      * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
-     * @var int                                                                                             $star_count               Required. The number of Telegram Stars that must be paid to buy access to the media; 1-2500
+     * @var int                                                                                             $star_count               Required. The number of Telegram Stars that must be paid to buy access to the media; 1-10000
      * @var Types\InputPaidMedia[]                                                                          $media                    Required. A JSON-serialized array describing the media to be sent; up to 10 items
      * @var string                                                                                          $payload                  Optional. Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
      * @var string                                                                                          $caption                  Optional. Media caption, 0-1024 characters after entities parsing
@@ -659,7 +659,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var string                                                                                          $question                Required. Poll question, 1-300 characters
      * @var string                                                                                          $question_parse_mode     Optional. Mode for parsing entities in the question. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed
      * @var Types\MessageEntity[]                                                                           $question_entities       Optional. A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of *question\_parse\_mode*
-     * @var Types\InputPollOption[]                                                                         $options                 Required. A JSON-serialized list of 2-10 answer options
+     * @var Types\InputPollOption[]                                                                         $options                 Required. A JSON-serialized list of 2-12 answer options
      * @var bool                                                                                            $is_anonymous            Optional. *True*, if the poll needs to be anonymous, defaults to *True*
      * @var string                                                                                          $type                    Optional. Poll type, “quiz” or “regular”, defaults to “regular”
      * @var bool                                                                                            $allows_multiple_answers Optional. *True*, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*
@@ -684,6 +684,29 @@ Please note that this parameter doesn't affect updates created before the call t
     public function sendPoll(array $params = []): Types\Message
     {
         $request = Requests\SendPoll::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to send a checklist on behalf of a connected business account. On success, the sent @see Types\Message is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Required. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int                        $chat_id                Required. Unique identifier for the target chat
+     * @var Types\InputChecklist       $checklist              Required. A JSON-serialized object for the checklist to send
+     * @var bool                       $disable_notification   Optional. Sends the message silently. Users will receive a notification with no sound.
+     * @var bool                       $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
+     * @var string                     $message_effect_id      Optional. Unique identifier of the message effect to be added to the message
+     * @var Types\ReplyParameters      $reply_parameters       Optional. A JSON-serialized object for description of the message to reply to
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an inline keyboard
+     * ]
+     *
+     * @return Types\Message
+    */
+
+    public function sendChecklist(array $params = []): Types\Message
+    {
+        $request = Requests\SendChecklist::create($params);
         return $request->send($this);
     }
 
@@ -866,7 +889,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var int|string $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
      * @var int        $user_id                Required. Unique identifier of the target user
      * @var bool       $is_anonymous           Optional. Pass *True* if the administrator's presence in the chat is hidden
-     * @var bool       $can_manage_chat        Optional. Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+     * @var bool       $can_manage_chat        Optional. Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
      * @var bool       $can_delete_messages    Optional. Pass *True* if the administrator can delete messages of other users
      * @var bool       $can_manage_video_chats Optional. Pass *True* if the administrator can manage video chats
      * @var bool       $can_restrict_members   Optional. Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics
@@ -876,7 +899,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var bool       $can_post_stories       Optional. Pass *True* if the administrator can post stories to the chat
      * @var bool       $can_edit_stories       Optional. Pass *True* if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
      * @var bool       $can_delete_stories     Optional. Pass *True* if the administrator can delete stories posted by other users
-     * @var bool       $can_post_messages      Optional. Pass *True* if the administrator can post messages in the channel, or access channel statistics; for channels only
+     * @var bool       $can_post_messages      Optional. Pass *True* if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
      * @var bool       $can_edit_messages      Optional. Pass *True* if the administrator can edit messages of other users and can pin messages; for channels only
      * @var bool       $can_pin_messages       Optional. Pass *True* if the administrator can pin messages; for supergroups only
      * @var bool       $can_manage_topics      Optional. Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
@@ -1025,7 +1048,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var int|string $chat_id             Required. Unique identifier for the target channel chat or username of the target channel (in the format `@channelusername`)
      * @var string     $name                Optional. Invite link name; 0-32 characters
      * @var int        $subscription_period Required. The number of seconds the subscription will be active for before the next payment. Currently, it must always be 2592000 (30 days).
-     * @var int        $subscription_price  Required. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-2500
+     * @var int        $subscription_price  Required. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-10000
      * ]
      *
      * @return Types\ChatInviteLink
@@ -1955,6 +1978,26 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
     }
 
     /**
+     *Use this method to edit a checklist on behalf of a connected business account. On success, the edited @see Types\Message is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Required. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int                        $chat_id                Required. Unique identifier for the target chat
+     * @var int                        $message_id             Required. Unique identifier for the target message
+     * @var Types\InputChecklist       $checklist              Required. A JSON-serialized object for the new checklist
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for the new inline keyboard for the message
+     * ]
+     *
+     * @return Types\Message
+    */
+
+    public function editMessageChecklist(array $params = []): Types\Message
+    {
+        $request = Requests\EditMessageChecklist::create($params);
+        return $request->send($this);
+    }
+
+    /**
      *Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
      *
      * @param array    $params    [
@@ -2037,6 +2080,459 @@ Returns *True* on success.
     }
 
     /**
+     *Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a @see Types\Gifts object.
+     *
+     *
+     * @return Types\Gifts
+    */
+
+    public function getAvailableGifts(): Types\Gifts
+    {
+        return $this->query(
+            __FUNCTION__,
+            [],
+            [
+                '@return' => [
+                    'type' => Types\Gifts::class,
+                ],
+            ]
+        );
+    }
+
+    /**
+     *Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int                   $user_id         Optional. Required if *chat\_id* is not specified. Unique identifier of the target user who will receive the gift.
+     * @var int|string            $chat_id         Optional. Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
+     * @var string                $gift_id         Required. Identifier of the gift
+     * @var bool                  $pay_for_upgrade Optional. Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
+     * @var string                $text            Optional. Text that will be shown along with the gift; 0-128 characters
+     * @var string                $text_parse_mode Optional. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+     * @var Types\MessageEntity[] $text_entities   Optional. A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function sendGift(array $params = []): Base\BaseType
+    {
+        $request = Requests\SendGift::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Gifts a Telegram Premium subscription to the given user. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int                   $user_id         Required. Unique identifier of the target user who will receive a Telegram Premium subscription
+     * @var int                   $month_count     Required. Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
+     * @var int                   $star_count      Required. Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
+     * @var string                $text            Optional. Text that will be shown along with the service message about the subscription; 0-128 characters
+     * @var string                $text_parse_mode Optional. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+     * @var Types\MessageEntity[] $text_entities   Optional. A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function giftPremiumSubscription(array $params = []): Base\BaseType
+    {
+        $request = Requests\GiftPremiumSubscription::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int    $user_id            Required. Unique identifier of the target user
+     * @var string $custom_description Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function verifyUser(array $params = []): Base\BaseType
+    {
+        $request = Requests\VerifyUser::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id            Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var string     $custom_description Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function verifyChat(array $params = []): Base\BaseType
+    {
+        $request = Requests\VerifyChat::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Removes verification from a user who is currently verified [on behalf of the organization](https://telegram.org/verify#third-party-verification) represented by the bot. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int $user_id Required. Unique identifier of the target user
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function removeUserVerification(array $params = []): Base\BaseType
+    {
+        $request = Requests\RemoveUserVerification::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Removes verification from a chat that is currently verified [on behalf of the organization](https://telegram.org/verify#third-party-verification) represented by the bot. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function removeChatVerification(array $params = []): Base\BaseType
+    {
+        $request = Requests\RemoveChatVerification::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Marks incoming message as read on behalf of a business account. Requires the *can\_read\_messages* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection on behalf of which to read the message
+     * @var int    $chat_id                Required. Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+     * @var int    $message_id             Required. Unique identifier of the message to mark as read
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function readBusinessMessage(array $params = []): Base\BaseType
+    {
+        $request = Requests\ReadBusinessMessage::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Delete messages on behalf of a business account. Requires the *can\_delete\_sent\_messages* business bot right to delete messages sent by the bot itself, or the *can\_delete\_all\_messages* business bot right to delete any message. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection on behalf of which to delete the messages
+     * @var int[]  $message_ids            Required. A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function deleteBusinessMessages(array $params = []): Base\BaseType
+    {
+        $request = Requests\DeleteBusinessMessages::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Changes the first and last name of a managed business account. Requires the *can\_change\_name* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $first_name             Required. The new value of the first name for the business account; 1-64 characters
+     * @var string $last_name              Optional. The new value of the last name for the business account; 0-64 characters
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function setBusinessAccountName(array $params = []): Base\BaseType
+    {
+        $request = Requests\SetBusinessAccountName::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Changes the username of a managed business account. Requires the *can\_change\_username* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $username               Optional. The new value of the username for the business account; 0-32 characters
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function setBusinessAccountUsername(array $params = []): Base\BaseType
+    {
+        $request = Requests\SetBusinessAccountUsername::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Changes the bio of a managed business account. Requires the *can\_change\_bio* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $bio                    Optional. The new value of the bio for the business account; 0-140 characters
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function setBusinessAccountBio(array $params = []): Base\BaseType
+    {
+        $request = Requests\SetBusinessAccountBio::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Changes the profile photo of a managed business account. Requires the *can\_edit\_profile\_photo* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string                  $business_connection_id Required. Unique identifier of the business connection
+     * @var Types\InputProfilePhoto $photo                  Required. The new profile photo to set
+     * @var bool                    $is_public              Optional. Pass *True* to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
+     * ]
+     *
+     * @param Types\InputFile|array[] $attachments
+     *
+     * @return Base\BaseType
+    */
+
+    public function setBusinessAccountProfilePhoto(array $params = [], array $attachments = []): Base\BaseType
+    {
+        $request = Requests\SetBusinessAccountProfilePhoto::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
+    }
+
+    /**
+     *Removes the current profile photo of a managed business account. Requires the *can\_edit\_profile\_photo* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var bool   $is_public              Optional. Pass *True* to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function removeBusinessAccountProfilePhoto(array $params = []): Base\BaseType
+    {
+        $request = Requests\RemoveBusinessAccountProfilePhoto::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the *can\_change\_gift\_settings* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string                  $business_connection_id Required. Unique identifier of the business connection
+     * @var bool                    $show_gift_button       Required. Pass *True*, if a button for sending a gift to the user or by the business account must always be shown in the input field
+     * @var Types\AcceptedGiftTypes $accepted_gift_types    Required. Types of gifts accepted by the business account
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function setBusinessAccountGiftSettings(array $params = []): Base\BaseType
+    {
+        $request = Requests\SetBusinessAccountGiftSettings::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Returns the amount of Telegram Stars owned by a managed business account. Requires the *can\_view\_gifts\_and\_stars* business bot right. Returns @see Types\StarAmount on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * ]
+     *
+     * @return Types\StarAmount
+    */
+
+    public function getBusinessAccountStarBalance(array $params = []): Types\StarAmount
+    {
+        $request = Requests\GetBusinessAccountStarBalance::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Transfers Telegram Stars from the business account balance to the bot's balance. Requires the *can\_transfer\_stars* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var int    $star_count             Required. Number of Telegram Stars to transfer; 1-10000
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function transferBusinessAccountStars(array $params = []): Base\BaseType
+    {
+        $request = Requests\TransferBusinessAccountStars::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Returns the gifts received and owned by a managed business account. Requires the *can\_view\_gifts\_and\_stars* business bot right. Returns @see Types\OwnedGifts on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var bool   $exclude_unsaved        Optional. Pass *True* to exclude gifts that aren't saved to the account's profile page
+     * @var bool   $exclude_saved          Optional. Pass *True* to exclude gifts that are saved to the account's profile page
+     * @var bool   $exclude_unlimited      Optional. Pass *True* to exclude gifts that can be purchased an unlimited number of times
+     * @var bool   $exclude_limited        Optional. Pass *True* to exclude gifts that can be purchased a limited number of times
+     * @var bool   $exclude_unique         Optional. Pass *True* to exclude unique gifts
+     * @var bool   $sort_by_price          Optional. Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
+     * @var string $offset                 Optional. Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+     * @var int    $limit                  Optional. The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * ]
+     *
+     * @return Types\OwnedGifts
+    */
+
+    public function getBusinessAccountGifts(array $params = []): Types\OwnedGifts
+    {
+        $request = Requests\GetBusinessAccountGifts::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Converts a given regular gift to Telegram Stars. Requires the *can\_convert\_gifts\_to\_stars* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $owned_gift_id          Required. Unique identifier of the regular gift that should be converted to Telegram Stars
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function convertGiftToStars(array $params = []): Base\BaseType
+    {
+        $request = Requests\ConvertGiftToStars::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Upgrades a given regular gift to a unique gift. Requires the *can\_transfer\_and\_upgrade\_gifts* business bot right. Additionally requires the *can\_transfer\_stars* business bot right if the upgrade is paid. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $owned_gift_id          Required. Unique identifier of the regular gift that should be upgraded to a unique one
+     * @var bool   $keep_original_details  Optional. Pass *True* to keep the original gift text, sender and receiver in the upgraded gift
+     * @var int    $star_count             Optional. The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If `gift.prepaid_upgrade_star_count > 0`, then pass 0, otherwise, the *can\_transfer\_stars* business bot right is required and `gift.upgrade_star_count` must be passed.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function upgradeGift(array $params = []): Base\BaseType
+    {
+        $request = Requests\UpgradeGift::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Transfers an owned unique gift to another user. Requires the *can\_transfer\_and\_upgrade\_gifts* business bot right. Requires *can\_transfer\_stars* business bot right if the transfer is paid. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var string $owned_gift_id          Required. Unique identifier of the regular gift that should be transferred
+     * @var int    $new_owner_chat_id      Required. Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
+     * @var int    $star_count             Optional. The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the *can\_transfer\_stars* business bot right is required.
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function transferGift(array $params = []): Base\BaseType
+    {
+        $request = Requests\TransferGift::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Posts a story on behalf of a managed business account. Requires the *can\_manage\_stories* business bot right. Returns @see Types\Story on success.
+     *
+     * @param array    $params    [
+     * @var string                  $business_connection_id Required. Unique identifier of the business connection
+     * @var Types\InputStoryContent $content                Required. Content of the story
+     * @var int                     $active_period          Required. Period after which the story is moved to the archive, in seconds; must be one of `6 * 3600`, `12 * 3600`, `86400`, or `2 * 86400`
+     * @var string                  $caption                Optional. Caption of the story, 0-2048 characters after entities parsing
+     * @var string                  $parse_mode             Optional. Mode for parsing entities in the story caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]   $caption_entities       Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var Types\StoryArea[]       $areas                  Optional. A JSON-serialized list of clickable areas to be shown on the story
+     * @var bool                    $post_to_chat_page      Optional. Pass *True* to keep the story accessible after it expires
+     * @var bool                    $protect_content        Optional. Pass *True* if the content of the story must be protected from forwarding and screenshotting
+     * ]
+     *
+     * @param Types\InputFile|array[] $attachments
+     *
+     * @return Types\Story
+    */
+
+    public function postStory(array $params = [], array $attachments = []): Types\Story
+    {
+        $request = Requests\PostStory::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
+    }
+
+    /**
+     *Edits a story previously posted by the bot on behalf of a managed business account. Requires the *can\_manage\_stories* business bot right. Returns @see Types\Story on success.
+     *
+     * @param array    $params    [
+     * @var string                  $business_connection_id Required. Unique identifier of the business connection
+     * @var int                     $story_id               Required. Unique identifier of the story to edit
+     * @var Types\InputStoryContent $content                Required. Content of the story
+     * @var string                  $caption                Optional. Caption of the story, 0-2048 characters after entities parsing
+     * @var string                  $parse_mode             Optional. Mode for parsing entities in the story caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]   $caption_entities       Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var Types\StoryArea[]       $areas                  Optional. A JSON-serialized list of clickable areas to be shown on the story
+     * ]
+     *
+     * @param Types\InputFile|array[] $attachments
+     *
+     * @return Types\Story
+    */
+
+    public function editStory(array $params = [], array $attachments = []): Types\Story
+    {
+        $request = Requests\EditStory::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
+    }
+
+    /**
+     *Deletes a story previously posted by the bot on behalf of a managed business account. Requires the *can\_manage\_stories* business bot right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var int    $story_id               Required. Unique identifier of the story to delete
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function deleteStory(array $params = []): Base\BaseType
+    {
+        $request = Requests\DeleteStory::create($params);
+        return $request->send($this);
+    }
+
+    /**
      *Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
      *
      * @param array    $params    [
@@ -2108,7 +2604,7 @@ Returns *True* on success.
      * @var string                  $provider_token                Optional. Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
      * @var string                  $currency                      Required. Three-letter ISO 4217 currency code, see [more on currencies](/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
      * @var Payments\LabeledPrice[] $prices                        Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var int                     $subscription_period           Optional. The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 2500 Telegram Stars.
+     * @var int                     $subscription_period           Optional. The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.
      * @var int                     $max_tip_amount                Optional. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
      * @var int[]                   $suggested_tip_amounts         Optional. A JSON-serialized array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
      * @var string                  $provider_data                 Optional. JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
@@ -2169,6 +2665,26 @@ Returns *True* on success.
     {
         $request = Requests\AnswerPreCheckoutQuery::create($params);
         return $request->send($this);
+    }
+
+    /**
+     *A method to get the current Telegram Stars balance of the bot. Requires no parameters. On success, returns a @see Types\StarAmount object.
+     *
+     *
+     * @return Types\StarAmount
+    */
+
+    public function getMyStarBalance(): Types\StarAmount
+    {
+        return $this->query(
+            __FUNCTION__,
+            [],
+            [
+                '@return' => [
+                    'type' => Types\StarAmount::class,
+                ],
+            ]
+        );
     }
 
     /**
@@ -2573,114 +3089,6 @@ No more than **50** results per query are allowed.
     public function deleteStickerSet(array $params = []): Base\BaseType
     {
         $request = Requests\DeleteStickerSet::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a @see Stickers\Gifts object.
-     *
-     *
-     * @return Stickers\Gifts
-    */
-
-    public function getAvailableGifts(): Stickers\Gifts
-    {
-        return $this->query(
-            __FUNCTION__,
-            [],
-            [
-                '@return' => [
-                    'type' => Stickers\Gifts::class,
-                ],
-            ]
-        );
-    }
-
-    /**
-     *Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int                   $user_id         Optional. Required if *chat\_id* is not specified. Unique identifier of the target user who will receive the gift.
-     * @var int|string            $chat_id         Optional. Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
-     * @var string                $gift_id         Required. Identifier of the gift
-     * @var bool                  $pay_for_upgrade Optional. Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
-     * @var string                $text            Optional. Text that will be shown along with the gift; 0-128 characters
-     * @var string                $text_parse_mode Optional. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
-     * @var Types\MessageEntity[] $text_entities   Optional. A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function sendGift(array $params = []): Base\BaseType
-    {
-        $request = Requests\SendGift::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int    $user_id            Required. Unique identifier of the target user
-     * @var string $custom_description Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function verifyUser(array $params = []): Base\BaseType
-    {
-        $request = Requests\VerifyUser::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int|string $chat_id            Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var string     $custom_description Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function verifyChat(array $params = []): Base\BaseType
-    {
-        $request = Requests\VerifyChat::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Removes verification from a user who is currently verified [on behalf of the organization](https://telegram.org/verify#third-party-verification) represented by the bot. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int $user_id Required. Unique identifier of the target user
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function removeUserVerification(array $params = []): Base\BaseType
-    {
-        $request = Requests\RemoveUserVerification::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Removes verification from a chat that is currently verified [on behalf of the organization](https://telegram.org/verify#third-party-verification) represented by the bot. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function removeChatVerification(array $params = []): Base\BaseType
-    {
-        $request = Requests\RemoveChatVerification::create($params);
         return $request->send($this);
     }
 

@@ -20,13 +20,13 @@ use DevBX\Telegram\Base;
  * @property string $query
  * *Optional*. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
  * @property bool $allowUserChats
- * *Optional*. True, if private chats with users can be chosen
+ * *Optional*. *True*, if private chats with users can be chosen
  * @property bool $allowBotChats
- * *Optional*. True, if private chats with bots can be chosen
+ * *Optional*. *True*, if private chats with bots can be chosen
  * @property bool $allowGroupChats
- * *Optional*. True, if group and supergroup chats can be chosen
+ * *Optional*. *True*, if group and supergroup chats can be chosen
  * @property bool $allowChannelChats
- * *Optional*. True, if channel chats can be chosen
+ * *Optional*. *True*, if channel chats can be chosen
  */
 class SwitchInlineQueryChosenChat extends Base\BaseType
 {

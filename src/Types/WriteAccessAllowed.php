@@ -18,11 +18,11 @@ use DevBX\Telegram\Base;
 /**
  * This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method [requestWriteAccess](/bots/webapps#initializing-mini-apps).
  * @property bool $fromRequest
- * *Optional*. True, if the access was granted after the user accepted an explicit request from a Web App sent by the method [requestWriteAccess](/bots/webapps#initializing-mini-apps)
+ * *Optional*. *True*, if the access was granted after the user accepted an explicit request from a Web App sent by the method [requestWriteAccess](/bots/webapps#initializing-mini-apps)
  * @property string $webAppName
  * *Optional*. Name of the Web App, if the access was granted when the Web App was launched from a link
  * @property bool $fromAttachmentMenu
- * *Optional*. True, if the access was granted when the bot was added to the attachment or side menu
+ * *Optional*. *True*, if the access was granted when the bot was added to the attachment or side menu
  */
 class WriteAccessAllowed extends Base\BaseType
 {

@@ -79,8 +79,8 @@ use DevBX\Telegram\Base;
  * *Optional*. The most recent pinned message (by sending date)
  * @property ChatPermissions $permissions
  * *Optional*. Default chat member permissions, for groups and supergroups
- * @property bool $canSendGift
- * *Optional*. *True*, if gifts can be sent to the chat
+ * @property AcceptedGiftTypes $acceptedGiftTypes
+ * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
  * @property bool $canSendPaidMedia
  * *Optional*. *True*, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
  * @property int $slowModeDelay
@@ -212,8 +212,9 @@ class ChatFullInfo extends Base\BaseType
 			'permissions' => [
 				'type' => [ChatPermissions::class],
 			],
-			'can_send_gift' => [
-				'type' => ['bool'],
+			'accepted_gift_types' => [
+				'type' => [AcceptedGiftTypes::class],
+				'required' => true,
 			],
 			'can_send_paid_media' => [
 				'type' => ['bool'],
@@ -846,22 +847,22 @@ class ChatFullInfo extends Base\BaseType
 	}
 
 	/**
-	* @return bool
+	* @return AcceptedGiftTypes
 	*/
 
-	public function getCanSendGift(): mixed
+	public function getAcceptedGiftTypes(): mixed
 	{
-		return $this->getFieldValue('can_send_gift');
+		return $this->getFieldValue('accepted_gift_types');
 	}
 
 	/**
-	* @param bool $value
+	* @param AcceptedGiftTypes $value
 	* @return static
 	*/
 
-	public function setCanSendGift(mixed $value): static
+	public function setAcceptedGiftTypes(mixed $value): static
 	{
-		return $this->setFieldValue('can_send_gift', $value);
+		return $this->setFieldValue('accepted_gift_types', $value);
 	}
 
 	/**

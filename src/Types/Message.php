@@ -60,11 +60,13 @@ use DevBX\Telegram\Passport;
  * @property bool $hasProtectedContent
  * *Optional*. *True*, if the message can't be forwarded
  * @property bool $isFromOffline
- * *Optional*. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+ * *Optional*. *True*, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
  * @property string $mediaGroupId
  * *Optional*. The unique identifier of a media message group this message belongs to
  * @property string $authorSignature
  * *Optional*. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+ * @property int $paidStarCount
+ * *Optional*. The number of Telegram Stars that were paid by the sender of the message to send it
  * @property string $text
  * *Optional*. For text messages, the actual UTF-8 text of the message
  * @property Base\ArrayObject|MessageEntity[] $entities
@@ -98,9 +100,11 @@ use DevBX\Telegram\Passport;
  * @property Base\ArrayObject|MessageEntity[] $captionEntities
  * *Optional*. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
  * @property bool $showCaptionAboveMedia
- * *Optional*. True, if the caption must be shown above the message media
+ * *Optional*. *True*, if the caption must be shown above the message media
  * @property bool $hasMediaSpoiler
  * *Optional*. *True*, if the message media is covered by a spoiler animation
+ * @property Checklist $checklist
+ * *Optional*. Message is a checklist
  * @property Contact $contact
  * *Optional*. Message is a shared contact, information about the contact
  * @property Dice $dice
@@ -147,6 +151,10 @@ use DevBX\Telegram\Passport;
  * *Optional*. Service message: users were shared with the bot
  * @property ChatShared $chatShared
  * *Optional*. Service message: a chat was shared with the bot
+ * @property GiftInfo $gift
+ * *Optional*. Service message: a regular gift was sent or received
+ * @property UniqueGiftInfo $uniqueGift
+ * *Optional*. Service message: a unique gift was sent or received
  * @property string $connectedWebsite
  * *Optional*. The domain name of the website on which the user has logged in. [More about Telegram Login »](/widgets/login)
  * @property WriteAccessAllowed $writeAccessAllowed
@@ -159,6 +167,12 @@ use DevBX\Telegram\Passport;
  * *Optional*. Service message: user boosted the chat
  * @property ChatBackground $chatBackgroundSet
  * *Optional*. Service message: chat background set
+ * @property ChecklistTasksDone $checklistTasksDone
+ * *Optional*. Service message: some tasks in a checklist were marked as done or not done
+ * @property ChecklistTasksAdded $checklistTasksAdded
+ * *Optional*. Service message: tasks were added to a checklist
+ * @property DirectMessagePriceChanged $directMessagePriceChanged
+ * *Optional*. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
  * @property ForumTopicCreated $forumTopicCreated
  * *Optional*. Service message: forum topic created
  * @property ForumTopicEdited $forumTopicEdited
@@ -179,6 +193,8 @@ use DevBX\Telegram\Passport;
  * *Optional*. A giveaway with public winners was completed
  * @property GiveawayCompleted $giveawayCompleted
  * *Optional*. Service message: a giveaway without public winners was completed
+ * @property PaidMessagePriceChanged $paidMessagePriceChanged
+ * *Optional*. Service message: the price for paid messages has changed in the chat
  * @property VideoChatScheduled $videoChatScheduled
  * *Optional*. Service message: video chat scheduled
  * @property VideoChatStarted $videoChatStarted
@@ -266,6 +282,9 @@ class Message extends MaybeInaccessibleMessage
 			'author_signature' => [
 				'type' => ['string'],
 			],
+			'paid_star_count' => [
+				'type' => ['int'],
+			],
 			'text' => [
 				'type' => ['string'],
 			],
@@ -322,6 +341,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'has_media_spoiler' => [
 				'type' => ['bool'],
+			],
+			'checklist' => [
+				'type' => [Checklist::class],
 			],
 			'contact' => [
 				'type' => [Contact::class],
@@ -394,6 +416,12 @@ class Message extends MaybeInaccessibleMessage
 			'chat_shared' => [
 				'type' => [ChatShared::class],
 			],
+			'gift' => [
+				'type' => [GiftInfo::class],
+			],
+			'unique_gift' => [
+				'type' => [UniqueGiftInfo::class],
+			],
 			'connected_website' => [
 				'type' => ['string'],
 			],
@@ -411,6 +439,15 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'chat_background_set' => [
 				'type' => [ChatBackground::class],
+			],
+			'checklist_tasks_done' => [
+				'type' => [ChecklistTasksDone::class],
+			],
+			'checklist_tasks_added' => [
+				'type' => [ChecklistTasksAdded::class],
+			],
+			'direct_message_price_changed' => [
+				'type' => [DirectMessagePriceChanged::class],
 			],
 			'forum_topic_created' => [
 				'type' => [ForumTopicCreated::class],
@@ -441,6 +478,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'giveaway_completed' => [
 				'type' => [GiveawayCompleted::class],
+			],
+			'paid_message_price_changed' => [
+				'type' => [PaidMessagePriceChanged::class],
 			],
 			'video_chat_scheduled' => [
 				'type' => [VideoChatScheduled::class],
@@ -881,6 +921,25 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return int
+	*/
+
+	public function getPaidStarCount(): mixed
+	{
+		return $this->getFieldValue('paid_star_count');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setPaidStarCount(mixed $value): static
+	{
+		return $this->setFieldValue('paid_star_count', $value);
+	}
+
+	/**
 	* @return string
 	*/
 
@@ -1220,6 +1279,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setHasMediaSpoiler(mixed $value): static
 	{
 		return $this->setFieldValue('has_media_spoiler', $value);
+	}
+
+	/**
+	* @return Checklist
+	*/
+
+	public function getChecklist(): mixed
+	{
+		return $this->getFieldValue('checklist');
+	}
+
+	/**
+	* @param Checklist $value
+	* @return static
+	*/
+
+	public function setChecklist(mixed $value): static
+	{
+		return $this->setFieldValue('checklist', $value);
 	}
 
 	/**
@@ -1660,6 +1738,44 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return GiftInfo
+	*/
+
+	public function getGift(): mixed
+	{
+		return $this->getFieldValue('gift');
+	}
+
+	/**
+	* @param GiftInfo $value
+	* @return static
+	*/
+
+	public function setGift(mixed $value): static
+	{
+		return $this->setFieldValue('gift', $value);
+	}
+
+	/**
+	* @return UniqueGiftInfo
+	*/
+
+	public function getUniqueGift(): mixed
+	{
+		return $this->getFieldValue('unique_gift');
+	}
+
+	/**
+	* @param UniqueGiftInfo $value
+	* @return static
+	*/
+
+	public function setUniqueGift(mixed $value): static
+	{
+		return $this->setFieldValue('unique_gift', $value);
+	}
+
+	/**
 	* @return string
 	*/
 
@@ -1771,6 +1887,63 @@ class Message extends MaybeInaccessibleMessage
 	public function setChatBackgroundSet(mixed $value): static
 	{
 		return $this->setFieldValue('chat_background_set', $value);
+	}
+
+	/**
+	* @return ChecklistTasksDone
+	*/
+
+	public function getChecklistTasksDone(): mixed
+	{
+		return $this->getFieldValue('checklist_tasks_done');
+	}
+
+	/**
+	* @param ChecklistTasksDone $value
+	* @return static
+	*/
+
+	public function setChecklistTasksDone(mixed $value): static
+	{
+		return $this->setFieldValue('checklist_tasks_done', $value);
+	}
+
+	/**
+	* @return ChecklistTasksAdded
+	*/
+
+	public function getChecklistTasksAdded(): mixed
+	{
+		return $this->getFieldValue('checklist_tasks_added');
+	}
+
+	/**
+	* @param ChecklistTasksAdded $value
+	* @return static
+	*/
+
+	public function setChecklistTasksAdded(mixed $value): static
+	{
+		return $this->setFieldValue('checklist_tasks_added', $value);
+	}
+
+	/**
+	* @return DirectMessagePriceChanged
+	*/
+
+	public function getDirectMessagePriceChanged(): mixed
+	{
+		return $this->getFieldValue('direct_message_price_changed');
+	}
+
+	/**
+	* @param DirectMessagePriceChanged $value
+	* @return static
+	*/
+
+	public function setDirectMessagePriceChanged(mixed $value): static
+	{
+		return $this->setFieldValue('direct_message_price_changed', $value);
 	}
 
 	/**
@@ -1961,6 +2134,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setGiveawayCompleted(mixed $value): static
 	{
 		return $this->setFieldValue('giveaway_completed', $value);
+	}
+
+	/**
+	* @return PaidMessagePriceChanged
+	*/
+
+	public function getPaidMessagePriceChanged(): mixed
+	{
+		return $this->getFieldValue('paid_message_price_changed');
+	}
+
+	/**
+	* @param PaidMessagePriceChanged $value
+	* @return static
+	*/
+
+	public function setPaidMessagePriceChanged(mixed $value): static
+	{
+		return $this->setFieldValue('paid_message_price_changed', $value);
 	}
 
 	/**

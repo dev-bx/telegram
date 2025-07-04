@@ -26,9 +26,9 @@ use DevBX\Telegram\Base;
  * @property int $subscriptionExpirationDate
  * *Optional*. Expiration date of the subscription, in Unix time; for recurring payments only
  * @property bool $isRecurring
- * *Optional*. True, if the payment is a recurring payment for a subscription
+ * *Optional*. *True*, if the payment is a recurring payment for a subscription
  * @property bool $isFirstRecurring
- * *Optional*. True, if the payment is the first payment for a subscription
+ * *Optional*. *True*, if the payment is the first payment for a subscription
  * @property string $shippingOptionId
  * *Optional*. Identifier of the shipping option chosen by the user
  * @property OrderInfo $orderInfo

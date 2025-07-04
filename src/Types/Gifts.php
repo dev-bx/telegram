@@ -10,7 +10,7 @@
  * This file is part of the project Telegram Bot Api Class Generator.
  */
 
-namespace DevBX\Telegram\Stickers;
+namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 

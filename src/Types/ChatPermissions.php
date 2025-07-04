@@ -32,7 +32,7 @@ use DevBX\Telegram\Base;
  * @property bool $canSendVoiceNotes
  * *Optional*. *True*, if the user is allowed to send voice notes
  * @property bool $canSendPolls
- * *Optional*. *True*, if the user is allowed to send polls
+ * *Optional*. *True*, if the user is allowed to send polls and checklists
  * @property bool $canSendOtherMessages
  * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots
  * @property bool $canAddWebPagePreviews

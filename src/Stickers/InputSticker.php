@@ -13,13 +13,12 @@
 namespace DevBX\Telegram\Stickers;
 
 use DevBX\Telegram\Base;
-use DevBX\Telegram\Types;
 
 
 /**
  * This object describes a sticker to be added to a sticker set.
- * @property Types\InputFile|string $sticker
- * The added sticker. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart/form-data, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. Animated and video stickers can't be uploaded via HTTP URL. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+ * @property string $sticker
+ * The added sticker. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new file using multipart/form-data under <file_attach_name> name. Animated and video stickers can't be uploaded via HTTP URL. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
  * @property string $format
  * Format of the added sticker, must be one of “static” for a **.WEBP** or **.PNG** image, “animated” for a **.TGS** animation, “video” for a **.WEBM** video
  * @property string[] $emojiList
@@ -35,7 +34,7 @@ class InputSticker extends Base\BaseType
 	{
 		return [
 			'sticker' => [
-				'type' => [Types\InputFile::class, 'string'],
+				'type' => ['string'],
 				'required' => true,
 			],
 			'format' => [
@@ -57,7 +56,7 @@ class InputSticker extends Base\BaseType
 		];
 	}
 	/**
-	* @return Types\InputFile|string
+	* @return string
 	*/
 
 	public function getSticker(): mixed
@@ -66,7 +65,7 @@ class InputSticker extends Base\BaseType
 	}
 
 	/**
-	* @param Types\InputFile|string $value
+	* @param string $value
 	* @return static
 	*/
 

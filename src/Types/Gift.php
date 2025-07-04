@@ -10,16 +10,17 @@
  * This file is part of the project Telegram Bot Api Class Generator.
  */
 
-namespace DevBX\Telegram\Stickers;
+namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
+use DevBX\Telegram\Stickers;
 
 
 /**
  * This object represents a gift that can be sent by the bot.
  * @property string $id
  * Unique identifier of the gift
- * @property Sticker $sticker
+ * @property Stickers\Sticker $sticker
  * The sticker that represents the gift
  * @property int $starCount
  * The number of Telegram Stars that must be paid to send the sticker
@@ -40,7 +41,7 @@ class Gift extends Base\BaseType
 				'required' => true,
 			],
 			'sticker' => [
-				'type' => [Sticker::class],
+				'type' => [Stickers\Sticker::class],
 				'required' => true,
 			],
 			'star_count' => [
@@ -78,7 +79,7 @@ class Gift extends Base\BaseType
 	}
 
 	/**
-	* @return Sticker
+	* @return Stickers\Sticker
 	*/
 
 	public function getSticker(): mixed
@@ -87,7 +88,7 @@ class Gift extends Base\BaseType
 	}
 
 	/**
-	* @param Sticker $value
+	* @param Stickers\Sticker $value
 	* @return static
 	*/
 

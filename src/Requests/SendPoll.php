@@ -31,7 +31,7 @@ use DevBX\Telegram\Types;
  * @property Base\ArrayObject|Types\MessageEntity[] $questionEntities
  * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of *question\_parse\_mode*
  * @property Base\ArrayObject|Types\InputPollOption[] $options
- * A JSON-serialized list of 2-10 answer options
+ * A JSON-serialized list of 2-12 answer options
  * @property bool $isAnonymous
  * *True*, if the poll needs to be anonymous, defaults to *True*
  * @property string $type

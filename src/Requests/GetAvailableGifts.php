@@ -14,11 +14,11 @@ namespace DevBX\Telegram\Requests;
 
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
-use DevBX\Telegram\Stickers;
+use DevBX\Telegram\Types;
 
 /**
  * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a [Gifts](#gifts) object.
- * @method Stickers\Gifts send(Api $gateway = null)
+ * @method Types\Gifts send(Api $gateway = null)
  */
 class GetAvailableGifts extends Base\Request
 {
@@ -26,7 +26,7 @@ class GetAvailableGifts extends Base\Request
     {
         return [
             '@return' => [
-                'type' => Stickers\Gifts::class,
+                'type' => Types\Gifts::class,
             ],
         ];
     }

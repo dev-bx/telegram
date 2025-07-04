@@ -26,7 +26,7 @@ use DevBX\Telegram\Base;
  * @property int $prizeStarCount
  * *Optional*. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
  * @property bool $isUnclaimed
- * *Optional*. True, if the giveaway was completed, but there was no user to win the prize
+ * *Optional*. *True*, if the giveaway was completed, but there was no user to win the prize
  */
 class ChatBoostSourceGiveaway extends ChatBoostSource
 {

@@ -25,10 +25,10 @@ use DevBX\Telegram\Base;
  * Identifier of a private chat with the user who created the business connection. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
  * @property int $date
  * Date the connection was established in Unix time
- * @property bool $canReply
- * True, if the bot can act on behalf of the business account in chats that were active in the last 24 hours
+ * @property BusinessBotRights $rights
+ * *Optional*. Rights of the business bot
  * @property bool $isEnabled
- * True, if the connection is active
+ * *True*, if the connection is active
  */
 class BusinessConnection extends Base\BaseType
 {
@@ -51,9 +51,8 @@ class BusinessConnection extends Base\BaseType
 				'type' => ['int'],
 				'required' => true,
 			],
-			'can_reply' => [
-				'type' => ['bool'],
-				'required' => true,
+			'rights' => [
+				'type' => [BusinessBotRights::class],
 			],
 			'is_enabled' => [
 				'type' => ['bool'],
@@ -138,22 +137,22 @@ class BusinessConnection extends Base\BaseType
 	}
 
 	/**
-	* @return bool
+	* @return BusinessBotRights
 	*/
 
-	public function getCanReply(): mixed
+	public function getRights(): mixed
 	{
-		return $this->getFieldValue('can_reply');
+		return $this->getFieldValue('rights');
 	}
 
 	/**
-	* @param bool $value
+	* @param BusinessBotRights $value
 	* @return static
 	*/
 
-	public function setCanReply(mixed $value): static
+	public function setRights(mixed $value): static
 	{
-		return $this->setFieldValue('can_reply', $value);
+		return $this->setFieldValue('rights', $value);
 	}
 
 	/**

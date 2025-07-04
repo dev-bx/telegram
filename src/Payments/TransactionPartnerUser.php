@@ -14,27 +14,30 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
-use DevBX\Telegram\Stickers;
 
 
 /**
  * Describes a transaction with a user.
  * @property string $type
  * Type of the transaction partner, always “user”
+ * @property string $transactionType
+ * Type of the transaction, currently one of “invoice\_payment” for payments via invoices, “paid\_media\_payment” for payments for paid media, “gift\_purchase” for gifts sent by the bot, “premium\_purchase” for Telegram Premium subscriptions gifted by the bot, “business\_account\_transfer” for direct transfers from managed business accounts
  * @property Types\User $user
  * Information about the user
  * @property AffiliateInfo $affiliate
- * *Optional*. Information about the affiliate that received a commission via this transaction
+ * *Optional*. Information about the affiliate that received a commission via this transaction. Can be available only for “invoice\_payment” and “paid\_media\_payment” transactions.
  * @property string $invoicePayload
- * *Optional*. Bot-specified invoice payload
+ * *Optional*. Bot-specified invoice payload. Can be available only for “invoice\_payment” transactions.
  * @property int $subscriptionPeriod
- * *Optional*. The duration of the paid subscription
+ * *Optional*. The duration of the paid subscription. Can be available only for “invoice\_payment” transactions.
  * @property Base\ArrayObject|Types\PaidMedia[] $paidMedia
- * *Optional*. Information about the paid media bought by the user
+ * *Optional*. Information about the paid media bought by the user; for “paid\_media\_payment” transactions only
  * @property string $paidMediaPayload
- * *Optional*. Bot-specified paid media payload
- * @property Stickers\Gift $gift
- * *Optional*. The gift sent to the user by the bot
+ * *Optional*. Bot-specified paid media payload. Can be available only for “paid\_media\_payment” transactions.
+ * @property Types\Gift $gift
+ * *Optional*. The gift sent to the user by the bot; for “gift\_purchase” transactions only
+ * @property int $premiumSubscriptionDuration
+ * *Optional*. Number of months the gifted Telegram Premium subscription will be active for; for “premium\_purchase” transactions only
  */
 class TransactionPartnerUser extends TransactionPartner
 {
@@ -44,6 +47,10 @@ class TransactionPartnerUser extends TransactionPartner
 			'type' => [
 				'type' => ['string'],
 				'value' => 'user',
+				'required' => true,
+			],
+			'transaction_type' => [
+				'type' => ['string'],
 				'required' => true,
 			],
 			'user' => [
@@ -67,7 +74,10 @@ class TransactionPartnerUser extends TransactionPartner
 				'type' => ['string'],
 			],
 			'gift' => [
-				'type' => [Stickers\Gift::class],
+				'type' => [Types\Gift::class],
+			],
+			'premium_subscription_duration' => [
+				'type' => ['int'],
 			],
 		];
 	}
@@ -88,6 +98,25 @@ class TransactionPartnerUser extends TransactionPartner
 	public function setType(mixed $value): static
 	{
 		return $this->setFieldValue('type', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getTransactionType(): mixed
+	{
+		return $this->getFieldValue('transaction_type');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setTransactionType(mixed $value): static
+	{
+		return $this->setFieldValue('transaction_type', $value);
 	}
 
 	/**
@@ -205,7 +234,7 @@ class TransactionPartnerUser extends TransactionPartner
 	}
 
 	/**
-	* @return Stickers\Gift
+	* @return Types\Gift
 	*/
 
 	public function getGift(): mixed
@@ -214,13 +243,32 @@ class TransactionPartnerUser extends TransactionPartner
 	}
 
 	/**
-	* @param Stickers\Gift $value
+	* @param Types\Gift $value
 	* @return static
 	*/
 
 	public function setGift(mixed $value): static
 	{
 		return $this->setFieldValue('gift', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getPremiumSubscriptionDuration(): mixed
+	{
+		return $this->getFieldValue('premium_subscription_duration');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setPremiumSubscriptionDuration(mixed $value): static
+	{
+		return $this->setFieldValue('premium_subscription_duration', $value);
 	}
 
 }

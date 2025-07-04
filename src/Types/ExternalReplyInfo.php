@@ -50,6 +50,8 @@ use DevBX\Telegram\Payments;
  * *Optional*. Message is a voice message, information about the file
  * @property bool $hasMediaSpoiler
  * *Optional*. *True*, if the message media is covered by a spoiler animation
+ * @property Checklist $checklist
+ * *Optional*. Message is a checklist
  * @property Contact $contact
  * *Optional*. Message is a shared contact, information about the contact
  * @property Dice $dice
@@ -120,6 +122,9 @@ class ExternalReplyInfo extends Base\BaseType
 			],
 			'has_media_spoiler' => [
 				'type' => ['bool'],
+			],
+			'checklist' => [
+				'type' => [Checklist::class],
 			],
 			'contact' => [
 				'type' => [Contact::class],
@@ -433,6 +438,25 @@ class ExternalReplyInfo extends Base\BaseType
 	public function setHasMediaSpoiler(mixed $value): static
 	{
 		return $this->setFieldValue('has_media_spoiler', $value);
+	}
+
+	/**
+	* @return Checklist
+	*/
+
+	public function getChecklist(): mixed
+	{
+		return $this->getFieldValue('checklist');
+	}
+
+	/**
+	* @param Checklist $value
+	* @return static
+	*/
+
+	public function setChecklist(mixed $value): static
+	{
+		return $this->setFieldValue('checklist', $value);
 	}
 
 	/**
