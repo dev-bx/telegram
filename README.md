@@ -6,7 +6,7 @@ designed to be used with the Bitrix CMS or the GuzzleHTTP client.
 ## Features
 
 - **Easy Integration**: Seamlessly integrates with Bitrix CMS and GuzzleHTTP client.
-- **Full API Coverage**: Supports all <b>Telegram BOT API 8.2</b> methods.
+- **Full API Coverage**: Supports all <b>Telegram BOT API 9.1</b> methods.
 - **Customizable**: Easily extendable and customizable to fit your specific needs.
 
 ## Installation
@@ -25,7 +25,7 @@ composer require devbx/telegram
 use DevBX\Telegram;
 
 $client = new Telegram\BitrixClient([
-    'token' => '1234567890:zzz',
+    'token' => '1234567890:zzz', //API token obtained from @BotFather
     'client_options' => [ // Bitrix client options
         'disableSslVerification' => false
     ]
@@ -35,7 +35,7 @@ $result = $client->sendPhoto([
     'chat_id' => 1234567890,
     'photo' => [
         'filename' => 'media.jpg',
-        'resource' => fopen('media.jpg', 'r+'),
+        'resource' => fopen('media.jpg', 'r'),
         'contentType' => 'image/jpeg',
     ],
 ]);
@@ -55,7 +55,7 @@ foreach ($result->photo as $photo) {
 use DevBX\Telegram;
 
 $client = new \DevBX\Telegram\GuzzleClient([
-    'token' => '1234567890:zzz',
+    'token' => '1234567890:zzz', //API token obtained from @BotFather
     'client_options' => [ // Guzzle client options
         'verify' => false
     ]
@@ -65,7 +65,7 @@ $result = $client->sendPhoto([
     'chat_id' => 1234567890,
     'photo' => [
         'filename' => 'media.jpg',
-        'resource' => fopen('media.jpg', 'r+'),
+        'resource' => fopen('media.jpg', 'r'),
         'contentType' => 'image/jpeg',
     ],
 ]);
@@ -79,7 +79,8 @@ foreach ($result->photo as $photo) {
 
 ```
 
-## Using a Local Bot API Server
+## Using a Local Bot API Server 
+### https://core.telegram.org/bots/api#using-a-local-bot-api-server
 
 ### Bitrix
 
@@ -87,7 +88,7 @@ foreach ($result->photo as $photo) {
 use DevBX\Telegram;
 
 $client = new Telegram\BitrixClient([
-    'token' => '1234567890:zzz',
+    'token' => '1234567890:zzz', //API token obtained from @BotFather
     'api_url' => 'http://localhost:8081/bot'
 ]);
 
@@ -103,7 +104,7 @@ $client->sendMessage([
 use DevBX\Telegram;
 
 $client = new Telegram\GuzzleClient([
-    'token' => '1234567890:zzz',
+    'token' => '1234567890:zzz', //API token obtained from @BotFather
     'api_url' => 'http://localhost:8081/bot'
 ]);
 
