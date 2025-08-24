@@ -84,6 +84,41 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $type;
     }
 
+    public static function createIsCompatible($data): bool
+    {
+        $fields = static::getFields();
+
+        if (empty($fields))
+            return true;
+
+        if ($data instanceof BaseType) {
+            $data = $data->jsonSerialize();
+        }
+
+        if (!is_array($data))
+            return false;
+
+        foreach ($data as $key=>$value)
+        {
+            if (static::camel2snake($key) != $key)
+            {
+                unset($data[$key]);
+                $key = static::camel2snake($key);
+                $data[$key] = $value;
+            }
+        }
+
+        foreach (static::getConstFields() as $field => $fieldData) {
+            if (!array_key_exists($field, $data))
+                return false;
+
+            if ($data[$field] != $fieldData['value'])
+                return false;
+        }
+
+        return true;
+    }
+
     public static function isCompatible($data): bool
     {
         $fields = static::getFields();
@@ -333,6 +368,14 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         foreach ($fieldData['type'] as $fieldType) {
             $fieldType = static::getFieldTypeClass($fieldType);
             if ($fieldType::isCompatible($value)) {
+                $this->_value[$field] = $fieldType::create($value, $ignoreUnknownFields);
+                return $this;
+            }
+        }
+
+        foreach ($fieldData['type'] as $fieldType) {
+            $fieldType = static::getFieldTypeClass($fieldType);
+            if ($fieldType::createIsCompatible($value)) {
                 $this->_value[$field] = $fieldType::create($value, $ignoreUnknownFields);
                 return $this;
             }
