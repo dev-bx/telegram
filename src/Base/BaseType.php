@@ -323,7 +323,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
             if (!empty($value)) {
                 foreach ($value as $fieldValueItem) {
-                    $this->_value[$field]->add($fieldValueItem);
+                    $this->_value[$field]->add($fieldValueItem, $ignoreUnknownFields);
                 }
             }
 
