@@ -45,6 +45,12 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             }
         }
 
+        foreach ($relations as $relation) {
+            if ($relation::createIsCompatible($value)) {
+                return $relation::create($value, $ignoreUnknownFields);
+            }
+        }
+
         if (static::isStrictMode()) {
             throw new TelegramException('Incompatible values with class ' . get_called_class());
         }
