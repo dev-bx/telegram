@@ -265,6 +265,13 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $this->_value;
     }
 
+    public function isEmpty(): bool
+    {
+        return $this->_value === null
+            || (gettype($this->_value) === 'string' && $this->_value === '')
+            || (gettype($this->_value) === 'array' && count($this->_value) === 0);
+    }
+
     /**
      * @throws TelegramException
      */
@@ -480,7 +487,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             }
 
             if ($this->_value[$field] instanceof BaseType) {
-                if (empty($this->_value[$field]->getEntityValue()))
+                if ($this->_value[$field]->isEmpty())
                 {
                     $this->addErrorItem(new Error('Required field "' . $field . '" is empty in entity ' . static::entityName()));
                 }
