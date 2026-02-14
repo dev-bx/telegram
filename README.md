@@ -1,12 +1,12 @@
-# Telegram BOT API Library for PHP
+# Telegram Bot API Library for PHP
 
-This PHP library provides a convenient and easy-to-use interface for interacting with the Telegram BOT API. It is
+This PHP library provides a convenient and easy-to-use interface for interacting with the Telegram Bot API. It is
 designed to be used with the Bitrix CMS or the GuzzleHTTP client.
 
 ## Features
 
 - **Easy Integration**: Seamlessly integrates with Bitrix CMS and GuzzleHTTP client.
-- **Full API Coverage**: Supports all <b>Telegram BOT API 9.4</b> methods.
+- **Full API Coverage**: Supports all <b>Telegram Bot API 9.4</b> methods.
 - **Customizable**: Easily extendable and customizable to fit your specific needs.
 
 ## Installation
