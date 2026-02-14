@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -22,8 +22,12 @@ use DevBX\Telegram\Types;
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int|string $chatId
  * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+ * @property int $messageThreadId
+ * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @property int $directMessagesTopicId
+ * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @property int $starCount
- * The number of Telegram Stars that must be paid to buy access to the media; 1-10000
+ * The number of Telegram Stars that must be paid to buy access to the media; 1-25000
  * @property Base\ArrayObject|Types\InputPaidMedia[] $media
  * A JSON-serialized array describing the media to be sent; up to 10 items
  * @property string $payload
@@ -42,6 +46,8 @@ use DevBX\Telegram\Types;
  * Protects the contents of the sent message from forwarding and saving
  * @property bool $allowPaidBroadcast
  * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+ * @property Types\SuggestedPostParameters $suggestedPostParameters
+ * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
  * @property Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $replyMarkup
@@ -59,6 +65,12 @@ class SendPaidMedia extends Base\Request
             'chat_id' => [
                 'type' => ['int', 'string'],
                 'required' => true,
+            ],
+            'message_thread_id' => [
+                'type' => ['int'],
+            ],
+            'direct_messages_topic_id' => [
+                'type' => ['int'],
             ],
             'star_count' => [
                 'type' => ['int'],
@@ -93,6 +105,9 @@ class SendPaidMedia extends Base\Request
             ],
             'allow_paid_broadcast' => [
                 'type' => ['bool'],
+            ],
+            'suggested_post_parameters' => [
+                'type' => [Types\SuggestedPostParameters::class],
             ],
             'reply_parameters' => [
                 'type' => [Types\ReplyParameters::class],
@@ -142,6 +157,44 @@ class SendPaidMedia extends Base\Request
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
+    }
+
+    /**
+    * @return int
+    */
+
+    public function getMessageThreadId(): mixed
+    {
+        return $this->getFieldValue('message_thread_id');
+    }
+
+    /**
+    * @param int $value
+    * @return static
+    */
+
+    public function setMessageThreadId(mixed $value): static
+    {
+        return $this->setFieldValue('message_thread_id', $value);
+    }
+
+    /**
+    * @return int
+    */
+
+    public function getDirectMessagesTopicId(): mixed
+    {
+        return $this->getFieldValue('direct_messages_topic_id');
+    }
+
+    /**
+    * @param int $value
+    * @return static
+    */
+
+    public function setDirectMessagesTopicId(mixed $value): static
+    {
+        return $this->setFieldValue('direct_messages_topic_id', $value);
     }
 
     /**
@@ -332,6 +385,25 @@ class SendPaidMedia extends Base\Request
     public function setAllowPaidBroadcast(mixed $value): static
     {
         return $this->setFieldValue('allow_paid_broadcast', $value);
+    }
+
+    /**
+    * @return Types\SuggestedPostParameters
+    */
+
+    public function getSuggestedPostParameters(): mixed
+    {
+        return $this->getFieldValue('suggested_post_parameters');
+    }
+
+    /**
+    * @param Types\SuggestedPostParameters $value
+    * @return static
+    */
+
+    public function setSuggestedPostParameters(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_parameters', $value);
     }
 
     /**

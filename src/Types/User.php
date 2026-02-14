@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -43,6 +43,10 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in [getMe](#getme).
  * @property bool $hasMainWebApp
  * *Optional*. *True*, if the bot has a main Web App. Returned only in [getMe](#getme).
+ * @property bool $hasTopicsEnabled
+ * *Optional*. *True*, if the bot has forum topic mode enabled in private chats. Returned only in [getMe](#getme).
+ * @property bool $allowsUsersToCreateTopics
+ * *Optional*. *True*, if the bot allows users to create and delete topics in private chats. Returned only in [getMe](#getme).
  */
 class User extends Base\BaseType
 {
@@ -89,6 +93,12 @@ class User extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'has_main_web_app' => [
+				'type' => ['bool'],
+			],
+			'has_topics_enabled' => [
+				'type' => ['bool'],
+			],
+			'allows_users_to_create_topics' => [
 				'type' => ['bool'],
 			],
 		];
@@ -338,6 +348,44 @@ class User extends Base\BaseType
 	public function setHasMainWebApp(mixed $value): static
 	{
 		return $this->setFieldValue('has_main_web_app', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getHasTopicsEnabled(): mixed
+	{
+		return $this->getFieldValue('has_topics_enabled');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setHasTopicsEnabled(mixed $value): static
+	{
+		return $this->setFieldValue('has_topics_enabled', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getAllowsUsersToCreateTopics(): mixed
+	{
+		return $this->getFieldValue('allows_users_to_create_topics');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setAllowsUsersToCreateTopics(mixed $value): static
+	{
+		return $this->setFieldValue('allows_users_to_create_topics', $value);
 	}
 
 }

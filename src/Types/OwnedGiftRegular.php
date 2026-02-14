@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -40,9 +40,13 @@ use DevBX\Telegram\Base;
  * @property bool $wasRefunded
  * *Optional*. *True*, if the gift was refunded and isn't available anymore
  * @property int $convertStarCount
- * *Optional*. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars
+ * *Optional*. Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only
  * @property int $prepaidUpgradeStarCount
- * *Optional*. Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift
+ * *Optional*. Number of Telegram Stars that were paid for the ability to upgrade the gift
+ * @property bool $isUpgradeSeparate
+ * *Optional*. *True*, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only
+ * @property int $uniqueGiftNumber
+ * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift)
  */
 class OwnedGiftRegular extends OwnedGift
 {
@@ -91,6 +95,12 @@ class OwnedGiftRegular extends OwnedGift
 				'type' => ['int'],
 			],
 			'prepaid_upgrade_star_count' => [
+				'type' => ['int'],
+			],
+			'is_upgrade_separate' => [
+				'type' => ['bool'],
+			],
+			'unique_gift_number' => [
 				'type' => ['int'],
 			],
 		];
@@ -340,6 +350,44 @@ class OwnedGiftRegular extends OwnedGift
 	public function setPrepaidUpgradeStarCount(mixed $value): static
 	{
 		return $this->setFieldValue('prepaid_upgrade_star_count', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsUpgradeSeparate(): mixed
+	{
+		return $this->getFieldValue('is_upgrade_separate');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsUpgradeSeparate(mixed $value): static
+	{
+		return $this->setFieldValue('is_upgrade_separate', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getUniqueGiftNumber(): mixed
+	{
+		return $this->getFieldValue('unique_gift_number');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setUniqueGiftNumber(mixed $value): static
+	{
+		return $this->setFieldValue('unique_gift_number', $value);
 	}
 
 }

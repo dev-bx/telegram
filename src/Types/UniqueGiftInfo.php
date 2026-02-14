@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,9 +20,11 @@ use DevBX\Telegram\Base;
  * @property UniqueGift $gift
  * Information about the gift
  * @property string $origin
- * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, or “resale” for gifts bought from other users
- * @property int $lastResaleStarCount
- * *Optional*. For gifts bought from other users, the price paid for the gift
+ * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted\_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
+ * @property string $lastResaleCurrency
+ * *Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
+ * @property int $lastResaleAmount
+ * *Optional*. For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins
  * @property string $ownedGiftId
  * *Optional*. Unique identifier of the received gift for the bot; only present for gifts received on behalf of business accounts
  * @property int $transferStarCount
@@ -43,7 +45,10 @@ class UniqueGiftInfo extends Base\BaseType
 				'type' => ['string'],
 				'required' => true,
 			],
-			'last_resale_star_count' => [
+			'last_resale_currency' => [
+				'type' => ['string'],
+			],
+			'last_resale_amount' => [
 				'type' => ['int'],
 			],
 			'owned_gift_id' => [
@@ -96,12 +101,31 @@ class UniqueGiftInfo extends Base\BaseType
 	}
 
 	/**
+	* @return string
+	*/
+
+	public function getLastResaleCurrency(): mixed
+	{
+		return $this->getFieldValue('last_resale_currency');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setLastResaleCurrency(mixed $value): static
+	{
+		return $this->setFieldValue('last_resale_currency', $value);
+	}
+
+	/**
 	* @return int
 	*/
 
-	public function getLastResaleStarCount(): mixed
+	public function getLastResaleAmount(): mixed
 	{
-		return $this->getFieldValue('last_resale_star_count');
+		return $this->getFieldValue('last_resale_amount');
 	}
 
 	/**
@@ -109,9 +133,9 @@ class UniqueGiftInfo extends Base\BaseType
 	* @return static
 	*/
 
-	public function setLastResaleStarCount(mixed $value): static
+	public function setLastResaleAmount(mixed $value): static
 	{
-		return $this->setFieldValue('last_resale_star_count', $value);
+		return $this->setFieldValue('last_resale_amount', $value);
 	}
 
 	/**

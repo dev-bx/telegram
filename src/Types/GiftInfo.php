@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -24,7 +24,9 @@ use DevBX\Telegram\Base;
  * @property int $convertStarCount
  * *Optional*. Number of Telegram Stars that can be claimed by the receiver by converting the gift; omitted if conversion to Telegram Stars is impossible
  * @property int $prepaidUpgradeStarCount
- * *Optional*. Number of Telegram Stars that were prepaid by the sender for the ability to upgrade the gift
+ * *Optional*. Number of Telegram Stars that were prepaid for the ability to upgrade the gift
+ * @property bool $isUpgradeSeparate
+ * *Optional*. *True*, if the gift's upgrade was purchased after the gift was sent
  * @property bool $canBeUpgraded
  * *Optional*. *True*, if the gift can be upgraded to a unique gift
  * @property string $text
@@ -33,6 +35,8 @@ use DevBX\Telegram\Base;
  * *Optional*. Special entities that appear in the text
  * @property bool $isPrivate
  * *Optional*. *True*, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
+ * @property int $uniqueGiftNumber
+ * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift)
  */
 class GiftInfo extends Base\BaseType
 {
@@ -52,6 +56,9 @@ class GiftInfo extends Base\BaseType
 			'prepaid_upgrade_star_count' => [
 				'type' => ['int'],
 			],
+			'is_upgrade_separate' => [
+				'type' => ['bool'],
+			],
 			'can_be_upgraded' => [
 				'type' => ['bool'],
 			],
@@ -64,6 +71,9 @@ class GiftInfo extends Base\BaseType
 			],
 			'is_private' => [
 				'type' => ['bool'],
+			],
+			'unique_gift_number' => [
+				'type' => ['int'],
 			],
 		];
 	}
@@ -147,6 +157,25 @@ class GiftInfo extends Base\BaseType
 	* @return bool
 	*/
 
+	public function getIsUpgradeSeparate(): mixed
+	{
+		return $this->getFieldValue('is_upgrade_separate');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsUpgradeSeparate(mixed $value): static
+	{
+		return $this->setFieldValue('is_upgrade_separate', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
 	public function getCanBeUpgraded(): mixed
 	{
 		return $this->getFieldValue('can_be_upgraded');
@@ -217,6 +246,25 @@ class GiftInfo extends Base\BaseType
 	public function setIsPrivate(mixed $value): static
 	{
 		return $this->setFieldValue('is_private', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getUniqueGiftNumber(): mixed
+	{
+		return $this->getFieldValue('unique_gift_number');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setUniqueGiftNumber(mixed $value): static
+	{
+		return $this->setFieldValue('unique_gift_number', $value);
 	}
 
 }

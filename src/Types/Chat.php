@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -31,6 +31,8 @@ use DevBX\Telegram\Base;
  * *Optional*. Last name of the other party in a private chat
  * @property bool $isForum
  * *Optional*. *True*, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)
+ * @property bool $isDirectMessages
+ * *Optional*. *True*, if the chat is the direct messages chat of a channel
  */
 class Chat extends Base\BaseType
 {
@@ -58,6 +60,9 @@ class Chat extends Base\BaseType
 				'type' => ['string'],
 			],
 			'is_forum' => [
+				'type' => ['bool'],
+			],
+			'is_direct_messages' => [
 				'type' => ['bool'],
 			],
 		];
@@ -193,6 +198,25 @@ class Chat extends Base\BaseType
 	public function setIsForum(mixed $value): static
 	{
 		return $this->setFieldValue('is_forum', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsDirectMessages(): mixed
+	{
+		return $this->getFieldValue('is_direct_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsDirectMessages(mixed $value): static
+	{
+		return $this->setFieldValue('is_direct_messages', $value);
 	}
 
 }

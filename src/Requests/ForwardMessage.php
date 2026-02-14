@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,7 +21,9 @@ use DevBX\Telegram\Types;
  * @property int|string $chatId
  * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
  * @property int $messageThreadId
- * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+ * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @property int $directMessagesTopicId
+ * Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
  * @property int|string $fromChatId
  * Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
  * @property int $videoStartTimestamp
@@ -30,6 +32,10 @@ use DevBX\Telegram\Types;
  * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
  * @property bool $protectContent
  * Protects the contents of the forwarded message from forwarding and saving
+ * @property string $messageEffectId
+ * Unique identifier of the message effect to be added to the message; only available when forwarding to private chats
+ * @property Types\SuggestedPostParameters $suggestedPostParameters
+ * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only
  * @property int $messageId
  * Message identifier in the chat specified in *from\_chat\_id*
  * @method Types\Message send(Api $gateway = null)
@@ -46,6 +52,9 @@ class ForwardMessage extends Base\Request
             'message_thread_id' => [
                 'type' => ['int'],
             ],
+            'direct_messages_topic_id' => [
+                'type' => ['int'],
+            ],
             'from_chat_id' => [
                 'type' => ['int', 'string'],
                 'required' => true,
@@ -58,6 +67,12 @@ class ForwardMessage extends Base\Request
             ],
             'protect_content' => [
                 'type' => ['bool'],
+            ],
+            'message_effect_id' => [
+                'type' => ['string'],
+            ],
+            'suggested_post_parameters' => [
+                'type' => [Types\SuggestedPostParameters::class],
             ],
             'message_id' => [
                 'type' => ['int'],
@@ -105,6 +120,25 @@ class ForwardMessage extends Base\Request
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
+    }
+
+    /**
+    * @return int
+    */
+
+    public function getDirectMessagesTopicId(): mixed
+    {
+        return $this->getFieldValue('direct_messages_topic_id');
+    }
+
+    /**
+    * @param int $value
+    * @return static
+    */
+
+    public function setDirectMessagesTopicId(mixed $value): static
+    {
+        return $this->setFieldValue('direct_messages_topic_id', $value);
     }
 
     /**
@@ -181,6 +215,44 @@ class ForwardMessage extends Base\Request
     public function setProtectContent(mixed $value): static
     {
         return $this->setFieldValue('protect_content', $value);
+    }
+
+    /**
+    * @return string
+    */
+
+    public function getMessageEffectId(): mixed
+    {
+        return $this->getFieldValue('message_effect_id');
+    }
+
+    /**
+    * @param string $value
+    * @return static
+    */
+
+    public function setMessageEffectId(mixed $value): static
+    {
+        return $this->setFieldValue('message_effect_id', $value);
+    }
+
+    /**
+    * @return Types\SuggestedPostParameters
+    */
+
+    public function getSuggestedPostParameters(): mixed
+    {
+        return $this->getFieldValue('suggested_post_parameters');
+    }
+
+    /**
+    * @param Types\SuggestedPostParameters $value
+    * @return static
+    */
+
+    public function setSuggestedPostParameters(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_parameters', $value);
     }
 
     /**

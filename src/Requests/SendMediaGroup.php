@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,13 +17,15 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages](#message) that were sent is returned.
+ * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Message](#message) objects that were sent is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int|string $chatId
  * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
  * @property int $messageThreadId
- * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+ * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @property int $directMessagesTopicId
+ * Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
  * @property Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo $media
  * A JSON-serialized array describing messages to be sent, must include 2-10 items
  * @property bool $disableNotification
@@ -36,7 +38,7 @@ use DevBX\Telegram\Types;
  * Unique identifier of the message effect to be added to the message; for private chats only
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
- * @method Base\BaseType send(Api $gateway = null)
+ * @method Types\Message[]|Base\BaseType send(Api $gateway = null)
  */
 class SendMediaGroup extends Base\Request
 {
@@ -51,6 +53,9 @@ class SendMediaGroup extends Base\Request
                 'required' => true,
             ],
             'message_thread_id' => [
+                'type' => ['int'],
+            ],
+            'direct_messages_topic_id' => [
                 'type' => ['int'],
             ],
             'media' => [
@@ -72,6 +77,10 @@ class SendMediaGroup extends Base\Request
             ],
             'reply_parameters' => [
                 'type' => [Types\ReplyParameters::class],
+            ],
+            '@return' => [
+                'type' => Types\Message::class,
+                'isArray' => true,
             ],
         ];
     }
@@ -131,6 +140,25 @@ class SendMediaGroup extends Base\Request
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
+    }
+
+    /**
+    * @return int
+    */
+
+    public function getDirectMessagesTopicId(): mixed
+    {
+        return $this->getFieldValue('direct_messages_topic_id');
+    }
+
+    /**
+    * @param int $value
+    * @return static
+    */
+
+    public function setDirectMessagesTopicId(mixed $value): static
+    {
+        return $this->setFieldValue('direct_messages_topic_id', $value);
     }
 
     /**

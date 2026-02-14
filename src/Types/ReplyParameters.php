@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Base;
  * @property int $messageId
  * Identifier of the message that will be replied to in the current chat, or in the chat *chat\_id* if it is specified
  * @property int|string $chatId
- * *Optional*. If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format `@channelusername`). Not supported for messages sent on behalf of a business account.
+ * *Optional*. If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format `@channelusername`). Not supported for messages sent on behalf of a business account and messages from channel direct messages chats.
  * @property bool $allowSendingWithoutReply
  * *Optional*. Pass *True* if the message should be sent even if the specified message to be replied to is not found. Always *False* for replies in another chat or forum topic. Always *True* for messages sent on behalf of a business account.
  * @property string $quote
@@ -31,6 +31,8 @@ use DevBX\Telegram\Base;
  * *Optional*. A JSON-serialized list of special entities that appear in the quote. It can be specified instead of *quote\_parse\_mode*.
  * @property int $quotePosition
  * *Optional*. Position of the quote in the original message in UTF-16 code units
+ * @property int $checklistTaskId
+ * *Optional*. Identifier of the specific checklist task to be replied to
  */
 class ReplyParameters extends Base\BaseType
 {
@@ -58,6 +60,9 @@ class ReplyParameters extends Base\BaseType
 				'isArray' => true,
 			],
 			'quote_position' => [
+				'type' => ['int'],
+			],
+			'checklist_task_id' => [
 				'type' => ['int'],
 			],
 		];
@@ -193,6 +198,25 @@ class ReplyParameters extends Base\BaseType
 	public function setQuotePosition(mixed $value): static
 	{
 		return $this->setFieldValue('quote_position', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getChecklistTaskId(): mixed
+	{
+		return $this->getFieldValue('checklist_task_id');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setChecklistTaskId(mixed $value): static
+	{
+		return $this->setFieldValue('checklist_task_id', $value);
 	}
 
 }

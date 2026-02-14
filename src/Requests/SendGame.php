@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,9 +21,9 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int $chatId
- * Unique identifier for the target chat
+ * Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
  * @property int $messageThreadId
- * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+ * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property string $gameShortName
  * Short name of the game, serves as the unique identifier for the game. Set up your games via [@BotFather](https://t.me/botfather).
  * @property bool $disableNotification

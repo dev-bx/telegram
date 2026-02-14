@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  * @property int|string $chatId
  * Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
  * @property string $giftId
- * Identifier of the gift
+ * Identifier of the gift; limited gifts can't be sent to channel chats
  * @property bool $payForUpgrade
  * Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
  * @property string $text

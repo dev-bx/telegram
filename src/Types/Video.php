@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -33,6 +33,8 @@ use DevBX\Telegram\Base;
  * *Optional*. Available sizes of the cover of the video in the message
  * @property int $startTimestamp
  * *Optional*. Timestamp in seconds from which the video will play in the message
+ * @property Base\ArrayObject|VideoQuality[] $qualities
+ * *Optional*. List of available qualities of the video
  * @property string $fileName
  * *Optional*. Original filename as defined by the sender
  * @property string $mimeType
@@ -74,6 +76,10 @@ class Video extends Base\BaseType
 			],
 			'start_timestamp' => [
 				'type' => ['int'],
+			],
+			'qualities' => [
+				'type' => [VideoQuality::class],
+				'isArray' => true,
 			],
 			'file_name' => [
 				'type' => ['string'],
@@ -236,6 +242,25 @@ class Video extends Base\BaseType
 	public function setStartTimestamp(mixed $value): static
 	{
 		return $this->setFieldValue('start_timestamp', $value);
+	}
+
+	/**
+	* @return Base\ArrayObject|VideoQuality[]
+	*/
+
+	public function getQualities(): mixed
+	{
+		return $this->getFieldValue('qualities');
+	}
+
+	/**
+	* @param Base\ArrayObject|VideoQuality[] $value
+	* @return static
+	*/
+
+	public function setQualities(mixed $value): static
+	{
+		return $this->setFieldValue('qualities', $value);
 	}
 
 	/**

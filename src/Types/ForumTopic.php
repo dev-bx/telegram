@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -25,6 +25,8 @@ use DevBX\Telegram\Base;
  * Color of the topic icon in RGB format
  * @property string $iconCustomEmojiId
  * *Optional*. Unique identifier of the custom emoji shown as the topic icon
+ * @property bool $isNameImplicit
+ * *Optional*. *True*, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
  */
 class ForumTopic extends Base\BaseType
 {
@@ -45,6 +47,9 @@ class ForumTopic extends Base\BaseType
 			],
 			'icon_custom_emoji_id' => [
 				'type' => ['string'],
+			],
+			'is_name_implicit' => [
+				'type' => ['bool'],
 			],
 		];
 	}
@@ -122,6 +127,25 @@ class ForumTopic extends Base\BaseType
 	public function setIconCustomEmojiId(mixed $value): static
 	{
 		return $this->setFieldValue('icon_custom_emoji_id', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsNameImplicit(): mixed
+	{
+		return $this->getFieldValue('is_name_implicit');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsNameImplicit(mixed $value): static
+	{
+		return $this->setFieldValue('is_name_implicit', $value);
 	}
 
 }

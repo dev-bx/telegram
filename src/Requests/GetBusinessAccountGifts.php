@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -26,10 +26,14 @@ use DevBX\Telegram\Types;
  * Pass *True* to exclude gifts that are saved to the account's profile page
  * @property bool $excludeUnlimited
  * Pass *True* to exclude gifts that can be purchased an unlimited number of times
- * @property bool $excludeLimited
- * Pass *True* to exclude gifts that can be purchased a limited number of times
+ * @property bool $excludeLimitedUpgradable
+ * Pass *True* to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+ * @property bool $excludeLimitedNonUpgradable
+ * Pass *True* to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
  * @property bool $excludeUnique
  * Pass *True* to exclude unique gifts
+ * @property bool $excludeFromBlockchain
+ * Pass *True* to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
  * @property bool $sortByPrice
  * Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
  * @property string $offset
@@ -56,10 +60,16 @@ class GetBusinessAccountGifts extends Base\Request
             'exclude_unlimited' => [
                 'type' => ['bool'],
             ],
-            'exclude_limited' => [
+            'exclude_limited_upgradable' => [
+                'type' => ['bool'],
+            ],
+            'exclude_limited_non_upgradable' => [
                 'type' => ['bool'],
             ],
             'exclude_unique' => [
+                'type' => ['bool'],
+            ],
+            'exclude_from_blockchain' => [
                 'type' => ['bool'],
             ],
             'sort_by_price' => [
@@ -157,9 +167,9 @@ class GetBusinessAccountGifts extends Base\Request
     * @return bool
     */
 
-    public function getExcludeLimited(): mixed
+    public function getExcludeLimitedUpgradable(): mixed
     {
-        return $this->getFieldValue('exclude_limited');
+        return $this->getFieldValue('exclude_limited_upgradable');
     }
 
     /**
@@ -167,9 +177,28 @@ class GetBusinessAccountGifts extends Base\Request
     * @return static
     */
 
-    public function setExcludeLimited(mixed $value): static
+    public function setExcludeLimitedUpgradable(mixed $value): static
     {
-        return $this->setFieldValue('exclude_limited', $value);
+        return $this->setFieldValue('exclude_limited_upgradable', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getExcludeLimitedNonUpgradable(): mixed
+    {
+        return $this->getFieldValue('exclude_limited_non_upgradable');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setExcludeLimitedNonUpgradable(mixed $value): static
+    {
+        return $this->setFieldValue('exclude_limited_non_upgradable', $value);
     }
 
     /**
@@ -189,6 +218,25 @@ class GetBusinessAccountGifts extends Base\Request
     public function setExcludeUnique(mixed $value): static
     {
         return $this->setFieldValue('exclude_unique', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getExcludeFromBlockchain(): mixed
+    {
+        return $this->getFieldValue('exclude_from_blockchain');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setExcludeFromBlockchain(mixed $value): static
+    {
+        return $this->setFieldValue('exclude_from_blockchain', $value);
     }
 
     /**

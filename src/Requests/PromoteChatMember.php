@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -30,7 +30,7 @@ use DevBX\Telegram\Api;
  * @property bool $canManageVideoChats
  * Pass *True* if the administrator can manage video chats
  * @property bool $canRestrictMembers
- * Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics
+ * Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators
  * @property bool $canPromoteMembers
  * Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
  * @property bool $canChangeInfo
@@ -51,6 +51,8 @@ use DevBX\Telegram\Api;
  * Pass *True* if the administrator can pin messages; for supergroups only
  * @property bool $canManageTopics
  * Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+ * @property bool $canManageDirectMessages
+ * Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
  * @method Base\BaseType send(Api $gateway = null)
  */
 class PromoteChatMember extends Base\Request
@@ -109,6 +111,9 @@ class PromoteChatMember extends Base\Request
                 'type' => ['bool'],
             ],
             'can_manage_topics' => [
+                'type' => ['bool'],
+            ],
+            'can_manage_direct_messages' => [
                 'type' => ['bool'],
             ],
         ];
@@ -435,6 +440,25 @@ class PromoteChatMember extends Base\Request
     public function setCanManageTopics(mixed $value): static
     {
         return $this->setFieldValue('can_manage_topics', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getCanManageDirectMessages(): mixed
+    {
+        return $this->getFieldValue('can_manage_direct_messages');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setCanManageDirectMessages(mixed $value): static
+    {
+        return $this->setFieldValue('can_manage_direct_messages', $value);
     }
 
     protected function getRequestMethod(): string

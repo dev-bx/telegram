@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,6 +17,8 @@ use DevBX\Telegram\Base;
 
 /**
  * This object describes a unique gift that was upgraded from a regular gift.
+ * @property string $giftId
+ * Identifier of the regular gift from which the gift was upgraded
  * @property string $baseName
  * Human-readable name of the regular gift from which this unique gift was upgraded
  * @property string $name
@@ -29,12 +31,26 @@ use DevBX\Telegram\Base;
  * Symbol of the gift
  * @property UniqueGiftBackdrop $backdrop
  * Backdrop of the gift
+ * @property bool $isPremium
+ * *Optional*. *True*, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers
+ * @property bool $isBurned
+ * *Optional*. *True*, if the gift was used to craft another gift and isn't available anymore
+ * @property bool $isFromBlockchain
+ * *Optional*. *True*, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram
+ * @property UniqueGiftColors $colors
+ * *Optional*. The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only
+ * @property Chat $publisherChat
+ * *Optional*. Information about the chat that published the gift
  */
 class UniqueGift extends Base\BaseType
 {
 	public static function getFields(): array
 	{
 		return [
+			'gift_id' => [
+				'type' => ['string'],
+				'required' => true,
+			],
 			'base_name' => [
 				'type' => ['string'],
 				'required' => true,
@@ -59,8 +75,42 @@ class UniqueGift extends Base\BaseType
 				'type' => [UniqueGiftBackdrop::class],
 				'required' => true,
 			],
+			'is_premium' => [
+				'type' => ['bool'],
+			],
+			'is_burned' => [
+				'type' => ['bool'],
+			],
+			'is_from_blockchain' => [
+				'type' => ['bool'],
+			],
+			'colors' => [
+				'type' => [UniqueGiftColors::class],
+			],
+			'publisher_chat' => [
+				'type' => [Chat::class],
+			],
 		];
 	}
+	/**
+	* @return string
+	*/
+
+	public function getGiftId(): mixed
+	{
+		return $this->getFieldValue('gift_id');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setGiftId(mixed $value): static
+	{
+		return $this->setFieldValue('gift_id', $value);
+	}
+
 	/**
 	* @return string
 	*/
@@ -173,6 +223,101 @@ class UniqueGift extends Base\BaseType
 	public function setBackdrop(mixed $value): static
 	{
 		return $this->setFieldValue('backdrop', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsPremium(): mixed
+	{
+		return $this->getFieldValue('is_premium');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsPremium(mixed $value): static
+	{
+		return $this->setFieldValue('is_premium', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsBurned(): mixed
+	{
+		return $this->getFieldValue('is_burned');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsBurned(mixed $value): static
+	{
+		return $this->setFieldValue('is_burned', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsFromBlockchain(): mixed
+	{
+		return $this->getFieldValue('is_from_blockchain');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsFromBlockchain(mixed $value): static
+	{
+		return $this->setFieldValue('is_from_blockchain', $value);
+	}
+
+	/**
+	* @return UniqueGiftColors
+	*/
+
+	public function getColors(): mixed
+	{
+		return $this->getFieldValue('colors');
+	}
+
+	/**
+	* @param UniqueGiftColors $value
+	* @return static
+	*/
+
+	public function setColors(mixed $value): static
+	{
+		return $this->setFieldValue('colors', $value);
+	}
+
+	/**
+	* @return Chat
+	*/
+
+	public function getPublisherChat(): mixed
+	{
+		return $this->getFieldValue('publisher_chat');
+	}
+
+	/**
+	* @param Chat $value
+	* @return static
+	*/
+
+	public function setPublisherChat(mixed $value): static
+	{
+		return $this->setFieldValue('publisher_chat', $value);
 	}
 
 }

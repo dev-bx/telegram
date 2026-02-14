@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,7 +23,9 @@ use DevBX\Telegram\Stickers;
  * @property Stickers\Sticker $sticker
  * The sticker that represents the unique gift
  * @property int $rarityPerMille
- * The number of unique gifts that receive this model for every 1000 gifts upgraded
+ * The number of unique gifts that receive this model for every 1000 gift upgrades. Always 0 for crafted gifts.
+ * @property string $rarity
+ * *Optional*. Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”.
  */
 class UniqueGiftModel extends Base\BaseType
 {
@@ -41,6 +43,9 @@ class UniqueGiftModel extends Base\BaseType
 			'rarity_per_mille' => [
 				'type' => ['int'],
 				'required' => true,
+			],
+			'rarity' => [
+				'type' => ['string'],
 			],
 		];
 	}
@@ -99,6 +104,25 @@ class UniqueGiftModel extends Base\BaseType
 	public function setRarityPerMille(mixed $value): static
 	{
 		return $this->setFieldValue('rarity_per_mille', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getRarity(): mixed
+	{
+		return $this->getFieldValue('rarity');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setRarity(mixed $value): static
+	{
+		return $this->setFieldValue('rarity', $value);
 	}
 
 }

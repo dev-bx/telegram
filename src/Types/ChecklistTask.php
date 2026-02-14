@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -24,7 +24,9 @@ use DevBX\Telegram\Base;
  * @property Base\ArrayObject|MessageEntity[] $textEntities
  * *Optional*. Special entities that appear in the task text
  * @property User $completedByUser
- * *Optional*. User that completed the task; omitted if the task wasn't completed
+ * *Optional*. User that completed the task; omitted if the task wasn't completed by a user
+ * @property Chat $completedByChat
+ * *Optional*. Chat that completed the task; omitted if the task wasn't completed by a chat
  * @property int $completionDate
  * *Optional*. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
  */
@@ -47,6 +49,9 @@ class ChecklistTask extends Base\BaseType
 			],
 			'completed_by_user' => [
 				'type' => [User::class],
+			],
+			'completed_by_chat' => [
+				'type' => [Chat::class],
 			],
 			'completion_date' => [
 				'type' => ['int'],
@@ -127,6 +132,25 @@ class ChecklistTask extends Base\BaseType
 	public function setCompletedByUser(mixed $value): static
 	{
 		return $this->setFieldValue('completed_by_user', $value);
+	}
+
+	/**
+	* @return Chat
+	*/
+
+	public function getCompletedByChat(): mixed
+	{
+		return $this->getFieldValue('completed_by_chat');
+	}
+
+	/**
+	* @param Chat $value
+	* @return static
+	*/
+
+	public function setCompletedByChat(mixed $value): static
+	{
+		return $this->setFieldValue('completed_by_chat', $value);
 	}
 
 	/**

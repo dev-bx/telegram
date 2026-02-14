@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Base;
  * @property string $type
  * Scope type, must be *chat\_member*
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel direct messages chats and channel chats aren't supported.
  * @property int $userId
  * Unique identifier of the target user
  */

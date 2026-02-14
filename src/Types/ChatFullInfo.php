@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -31,6 +31,8 @@ use DevBX\Telegram\Base;
  * *Optional*. Last name of the other party in a private chat
  * @property bool $isForum
  * *Optional*. *True*, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)
+ * @property bool $isDirectMessages
+ * *Optional*. *True*, if the chat is the direct messages chat of a channel
  * @property int $accentColorId
  * Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See [accent colors](#accent-colors) for more details.
  * @property int $maxReactionCount
@@ -49,6 +51,8 @@ use DevBX\Telegram\Base;
  * *Optional*. For private chats with business accounts, the opening hours of the business
  * @property Chat $personalChat
  * *Optional*. For private chats, the personal channel of the user
+ * @property Chat $parentChat
+ * *Optional*. Information about the corresponding channel chat; for direct messages chats only
  * @property Base\ArrayObject|ReactionType[] $availableReactions
  * *Optional*. List of available reactions allowed in the chat. If omitted, then all [emoji reactions](#reactiontypeemoji) are allowed.
  * @property string $backgroundCustomEmojiId
@@ -107,6 +111,14 @@ use DevBX\Telegram\Base;
  * *Optional*. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
  * @property ChatLocation $location
  * *Optional*. For supergroups, the location to which the supergroup is connected
+ * @property UserRating $rating
+ * *Optional*. For private chats, the rating of the user if any
+ * @property Audio $firstProfileAudio
+ * *Optional*. For private chats, the first audio added to the profile of the user
+ * @property UniqueGiftColors $uniqueGiftColors
+ * *Optional*. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
+ * @property int $paidMessageStarCount
+ * *Optional*. The number of Telegram Stars a general user have to pay to send a message to the chat
  */
 class ChatFullInfo extends Base\BaseType
 {
@@ -134,6 +146,9 @@ class ChatFullInfo extends Base\BaseType
 				'type' => ['string'],
 			],
 			'is_forum' => [
+				'type' => ['bool'],
+			],
+			'is_direct_messages' => [
 				'type' => ['bool'],
 			],
 			'accent_color_id' => [
@@ -164,6 +179,9 @@ class ChatFullInfo extends Base\BaseType
 				'type' => [BusinessOpeningHours::class],
 			],
 			'personal_chat' => [
+				'type' => [Chat::class],
+			],
+			'parent_chat' => [
 				'type' => [Chat::class],
 			],
 			'available_reactions' => [
@@ -254,6 +272,18 @@ class ChatFullInfo extends Base\BaseType
 			],
 			'location' => [
 				'type' => [ChatLocation::class],
+			],
+			'rating' => [
+				'type' => [UserRating::class],
+			],
+			'first_profile_audio' => [
+				'type' => [Audio::class],
+			],
+			'unique_gift_colors' => [
+				'type' => [UniqueGiftColors::class],
+			],
+			'paid_message_star_count' => [
+				'type' => ['int'],
 			],
 		];
 	}
@@ -388,6 +418,25 @@ class ChatFullInfo extends Base\BaseType
 	public function setIsForum(mixed $value): static
 	{
 		return $this->setFieldValue('is_forum', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsDirectMessages(): mixed
+	{
+		return $this->getFieldValue('is_direct_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsDirectMessages(mixed $value): static
+	{
+		return $this->setFieldValue('is_direct_messages', $value);
 	}
 
 	/**
@@ -559,6 +608,25 @@ class ChatFullInfo extends Base\BaseType
 	public function setPersonalChat(mixed $value): static
 	{
 		return $this->setFieldValue('personal_chat', $value);
+	}
+
+	/**
+	* @return Chat
+	*/
+
+	public function getParentChat(): mixed
+	{
+		return $this->getFieldValue('parent_chat');
+	}
+
+	/**
+	* @param Chat $value
+	* @return static
+	*/
+
+	public function setParentChat(mixed $value): static
+	{
+		return $this->setFieldValue('parent_chat', $value);
 	}
 
 	/**
@@ -1110,6 +1178,82 @@ class ChatFullInfo extends Base\BaseType
 	public function setLocation(mixed $value): static
 	{
 		return $this->setFieldValue('location', $value);
+	}
+
+	/**
+	* @return UserRating
+	*/
+
+	public function getRating(): mixed
+	{
+		return $this->getFieldValue('rating');
+	}
+
+	/**
+	* @param UserRating $value
+	* @return static
+	*/
+
+	public function setRating(mixed $value): static
+	{
+		return $this->setFieldValue('rating', $value);
+	}
+
+	/**
+	* @return Audio
+	*/
+
+	public function getFirstProfileAudio(): mixed
+	{
+		return $this->getFieldValue('first_profile_audio');
+	}
+
+	/**
+	* @param Audio $value
+	* @return static
+	*/
+
+	public function setFirstProfileAudio(mixed $value): static
+	{
+		return $this->setFieldValue('first_profile_audio', $value);
+	}
+
+	/**
+	* @return UniqueGiftColors
+	*/
+
+	public function getUniqueGiftColors(): mixed
+	{
+		return $this->getFieldValue('unique_gift_colors');
+	}
+
+	/**
+	* @param UniqueGiftColors $value
+	* @return static
+	*/
+
+	public function setUniqueGiftColors(mixed $value): static
+	{
+		return $this->setFieldValue('unique_gift_colors', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getPaidMessageStarCount(): mixed
+	{
+		return $this->getFieldValue('paid_message_star_count');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setPaidMessageStarCount(mixed $value): static
+	{
+		return $this->setFieldValue('paid_message_star_count', $value);
 	}
 
 }

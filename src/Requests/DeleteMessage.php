@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -24,7 +24,8 @@ use DevBX\Telegram\Api;
 \- Bots can delete incoming messages in private chats.  
 \- Bots granted *can\_post\_messages* permissions can delete outgoing messages in channels.  
 \- If the bot is an administrator of a group, it can delete any message there.  
-\- If the bot has *can\_delete\_messages* permission in a supergroup or a channel, it can delete any message there.  
+\- If the bot has *can\_delete\_messages* administrator right in a supergroup or a channel, it can delete any message there.  
+\- If the bot has *can\_manage\_direct\_messages* administrator right in a channel, it can delete any message in the corresponding direct messages chat.  
 Returns *True* on success.
  * @property int|string $chatId
  * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -47,6 +47,8 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the user is allowed to pin messages; for groups and supergroups only
  * @property bool $canManageTopics
  * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+ * @property bool $canManageDirectMessages
+ * *Optional*. *True*, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
  */
 class ChatAdministratorRights extends Base\BaseType
 {
@@ -107,6 +109,9 @@ class ChatAdministratorRights extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'can_manage_topics' => [
+				'type' => ['bool'],
+			],
+			'can_manage_direct_messages' => [
 				'type' => ['bool'],
 			],
 		];
@@ -394,6 +399,25 @@ class ChatAdministratorRights extends Base\BaseType
 	public function setCanManageTopics(mixed $value): static
 	{
 		return $this->setFieldValue('can_manage_topics', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanManageDirectMessages(): mixed
+	{
+		return $this->getFieldValue('can_manage_direct_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanManageDirectMessages(mixed $value): static
+	{
+		return $this->setFieldValue('can_manage_direct_messages', $value);
 	}
 
 }

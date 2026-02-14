@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -150,19 +150,21 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send text messages. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var string                                                                                          $text                   Required. Text of the message to be sent, 1-4096 characters after entities parsing
-     * @var string                                                                                          $parse_mode             Optional. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $entities               Optional. A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
-     * @var Types\LinkPreviewOptions                                                                        $link_preview_options   Optional. Link preview generation options for the message
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var string                                                                                          $text                      Required. Text of the message to be sent, 1-4096 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $entities                  Optional. A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
+     * @var Types\LinkPreviewOptions                                                                        $link_preview_options      Optional. Link preview generation options for the message
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -178,13 +180,16 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var int|string $chat_id               Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_thread_id     Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var int|string $from_chat_id          Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
-     * @var int        $video_start_timestamp Optional. New start timestamp for the forwarded video in the message
-     * @var bool       $disable_notification  Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool       $protect_content       Optional. Protects the contents of the forwarded message from forwarding and saving
-     * @var int        $message_id            Required. Message identifier in the chat specified in *from\_chat\_id*
+     * @var int|string                    $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                           $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                           $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
+     * @var int|string                    $from_chat_id              Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
+     * @var int                           $video_start_timestamp     Optional. New start timestamp for the forwarded video in the message
+     * @var bool                          $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                          $protect_content           Optional. Protects the contents of the forwarded message from forwarding and saving
+     * @var string                        $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; only available when forwarding to private chats
+     * @var Types\SuggestedPostParameters $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only
+     * @var int                           $message_id                Required. Message identifier in the chat specified in *from\_chat\_id*
      * ]
      *
      * @return Types\Message
@@ -200,12 +205,13 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of @see Types\MessageId of the sent messages is returned.
      *
      * @param array    $params    [
-     * @var int|string $chat_id              Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_thread_id    Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var int|string $from_chat_id         Required. Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
-     * @var int[]      $message_ids          Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to forward. The identifiers must be specified in a strictly increasing order.
-     * @var bool       $disable_notification Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool       $protect_content      Optional. Protects the contents of the forwarded messages from forwarding and saving
+     * @var int|string $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int        $message_thread_id        Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int        $direct_messages_topic_id Optional. Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
+     * @var int|string $from_chat_id             Required. Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
+     * @var int[]      $message_ids              Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to forward. The identifiers must be specified in a strictly increasing order.
+     * @var bool       $disable_notification     Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool       $protect_content          Optional. Protects the contents of the forwarded messages from forwarding and saving
      * ]
      *
      * @return Types\MessageId[]|Base\BaseType
@@ -221,20 +227,23 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](#forwardmessage), but the copied message doesn't have a link to the original message. Returns the @see Types\MessageId of the sent message on success.
      *
      * @param array    $params    [
-     * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id        Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var int|string                                                                                      $from_chat_id             Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
-     * @var int                                                                                             $message_id               Required. Message identifier in the chat specified in *from\_chat\_id*
-     * @var int                                                                                             $video_start_timestamp    Optional. New start timestamp for the copied video in the message
-     * @var string                                                                                          $caption                  Optional. New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
-     * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the new caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
-     * @var bool                                                                                            $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media. Ignored if a new caption isn't specified.
-     * @var bool                                                                                            $disable_notification     Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content          Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var Types\ReplyParameters                                                                           $reply_parameters         Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var int|string                                                                                      $from_chat_id              Required. Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
+     * @var int                                                                                             $message_id                Required. Message identifier in the chat specified in *from\_chat\_id*
+     * @var int                                                                                             $video_start_timestamp     Optional. New start timestamp for the copied video in the message
+     * @var string                                                                                          $caption                   Optional. New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the new caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
+     * @var bool                                                                                            $show_caption_above_media  Optional. Pass *True*, if the caption must be shown above the message media. Ignored if a new caption isn't specified.
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; only available when copying to private chats
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\MessageId
@@ -250,13 +259,14 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of @see Types\MessageId of the sent messages is returned.
      *
      * @param array    $params    [
-     * @var int|string $chat_id              Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_thread_id    Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var int|string $from_chat_id         Required. Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
-     * @var int[]      $message_ids          Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to copy. The identifiers must be specified in a strictly increasing order.
-     * @var bool       $disable_notification Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool       $protect_content      Optional. Protects the contents of the sent messages from forwarding and saving
-     * @var bool       $remove_caption       Optional. Pass *True* to copy the messages without their captions
+     * @var int|string $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int        $message_thread_id        Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int        $direct_messages_topic_id Optional. Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
+     * @var int|string $from_chat_id             Required. Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
+     * @var int[]      $message_ids              Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to copy. The identifiers must be specified in a strictly increasing order.
+     * @var bool       $disable_notification     Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool       $protect_content          Optional. Protects the contents of the sent messages from forwarding and saving
+     * @var bool       $remove_caption           Optional. Pass *True* to copy the messages without their captions
      * ]
      *
      * @return Types\MessageId[]|Base\BaseType
@@ -272,21 +282,23 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send photos. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id        Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $photo                    Required. Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More information on Sending Files »](#sending-files)
-     * @var string                                                                                          $caption                  Optional. Photo caption (may also be used when resending photos by *file\_id*), 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the photo caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var bool                                                                                            $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media
-     * @var bool                                                                                            $has_spoiler              Optional. Pass *True* if the photo needs to be covered with a spoiler animation
-     * @var bool                                                                                            $disable_notification     Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content          Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id        Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters         Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $photo                     Required. Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More information on Sending Files »](#sending-files)
+     * @var string                                                                                          $caption                   Optional. Photo caption (may also be used when resending photos by *file\_id*), 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the photo caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var bool                                                                                            $show_caption_above_media  Optional. Pass *True*, if the caption must be shown above the message media
+     * @var bool                                                                                            $has_spoiler               Optional. Pass *True* if the photo needs to be covered with a spoiler animation
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -302,23 +314,25 @@ Please note that this parameter doesn't affect updates created before the call t
      *For sending voice messages, use the [sendVoice](#sendvoice) method instead.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $audio                  Required. Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](#sending-files)
-     * @var string                                                                                          $caption                Optional. Audio caption, 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode             Optional. Mode for parsing entities in the audio caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities       Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var int                                                                                             $duration               Optional. Duration of the audio in seconds
-     * @var string                                                                                          $performer              Optional. Performer
-     * @var string                                                                                          $title                  Optional. Track name
-     * @var Types\InputFile|string                                                                          $thumbnail              Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $audio                     Required. Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](#sending-files)
+     * @var string                                                                                          $caption                   Optional. Audio caption, 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the audio caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var int                                                                                             $duration                  Optional. Duration of the audio in seconds
+     * @var string                                                                                          $performer                 Optional. Performer
+     * @var string                                                                                          $title                     Optional. Track name
+     * @var Types\InputFile|string                                                                          $thumbnail                 Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @param Types\InputFile|array[] $attachments
@@ -339,7 +353,8 @@ Please note that this parameter doesn't affect updates created before the call t
      * @param array    $params    [
      * @var string                                                                                          $business_connection_id         Optional. Unique identifier of the business connection on behalf of which the message will be sent
      * @var int|string                                                                                      $chat_id                        Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id              Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @var int                                                                                             $message_thread_id              Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id       Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      * @var Types\InputFile|string                                                                          $document                       Required. File to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](#sending-files)
      * @var Types\InputFile|string                                                                          $thumbnail                      Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
      * @var string                                                                                          $caption                        Optional. Document caption (may also be used when resending documents by *file\_id*), 0-1024 characters after entities parsing
@@ -350,6 +365,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var bool                                                                                            $protect_content                Optional. Protects the contents of the sent message from forwarding and saving
      * @var bool                                                                                            $allow_paid_broadcast           Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
      * @var string                                                                                          $message_effect_id              Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters      Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
      * @var Types\ReplyParameters                                                                           $reply_parameters               Optional. Description of the message to reply to
      * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup                   Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
@@ -370,28 +386,30 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as @see Types\Document). On success, the sent @see Types\Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id        Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $video                    Required. Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files)
-     * @var int                                                                                             $duration                 Optional. Duration of sent video in seconds
-     * @var int                                                                                             $width                    Optional. Video width
-     * @var int                                                                                             $height                   Optional. Video height
-     * @var Types\InputFile|string                                                                          $thumbnail                Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
-     * @var Types\InputFile|string                                                                          $cover                    Optional. Cover for the video in the message. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
-     * @var int                                                                                             $start_timestamp          Optional. Start timestamp for the video in the message
-     * @var string                                                                                          $caption                  Optional. Video caption (may also be used when resending videos by *file\_id*), 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the video caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var bool                                                                                            $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media
-     * @var bool                                                                                            $has_spoiler              Optional. Pass *True* if the video needs to be covered with a spoiler animation
-     * @var bool                                                                                            $supports_streaming       Optional. Pass *True* if the uploaded video is suitable for streaming
-     * @var bool                                                                                            $disable_notification     Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content          Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id        Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters         Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $video                     Required. Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files)
+     * @var int                                                                                             $duration                  Optional. Duration of sent video in seconds
+     * @var int                                                                                             $width                     Optional. Video width
+     * @var int                                                                                             $height                    Optional. Video height
+     * @var Types\InputFile|string                                                                          $thumbnail                 Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var Types\InputFile|string                                                                          $cover                     Optional. Cover for the video in the message. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var int                                                                                             $start_timestamp           Optional. Start timestamp for the video in the message
+     * @var string                                                                                          $caption                   Optional. Video caption (may also be used when resending videos by *file\_id*), 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the video caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var bool                                                                                            $show_caption_above_media  Optional. Pass *True*, if the caption must be shown above the message media
+     * @var bool                                                                                            $has_spoiler               Optional. Pass *True* if the video needs to be covered with a spoiler animation
+     * @var bool                                                                                            $supports_streaming        Optional. Pass *True* if the uploaded video is suitable for streaming
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @param Types\InputFile|array[] $attachments
@@ -410,25 +428,27 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent @see Types\Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id        Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $animation                Required. Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](#sending-files)
-     * @var int                                                                                             $duration                 Optional. Duration of sent animation in seconds
-     * @var int                                                                                             $width                    Optional. Animation width
-     * @var int                                                                                             $height                   Optional. Animation height
-     * @var Types\InputFile|string                                                                          $thumbnail                Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
-     * @var string                                                                                          $caption                  Optional. Animation caption (may also be used when resending animation by *file\_id*), 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the animation caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var bool                                                                                            $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media
-     * @var bool                                                                                            $has_spoiler              Optional. Pass *True* if the animation needs to be covered with a spoiler animation
-     * @var bool                                                                                            $disable_notification     Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content          Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id        Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters         Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $animation                 Required. Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](#sending-files)
+     * @var int                                                                                             $duration                  Optional. Duration of sent animation in seconds
+     * @var int                                                                                             $width                     Optional. Animation width
+     * @var int                                                                                             $height                    Optional. Animation height
+     * @var Types\InputFile|string                                                                          $thumbnail                 Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var string                                                                                          $caption                   Optional. Animation caption (may also be used when resending animation by *file\_id*), 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the animation caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var bool                                                                                            $show_caption_above_media  Optional. Pass *True*, if the caption must be shown above the message media
+     * @var bool                                                                                            $has_spoiler               Optional. Pass *True* if the animation needs to be covered with a spoiler animation
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @param Types\InputFile|array[] $attachments
@@ -447,20 +467,22 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as @see Types\Audio or @see Types\Document). On success, the sent @see Types\Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $voice                  Required. Audio file to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](#sending-files)
-     * @var string                                                                                          $caption                Optional. Voice message caption, 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode             Optional. Mode for parsing entities in the voice message caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities       Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var int                                                                                             $duration               Optional. Duration of the voice message in seconds
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $voice                     Required. Audio file to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](#sending-files)
+     * @var string                                                                                          $caption                   Optional. Voice message caption, 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the voice message caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var int                                                                                             $duration                  Optional. Duration of the voice message in seconds
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -476,19 +498,21 @@ Please note that this parameter doesn't affect updates created before the call t
      *As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $video_note             Required. Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files). Sending video notes by a URL is currently unsupported
-     * @var int                                                                                             $duration               Optional. Duration of sent video in seconds
-     * @var int                                                                                             $length                 Optional. Video width and height, i.e. diameter of the video message
-     * @var Types\InputFile|string                                                                          $thumbnail              Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $video_note                Required. Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files). Sending video notes by a URL is currently unsupported
+     * @var int                                                                                             $duration                  Optional. Duration of sent video in seconds
+     * @var int                                                                                             $length                    Optional. Video width and height, i.e. diameter of the video message
+     * @var Types\InputFile|string                                                                          $thumbnail                 Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @param Types\InputFile|array[] $attachments
@@ -507,20 +531,23 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send paid media. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
-     * @var int                                                                                             $star_count               Required. The number of Telegram Stars that must be paid to buy access to the media; 1-10000
-     * @var Types\InputPaidMedia[]                                                                          $media                    Required. A JSON-serialized array describing the media to be sent; up to 10 items
-     * @var string                                                                                          $payload                  Optional. Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
-     * @var string                                                                                          $caption                  Optional. Media caption, 0-1024 characters after entities parsing
-     * @var string                                                                                          $parse_mode               Optional. Mode for parsing entities in the media caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]                                                                           $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var bool                                                                                            $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media
-     * @var bool                                                                                            $disable_notification     Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content          Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var Types\ReplyParameters                                                                           $reply_parameters         Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup             Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var int                                                                                             $star_count                Required. The number of Telegram Stars that must be paid to buy access to the media; 1-25000
+     * @var Types\InputPaidMedia[]                                                                          $media                     Required. A JSON-serialized array describing the media to be sent; up to 10 items
+     * @var string                                                                                          $payload                   Optional. Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
+     * @var string                                                                                          $caption                   Optional. Media caption, 0-1024 characters after entities parsing
+     * @var string                                                                                          $parse_mode                Optional. Mode for parsing entities in the media caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]                                                                           $caption_entities          Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var bool                                                                                            $show_caption_above_media  Optional. Pass *True*, if the caption must be shown above the message media
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -533,26 +560,27 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages](#message) that were sent is returned.
+     *Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of @see Types\Message objects that were sent is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                       $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                   $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                          $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo $media                  Required. A JSON-serialized array describing messages to be sent, must include 2-10 items
-     * @var bool                                                                                         $disable_notification   Optional. Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                         $protect_content        Optional. Protects the contents of the sent messages from forwarding and saving
-     * @var bool                                                                                         $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                       $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                        $reply_parameters       Optional. Description of the message to reply to
+     * @var string                                                                                       $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                   $chat_id                  Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                          $message_thread_id        Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                          $direct_messages_topic_id Optional. Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
+     * @var Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo $media                    Required. A JSON-serialized array describing messages to be sent, must include 2-10 items
+     * @var bool                                                                                         $disable_notification     Optional. Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                         $protect_content          Optional. Protects the contents of the sent messages from forwarding and saving
+     * @var bool                                                                                         $allow_paid_broadcast     Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                       $message_effect_id        Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\ReplyParameters                                                                        $reply_parameters         Optional. Description of the message to reply to
      * ]
      *
      * @param Types\InputFile|array[] $attachments
      *
-     * @return Base\BaseType
+     * @return Types\Message[]|Base\BaseType
     */
 
-    public function sendMediaGroup(array $params = [], array $attachments = []): Base\BaseType
+    public function sendMediaGroup(array $params = [], array $attachments = []): mixed
     {
         $request = Requests\SendMediaGroup::create($params);
         $request->setAttachments($attachments);
@@ -563,21 +591,23 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send point on the map. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var float                                                                                           $latitude               Required. Latitude of the location
-     * @var float                                                                                           $longitude              Required. Longitude of the location
-     * @var float                                                                                           $horizontal_accuracy    Optional. The radius of uncertainty for the location, measured in meters; 0-1500
-     * @var int                                                                                             $live_period            Optional. Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
-     * @var int                                                                                             $heading                Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @var int                                                                                             $proximity_alert_radius Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var float                                                                                           $latitude                  Required. Latitude of the location
+     * @var float                                                                                           $longitude                 Required. Longitude of the location
+     * @var float                                                                                           $horizontal_accuracy       Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+     * @var int                                                                                             $live_period               Optional. Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+     * @var int                                                                                             $heading                   Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @var int                                                                                             $proximity_alert_radius    Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -593,23 +623,25 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send information about a venue. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var float                                                                                           $latitude               Required. Latitude of the venue
-     * @var float                                                                                           $longitude              Required. Longitude of the venue
-     * @var string                                                                                          $title                  Required. Name of the venue
-     * @var string                                                                                          $address                Required. Address of the venue
-     * @var string                                                                                          $foursquare_id          Optional. Foursquare identifier of the venue
-     * @var string                                                                                          $foursquare_type        Optional. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
-     * @var string                                                                                          $google_place_id        Optional. Google Places identifier of the venue
-     * @var string                                                                                          $google_place_type      Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var float                                                                                           $latitude                  Required. Latitude of the venue
+     * @var float                                                                                           $longitude                 Required. Longitude of the venue
+     * @var string                                                                                          $title                     Required. Name of the venue
+     * @var string                                                                                          $address                   Required. Address of the venue
+     * @var string                                                                                          $foursquare_id             Optional. Foursquare identifier of the venue
+     * @var string                                                                                          $foursquare_type           Optional. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
+     * @var string                                                                                          $google_place_id           Optional. Google Places identifier of the venue
+     * @var string                                                                                          $google_place_type         Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -625,19 +657,21 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send phone contacts. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var string                                                                                          $phone_number           Required. Contact's phone number
-     * @var string                                                                                          $first_name             Required. Contact's first name
-     * @var string                                                                                          $last_name              Optional. Contact's last name
-     * @var string                                                                                          $vcard                  Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var string                                                                                          $phone_number              Required. Contact's phone number
+     * @var string                                                                                          $first_name                Required. Contact's first name
+     * @var string                                                                                          $last_name                 Optional. Contact's last name
+     * @var string                                                                                          $vcard                     Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -654,8 +688,8 @@ Please note that this parameter doesn't affect updates created before the call t
      *
      * @param array    $params    [
      * @var string                                                                                          $business_connection_id  Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                 Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id       Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @var int|string                                                                                      $chat_id                 Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). Polls can't be sent to channel direct messages chats.
+     * @var int                                                                                             $message_thread_id       Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      * @var string                                                                                          $question                Required. Poll question, 1-300 characters
      * @var string                                                                                          $question_parse_mode     Optional. Mode for parsing entities in the question. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed
      * @var Types\MessageEntity[]                                                                           $question_entities       Optional. A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of *question\_parse\_mode*
@@ -714,16 +748,18 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to send an animated emoji that will display a random value. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var string                                                                                          $emoji                  Optional. Emoji on which the dice throw animation is based. Currently, must be one of “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)”, “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)”, “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, or “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Dice can have values 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, values 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, and values 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Defaults to “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var string                                                                                          $emoji                     Optional. Emoji on which the dice throw animation is based. Currently, must be one of “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)”, “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)”, “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, or “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Dice can have values 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, values 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, and values 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Defaults to “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -736,12 +772,33 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
+     *Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int                   $chat_id           Required. Unique identifier for the target private chat
+     * @var int                   $message_thread_id Optional. Unique identifier for the target message thread
+     * @var int                   $draft_id          Required. Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+     * @var string                $text              Required. Text of the message to be sent, 1-4096 characters after entities parsing
+     * @var string                $parse_mode        Optional. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[] $entities          Optional. A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function sendMessageDraft(array $params = []): Base\BaseType
+    {
+        $request = Requests\SendMessageDraft::create($params);
+        return $request->send($this);
+    }
+
+    /**
      *We only recommend using this method when a response from the bot will take a **noticeable** amount of time to arrive.
      *
      * @param array    $params    [
      * @var string     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the action will be sent
-     * @var int|string $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_thread_id      Optional. Unique identifier for the target message thread; for supergroups only
+     * @var int|string $chat_id                Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel chats and channel direct messages chats aren't supported.
+     * @var int        $message_thread_id      Optional. Unique identifier for the target message thread or topic of a forum; for supergroups and private chats of bots with forum topic mode enabled only
      * @var string     $action                 Required. Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](#sendmessage), *upload\_photo* for [photos](#sendphoto), *record\_video* or *upload\_video* for [videos](#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](#sendvoice), *upload\_document* for [general files](#senddocument), *choose\_sticker* for [stickers](#sendsticker), *find\_location* for [location data](#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](#sendvideonote).
      * ]
      *
@@ -788,6 +845,24 @@ Please note that this parameter doesn't affect updates created before the call t
     public function getUserProfilePhotos(array $params = []): Types\UserProfilePhotos
     {
         $request = Requests\GetUserProfilePhotos::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to get a list of profile audios for a user. Returns a @see Types\UserProfileAudios object.
+     *
+     * @param array    $params    [
+     * @var int $user_id Required. Unique identifier of the target user
+     * @var int $offset  Optional. Sequential number of the first audio to be returned. By default, all audios are returned.
+     * @var int $limit   Optional. Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     * ]
+     *
+     * @return Types\UserProfileAudios
+    */
+
+    public function getUserProfileAudios(array $params = []): Types\UserProfileAudios
+    {
+        $request = Requests\GetUserProfileAudios::create($params);
         return $request->send($this);
     }
 
@@ -886,23 +961,24 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
      *
      * @param array    $params    [
-     * @var int|string $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $user_id                Required. Unique identifier of the target user
-     * @var bool       $is_anonymous           Optional. Pass *True* if the administrator's presence in the chat is hidden
-     * @var bool       $can_manage_chat        Optional. Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
-     * @var bool       $can_delete_messages    Optional. Pass *True* if the administrator can delete messages of other users
-     * @var bool       $can_manage_video_chats Optional. Pass *True* if the administrator can manage video chats
-     * @var bool       $can_restrict_members   Optional. Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics
-     * @var bool       $can_promote_members    Optional. Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
-     * @var bool       $can_change_info        Optional. Pass *True* if the administrator can change chat title, photo and other settings
-     * @var bool       $can_invite_users       Optional. Pass *True* if the administrator can invite new users to the chat
-     * @var bool       $can_post_stories       Optional. Pass *True* if the administrator can post stories to the chat
-     * @var bool       $can_edit_stories       Optional. Pass *True* if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
-     * @var bool       $can_delete_stories     Optional. Pass *True* if the administrator can delete stories posted by other users
-     * @var bool       $can_post_messages      Optional. Pass *True* if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
-     * @var bool       $can_edit_messages      Optional. Pass *True* if the administrator can edit messages of other users and can pin messages; for channels only
-     * @var bool       $can_pin_messages       Optional. Pass *True* if the administrator can pin messages; for supergroups only
-     * @var bool       $can_manage_topics      Optional. Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+     * @var int|string $chat_id                    Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int        $user_id                    Required. Unique identifier of the target user
+     * @var bool       $is_anonymous               Optional. Pass *True* if the administrator's presence in the chat is hidden
+     * @var bool       $can_manage_chat            Optional. Pass *True* if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.
+     * @var bool       $can_delete_messages        Optional. Pass *True* if the administrator can delete messages of other users
+     * @var bool       $can_manage_video_chats     Optional. Pass *True* if the administrator can manage video chats
+     * @var bool       $can_restrict_members       Optional. Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators
+     * @var bool       $can_promote_members        Optional. Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
+     * @var bool       $can_change_info            Optional. Pass *True* if the administrator can change chat title, photo and other settings
+     * @var bool       $can_invite_users           Optional. Pass *True* if the administrator can invite new users to the chat
+     * @var bool       $can_post_stories           Optional. Pass *True* if the administrator can post stories to the chat
+     * @var bool       $can_edit_stories           Optional. Pass *True* if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
+     * @var bool       $can_delete_stories         Optional. Pass *True* if the administrator can delete stories posted by other users
+     * @var bool       $can_post_messages          Optional. Pass *True* if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
+     * @var bool       $can_edit_messages          Optional. Pass *True* if the administrator can edit messages of other users and can pin messages; for channels only
+     * @var bool       $can_pin_messages           Optional. Pass *True* if the administrator can pin messages; for supergroups only
+     * @var bool       $can_manage_topics          Optional. Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
+     * @var bool       $can_manage_direct_messages Optional. Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
      * ]
      *
      * @return Base\BaseType
@@ -1197,7 +1273,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
+     *Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to pin messages in groups and channels respectively. Returns *True* on success.
      *
      * @param array    $params    [
      * @var string     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be pinned
@@ -1216,7 +1292,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
+     *Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to unpin messages in groups and channels respectively. Returns *True* on success.
      *
      * @param array    $params    [
      * @var string     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be unpinned
@@ -1234,7 +1310,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
+     *Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to unpin all pinned messages in groups and channels respectively. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
@@ -1253,7 +1329,7 @@ Please note that this parameter doesn't affect updates created before the call t
      *Use this method for your bot to leave a group, supergroup or channel. Returns *True* on success.
      *
      * @param array    $params    [
-     * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
+     * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`). Channel direct messages chats aren't supported; leave the corresponding channel instead.
      * ]
      *
      * @return Base\BaseType
@@ -1385,7 +1461,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns information about the created topic as a @see Types\ForumTopic object.
+     *Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator right. Returns information about the created topic as a @see Types\ForumTopic object.
      *
      * @param array    $params    [
      * @var int|string $chat_id              Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
@@ -1404,7 +1480,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+     *Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int|string $chat_id              Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
@@ -1457,7 +1533,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_delete\_messages* administrator rights. Returns *True* on success.
+     *Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_delete\_messages* administrator rights. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int|string $chat_id           Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
@@ -1474,7 +1550,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
+     *Use this method to clear the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int|string $chat_id           Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
@@ -1794,6 +1870,37 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
     }
 
     /**
+     *Changes the profile photo of the bot. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var Types\InputProfilePhoto $photo Required. The new profile photo to set
+     * ]
+     *
+     * @param Types\InputFile|array[] $attachments
+     *
+     * @return Base\BaseType
+    */
+
+    public function setMyProfilePhoto(array $params = [], array $attachments = []): Base\BaseType
+    {
+        $request = Requests\SetMyProfilePhoto::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
+    }
+
+    /**
+     *Removes the profile photo of the bot. Requires no parameters. Returns *True* on success.
+     *
+     *
+     * @return Base\BaseType
+    */
+
+    public function removeMyProfilePhoto(): Base\BaseType
+    {
+        return $this->query(__FUNCTION__);
+    }
+
+    /**
      *Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
      *
      * @param array    $params    [
@@ -1860,226 +1967,6 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
     }
 
     /**
-     *Use this method to edit text and [game](#games) messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var string                     $text                   Required. New text of the message, 1-4096 characters after entities parsing
-     * @var string                     $parse_mode             Optional. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]      $entities               Optional. A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
-     * @var Types\LinkPreviewOptions   $link_preview_options   Optional. Link preview generation options for the message
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Message|bool
-    */
-
-    public function editMessageText(array $params = []): Types\Message|bool
-    {
-        $request = Requests\EditMessageText::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                  Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id               Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-     * @var string                     $inline_message_id        Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var string                     $caption                  Optional. New caption of the message, 0-1024 characters after entities parsing
-     * @var string                     $parse_mode               Optional. Mode for parsing entities in the message caption. See [formatting options](#formatting-options) for more details.
-     * @var Types\MessageEntity[]      $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
-     * @var bool                       $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
-     * @var Types\InlineKeyboardMarkup $reply_markup             Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Message|bool
-    */
-
-    public function editMessageCaption(array $params = []): Types\Message|bool
-    {
-        $request = Requests\EditMessageCaption::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var Types\InputMedia           $media                  Required. A JSON-serialized object for a new media content of the message
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @param Types\InputFile|array[] $attachments
-     *
-     * @return Types\Message|bool
-    */
-
-    public function editMessageMedia(array $params = [], array $attachments = []): Types\Message|bool
-    {
-        $request = Requests\EditMessageMedia::create($params);
-        $request->setAttachments($attachments);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var float                      $latitude               Required. Latitude of new location
-     * @var float                      $longitude              Required. Longitude of new location
-     * @var int                        $live_period            Optional. New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged
-     * @var float                      $horizontal_accuracy    Optional. The radius of uncertainty for the location, measured in meters; 0-1500
-     * @var int                        $heading                Optional. Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-     * @var int                        $proximity_alert_radius Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Message|bool
-    */
-
-    public function editMessageLiveLocation(array $params = []): Types\Message|bool
-    {
-        $request = Requests\EditMessageLiveLocation::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop
-     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Message|bool
-    */
-
-    public function stopMessageLiveLocation(array $params = []): Types\Message|bool
-    {
-        $request = Requests\StopMessageLiveLocation::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to edit a checklist on behalf of a connected business account. On success, the edited @see Types\Message is returned.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Required. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int                        $chat_id                Required. Unique identifier for the target chat
-     * @var int                        $message_id             Required. Unique identifier for the target message
-     * @var Types\InputChecklist       $checklist              Required. A JSON-serialized object for the new checklist
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for the new inline keyboard for the message
-     * ]
-     *
-     * @return Types\Message
-    */
-
-    public function editMessageChecklist(array $params = []): Types\Message
-    {
-        $request = Requests\EditMessageChecklist::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Message|bool
-    */
-
-    public function editMessageReplyMarkup(array $params = []): Types\Message|bool
-    {
-        $request = Requests\EditMessageReplyMarkup::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to stop a poll which was sent by the bot. On success, the stopped @see Types\Poll is returned.
-     *
-     * @param array    $params    [
-     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     * @var int|string                 $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_id             Required. Identifier of the original message with the poll
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new message [inline keyboard](/bots/features#inline-keyboards).
-     * ]
-     *
-     * @return Types\Poll
-    */
-
-    public function stopPoll(array $params = []): Types\Poll
-    {
-        $request = Requests\StopPoll::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to delete a message, including service messages, with the following limitations:  
-\- A message can only be deleted if it was sent less than 48 hours ago.  
-\- Service messages about a supergroup, channel, or forum topic creation can't be deleted.  
-\- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.  
-\- Bots can delete outgoing messages in private chats, groups, and supergroups.  
-\- Bots can delete incoming messages in private chats.  
-\- Bots granted *can\_post\_messages* permissions can delete outgoing messages in channels.  
-\- If the bot is an administrator of a group, it can delete any message there.  
-\- If the bot has *can\_delete\_messages* permission in a supergroup or a channel, it can delete any message there.  
-Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int|string $chat_id    Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int        $message_id Required. Identifier of the message to delete
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function deleteMessage(array $params = []): Base\BaseType
-    {
-        $request = Requests\DeleteMessage::create($params);
-        return $request->send($this);
-    }
-
-    /**
-     *Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns *True* on success.
-     *
-     * @param array    $params    [
-     * @var int|string $chat_id     Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int[]      $message_ids Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted
-     * ]
-     *
-     * @return Base\BaseType
-    */
-
-    public function deleteMessages(array $params = []): Base\BaseType
-    {
-        $request = Requests\DeleteMessages::create($params);
-        return $request->send($this);
-    }
-
-    /**
      *Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a @see Types\Gifts object.
      *
      *
@@ -2105,7 +1992,7 @@ Returns *True* on success.
      * @param array    $params    [
      * @var int                   $user_id         Optional. Required if *chat\_id* is not specified. Unique identifier of the target user who will receive the gift.
      * @var int|string            $chat_id         Optional. Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
-     * @var string                $gift_id         Required. Identifier of the gift
+     * @var string                $gift_id         Required. Identifier of the gift; limited gifts can't be sent to channel chats
      * @var bool                  $pay_for_upgrade Optional. Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
      * @var string                $text            Optional. Text that will be shown along with the gift; 0-128 characters
      * @var string                $text_parse_mode Optional. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
@@ -2163,7 +2050,7 @@ Returns *True* on success.
      *Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
      *
      * @param array    $params    [
-     * @var int|string $chat_id            Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int|string $chat_id            Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). Channel direct messages chats can't be verified.
      * @var string     $custom_description Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
      * ]
      *
@@ -2388,15 +2275,17 @@ Returns *True* on success.
      *Returns the gifts received and owned by a managed business account. Requires the *can\_view\_gifts\_and\_stars* business bot right. Returns @see Types\OwnedGifts on success.
      *
      * @param array    $params    [
-     * @var string $business_connection_id Required. Unique identifier of the business connection
-     * @var bool   $exclude_unsaved        Optional. Pass *True* to exclude gifts that aren't saved to the account's profile page
-     * @var bool   $exclude_saved          Optional. Pass *True* to exclude gifts that are saved to the account's profile page
-     * @var bool   $exclude_unlimited      Optional. Pass *True* to exclude gifts that can be purchased an unlimited number of times
-     * @var bool   $exclude_limited        Optional. Pass *True* to exclude gifts that can be purchased a limited number of times
-     * @var bool   $exclude_unique         Optional. Pass *True* to exclude unique gifts
-     * @var bool   $sort_by_price          Optional. Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
-     * @var string $offset                 Optional. Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
-     * @var int    $limit                  Optional. The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * @var string $business_connection_id         Required. Unique identifier of the business connection
+     * @var bool   $exclude_unsaved                Optional. Pass *True* to exclude gifts that aren't saved to the account's profile page
+     * @var bool   $exclude_saved                  Optional. Pass *True* to exclude gifts that are saved to the account's profile page
+     * @var bool   $exclude_unlimited              Optional. Pass *True* to exclude gifts that can be purchased an unlimited number of times
+     * @var bool   $exclude_limited_upgradable     Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+     * @var bool   $exclude_limited_non_upgradable Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+     * @var bool   $exclude_unique                 Optional. Pass *True* to exclude unique gifts
+     * @var bool   $exclude_from_blockchain        Optional. Pass *True* to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+     * @var bool   $sort_by_price                  Optional. Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
+     * @var string $offset                         Optional. Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+     * @var int    $limit                          Optional. The maximum number of gifts to be returned; 1-100. Defaults to 100
      * ]
      *
      * @return Types\OwnedGifts
@@ -2405,6 +2294,56 @@ Returns *True* on success.
     public function getBusinessAccountGifts(array $params = []): Types\OwnedGifts
     {
         $request = Requests\GetBusinessAccountGifts::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Returns the gifts owned and hosted by a user. Returns @see Types\OwnedGifts on success.
+     *
+     * @param array    $params    [
+     * @var int    $user_id                        Required. Unique identifier of the user
+     * @var bool   $exclude_unlimited              Optional. Pass *True* to exclude gifts that can be purchased an unlimited number of times
+     * @var bool   $exclude_limited_upgradable     Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+     * @var bool   $exclude_limited_non_upgradable Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+     * @var bool   $exclude_from_blockchain        Optional. Pass *True* to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+     * @var bool   $exclude_unique                 Optional. Pass *True* to exclude unique gifts
+     * @var bool   $sort_by_price                  Optional. Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
+     * @var string $offset                         Optional. Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results
+     * @var int    $limit                          Optional. The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * ]
+     *
+     * @return Types\OwnedGifts
+    */
+
+    public function getUserGifts(array $params = []): Types\OwnedGifts
+    {
+        $request = Requests\GetUserGifts::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Returns the gifts owned by a chat. Returns @see Types\OwnedGifts on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id                        Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var bool       $exclude_unsaved                Optional. Pass *True* to exclude gifts that aren't saved to the chat's profile page. Always *True*, unless the bot has the *can\_post\_messages* administrator right in the channel.
+     * @var bool       $exclude_saved                  Optional. Pass *True* to exclude gifts that are saved to the chat's profile page. Always *False*, unless the bot has the *can\_post\_messages* administrator right in the channel.
+     * @var bool       $exclude_unlimited              Optional. Pass *True* to exclude gifts that can be purchased an unlimited number of times
+     * @var bool       $exclude_limited_upgradable     Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+     * @var bool       $exclude_limited_non_upgradable Optional. Pass *True* to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+     * @var bool       $exclude_from_blockchain        Optional. Pass *True* to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+     * @var bool       $exclude_unique                 Optional. Pass *True* to exclude unique gifts
+     * @var bool       $sort_by_price                  Optional. Pass *True* to sort results by gift price instead of send date. Sorting is applied before pagination.
+     * @var string     $offset                         Optional. Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results
+     * @var int        $limit                          Optional. The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * ]
+     *
+     * @return Types\OwnedGifts
+    */
+
+    public function getChatGifts(array $params = []): Types\OwnedGifts
+    {
+        $request = Requests\GetChatGifts::create($params);
         return $request->send($this);
     }
 
@@ -2491,6 +2430,27 @@ Returns *True* on success.
     }
 
     /**
+     *Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the *can\_manage\_stories* business bot right for both business accounts. Returns @see Types\Story on success.
+     *
+     * @param array    $params    [
+     * @var string $business_connection_id Required. Unique identifier of the business connection
+     * @var int    $from_chat_id           Required. Unique identifier of the chat which posted the story that should be reposted
+     * @var int    $from_story_id          Required. Unique identifier of the story that should be reposted
+     * @var int    $active_period          Required. Period after which the story is moved to the archive, in seconds; must be one of `6 * 3600`, `12 * 3600`, `86400`, or `2 * 86400`
+     * @var bool   $post_to_chat_page      Optional. Pass *True* to keep the story accessible after it expires
+     * @var bool   $protect_content        Optional. Pass *True* if the content of the story must be protected from forwarding and screenshotting
+     * ]
+     *
+     * @return Types\Story
+    */
+
+    public function repostStory(array $params = []): Types\Story
+    {
+        $request = Requests\RepostStory::create($params);
+        return $request->send($this);
+    }
+
+    /**
      *Edits a story previously posted by the bot on behalf of a managed business account. Requires the *can\_manage\_stories* business bot right. Returns @see Types\Story on success.
      *
      * @param array    $params    [
@@ -2533,6 +2493,263 @@ Returns *True* on success.
     }
 
     /**
+     *Use this method to edit text and [game](#games) messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var string                     $text                   Required. New text of the message, 1-4096 characters after entities parsing
+     * @var string                     $parse_mode             Optional. Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]      $entities               Optional. A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
+     * @var Types\LinkPreviewOptions   $link_preview_options   Optional. Link preview generation options for the message
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Message|bool
+    */
+
+    public function editMessageText(array $params = []): Types\Message|bool
+    {
+        $request = Requests\EditMessageText::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id   Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                  Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id               Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+     * @var string                     $inline_message_id        Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var string                     $caption                  Optional. New caption of the message, 0-1024 characters after entities parsing
+     * @var string                     $parse_mode               Optional. Mode for parsing entities in the message caption. See [formatting options](#formatting-options) for more details.
+     * @var Types\MessageEntity[]      $caption_entities         Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+     * @var bool                       $show_caption_above_media Optional. Pass *True*, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+     * @var Types\InlineKeyboardMarkup $reply_markup             Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Message|bool
+    */
+
+    public function editMessageCaption(array $params = []): Types\Message|bool
+    {
+        $request = Requests\EditMessageCaption::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var Types\InputMedia           $media                  Required. A JSON-serialized object for a new media content of the message
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @param Types\InputFile|array[] $attachments
+     *
+     * @return Types\Message|bool
+    */
+
+    public function editMessageMedia(array $params = [], array $attachments = []): Types\Message|bool
+    {
+        $request = Requests\EditMessageMedia::create($params);
+        $request->setAttachments($attachments);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var float                      $latitude               Required. Latitude of new location
+     * @var float                      $longitude              Required. Longitude of new location
+     * @var int                        $live_period            Optional. New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged
+     * @var float                      $horizontal_accuracy    Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+     * @var int                        $heading                Optional. Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @var int                        $proximity_alert_radius Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Message|bool
+    */
+
+    public function editMessageLiveLocation(array $params = []): Types\Message|bool
+    {
+        $request = Requests\EditMessageLiveLocation::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop
+     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Message|bool
+    */
+
+    public function stopMessageLiveLocation(array $params = []): Types\Message|bool
+    {
+        $request = Requests\StopMessageLiveLocation::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to edit a checklist on behalf of a connected business account. On success, the edited @see Types\Message is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Required. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int                        $chat_id                Required. Unique identifier for the target chat
+     * @var int                        $message_id             Required. Unique identifier for the target message
+     * @var Types\InputChecklist       $checklist              Required. A JSON-serialized object for the new checklist
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for the new inline keyboard for the message
+     * ]
+     *
+     * @return Types\Message
+    */
+
+    public function editMessageChecklist(array $params = []): Types\Message
+    {
+        $request = Requests\EditMessageChecklist::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited @see Types\Message is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Optional. Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Optional. Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+     * @var string                     $inline_message_id      Optional. Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Message|bool
+    */
+
+    public function editMessageReplyMarkup(array $params = []): Types\Message|bool
+    {
+        $request = Requests\EditMessageReplyMarkup::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to stop a poll which was sent by the bot. On success, the stopped @see Types\Poll is returned.
+     *
+     * @param array    $params    [
+     * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     * @var int|string                 $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                        $message_id             Required. Identifier of the original message with the poll
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for a new message [inline keyboard](/bots/features#inline-keyboards).
+     * ]
+     *
+     * @return Types\Poll
+    */
+
+    public function stopPoll(array $params = []): Types\Poll
+    {
+        $request = Requests\StopPoll::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can\_post\_messages' administrator right in the corresponding channel chat. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int $chat_id    Required. Unique identifier for the target direct messages chat
+     * @var int $message_id Required. Identifier of a suggested post message to approve
+     * @var int $send_date  Optional. Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function approveSuggestedPost(array $params = []): Base\BaseType
+    {
+        $request = Requests\ApproveSuggestedPost::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can\_manage\_direct\_messages' administrator right in the corresponding channel chat. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int    $chat_id    Required. Unique identifier for the target direct messages chat
+     * @var int    $message_id Required. Identifier of a suggested post message to decline
+     * @var string $comment    Optional. Comment for the creator of the suggested post; 0-128 characters
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function declineSuggestedPost(array $params = []): Base\BaseType
+    {
+        $request = Requests\DeclineSuggestedPost::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to delete a message, including service messages, with the following limitations:  
+\- A message can only be deleted if it was sent less than 48 hours ago.  
+\- Service messages about a supergroup, channel, or forum topic creation can't be deleted.  
+\- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.  
+\- Bots can delete outgoing messages in private chats, groups, and supergroups.  
+\- Bots can delete incoming messages in private chats.  
+\- Bots granted *can\_post\_messages* permissions can delete outgoing messages in channels.  
+\- If the bot is an administrator of a group, it can delete any message there.  
+\- If the bot has *can\_delete\_messages* administrator right in a supergroup or a channel, it can delete any message there.  
+\- If the bot has *can\_manage\_direct\_messages* administrator right in a channel, it can delete any message in the corresponding direct messages chat.  
+Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id    Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int        $message_id Required. Identifier of the message to delete
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function deleteMessage(array $params = []): Base\BaseType
+    {
+        $request = Requests\DeleteMessage::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id     Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int[]      $message_ids Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function deleteMessages(array $params = []): Base\BaseType
+    {
+        $request = Requests\DeleteMessages::create($params);
+        return $request->send($this);
+    }
+
+    /**
      *Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
      *
      * @param array    $params    [
@@ -2553,35 +2770,37 @@ Returns *True* on success.
      *Use this method to send invoices. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var int|string                 $chat_id                       Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                        $message_thread_id             Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var string                     $title                         Required. Product name, 1-32 characters
-     * @var string                     $description                   Required. Product description, 1-255 characters
-     * @var string                     $payload                       Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
-     * @var string                     $provider_token                Optional. Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var string                     $currency                      Required. Three-letter ISO 4217 currency code, see [more on currencies](/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var Payments\LabeledPrice[]    $prices                        Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var int                        $max_tip_amount                Optional. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var int[]                      $suggested_tip_amounts         Optional. A JSON-serialized array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
-     * @var string                     $start_parameter               Optional. Unique deep-linking parameter. If left empty, **forwarded copies** of the sent message will have a *Pay* button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a *URL* button with a deep link to the bot (instead of a *Pay* button), with the value used as the start parameter
-     * @var string                     $provider_data                 Optional. JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
-     * @var string                     $photo_url                     Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
-     * @var int                        $photo_size                    Optional. Photo size in bytes
-     * @var int                        $photo_width                   Optional. Photo width
-     * @var int                        $photo_height                  Optional. Photo height
-     * @var bool                       $need_name                     Optional. Pass *True* if you require the user's full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $need_phone_number             Optional. Pass *True* if you require the user's phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $need_email                    Optional. Pass *True* if you require the user's email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $need_shipping_address         Optional. Pass *True* if you require the user's shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $send_phone_number_to_provider Optional. Pass *True* if the user's phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $send_email_to_provider        Optional. Pass *True* if the user's email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $is_flexible                   Optional. Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
-     * @var bool                       $disable_notification          Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                       $protect_content               Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                       $allow_paid_broadcast          Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                     $message_effect_id             Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters      $reply_parameters              Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup $reply_markup                  Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
+     * @var int|string                    $chat_id                       Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                           $message_thread_id             Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                           $direct_messages_topic_id      Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var string                        $title                         Required. Product name, 1-32 characters
+     * @var string                        $description                   Required. Product description, 1-255 characters
+     * @var string                        $payload                       Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
+     * @var string                        $provider_token                Optional. Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var string                        $currency                      Required. Three-letter ISO 4217 currency code, see [more on currencies](/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var Payments\LabeledPrice[]       $prices                        Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var int                           $max_tip_amount                Optional. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var int[]                         $suggested_tip_amounts         Optional. A JSON-serialized array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
+     * @var string                        $start_parameter               Optional. Unique deep-linking parameter. If left empty, **forwarded copies** of the sent message will have a *Pay* button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a *URL* button with a deep link to the bot (instead of a *Pay* button), with the value used as the start parameter
+     * @var string                        $provider_data                 Optional. JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+     * @var string                        $photo_url                     Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+     * @var int                           $photo_size                    Optional. Photo size in bytes
+     * @var int                           $photo_width                   Optional. Photo width
+     * @var int                           $photo_height                  Optional. Photo height
+     * @var bool                          $need_name                     Optional. Pass *True* if you require the user's full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $need_phone_number             Optional. Pass *True* if you require the user's phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $need_email                    Optional. Pass *True* if you require the user's email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $need_shipping_address         Optional. Pass *True* if you require the user's shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $send_phone_number_to_provider Optional. Pass *True* if the user's phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $send_email_to_provider        Optional. Pass *True* if the user's email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $is_flexible                   Optional. Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     * @var bool                          $disable_notification          Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                          $protect_content               Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                          $allow_paid_broadcast          Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                        $message_effect_id             Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters $suggested_post_parameters     Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters         $reply_parameters              Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup    $reply_markup                  Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
      * ]
      *
      * @return Types\Message
@@ -2803,17 +3022,19 @@ No more than **50** results per query are allowed.
      *Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent @see Types\Message is returned.
      *
      * @param array    $params    [
-     * @var string                                                                                          $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int|string                                                                                      $chat_id                Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-     * @var int                                                                                             $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-     * @var Types\InputFile|string                                                                          $sticker                Required. Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. [More information on Sending Files »](#sending-files). Video and animated stickers can't be sent via an HTTP URL.
-     * @var string                                                                                          $emoji                  Optional. Emoji associated with the sticker; only for just uploaded stickers
-     * @var bool                                                                                            $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-     * @var bool                                                                                            $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
-     * @var bool                                                                                            $allow_paid_broadcast   Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-     * @var string                                                                                          $message_effect_id      Optional. Unique identifier of the message effect to be added to the message; for private chats only
-     * @var Types\ReplyParameters                                                                           $reply_parameters       Optional. Description of the message to reply to
-     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup           Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+     * @var string                                                                                          $business_connection_id    Optional. Unique identifier of the business connection on behalf of which the message will be sent
+     * @var int|string                                                                                      $chat_id                   Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     * @var int                                                                                             $message_thread_id         Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     * @var int                                                                                             $direct_messages_topic_id  Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     * @var Types\InputFile|string                                                                          $sticker                   Required. Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. [More information on Sending Files »](#sending-files). Video and animated stickers can't be sent via an HTTP URL.
+     * @var string                                                                                          $emoji                     Optional. Emoji associated with the sticker; only for just uploaded stickers
+     * @var bool                                                                                            $disable_notification      Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     * @var bool                                                                                            $protect_content           Optional. Protects the contents of the sent message from forwarding and saving
+     * @var bool                                                                                            $allow_paid_broadcast      Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * @var string                                                                                          $message_effect_id         Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     * @var Types\SuggestedPostParameters                                                                   $suggested_post_parameters Optional. A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     * @var Types\ReplyParameters                                                                           $reply_parameters          Optional. Description of the message to reply to
+     * @var Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $reply_markup              Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
      * ]
      *
      * @return Types\Message
@@ -3097,8 +3318,8 @@ No more than **50** results per query are allowed.
      *
      * @param array    $params    [
      * @var string                     $business_connection_id Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     * @var int                        $chat_id                Required. Unique identifier for the target chat
-     * @var int                        $message_thread_id      Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+     * @var int                        $chat_id                Required. Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
+     * @var int                        $message_thread_id      Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      * @var string                     $game_short_name        Required. Short name of the game, serves as the unique identifier for the game. Set up your games via [@BotFather](https://t.me/botfather).
      * @var bool                       $disable_notification   Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
      * @var bool                       $protect_content        Optional. Protects the contents of the sent message from forwarding and saving

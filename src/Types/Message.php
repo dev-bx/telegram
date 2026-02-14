@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -24,7 +24,9 @@ use DevBX\Telegram\Passport;
  * @property int $messageId
  * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
  * @property int $messageThreadId
- * *Optional*. Unique identifier of a message thread to which the message belongs; for supergroups only
+ * *Optional*. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+ * @property DirectMessagesTopic $directMessagesTopic
+ * *Optional*. Information about the direct messages chat topic that contains the message
  * @property User $from
  * *Optional*. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
  * @property Chat $senderChat
@@ -42,17 +44,19 @@ use DevBX\Telegram\Passport;
  * @property MessageOrigin|MessageOriginUser|MessageOriginHiddenUser|MessageOriginChat|MessageOriginChannel $forwardOrigin
  * *Optional*. Information about the original message for forwarded messages
  * @property bool $isTopicMessage
- * *Optional*. *True*, if the message is sent to a forum topic
+ * *Optional*. *True*, if the message is sent to a topic in a forum supergroup or a private chat with the bot
  * @property bool $isAutomaticForward
  * *Optional*. *True*, if the message is a channel post that was automatically forwarded to the connected discussion group
  * @property Message $replyToMessage
- * *Optional*. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
+ * *Optional*. For replies in the same chat and message thread, the original message. Note that the [Message](#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
  * @property ExternalReplyInfo $externalReply
  * *Optional*. Information about the message that is being replied to, which may come from another chat or forum topic
  * @property TextQuote $quote
  * *Optional*. For replies that quote part of the original message, the quoted part of the message
  * @property Story $replyToStory
  * *Optional*. For replies to a story, the original story
+ * @property int $replyToChecklistTaskId
+ * *Optional*. Identifier of the specific checklist task that is being replied to
  * @property User $viaBot
  * *Optional*. Bot through which the message was sent
  * @property int $editDate
@@ -61,6 +65,8 @@ use DevBX\Telegram\Passport;
  * *Optional*. *True*, if the message can't be forwarded
  * @property bool $isFromOffline
  * *Optional*. *True*, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+ * @property bool $isPaidPost
+ * *Optional*. *True*, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
  * @property string $mediaGroupId
  * *Optional*. The unique identifier of a media message group this message belongs to
  * @property string $authorSignature
@@ -73,6 +79,8 @@ use DevBX\Telegram\Passport;
  * *Optional*. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
  * @property LinkPreviewOptions $linkPreviewOptions
  * *Optional*. Options used for link preview generation for the message, if it is a text message and link preview options were changed
+ * @property SuggestedPostInfo $suggestedPostInfo
+ * *Optional*. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
  * @property string $effectId
  * *Optional*. Unique identifier of the message effect added to the message
  * @property Animation $animation
@@ -121,6 +129,10 @@ use DevBX\Telegram\Passport;
  * *Optional*. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
  * @property User $leftChatMember
  * *Optional*. A member was removed from the group, information about them (this member may be the bot itself)
+ * @property ChatOwnerLeft $chatOwnerLeft
+ * *Optional*. Service message: chat owner has left
+ * @property ChatOwnerChanged $chatOwnerChanged
+ * *Optional*. Service message: chat owner has changed
  * @property string $newChatTitle
  * *Optional*. A chat title was changed to this value
  * @property Base\ArrayObject|PhotoSize[] $newChatPhoto
@@ -140,7 +152,7 @@ use DevBX\Telegram\Passport;
  * @property int $migrateFromChatId
  * *Optional*. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
  * @property MaybeInaccessibleMessage|Message|InaccessibleMessage $pinnedMessage
- * *Optional*. Specified message was pinned. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
+ * *Optional*. Specified message was pinned. Note that the [Message](#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
  * @property Payments\Invoice $invoice
  * *Optional*. Message is an invoice for a [payment](#payments), information about the invoice. [More about payments »](#payments)
  * @property Payments\SuccessfulPayment $successfulPayment
@@ -155,6 +167,8 @@ use DevBX\Telegram\Passport;
  * *Optional*. Service message: a regular gift was sent or received
  * @property UniqueGiftInfo $uniqueGift
  * *Optional*. Service message: a unique gift was sent or received
+ * @property GiftInfo $giftUpgradeSent
+ * *Optional*. Service message: upgrade of a gift was purchased after the gift was sent
  * @property string $connectedWebsite
  * *Optional*. The domain name of the website on which the user has logged in. [More about Telegram Login »](/widgets/login)
  * @property WriteAccessAllowed $writeAccessAllowed
@@ -195,6 +209,16 @@ use DevBX\Telegram\Passport;
  * *Optional*. Service message: a giveaway without public winners was completed
  * @property PaidMessagePriceChanged $paidMessagePriceChanged
  * *Optional*. Service message: the price for paid messages has changed in the chat
+ * @property SuggestedPostApproved $suggestedPostApproved
+ * *Optional*. Service message: a suggested post was approved
+ * @property SuggestedPostApprovalFailed $suggestedPostApprovalFailed
+ * *Optional*. Service message: approval of a suggested post has failed
+ * @property SuggestedPostDeclined $suggestedPostDeclined
+ * *Optional*. Service message: a suggested post was declined
+ * @property SuggestedPostPaid $suggestedPostPaid
+ * *Optional*. Service message: payment for a suggested post was received
+ * @property SuggestedPostRefunded $suggestedPostRefunded
+ * *Optional*. Service message: payment for a suggested post was refunded
  * @property VideoChatScheduled $videoChatScheduled
  * *Optional*. Service message: video chat scheduled
  * @property VideoChatStarted $videoChatStarted
@@ -219,6 +243,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'message_thread_id' => [
 				'type' => ['int'],
+			],
+			'direct_messages_topic' => [
+				'type' => [DirectMessagesTopic::class],
 			],
 			'from' => [
 				'type' => [User::class],
@@ -264,6 +291,9 @@ class Message extends MaybeInaccessibleMessage
 			'reply_to_story' => [
 				'type' => [Story::class],
 			],
+			'reply_to_checklist_task_id' => [
+				'type' => ['int'],
+			],
 			'via_bot' => [
 				'type' => [User::class],
 			],
@@ -274,6 +304,9 @@ class Message extends MaybeInaccessibleMessage
 				'type' => ['bool'],
 			],
 			'is_from_offline' => [
+				'type' => ['bool'],
+			],
+			'is_paid_post' => [
 				'type' => ['bool'],
 			],
 			'media_group_id' => [
@@ -294,6 +327,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'link_preview_options' => [
 				'type' => [LinkPreviewOptions::class],
+			],
+			'suggested_post_info' => [
+				'type' => [SuggestedPostInfo::class],
 			],
 			'effect_id' => [
 				'type' => ['string'],
@@ -370,6 +406,12 @@ class Message extends MaybeInaccessibleMessage
 			'left_chat_member' => [
 				'type' => [User::class],
 			],
+			'chat_owner_left' => [
+				'type' => [ChatOwnerLeft::class],
+			],
+			'chat_owner_changed' => [
+				'type' => [ChatOwnerChanged::class],
+			],
 			'new_chat_title' => [
 				'type' => ['string'],
 			],
@@ -421,6 +463,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'unique_gift' => [
 				'type' => [UniqueGiftInfo::class],
+			],
+			'gift_upgrade_sent' => [
+				'type' => [GiftInfo::class],
 			],
 			'connected_website' => [
 				'type' => ['string'],
@@ -482,6 +527,21 @@ class Message extends MaybeInaccessibleMessage
 			'paid_message_price_changed' => [
 				'type' => [PaidMessagePriceChanged::class],
 			],
+			'suggested_post_approved' => [
+				'type' => [SuggestedPostApproved::class],
+			],
+			'suggested_post_approval_failed' => [
+				'type' => [SuggestedPostApprovalFailed::class],
+			],
+			'suggested_post_declined' => [
+				'type' => [SuggestedPostDeclined::class],
+			],
+			'suggested_post_paid' => [
+				'type' => [SuggestedPostPaid::class],
+			],
+			'suggested_post_refunded' => [
+				'type' => [SuggestedPostRefunded::class],
+			],
 			'video_chat_scheduled' => [
 				'type' => [VideoChatScheduled::class],
 			],
@@ -538,6 +598,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setMessageThreadId(mixed $value): static
 	{
 		return $this->setFieldValue('message_thread_id', $value);
+	}
+
+	/**
+	* @return DirectMessagesTopic
+	*/
+
+	public function getDirectMessagesTopic(): mixed
+	{
+		return $this->getFieldValue('direct_messages_topic');
+	}
+
+	/**
+	* @param DirectMessagesTopic $value
+	* @return static
+	*/
+
+	public function setDirectMessagesTopic(mixed $value): static
+	{
+		return $this->setFieldValue('direct_messages_topic', $value);
 	}
 
 	/**
@@ -807,6 +886,25 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return int
+	*/
+
+	public function getReplyToChecklistTaskId(): mixed
+	{
+		return $this->getFieldValue('reply_to_checklist_task_id');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setReplyToChecklistTaskId(mixed $value): static
+	{
+		return $this->setFieldValue('reply_to_checklist_task_id', $value);
+	}
+
+	/**
 	* @return User
 	*/
 
@@ -880,6 +978,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setIsFromOffline(mixed $value): static
 	{
 		return $this->setFieldValue('is_from_offline', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsPaidPost(): mixed
+	{
+		return $this->getFieldValue('is_paid_post');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsPaidPost(mixed $value): static
+	{
+		return $this->setFieldValue('is_paid_post', $value);
 	}
 
 	/**
@@ -994,6 +1111,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setLinkPreviewOptions(mixed $value): static
 	{
 		return $this->setFieldValue('link_preview_options', $value);
+	}
+
+	/**
+	* @return SuggestedPostInfo
+	*/
+
+	public function getSuggestedPostInfo(): mixed
+	{
+		return $this->getFieldValue('suggested_post_info');
+	}
+
+	/**
+	* @param SuggestedPostInfo $value
+	* @return static
+	*/
+
+	public function setSuggestedPostInfo(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_info', $value);
 	}
 
 	/**
@@ -1453,6 +1589,44 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return ChatOwnerLeft
+	*/
+
+	public function getChatOwnerLeft(): mixed
+	{
+		return $this->getFieldValue('chat_owner_left');
+	}
+
+	/**
+	* @param ChatOwnerLeft $value
+	* @return static
+	*/
+
+	public function setChatOwnerLeft(mixed $value): static
+	{
+		return $this->setFieldValue('chat_owner_left', $value);
+	}
+
+	/**
+	* @return ChatOwnerChanged
+	*/
+
+	public function getChatOwnerChanged(): mixed
+	{
+		return $this->getFieldValue('chat_owner_changed');
+	}
+
+	/**
+	* @param ChatOwnerChanged $value
+	* @return static
+	*/
+
+	public function setChatOwnerChanged(mixed $value): static
+	{
+		return $this->setFieldValue('chat_owner_changed', $value);
+	}
+
+	/**
 	* @return string
 	*/
 
@@ -1773,6 +1947,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setUniqueGift(mixed $value): static
 	{
 		return $this->setFieldValue('unique_gift', $value);
+	}
+
+	/**
+	* @return GiftInfo
+	*/
+
+	public function getGiftUpgradeSent(): mixed
+	{
+		return $this->getFieldValue('gift_upgrade_sent');
+	}
+
+	/**
+	* @param GiftInfo $value
+	* @return static
+	*/
+
+	public function setGiftUpgradeSent(mixed $value): static
+	{
+		return $this->setFieldValue('gift_upgrade_sent', $value);
 	}
 
 	/**
@@ -2153,6 +2346,101 @@ class Message extends MaybeInaccessibleMessage
 	public function setPaidMessagePriceChanged(mixed $value): static
 	{
 		return $this->setFieldValue('paid_message_price_changed', $value);
+	}
+
+	/**
+	* @return SuggestedPostApproved
+	*/
+
+	public function getSuggestedPostApproved(): mixed
+	{
+		return $this->getFieldValue('suggested_post_approved');
+	}
+
+	/**
+	* @param SuggestedPostApproved $value
+	* @return static
+	*/
+
+	public function setSuggestedPostApproved(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_approved', $value);
+	}
+
+	/**
+	* @return SuggestedPostApprovalFailed
+	*/
+
+	public function getSuggestedPostApprovalFailed(): mixed
+	{
+		return $this->getFieldValue('suggested_post_approval_failed');
+	}
+
+	/**
+	* @param SuggestedPostApprovalFailed $value
+	* @return static
+	*/
+
+	public function setSuggestedPostApprovalFailed(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_approval_failed', $value);
+	}
+
+	/**
+	* @return SuggestedPostDeclined
+	*/
+
+	public function getSuggestedPostDeclined(): mixed
+	{
+		return $this->getFieldValue('suggested_post_declined');
+	}
+
+	/**
+	* @param SuggestedPostDeclined $value
+	* @return static
+	*/
+
+	public function setSuggestedPostDeclined(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_declined', $value);
+	}
+
+	/**
+	* @return SuggestedPostPaid
+	*/
+
+	public function getSuggestedPostPaid(): mixed
+	{
+		return $this->getFieldValue('suggested_post_paid');
+	}
+
+	/**
+	* @param SuggestedPostPaid $value
+	* @return static
+	*/
+
+	public function setSuggestedPostPaid(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_paid', $value);
+	}
+
+	/**
+	* @return SuggestedPostRefunded
+	*/
+
+	public function getSuggestedPostRefunded(): mixed
+	{
+		return $this->getFieldValue('suggested_post_refunded');
+	}
+
+	/**
+	* @param SuggestedPostRefunded $value
+	* @return static
+	*/
+
+	public function setSuggestedPostRefunded(mixed $value): static
+	{
+		return $this->setFieldValue('suggested_post_refunded', $value);
 	}
 
 	/**

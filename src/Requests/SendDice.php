@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,7 +23,9 @@ use DevBX\Telegram\Types;
  * @property int|string $chatId
  * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
  * @property int $messageThreadId
- * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+ * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @property int $directMessagesTopicId
+ * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @property string $emoji
  * Emoji on which the dice throw animation is based. Currently, must be one of “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)”, “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)”, “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, or “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Dice can have values 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, values 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, and values 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Defaults to “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”
  * @property bool $disableNotification
@@ -34,6 +36,8 @@ use DevBX\Telegram\Types;
  * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
  * @property string $messageEffectId
  * Unique identifier of the message effect to be added to the message; for private chats only
+ * @property Types\SuggestedPostParameters $suggestedPostParameters
+ * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
  * @property Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $replyMarkup
@@ -55,6 +59,9 @@ class SendDice extends Base\Request
             'message_thread_id' => [
                 'type' => ['int'],
             ],
+            'direct_messages_topic_id' => [
+                'type' => ['int'],
+            ],
             'emoji' => [
                 'type' => ['string'],
             ],
@@ -69,6 +76,9 @@ class SendDice extends Base\Request
             ],
             'message_effect_id' => [
                 'type' => ['string'],
+            ],
+            'suggested_post_parameters' => [
+                'type' => [Types\SuggestedPostParameters::class],
             ],
             'reply_parameters' => [
                 'type' => [Types\ReplyParameters::class],
@@ -137,6 +147,25 @@ class SendDice extends Base\Request
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
+    }
+
+    /**
+    * @return int
+    */
+
+    public function getDirectMessagesTopicId(): mixed
+    {
+        return $this->getFieldValue('direct_messages_topic_id');
+    }
+
+    /**
+    * @param int $value
+    * @return static
+    */
+
+    public function setDirectMessagesTopicId(mixed $value): static
+    {
+        return $this->setFieldValue('direct_messages_topic_id', $value);
     }
 
     /**
@@ -232,6 +261,25 @@ class SendDice extends Base\Request
     public function setMessageEffectId(mixed $value): static
     {
         return $this->setFieldValue('message_effect_id', $value);
+    }
+
+    /**
+    * @return Types\SuggestedPostParameters
+    */
+
+    public function getSuggestedPostParameters(): mixed
+    {
+        return $this->getFieldValue('suggested_post_parameters');
+    }
+
+    /**
+    * @param Types\SuggestedPostParameters $value
+    * @return static
+    */
+
+    public function setSuggestedPostParameters(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_parameters', $value);
     }
 
     /**
