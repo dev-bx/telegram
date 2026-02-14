@@ -6,7 +6,7 @@ designed to be used with the Bitrix CMS or the GuzzleHTTP client.
 ## Features
 
 - **Easy Integration**: Seamlessly integrates with Bitrix CMS and GuzzleHTTP client.
-- **Full API Coverage**: Supports all <b>Telegram BOT API 9.1</b> methods.
+- **Full API Coverage**: Supports all <b>Telegram BOT API 9.4</b> methods.
 - **Customizable**: Easily extendable and customizable to fit your specific needs.
 
 ## Installation
