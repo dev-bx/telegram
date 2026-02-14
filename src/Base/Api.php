@@ -288,5 +288,9 @@ class Api
         return $webhookUpdate;
     }
 
+    public static function escapeMarkdownV2(string $text): string {
+        return addcslashes($text, '_*[]()~`>#+=|{}.!-');
+    }
+
 }
 
