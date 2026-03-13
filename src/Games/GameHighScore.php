@@ -18,8 +18,7 @@ use DevBX\Telegram\Types;
 
 /**
  * And that's about all we've got for now.  
-If you've got any questions, please check out our [**Bot FAQ »**](/bots/faq)  
--
+If you've got any questions, please check out our [**Bot FAQ »**](/bots/faq)
  * @property int $position
  * Position in high score table for the game
  * @property Types\User $user

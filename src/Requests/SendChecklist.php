@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -33,7 +33,7 @@ use DevBX\Telegram\Types;
  * @property Types\ReplyParameters $replyParameters
  * A JSON-serialized object for description of the message to reply to
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for an inline keyboard
+ * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message send(Api $gateway = null)
  */
 class SendChecklist extends Base\Request

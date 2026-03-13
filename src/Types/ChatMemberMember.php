@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,6 +19,8 @@ use DevBX\Telegram\Base;
  * Represents a [chat member](#chatmember) that has no additional privileges or restrictions.
  * @property string $status
  * The member's status in the chat, always “member”
+ * @property string $tag
+ * *Optional*. Tag of the member
  * @property User $user
  * Information about the user
  * @property int $untilDate
@@ -33,6 +35,9 @@ class ChatMemberMember extends ChatMember
 				'type' => ['string'],
 				'value' => 'member',
 				'required' => true,
+			],
+			'tag' => [
+				'type' => ['string'],
 			],
 			'user' => [
 				'type' => [User::class],
@@ -60,6 +65,25 @@ class ChatMemberMember extends ChatMember
 	public function setStatus(mixed $value): static
 	{
 		return $this->setFieldValue('status', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getTag(): mixed
+	{
+		return $this->getFieldValue('tag');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setTag(mixed $value): static
+	{
+		return $this->setFieldValue('tag', $value);
 	}
 
 	/**

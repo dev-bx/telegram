@@ -53,6 +53,8 @@ use DevBX\Telegram\Api;
  * Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
  * @property bool $canManageDirectMessages
  * Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
+ * @property bool $canManageTags
+ * Pass *True* if the administrator can edit the tags of regular members; for groups and supergroups only
  * @method Base\BaseType send(Api $gateway = null)
  */
 class PromoteChatMember extends Base\Request
@@ -114,6 +116,9 @@ class PromoteChatMember extends Base\Request
                 'type' => ['bool'],
             ],
             'can_manage_direct_messages' => [
+                'type' => ['bool'],
+            ],
+            'can_manage_tags' => [
                 'type' => ['bool'],
             ],
         ];
@@ -459,6 +464,25 @@ class PromoteChatMember extends Base\Request
     public function setCanManageDirectMessages(mixed $value): static
     {
         return $this->setFieldValue('can_manage_direct_messages', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getCanManageTags(): mixed
+    {
+        return $this->getFieldValue('can_manage_tags');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setCanManageTags(mixed $value): static
+    {
+        return $this->setFieldValue('can_manage_tags', $value);
     }
 
     protected function getRequestMethod(): string

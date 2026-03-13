@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -27,7 +27,7 @@ use DevBX\Telegram\Types;
  * @property Types\InputChecklist $checklist
  * A JSON-serialized object for the new checklist
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for the new inline keyboard for the message
+ * A JSON-serialized object for the new [inline keyboard](/bots/features#inline-keyboards) for the message
  * @method Types\Message send(Api $gateway = null)
  */
 class EditMessageChecklist extends Base\Request

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
  * @property string $type
- * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag` or `#hashtag@chatusername`), “cashtag” (`$USD` or `$USD@chatusername`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable\_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers)
+ * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag` or `#hashtag@chatusername`), “cashtag” (`$USD` or `$USD@chatusername`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable\_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers), or “date\_time” (for formatted date and time)
  * @property int $offset
  * Offset in [UTF-16 code units](/api/entities#entity-length) to the start of the entity
  * @property int $length
@@ -31,6 +31,10 @@ use DevBX\Telegram\Base;
  * *Optional*. For “pre” only, the programming language of the entity text
  * @property string $customEmojiId
  * *Optional*. For “custom\_emoji” only, unique identifier of the custom emoji. Use [getCustomEmojiStickers](#getcustomemojistickers) to get full information about the sticker
+ * @property int $unixTime
+ * *Optional*. For “date\_time” only, the Unix time associated with the entity
+ * @property string $dateTimeFormat
+ * *Optional*. For “date\_time” only, the string that defines the formatting of the date and time. See [date-time entity formatting](#date-time-entity-formatting) for more details.
  */
 class MessageEntity extends Base\BaseType
 {
@@ -59,6 +63,12 @@ class MessageEntity extends Base\BaseType
 				'type' => ['string'],
 			],
 			'custom_emoji_id' => [
+				'type' => ['string'],
+			],
+			'unix_time' => [
+				'type' => ['int'],
+			],
+			'date_time_format' => [
 				'type' => ['string'],
 			],
 		];
@@ -194,6 +204,44 @@ class MessageEntity extends Base\BaseType
 	public function setCustomEmojiId(mixed $value): static
 	{
 		return $this->setFieldValue('custom_emoji_id', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getUnixTime(): mixed
+	{
+		return $this->getFieldValue('unix_time');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setUnixTime(mixed $value): static
+	{
+		return $this->setFieldValue('unix_time', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getDateTimeFormat(): mixed
+	{
+		return $this->getFieldValue('date_time_format');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setDateTimeFormat(mixed $value): static
+	{
+		return $this->setFieldValue('date_time_format', $value);
 	}
 
 }

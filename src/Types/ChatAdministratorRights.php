@@ -49,6 +49,8 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
  * @property bool $canManageDirectMessages
  * *Optional*. *True*, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+ * @property bool $canManageTags
+ * *Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can\_pin\_messages.
  */
 class ChatAdministratorRights extends Base\BaseType
 {
@@ -112,6 +114,9 @@ class ChatAdministratorRights extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'can_manage_direct_messages' => [
+				'type' => ['bool'],
+			],
+			'can_manage_tags' => [
 				'type' => ['bool'],
 			],
 		];
@@ -418,6 +423,25 @@ class ChatAdministratorRights extends Base\BaseType
 	public function setCanManageDirectMessages(mixed $value): static
 	{
 		return $this->setFieldValue('can_manage_direct_messages', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanManageTags(): mixed
+	{
+		return $this->getFieldValue('can_manage_tags');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanManageTags(mixed $value): static
+	{
+		return $this->setFieldValue('can_manage_tags', $value);
 	}
 
 }

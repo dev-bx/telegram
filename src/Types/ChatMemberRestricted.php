@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,6 +19,8 @@ use DevBX\Telegram\Base;
  * Represents a [chat member](#chatmember) that is under certain restrictions in the chat. Supergroups only.
  * @property string $status
  * The member's status in the chat, always “restricted”
+ * @property string $tag
+ * *Optional*. Tag of the member
  * @property User $user
  * Information about the user
  * @property bool $isMember
@@ -43,6 +45,8 @@ use DevBX\Telegram\Base;
  * *True*, if the user is allowed to send animations, games, stickers and use inline bots
  * @property bool $canAddWebPagePreviews
  * *True*, if the user is allowed to add web page previews to their messages
+ * @property bool $canEditTag
+ * *True*, if the user is allowed to edit their own tag
  * @property bool $canChangeInfo
  * *True*, if the user is allowed to change the chat title, photo and other settings
  * @property bool $canInviteUsers
@@ -63,6 +67,9 @@ class ChatMemberRestricted extends ChatMember
 				'type' => ['string'],
 				'value' => 'restricted',
 				'required' => true,
+			],
+			'tag' => [
+				'type' => ['string'],
 			],
 			'user' => [
 				'type' => [User::class],
@@ -112,6 +119,10 @@ class ChatMemberRestricted extends ChatMember
 				'type' => ['bool'],
 				'required' => true,
 			],
+			'can_edit_tag' => [
+				'type' => ['bool'],
+				'required' => true,
+			],
 			'can_change_info' => [
 				'type' => ['bool'],
 				'required' => true,
@@ -151,6 +162,25 @@ class ChatMemberRestricted extends ChatMember
 	public function setStatus(mixed $value): static
 	{
 		return $this->setFieldValue('status', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getTag(): mixed
+	{
+		return $this->getFieldValue('tag');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setTag(mixed $value): static
+	{
+		return $this->setFieldValue('tag', $value);
 	}
 
 	/**
@@ -379,6 +409,25 @@ class ChatMemberRestricted extends ChatMember
 	public function setCanAddWebPagePreviews(mixed $value): static
 	{
 		return $this->setFieldValue('can_add_web_page_previews', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanEditTag(): mixed
+	{
+		return $this->getFieldValue('can_edit_tag');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanEditTag(mixed $value): static
+	{
+		return $this->setFieldValue('can_edit_tag', $value);
 	}
 
 	/**

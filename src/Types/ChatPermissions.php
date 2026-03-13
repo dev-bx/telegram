@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -37,6 +37,8 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots
  * @property bool $canAddWebPagePreviews
  * *Optional*. *True*, if the user is allowed to add web page previews to their messages
+ * @property bool $canEditTag
+ * *Optional*. *True*, if the user is allowed to edit their own tag
  * @property bool $canChangeInfo
  * *Optional*. *True*, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
  * @property bool $canInviteUsers
@@ -79,6 +81,9 @@ class ChatPermissions extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'can_add_web_page_previews' => [
+				'type' => ['bool'],
+			],
+			'can_edit_tag' => [
 				'type' => ['bool'],
 			],
 			'can_change_info' => [
@@ -283,6 +288,25 @@ class ChatPermissions extends Base\BaseType
 	public function setCanAddWebPagePreviews(mixed $value): static
 	{
 		return $this->setFieldValue('can_add_web_page_previews', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanEditTag(): mixed
+	{
+		return $this->getFieldValue('can_edit_tag');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanEditTag(mixed $value): static
+	{
+		return $this->setFieldValue('can_edit_tag', $value);
 	}
 
 	/**

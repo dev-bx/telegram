@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -37,7 +37,7 @@ use DevBX\Telegram\Types;
  * @property string $description
  * *Optional*. Short description of the result
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * *Optional*. Inline keyboard attached to the message
+ * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
  * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
  * *Optional*. Content of the message to be sent instead of the file
  * @property string $thumbnailUrl

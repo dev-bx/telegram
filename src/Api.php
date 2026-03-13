@@ -732,7 +732,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var bool                       $protect_content        Optional. Protects the contents of the sent message from forwarding and saving
      * @var string                     $message_effect_id      Optional. Unique identifier of the message effect to be added to the message
      * @var Types\ReplyParameters      $reply_parameters       Optional. A JSON-serialized object for description of the message to reply to
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an inline keyboard
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
      * ]
      *
      * @return Types\Message
@@ -772,7 +772,7 @@ Please note that this parameter doesn't affect updates created before the call t
     }
 
     /**
-     *Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns *True* on success.
+     *Use this method to stream a partial message to a user while the message is being generated. Returns *True* on success.
      *
      * @param array    $params    [
      * @var int                   $chat_id           Required. Unique identifier for the target private chat
@@ -979,6 +979,7 @@ Please note that this parameter doesn't affect updates created before the call t
      * @var bool       $can_pin_messages           Optional. Pass *True* if the administrator can pin messages; for supergroups only
      * @var bool       $can_manage_topics          Optional. Pass *True* if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
      * @var bool       $can_manage_direct_messages Optional. Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
+     * @var bool       $can_manage_tags            Optional. Pass *True* if the administrator can edit the tags of regular members; for groups and supergroups only
      * ]
      *
      * @return Base\BaseType
@@ -1005,6 +1006,24 @@ Please note that this parameter doesn't affect updates created before the call t
     public function setChatAdministratorCustomTitle(array $params = []): Base\BaseType
     {
         $request = Requests\SetChatAdministratorCustomTitle::create($params);
+        return $request->send($this);
+    }
+
+    /**
+     *Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_tags* administrator right. Returns *True* on success.
+     *
+     * @param array    $params    [
+     * @var int|string $chat_id Required. Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+     * @var int        $user_id Required. Unique identifier of the target user
+     * @var string     $tag     Optional. New tag for the member; 0-16 characters, emoji are not allowed
+     * ]
+     *
+     * @return Base\BaseType
+    */
+
+    public function setChatMemberTag(array $params = []): Base\BaseType
+    {
+        $request = Requests\SetChatMemberTag::create($params);
         return $request->send($this);
     }
 
@@ -2618,7 +2637,7 @@ Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot 
      * @var int                        $chat_id                Required. Unique identifier for the target chat
      * @var int                        $message_id             Required. Unique identifier for the target message
      * @var Types\InputChecklist       $checklist              Required. A JSON-serialized object for the new checklist
-     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for the new inline keyboard for the message
+     * @var Types\InlineKeyboardMarkup $reply_markup           Optional. A JSON-serialized object for the new [inline keyboard](/bots/features#inline-keyboards) for the message
      * ]
      *
      * @return Types\Message
