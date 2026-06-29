@@ -87,7 +87,7 @@ class SendVideo extends Base\Request
                 'type' => ['int'],
             ],
             'video' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'duration' => [
@@ -100,10 +100,10 @@ class SendVideo extends Base\Request
                 'type' => ['int'],
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'cover' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'start_timestamp' => [
                 'type' => ['int'],

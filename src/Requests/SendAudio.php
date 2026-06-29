@@ -77,7 +77,7 @@ class SendAudio extends Base\Request
                 'type' => ['int'],
             ],
             'audio' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'caption' => [
@@ -100,7 +100,7 @@ class SendAudio extends Base\Request
                 'type' => ['string'],
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'disable_notification' => [
                 'type' => ['bool'],

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -42,7 +42,7 @@ class SetStickerSetThumbnail extends Base\Request
                 'required' => true,
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'format' => [
                 'type' => ['string'],

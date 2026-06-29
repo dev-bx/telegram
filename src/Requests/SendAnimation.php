@@ -81,7 +81,7 @@ class SendAnimation extends Base\Request
                 'type' => ['int'],
             ],
             'animation' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'duration' => [
@@ -94,7 +94,7 @@ class SendAnimation extends Base\Request
                 'type' => ['int'],
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'caption' => [
                 'type' => ['string'],

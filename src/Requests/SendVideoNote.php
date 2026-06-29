@@ -69,7 +69,7 @@ class SendVideoNote extends Base\Request
                 'type' => ['int'],
             ],
             'video_note' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'duration' => [
@@ -79,7 +79,7 @@ class SendVideoNote extends Base\Request
                 'type' => ['int'],
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'disable_notification' => [
                 'type' => ['bool'],

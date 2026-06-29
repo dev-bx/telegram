@@ -73,7 +73,7 @@ class SendPhoto extends Base\Request
                 'type' => ['int'],
             ],
             'photo' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'caption' => [

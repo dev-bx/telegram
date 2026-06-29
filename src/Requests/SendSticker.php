@@ -65,7 +65,7 @@ class SendSticker extends Base\Request
                 'type' => ['int'],
             ],
             'sticker' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'emoji' => [

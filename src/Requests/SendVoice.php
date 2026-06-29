@@ -71,7 +71,7 @@ class SendVoice extends Base\Request
                 'type' => ['int'],
             ],
             'voice' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'caption' => [

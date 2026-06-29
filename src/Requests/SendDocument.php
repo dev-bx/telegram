@@ -73,11 +73,11 @@ class SendDocument extends Base\Request
                 'type' => ['int'],
             ],
             'document' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
                 'required' => true,
             ],
             'thumbnail' => [
-                'type' => [Types\InputFile::class, 'string'],
+                'type' => ['string', Types\InputFile::class],
             ],
             'caption' => [
                 'type' => ['string'],
