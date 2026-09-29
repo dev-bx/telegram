@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,14 +16,18 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method [requestEmojiStatusAccess](/bots/webapps#initializing-mini-apps). Returns *True* on success.
- * @property int $userId
- * Unique identifier of the target user
- * @property string $emojiStatusCustomEmojiId
- * Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
- * @property int $emojiStatusExpirationDate
- * Expiration date of the emoji status, if any
- * @method Base\BaseType send(Api $gateway = null)
+ * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method [requestEmojiStatusAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps). Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#setuseremojistatus
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ * @property-read string|null $emojiStatusCustomEmojiId Optional. Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
+ * @property-write string $emojiStatusCustomEmojiId
+ * @property-read int|null $emojiStatusExpirationDate Optional. Expiration date of the emoji status, if any
+ * @property-write int $emojiStatusExpirationDate
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetUserEmojiStatus extends Base\Request
 {
@@ -40,61 +44,70 @@ class SetUserEmojiStatus extends Base\Request
             'emoji_status_expiration_date' => [
                 'type' => ['int'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getEmojiStatusCustomEmojiId(): mixed
     {
         return $this->getFieldValue('emoji_status_custom_emoji_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setEmojiStatusCustomEmojiId(mixed $value): static
     {
         return $this->setFieldValue('emoji_status_custom_emoji_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Expiration date of the emoji status, if any
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getEmojiStatusExpirationDate(): mixed
     {
         return $this->getFieldValue('emoji_status_expiration_date');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setEmojiStatusExpirationDate(mixed $value): static
     {
         return $this->setFieldValue('emoji_status_expiration_date', $value);
@@ -102,6 +115,6 @@ class SetUserEmojiStatus extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetUserEmojiStatus';
+        return 'setUserEmojiStatus';
     }
 }

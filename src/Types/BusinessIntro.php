@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,87 +15,95 @@ namespace DevBX\Telegram\Types;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Stickers;
 
-
 /**
  * Contains information about the start page settings of a Telegram Business account.
- * @property string $title
- * *Optional*. Title text of the business intro
- * @property string $message
- * *Optional*. Message text of the business intro
- * @property Stickers\Sticker $sticker
- * *Optional*. Sticker of the business intro
+ *
+ * @link https://core.telegram.org/bots/api#businessintro
+ *
+ * @property-read string|null $title Optional. Title text of the business intro
+ * @property-write string $title
+ * @property-read string|null $message Optional. Message text of the business intro
+ * @property-write string $message
+ * @property-read Stickers\Sticker|null $sticker Optional. Sticker of the business intro
+ * @property-write Stickers\Sticker|array<string, mixed> $sticker
  */
 class BusinessIntro extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'title' => [
-				'type' => ['string'],
-			],
-			'message' => [
-				'type' => ['string'],
-			],
-			'sticker' => [
-				'type' => [Stickers\Sticker::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'title' => [
+                'type' => ['string'],
+            ],
+            'message' => [
+                'type' => ['string'],
+            ],
+            'sticker' => [
+                'type' => [Stickers\Sticker::class],
+            ],
+        ];
+    }
 
-	public function getTitle(): mixed
-	{
-		return $this->getFieldValue('title');
-	}
+    /**
+     * Optional. Title text of the business intro
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getTitle(): mixed
+    {
+        return $this->getFieldValue('title');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTitle(mixed $value): static
+    {
+        return $this->setFieldValue('title', $value);
+    }
 
-	public function setTitle(mixed $value): static
-	{
-		return $this->setFieldValue('title', $value);
-	}
+    /**
+     * Optional. Message text of the business intro
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMessage(): mixed
+    {
+        return $this->getFieldValue('message');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessage(mixed $value): static
+    {
+        return $this->setFieldValue('message', $value);
+    }
 
-	public function getMessage(): mixed
-	{
-		return $this->getFieldValue('message');
-	}
+    /**
+     * Optional. Sticker of the business intro
+     *
+     * @return Stickers\Sticker|null
+     * @throws Base\TelegramException
+     */
+    public function getSticker(): mixed
+    {
+        return $this->getFieldValue('sticker');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setMessage(mixed $value): static
-	{
-		return $this->setFieldValue('message', $value);
-	}
-
-	/**
-	* @return Stickers\Sticker
-	*/
-
-	public function getSticker(): mixed
-	{
-		return $this->getFieldValue('sticker');
-	}
-
-	/**
-	* @param Stickers\Sticker $value
-	* @return static
-	*/
-
-	public function setSticker(mixed $value): static
-	{
-		return $this->setFieldValue('sticker', $value);
-	}
-
+    /**
+     * @param Stickers\Sticker|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSticker(mixed $value): static
+    {
+        return $this->setFieldValue('sticker', $value);
+    }
 }

@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to get the token of a managed bot. Returns the token as *String* on success.
- * @property int $userId
- * User identifier of the managed bot whose token will be returned
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#getmanagedbottoken
+ *
+ * @property-read int|null $userId Required. User identifier of the managed bot whose token will be returned
+ * @property-write int $userId
+ *
+ * @method Base\ParameterString send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetManagedBotToken extends Base\Request
 {
@@ -30,23 +34,28 @@ class GetManagedBotToken extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['string'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. User identifier of the managed bot whose token will be returned
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -54,6 +63,6 @@ class GetManagedBotToken extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetManagedBotToken';
+        return 'getManagedBotToken';
     }
 }

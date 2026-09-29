@@ -14,114 +14,124 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a task to add to a checklist.
- * @property int $id
- * Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist
- * @property string $text
- * Text of the task; 1-100 characters after entities parsing
- * @property string $parseMode
- * *Optional*. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details.
- * @property Base\ArrayObject|MessageEntity[] $textEntities
- * *Optional*. List of special entities that appear in the text, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom\_emoji*, and *date\_time* entities are allowed.
+ *
+ * @link https://core.telegram.org/bots/api#inputchecklisttask
+ *
+ * @property-read int|null $id Required. Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist
+ * @property-write int $id
+ * @property-read string|null $text Required. Text of the task; 1-100 characters after entities parsing
+ * @property-write string $text
+ * @property-read string|null $parseMode Optional. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * @property-write string $parseMode
+ * @property-read Base\ArrayObject<MessageEntity> $textEntities Optional. List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom_emoji*, and *date_time* entities are allowed.
+ * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $textEntities
  */
 class InputChecklistTask extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'text' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'parse_mode' => [
-				'type' => ['string'],
-			],
-			'text_entities' => [
-				'type' => [MessageEntity::class],
-				'isArray' => true,
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'text' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'parse_mode' => [
+                'type' => ['string'],
+            ],
+            'text_entities' => [
+                'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. Text of the task; 1-100 characters after entities parsing
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * Optional. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getParseMode(): mixed
+    {
+        return $this->getFieldValue('parse_mode');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setParseMode(mixed $value): static
+    {
+        return $this->setFieldValue('parse_mode', $value);
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
+    /**
+     * Optional. List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom_emoji*, and *date_time* entities are allowed.
+     *
+     * @return Base\ArrayObject<MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getTextEntities(): mixed
+    {
+        return $this->getFieldValue('text_entities');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getParseMode(): mixed
-	{
-		return $this->getFieldValue('parse_mode');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setParseMode(mixed $value): static
-	{
-		return $this->setFieldValue('parse_mode', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|MessageEntity[]
-	*/
-
-	public function getTextEntities(): mixed
-	{
-		return $this->getFieldValue('text_entities');
-	}
-
-	/**
-	* @param Base\ArrayObject|MessageEntity[] $value
-	* @return static
-	*/
-
-	public function setTextEntities(mixed $value): static
-	{
-		return $this->setFieldValue('text_entities', $value);
-	}
-
+    /**
+     * @param list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTextEntities(mixed $value): static
+    {
+        return $this->setFieldValue('text_entities', $value);
+    }
 }

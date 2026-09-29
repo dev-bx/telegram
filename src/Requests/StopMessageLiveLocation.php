@@ -17,18 +17,22 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned.
- * @property string $businessConnectionId
- * Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
- * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop.
- * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
- * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards)
- * @method Types\Message|bool send(Api $gateway = null)
+ * Use this method to stop updating a live location message before *live_period* expires. On success, if the message is not an inline message, the edited `Message` is returned, otherwise *True* is returned.
+ *
+ * @link https://core.telegram.org/bots/api#stopmessagelivelocation
+ *
+ * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+ * @property-write string $businessConnectionId
+ * @property-read int|string|null $chatId Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+ * @property-write int|string $chatId
+ * @property-read int|null $messageId Optional. Required if *inline_message_id* is not specified. Identifier of the message with live location to stop.
+ * @property-write int $messageId
+ * @property-read string|null $inlineMessageId Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
+ * @property-write string $inlineMessageId
+ * @property-read Types\InlineKeyboardMarkup|null $replyMarkup Optional. A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+ * @property-write Types\InlineKeyboardMarkup|array<string, mixed> $replyMarkup
+ *
+ * @method Types\Message|bool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class StopMessageLiveLocation extends Base\Request
 {
@@ -51,102 +55,112 @@ class StopMessageLiveLocation extends Base\Request
                 'type' => [Types\InlineKeyboardMarkup::class],
             ],
             '@return' => [
-                'type' => Types\Message::class,
+                'type' => [Types\Message::class],
                 'canReturnBool' => true,
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return int|string
-    */
-
+     * Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Required if *inline_message_id* is not specified. Identifier of the message with live location to stop.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getInlineMessageId(): mixed
     {
         return $this->getFieldValue('inline_message_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setInlineMessageId(mixed $value): static
     {
         return $this->setFieldValue('inline_message_id', $value);
     }
 
     /**
-    * @return Types\InlineKeyboardMarkup
-    */
-
+     * Optional. A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+     *
+     * @return Types\InlineKeyboardMarkup|null
+     * @throws Base\TelegramException
+     */
     public function getReplyMarkup(): mixed
     {
         return $this->getFieldValue('reply_markup');
     }
 
     /**
-    * @param Types\InlineKeyboardMarkup $value
-    * @return static
-    */
-
+     * @param Types\InlineKeyboardMarkup|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReplyMarkup(mixed $value): static
     {
         return $this->setFieldValue('reply_markup', $value);
@@ -154,6 +168,6 @@ class StopMessageLiveLocation extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'StopMessageLiveLocation';
+        return 'stopMessageLiveLocation';
     }
 }

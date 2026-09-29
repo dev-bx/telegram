@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,8 +17,11 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Stickers;
 
 /**
- * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of [Sticker](#sticker) objects.
- * @method Stickers\Sticker[]|Base\BaseType send(Api $gateway = null)
+ * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of `Sticker` objects.
+ *
+ * @link https://core.telegram.org/bots/api#getforumtopiciconstickers
+ *
+ * @method Base\ArrayObject<Stickers\Sticker> send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetForumTopicIconStickers extends Base\Request
 {
@@ -26,7 +29,7 @@ class GetForumTopicIconStickers extends Base\Request
     {
         return [
             '@return' => [
-                'type' => Stickers\Sticker::class,
+                'type' => [Stickers\Sticker::class],
                 'isArray' => true,
             ],
         ];
@@ -34,6 +37,6 @@ class GetForumTopicIconStickers extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetForumTopicIconStickers';
+        return 'getForumTopicIconStickers';
     }
 }

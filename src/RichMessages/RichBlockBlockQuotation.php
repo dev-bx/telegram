@@ -14,91 +14,108 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A block quotation, corresponding to the HTML tag `<blockquote>`.
- * @property string $type
- * Type of the block, always “blockquote”
- * @property Base\ArrayObject|RichBlock[] $blocks
- * Content of the block
- * @property RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $credit
- * *Optional*. Credit of the block
+ *
+ * @link https://core.telegram.org/bots/api#richblockblockquotation
+ *
+ * @property-read string|null $type Required. Type of the block, always “blockquote”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<RichBlock> $blocks Required. Content of the block
+ * @property-write list<RichBlock|array<string, mixed>>|Base\ArrayObject<RichBlock> $blocks
+ * @property-read RichText|string|list<mixed>|null $credit Optional. Credit of the block
+ * @property-write RichText|string|list<mixed>|array<string, mixed> $credit
  */
 class RichBlockBlockQuotation extends RichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'blockquote',
-				'required' => true,
-			],
-			'blocks' => [
-				'type' => [RichBlock::class],
-				'isArray' => true,
-				'required' => true,
-			],
-			'credit' => [
-				'type' => [RichText::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'blockquote',
+                'required' => true,
+            ],
+            'blocks' => [
+                'type' => [RichBlock::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+            'credit' => [
+                'type' => [RichText::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “blockquote”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Base\ArrayObject|RichBlock[]
-	*/
+    /**
+     * Required. Content of the block
+     *
+     * @return Base\ArrayObject<RichBlock>
+     * @throws Base\TelegramException
+     */
+    public function getBlocks(): mixed
+    {
+        return $this->getFieldValue('blocks');
+    }
 
-	public function getBlocks(): mixed
-	{
-		return $this->getFieldValue('blocks');
-	}
+    /**
+     * @param list<RichBlock|array<string, mixed>>|Base\ArrayObject<RichBlock> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBlocks(mixed $value): static
+    {
+        return $this->setFieldValue('blocks', $value);
+    }
 
-	/**
-	* @param Base\ArrayObject|RichBlock[] $value
-	* @return static
-	*/
+    /**
+     * Optional. Credit of the block
+     *
+     * @return RichText|string|list<mixed>|null
+     * @throws Base\TelegramException
+     */
+    public function getCredit(): mixed
+    {
+        return $this->getFieldValue('credit');
+    }
 
-	public function setBlocks(mixed $value): static
-	{
-		return $this->setFieldValue('blocks', $value);
-	}
-
-	/**
-	* @return RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink
-	*/
-
-	public function getCredit(): mixed
-	{
-		return $this->getFieldValue('credit');
-	}
-
-	/**
-	* @param RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $value
-	* @return static
-	*/
-
-	public function setCredit(mixed $value): static
-	{
-		return $this->setFieldValue('credit', $value);
-	}
-
+    /**
+     * @param RichText|string|list<mixed>|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCredit(mixed $value): static
+    {
+        return $this->setFieldValue('credit', $value);
+    }
 }

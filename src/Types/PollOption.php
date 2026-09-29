@@ -14,211 +14,229 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains information about one answer option in a poll.
- * @property string $persistentId
- * Unique identifier of the option, persistent on option addition and deletion
- * @property string $text
- * Option text, 1-100 characters
- * @property Base\ArrayObject|MessageEntity[] $textEntities
- * *Optional*. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts
- * @property PollMedia $media
- * *Optional*. Media added to the poll option
- * @property int $voterCount
- * Number of users who voted for this option; may be 0 if unknown
- * @property User $addedByUser
- * *Optional*. User who added the option; omitted if the option wasn't added by a user after poll creation
- * @property Chat $addedByChat
- * *Optional*. Chat that added the option; omitted if the option wasn't added by a chat after poll creation
- * @property int $additionDate
- * *Optional*. Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll
+ *
+ * @link https://core.telegram.org/bots/api#polloption
+ *
+ * @property-read string|null $persistentId Required. Unique identifier of the option, persistent on option addition and deletion
+ * @property-write string $persistentId
+ * @property-read string|null $text Required. Option text, 1-100 characters
+ * @property-write string $text
+ * @property-read Base\ArrayObject<MessageEntity> $textEntities Optional. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts
+ * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $textEntities
+ * @property-read PollMedia|null $media Optional. Media added to the poll option
+ * @property-write PollMedia|array<string, mixed> $media
+ * @property-read int|null $voterCount Required. Number of users who voted for this option; may be 0 if unknown
+ * @property-write int $voterCount
+ * @property-read User|null $addedByUser Optional. User who added the option; omitted if the option wasn't added by a user after poll creation
+ * @property-write User|array<string, mixed> $addedByUser
+ * @property-read Chat|null $addedByChat Optional. Chat that added the option; omitted if the option wasn't added by a chat after poll creation
+ * @property-write Chat|array<string, mixed> $addedByChat
+ * @property-read int|null $additionDate Optional. Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll
+ * @property-write int $additionDate
  */
 class PollOption extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'persistent_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'text' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'text_entities' => [
-				'type' => [MessageEntity::class],
-				'isArray' => true,
-			],
-			'media' => [
-				'type' => [PollMedia::class],
-			],
-			'voter_count' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'added_by_user' => [
-				'type' => [User::class],
-			],
-			'added_by_chat' => [
-				'type' => [Chat::class],
-			],
-			'addition_date' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'persistent_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'text' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'text_entities' => [
+                'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+            'media' => [
+                'type' => [PollMedia::class],
+            ],
+            'voter_count' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'added_by_user' => [
+                'type' => [User::class],
+            ],
+            'added_by_chat' => [
+                'type' => [Chat::class],
+            ],
+            'addition_date' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getPersistentId(): mixed
-	{
-		return $this->getFieldValue('persistent_id');
-	}
+    /**
+     * Required. Unique identifier of the option, persistent on option addition and deletion
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getPersistentId(): mixed
+    {
+        return $this->getFieldValue('persistent_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPersistentId(mixed $value): static
+    {
+        return $this->setFieldValue('persistent_id', $value);
+    }
 
-	public function setPersistentId(mixed $value): static
-	{
-		return $this->setFieldValue('persistent_id', $value);
-	}
+    /**
+     * Required. Option text, 1-100 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * Optional. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts
+     *
+     * @return Base\ArrayObject<MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getTextEntities(): mixed
+    {
+        return $this->getFieldValue('text_entities');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTextEntities(mixed $value): static
+    {
+        return $this->setFieldValue('text_entities', $value);
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
+    /**
+     * Optional. Media added to the poll option
+     *
+     * @return PollMedia|null
+     * @throws Base\TelegramException
+     */
+    public function getMedia(): mixed
+    {
+        return $this->getFieldValue('media');
+    }
 
-	/**
-	* @return Base\ArrayObject|MessageEntity[]
-	*/
+    /**
+     * @param PollMedia|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMedia(mixed $value): static
+    {
+        return $this->setFieldValue('media', $value);
+    }
 
-	public function getTextEntities(): mixed
-	{
-		return $this->getFieldValue('text_entities');
-	}
+    /**
+     * Required. Number of users who voted for this option; may be 0 if unknown
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getVoterCount(): mixed
+    {
+        return $this->getFieldValue('voter_count');
+    }
 
-	/**
-	* @param Base\ArrayObject|MessageEntity[] $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setVoterCount(mixed $value): static
+    {
+        return $this->setFieldValue('voter_count', $value);
+    }
 
-	public function setTextEntities(mixed $value): static
-	{
-		return $this->setFieldValue('text_entities', $value);
-	}
+    /**
+     * Optional. User who added the option; omitted if the option wasn't added by a user after poll creation
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getAddedByUser(): mixed
+    {
+        return $this->getFieldValue('added_by_user');
+    }
 
-	/**
-	* @return PollMedia
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAddedByUser(mixed $value): static
+    {
+        return $this->setFieldValue('added_by_user', $value);
+    }
 
-	public function getMedia(): mixed
-	{
-		return $this->getFieldValue('media');
-	}
+    /**
+     * Optional. Chat that added the option; omitted if the option wasn't added by a chat after poll creation
+     *
+     * @return Chat|null
+     * @throws Base\TelegramException
+     */
+    public function getAddedByChat(): mixed
+    {
+        return $this->getFieldValue('added_by_chat');
+    }
 
-	/**
-	* @param PollMedia $value
-	* @return static
-	*/
+    /**
+     * @param Chat|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAddedByChat(mixed $value): static
+    {
+        return $this->setFieldValue('added_by_chat', $value);
+    }
 
-	public function setMedia(mixed $value): static
-	{
-		return $this->setFieldValue('media', $value);
-	}
+    /**
+     * Optional. Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getAdditionDate(): mixed
+    {
+        return $this->getFieldValue('addition_date');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getVoterCount(): mixed
-	{
-		return $this->getFieldValue('voter_count');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setVoterCount(mixed $value): static
-	{
-		return $this->setFieldValue('voter_count', $value);
-	}
-
-	/**
-	* @return User
-	*/
-
-	public function getAddedByUser(): mixed
-	{
-		return $this->getFieldValue('added_by_user');
-	}
-
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setAddedByUser(mixed $value): static
-	{
-		return $this->setFieldValue('added_by_user', $value);
-	}
-
-	/**
-	* @return Chat
-	*/
-
-	public function getAddedByChat(): mixed
-	{
-		return $this->getFieldValue('added_by_chat');
-	}
-
-	/**
-	* @param Chat $value
-	* @return static
-	*/
-
-	public function setAddedByChat(mixed $value): static
-	{
-		return $this->setFieldValue('added_by_chat', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getAdditionDate(): mixed
-	{
-		return $this->getFieldValue('addition_date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setAdditionDate(mixed $value): static
-	{
-		return $this->setFieldValue('addition_date', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAdditionDate(mixed $value): static
+    {
+        return $this->setFieldValue('addition_date', $value);
+    }
 }

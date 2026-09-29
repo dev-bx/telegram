@@ -18,51 +18,55 @@ use DevBX\Telegram\Payments;
 
 /**
  * Use this method to create a link for an invoice. Returns the created invoice link as *String* on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection on behalf of which the link will be created. For payments in [Telegram Stars](https://t.me/BotNews/90) only.
- * @property string $title
- * Product name, 1-32 characters
- * @property string $description
- * Product description, 1-255 characters
- * @property string $payload
- * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
- * @property string $providerToken
- * Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property string $currency
- * Three-letter ISO 4217 currency code, see [more on currencies](/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property Base\ArrayObject|Payments\LabeledPrice[] $prices
- * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property int $subscriptionPeriod
- * The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.
- * @property int $maxTipAmount
- * The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property int[] $suggestedTipAmounts
- * A JSON-serialized Array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
- * @property string $providerData
- * JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
- * @property string $photoUrl
- * URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
- * @property int $photoSize
- * Photo size in bytes
- * @property int $photoWidth
- * Photo width
- * @property int $photoHeight
- * Photo height
- * @property bool $needName
- * Pass *True* if you require the user's full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $needPhoneNumber
- * Pass *True* if you require the user's phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $needEmail
- * Pass *True* if you require the user's email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $needShippingAddress
- * Pass *True* if you require the user's shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $sendPhoneNumberToProvider
- * Pass *True* if the user's phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $sendEmailToProvider
- * Pass *True* if the user's email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @property bool $isFlexible
- * Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#createinvoicelink
+ *
+ * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the link will be created. For payments in [Telegram Stars](https://t.me/BotNews/90) only.
+ * @property-write string $businessConnectionId
+ * @property-read string|null $title Required. Product name, 1-32 characters
+ * @property-write string $title
+ * @property-read string|null $description Required. Product description, 1-255 characters
+ * @property-write string $description
+ * @property-read string|null $payload Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
+ * @property-write string $payload
+ * @property-read string|null $providerToken Optional. Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write string $providerToken
+ * @property-read string|null $currency Required. Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write string $currency
+ * @property-read Base\ArrayObject<Payments\LabeledPrice> $prices Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write list<Payments\LabeledPrice|array<string, mixed>>|Base\ArrayObject<Payments\LabeledPrice> $prices
+ * @property-read int|null $subscriptionPeriod Optional. The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.
+ * @property-write int $subscriptionPeriod
+ * @property-read int|null $maxTipAmount Optional. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write int $maxTipAmount
+ * @property-read Base\ArrayObject<Base\ParameterInt> $suggestedTipAmounts Optional. A JSON-serialized Array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max_tip_amount*.
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $suggestedTipAmounts
+ * @property-read string|null $providerData Optional. JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+ * @property-write string $providerData
+ * @property-read string|null $photoUrl Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
+ * @property-write string $photoUrl
+ * @property-read int|null $photoSize Optional. Photo size in bytes
+ * @property-write int $photoSize
+ * @property-read int|null $photoWidth Optional. Photo width
+ * @property-write int $photoWidth
+ * @property-read int|null $photoHeight Optional. Photo height
+ * @property-write int $photoHeight
+ * @property-read bool|null $needName Optional. Pass *True* if you require the user's full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $needName
+ * @property-read bool|null $needPhoneNumber Optional. Pass *True* if you require the user's phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $needPhoneNumber
+ * @property-read bool|null $needEmail Optional. Pass *True* if you require the user's email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $needEmail
+ * @property-read bool|null $needShippingAddress Optional. Pass *True* if you require the user's shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $needShippingAddress
+ * @property-read bool|null $sendPhoneNumberToProvider Optional. Pass *True* if the user's phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $sendPhoneNumberToProvider
+ * @property-read bool|null $sendEmailToProvider Optional. Pass *True* if the user's email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $sendEmailToProvider
+ * @property-read bool|null $isFlexible Optional. Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+ * @property-write bool $isFlexible
+ *
+ * @method Base\ParameterString send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class CreateInvoiceLink extends Base\Request
 {
@@ -142,422 +146,469 @@ class CreateInvoiceLink extends Base\Request
             'is_flexible' => [
                 'type' => ['bool'],
             ],
+            '@return' => [
+                'type' => ['string'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Unique identifier of the business connection on behalf of which the link will be created. For payments in [Telegram Stars](https://t.me/BotNews/90) only.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Product name, 1-32 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getTitle(): mixed
     {
         return $this->getFieldValue('title');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setTitle(mixed $value): static
     {
         return $this->setFieldValue('title', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Product description, 1-255 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getDescription(): mixed
     {
         return $this->getFieldValue('description');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDescription(mixed $value): static
     {
         return $this->setFieldValue('description', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getPayload(): mixed
     {
         return $this->getFieldValue('payload');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPayload(mixed $value): static
     {
         return $this->setFieldValue('payload', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getProviderToken(): mixed
     {
         return $this->getFieldValue('provider_token');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setProviderToken(mixed $value): static
     {
         return $this->setFieldValue('provider_token', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getCurrency(): mixed
     {
         return $this->getFieldValue('currency');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCurrency(mixed $value): static
     {
         return $this->setFieldValue('currency', $value);
     }
 
     /**
-    * @return Base\ArrayObject|Payments\LabeledPrice[]
-    */
-
+     * Required. Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return Base\ArrayObject<Payments\LabeledPrice>
+     * @throws Base\TelegramException
+     */
     public function getPrices(): mixed
     {
         return $this->getFieldValue('prices');
     }
 
     /**
-    * @param Base\ArrayObject|Payments\LabeledPrice[] $value
-    * @return static
-    */
-
+     * @param list<Payments\LabeledPrice|array<string, mixed>>|Base\ArrayObject<Payments\LabeledPrice> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPrices(mixed $value): static
     {
         return $this->setFieldValue('prices', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getSubscriptionPeriod(): mixed
     {
         return $this->getFieldValue('subscription_period');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSubscriptionPeriod(mixed $value): static
     {
         return $this->setFieldValue('subscription_period', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMaxTipAmount(): mixed
     {
         return $this->getFieldValue('max_tip_amount');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMaxTipAmount(mixed $value): static
     {
         return $this->setFieldValue('max_tip_amount', $value);
     }
 
     /**
-    * @return int[]
-    */
-
+     * Optional. A JSON-serialized Array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max_tip_amount*.
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
     public function getSuggestedTipAmounts(): mixed
     {
         return $this->getFieldValue('suggested_tip_amounts');
     }
 
     /**
-    * @param int[] $value
-    * @return static
-    */
-
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSuggestedTipAmounts(mixed $value): static
     {
         return $this->setFieldValue('suggested_tip_amounts', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getProviderData(): mixed
     {
         return $this->getFieldValue('provider_data');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setProviderData(mixed $value): static
     {
         return $this->setFieldValue('provider_data', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getPhotoUrl(): mixed
     {
         return $this->getFieldValue('photo_url');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhotoUrl(mixed $value): static
     {
         return $this->setFieldValue('photo_url', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Photo size in bytes
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getPhotoSize(): mixed
     {
         return $this->getFieldValue('photo_size');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhotoSize(mixed $value): static
     {
         return $this->setFieldValue('photo_size', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Photo width
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getPhotoWidth(): mixed
     {
         return $this->getFieldValue('photo_width');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhotoWidth(mixed $value): static
     {
         return $this->setFieldValue('photo_width', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Photo height
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getPhotoHeight(): mixed
     {
         return $this->getFieldValue('photo_height');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhotoHeight(mixed $value): static
     {
         return $this->setFieldValue('photo_height', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if you require the user's full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getNeedName(): mixed
     {
         return $this->getFieldValue('need_name');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setNeedName(mixed $value): static
     {
         return $this->setFieldValue('need_name', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if you require the user's phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getNeedPhoneNumber(): mixed
     {
         return $this->getFieldValue('need_phone_number');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setNeedPhoneNumber(mixed $value): static
     {
         return $this->setFieldValue('need_phone_number', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if you require the user's email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getNeedEmail(): mixed
     {
         return $this->getFieldValue('need_email');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setNeedEmail(mixed $value): static
     {
         return $this->setFieldValue('need_email', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if you require the user's shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getNeedShippingAddress(): mixed
     {
         return $this->getFieldValue('need_shipping_address');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setNeedShippingAddress(mixed $value): static
     {
         return $this->setFieldValue('need_shipping_address', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the user's phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getSendPhoneNumberToProvider(): mixed
     {
         return $this->getFieldValue('send_phone_number_to_provider');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSendPhoneNumberToProvider(mixed $value): static
     {
         return $this->setFieldValue('send_phone_number_to_provider', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the user's email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getSendEmailToProvider(): mixed
     {
         return $this->getFieldValue('send_email_to_provider');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSendEmailToProvider(mixed $value): static
     {
         return $this->setFieldValue('send_email_to_provider', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getIsFlexible(): mixed
     {
         return $this->getFieldValue('is_flexible');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setIsFlexible(mixed $value): static
     {
         return $this->setFieldValue('is_flexible', $value);
@@ -565,6 +616,6 @@ class CreateInvoiceLink extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'CreateInvoiceLink';
+        return 'createInvoiceLink';
     }
 }

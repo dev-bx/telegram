@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,284 +14,308 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents an invite link for a chat.
- * @property string $inviteLink
- * The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
- * @property User $creator
- * Creator of the link
- * @property bool $createsJoinRequest
- * *True*, if users joining the chat via the link need to be approved by chat administrators
- * @property bool $isPrimary
- * *True*, if the link is primary
- * @property bool $isRevoked
- * *True*, if the link is revoked
- * @property string $name
- * *Optional*. Invite link name
- * @property int $expireDate
- * *Optional*. Point in time (Unix timestamp) when the link will expire or has been expired
- * @property int $memberLimit
- * *Optional*. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
- * @property int $pendingJoinRequestCount
- * *Optional*. Number of pending join requests created using this link
- * @property int $subscriptionPeriod
- * *Optional*. The number of seconds the subscription will be active for before the next payment
- * @property int $subscriptionPrice
- * *Optional*. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
+ *
+ * @link https://core.telegram.org/bots/api#chatinvitelink
+ *
+ * @property-read string|null $inviteLink Required. The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+ * @property-write string $inviteLink
+ * @property-read User|null $creator Required. Creator of the link
+ * @property-write User|array<string, mixed> $creator
+ * @property-read bool|null $createsJoinRequest Required. *True*, if users joining the chat via the link need to be approved by chat administrators
+ * @property-write bool $createsJoinRequest
+ * @property-read bool|null $isPrimary Required. *True*, if the link is primary
+ * @property-write bool $isPrimary
+ * @property-read bool|null $isRevoked Required. *True*, if the link is revoked
+ * @property-write bool $isRevoked
+ * @property-read string|null $name Optional. Invite link name
+ * @property-write string $name
+ * @property-read int|null $expireDate Optional. Point in time (Unix timestamp) when the link will expire or has been expired
+ * @property-write int $expireDate
+ * @property-read int|null $memberLimit Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+ * @property-write int $memberLimit
+ * @property-read int|null $pendingJoinRequestCount Optional. Number of pending join requests created using this link
+ * @property-write int $pendingJoinRequestCount
+ * @property-read int|null $subscriptionPeriod Optional. The number of seconds the subscription will be active for before the next payment
+ * @property-write int $subscriptionPeriod
+ * @property-read int|null $subscriptionPrice Optional. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
+ * @property-write int $subscriptionPrice
  */
 class ChatInviteLink extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'invite_link' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'creator' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-			'creates_join_request' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'is_primary' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'is_revoked' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'name' => [
-				'type' => ['string'],
-			],
-			'expire_date' => [
-				'type' => ['int'],
-			],
-			'member_limit' => [
-				'type' => ['int'],
-			],
-			'pending_join_request_count' => [
-				'type' => ['int'],
-			],
-			'subscription_period' => [
-				'type' => ['int'],
-			],
-			'subscription_price' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'invite_link' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'creator' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+            'creates_join_request' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'is_primary' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'is_revoked' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'name' => [
+                'type' => ['string'],
+            ],
+            'expire_date' => [
+                'type' => ['int'],
+            ],
+            'member_limit' => [
+                'type' => ['int'],
+            ],
+            'pending_join_request_count' => [
+                'type' => ['int'],
+            ],
+            'subscription_period' => [
+                'type' => ['int'],
+            ],
+            'subscription_price' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getInviteLink(): mixed
-	{
-		return $this->getFieldValue('invite_link');
-	}
+    /**
+     * Required. The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInviteLink(): mixed
+    {
+        return $this->getFieldValue('invite_link');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInviteLink(mixed $value): static
+    {
+        return $this->setFieldValue('invite_link', $value);
+    }
 
-	public function setInviteLink(mixed $value): static
-	{
-		return $this->setFieldValue('invite_link', $value);
-	}
+    /**
+     * Required. Creator of the link
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getCreator(): mixed
+    {
+        return $this->getFieldValue('creator');
+    }
 
-	/**
-	* @return User
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCreator(mixed $value): static
+    {
+        return $this->setFieldValue('creator', $value);
+    }
 
-	public function getCreator(): mixed
-	{
-		return $this->getFieldValue('creator');
-	}
+    /**
+     * Required. *True*, if users joining the chat via the link need to be approved by chat administrators
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getCreatesJoinRequest(): mixed
+    {
+        return $this->getFieldValue('creates_join_request');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCreatesJoinRequest(mixed $value): static
+    {
+        return $this->setFieldValue('creates_join_request', $value);
+    }
 
-	public function setCreator(mixed $value): static
-	{
-		return $this->setFieldValue('creator', $value);
-	}
+    /**
+     * Required. *True*, if the link is primary
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsPrimary(): mixed
+    {
+        return $this->getFieldValue('is_primary');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsPrimary(mixed $value): static
+    {
+        return $this->setFieldValue('is_primary', $value);
+    }
 
-	public function getCreatesJoinRequest(): mixed
-	{
-		return $this->getFieldValue('creates_join_request');
-	}
+    /**
+     * Required. *True*, if the link is revoked
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsRevoked(): mixed
+    {
+        return $this->getFieldValue('is_revoked');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsRevoked(mixed $value): static
+    {
+        return $this->setFieldValue('is_revoked', $value);
+    }
 
-	public function setCreatesJoinRequest(mixed $value): static
-	{
-		return $this->setFieldValue('creates_join_request', $value);
-	}
+    /**
+     * Optional. Invite link name
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getName(): mixed
+    {
+        return $this->getFieldValue('name');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setName(mixed $value): static
+    {
+        return $this->setFieldValue('name', $value);
+    }
 
-	public function getIsPrimary(): mixed
-	{
-		return $this->getFieldValue('is_primary');
-	}
+    /**
+     * Optional. Point in time (Unix timestamp) when the link will expire or has been expired
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getExpireDate(): mixed
+    {
+        return $this->getFieldValue('expire_date');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setExpireDate(mixed $value): static
+    {
+        return $this->setFieldValue('expire_date', $value);
+    }
 
-	public function setIsPrimary(mixed $value): static
-	{
-		return $this->setFieldValue('is_primary', $value);
-	}
+    /**
+     * Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getMemberLimit(): mixed
+    {
+        return $this->getFieldValue('member_limit');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMemberLimit(mixed $value): static
+    {
+        return $this->setFieldValue('member_limit', $value);
+    }
 
-	public function getIsRevoked(): mixed
-	{
-		return $this->getFieldValue('is_revoked');
-	}
+    /**
+     * Optional. Number of pending join requests created using this link
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getPendingJoinRequestCount(): mixed
+    {
+        return $this->getFieldValue('pending_join_request_count');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPendingJoinRequestCount(mixed $value): static
+    {
+        return $this->setFieldValue('pending_join_request_count', $value);
+    }
 
-	public function setIsRevoked(mixed $value): static
-	{
-		return $this->setFieldValue('is_revoked', $value);
-	}
+    /**
+     * Optional. The number of seconds the subscription will be active for before the next payment
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getSubscriptionPeriod(): mixed
+    {
+        return $this->getFieldValue('subscription_period');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSubscriptionPeriod(mixed $value): static
+    {
+        return $this->setFieldValue('subscription_period', $value);
+    }
 
-	public function getName(): mixed
-	{
-		return $this->getFieldValue('name');
-	}
+    /**
+     * Optional. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getSubscriptionPrice(): mixed
+    {
+        return $this->getFieldValue('subscription_price');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setName(mixed $value): static
-	{
-		return $this->setFieldValue('name', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getExpireDate(): mixed
-	{
-		return $this->getFieldValue('expire_date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setExpireDate(mixed $value): static
-	{
-		return $this->setFieldValue('expire_date', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getMemberLimit(): mixed
-	{
-		return $this->getFieldValue('member_limit');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setMemberLimit(mixed $value): static
-	{
-		return $this->setFieldValue('member_limit', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getPendingJoinRequestCount(): mixed
-	{
-		return $this->getFieldValue('pending_join_request_count');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setPendingJoinRequestCount(mixed $value): static
-	{
-		return $this->setFieldValue('pending_join_request_count', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getSubscriptionPeriod(): mixed
-	{
-		return $this->getFieldValue('subscription_period');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setSubscriptionPeriod(mixed $value): static
-	{
-		return $this->setFieldValue('subscription_period', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getSubscriptionPrice(): mixed
-	{
-		return $this->getFieldValue('subscription_price');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setSubscriptionPrice(mixed $value): static
-	{
-		return $this->setFieldValue('subscription_price', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSubscriptionPrice(mixed $value): static
+    {
+        return $this->setFieldValue('subscription_price', $value);
+    }
 }

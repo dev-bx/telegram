@@ -2,6 +2,9 @@
 
 namespace DevBX\Telegram\Base;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Error implements \JsonSerializable
 {
     /** @var int|string */
@@ -9,9 +12,6 @@ class Error implements \JsonSerializable
 
     /** @var string */
     protected string $message;
-    /**
-     * @var null
-     */
 
     protected mixed $customData;
 
@@ -65,11 +65,14 @@ class Error implements \JsonSerializable
         return $this->customData;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getMessage();
     }
 
+    /**
+     * @return array{message: string, code: int|string, customData: mixed}
+     */
     public function jsonSerialize(): array
     {
         return [

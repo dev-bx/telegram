@@ -17,22 +17,26 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of [MessageId](#messageid) of the sent messages is returned.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
- * @property int $messageThreadId
- * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
- * @property int $directMessagesTopicId
- * Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
- * @property int|string $fromChatId
- * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
- * @property int[] $messageIds
- * A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to forward. The identifiers must be specified in a strictly increasing order.
- * @property bool $disableNotification
- * Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
- * @property bool $protectContent
- * Protects the contents of the forwarded messages from forwarding and saving
- * @method Types\MessageId send(Api $gateway = null)
+ * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of `MessageId` of the sent messages is returned.
+ *
+ * @link https://core.telegram.org/bots/api#forwardmessages
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @property-write int $messageThreadId
+ * @property-read int|null $directMessagesTopicId Optional. Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
+ * @property-write int $directMessagesTopicId
+ * @property-read int|string|null $fromChatId Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+ * @property-write int|string $fromChatId
+ * @property-read Base\ArrayObject<Base\ParameterInt> $messageIds Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from_chat_id* to forward. The identifiers must be specified in a strictly increasing order.
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $messageIds
+ * @property-read bool|null $disableNotification Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+ * @property-write bool $disableNotification
+ * @property-read bool|null $protectContent Optional. Protects the contents of the forwarded messages from forwarding and saving
+ * @property-write bool $protectContent
+ *
+ * @method Base\ArrayObject<Types\MessageId> send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class ForwardMessages extends Base\Request
 {
@@ -65,139 +69,154 @@ class ForwardMessages extends Base\Request
                 'type' => ['bool'],
             ],
             '@return' => [
-                'type' => Types\MessageId::class,
+                'type' => [Types\MessageId::class],
+                'isArray' => true,
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageThreadId(): mixed
     {
         return $this->getFieldValue('message_thread_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getDirectMessagesTopicId(): mixed
     {
         return $this->getFieldValue('direct_messages_topic_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDirectMessagesTopicId(mixed $value): static
     {
         return $this->setFieldValue('direct_messages_topic_id', $value);
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getFromChatId(): mixed
     {
         return $this->getFieldValue('from_chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setFromChatId(mixed $value): static
     {
         return $this->setFieldValue('from_chat_id', $value);
     }
 
     /**
-    * @return int[]
-    */
-
+     * Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from_chat_id* to forward. The identifiers must be specified in a strictly increasing order.
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
     public function getMessageIds(): mixed
     {
         return $this->getFieldValue('message_ids');
     }
 
     /**
-    * @param int[] $value
-    * @return static
-    */
-
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageIds(mixed $value): static
     {
         return $this->setFieldValue('message_ids', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getDisableNotification(): mixed
     {
         return $this->getFieldValue('disable_notification');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDisableNotification(mixed $value): static
     {
         return $this->setFieldValue('disable_notification', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Protects the contents of the forwarded messages from forwarding and saving
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getProtectContent(): mixed
     {
         return $this->getFieldValue('protect_content');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setProtectContent(mixed $value): static
     {
         return $this->setFieldValue('protect_content', $value);
@@ -205,6 +224,6 @@ class ForwardMessages extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'ForwardMessages';
+        return 'forwardMessages';
     }
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Returns the amount of Telegram Stars owned by a managed business account. Requires the *can\_view\_gifts\_and\_stars* business bot right. Returns [StarAmount](#staramount) on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection
- * @method Types\StarAmount send(Api $gateway = null)
+ * Returns the amount of Telegram Stars owned by a managed business account. Requires the *can_view_gifts_and_stars* business bot right. Returns `StarAmount` on success.
+ *
+ * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection
+ * @property-write string $businessConnectionId
+ *
+ * @method Types\StarAmount send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetBusinessAccountStarBalance extends Base\Request
 {
@@ -32,25 +36,27 @@ class GetBusinessAccountStarBalance extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\StarAmount::class,
+                'type' => [Types\StarAmount::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
@@ -58,6 +64,6 @@ class GetBusinessAccountStarBalance extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetBusinessAccountStarBalance';
+        return 'getBusinessAccountStarBalance';
     }
 }

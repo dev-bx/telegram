@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,41 +14,54 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents a menu button, which opens the bot's list of commands.
- * @property string $type
- * Type of the button, must be *commands*
+ *
+ * @link https://core.telegram.org/bots/api#menubuttoncommands
+ *
+ * @property-read string|null $type Required. Type of the button, must be *commands*
+ * @property-write string $type
  */
 class MenuButtonCommands extends MenuButton
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'commands',
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'commands',
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the button, must be *commands*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 }

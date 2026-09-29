@@ -16,16 +16,20 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property int $messageThreadId
- * Unique identifier for the target message thread of the forum topic
- * @property string $name
- * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.
- * @property string $iconCustomEmojiId
- * New unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](#getforumtopiciconstickers) to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can_manage_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#editforumtopic
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $messageThreadId Required. Unique identifier for the target message thread of the forum topic
+ * @property-write int $messageThreadId
+ * @property-read string|null $name Optional. New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.
+ * @property-write string $name
+ * @property-read string|null $iconCustomEmojiId Optional. New unique identifier of the custom emoji shown as the topic icon. Use `getForumTopicIconStickers` to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.
+ * @property-write string $iconCustomEmojiId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditForumTopic extends Base\Request
 {
@@ -46,80 +50,91 @@ class EditForumTopic extends Base\Request
             'icon_custom_emoji_id' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier for the target message thread of the forum topic
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageThreadId(): mixed
     {
         return $this->getFieldValue('message_thread_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New unique identifier of the custom emoji shown as the topic icon. Use `getForumTopicIconStickers` to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getIconCustomEmojiId(): mixed
     {
         return $this->getFieldValue('icon_custom_emoji_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setIconCustomEmojiId(mixed $value): static
     {
         return $this->setFieldValue('icon_custom_emoji_id', $value);
@@ -127,6 +142,6 @@ class EditForumTopic extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditForumTopic';
+        return 'editForumTopic';
     }
 }

@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a [UserChatBoosts](#userchatboosts) object.
- * @property int|string $chatId
- * Unique identifier for the chat or username of the channel in the format `@username`
- * @property int $userId
- * Unique identifier of the target user
- * @method Types\UserChatBoosts send(Api $gateway = null)
+ * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a `UserChatBoosts` object.
+ *
+ * @link https://core.telegram.org/bots/api#getuserchatboosts
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the chat or username of the channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ *
+ * @method Types\UserChatBoosts send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetUserChatBoosts extends Base\Request
 {
@@ -38,44 +42,48 @@ class GetUserChatBoosts extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\UserChatBoosts::class,
+                'type' => [Types\UserChatBoosts::class],
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the chat or username of the channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -83,6 +91,6 @@ class GetUserChatBoosts extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetUserChatBoosts';
+        return 'getUserChatBoosts';
     }
 }

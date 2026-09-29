@@ -14,40 +14,44 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a unique message identifier.
- * @property int $messageId
- * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+ *
+ * @link https://core.telegram.org/bots/api#messageid
+ *
+ * @property-read int|null $messageId Required. Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+ * @property-write int $messageId
  */
 class MessageId extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'message_id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'message_id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getMessageId(): mixed
-	{
-		return $this->getFieldValue('message_id');
-	}
+    /**
+     * Required. Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getMessageId(): mixed
+    {
+        return $this->getFieldValue('message_id');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setMessageId(mixed $value): static
-	{
-		return $this->setFieldValue('message_id', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessageId(mixed $value): static
+    {
+        return $this->setFieldValue('message_id', $value);
+    }
 }

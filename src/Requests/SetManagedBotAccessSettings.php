@@ -17,13 +17,17 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the access settings of a managed bot. Returns *True* on success.
- * @property int $userId
- * User identifier of the managed bot whose access settings will be changed
- * @property bool $isAccessRestricted
- * Pass *True* if only selected users can access the bot. The bot's owner can always access it.
- * @property int[] $addedUserIds
- * A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if *is\_access\_restricted* is *False*.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setmanagedbotaccesssettings
+ *
+ * @property-read int|null $userId Required. User identifier of the managed bot whose access settings will be changed
+ * @property-write int $userId
+ * @property-read bool|null $isAccessRestricted Required. Pass *True* if only selected users can access the bot. The bot's owner can always access it.
+ * @property-write bool $isAccessRestricted
+ * @property-read Base\ArrayObject<Base\ParameterInt> $addedUserIds Optional. A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if *is_access_restricted* is *False*.
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $addedUserIds
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetManagedBotAccessSettings extends Base\Request
 {
@@ -42,61 +46,70 @@ class SetManagedBotAccessSettings extends Base\Request
                 'type' => ['int'],
                 'isArray' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. User identifier of the managed bot whose access settings will be changed
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Required. Pass *True* if only selected users can access the bot. The bot's owner can always access it.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getIsAccessRestricted(): mixed
     {
         return $this->getFieldValue('is_access_restricted');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setIsAccessRestricted(mixed $value): static
     {
         return $this->setFieldValue('is_access_restricted', $value);
     }
 
     /**
-    * @return int[]
-    */
-
+     * Optional. A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if *is_access_restricted* is *False*.
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
     public function getAddedUserIds(): mixed
     {
         return $this->getFieldValue('added_user_ids');
     }
 
     /**
-    * @param int[] $value
-    * @return static
-    */
-
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAddedUserIds(mixed $value): static
     {
         return $this->setFieldValue('added_user_ids', $value);
@@ -104,6 +117,6 @@ class SetManagedBotAccessSettings extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetManagedBotAccessSettings';
+        return 'setManagedBotAccessSettings';
     }
 }

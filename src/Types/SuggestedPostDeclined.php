@@ -14,63 +14,69 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about the rejection of a suggested post.
- * @property Message $suggestedPostMessage
- * *Optional*. Message containing the suggested post. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property string $comment
- * *Optional*. Comment with which the post was declined
+ *
+ * @link https://core.telegram.org/bots/api#suggestedpostdeclined
+ *
+ * @property-read Message|null $suggestedPostMessage Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write Message|array<string, mixed> $suggestedPostMessage
+ * @property-read string|null $comment Optional. Comment with which the post was declined
+ * @property-write string $comment
  */
 class SuggestedPostDeclined extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'suggested_post_message' => [
-				'type' => [Message::class],
-			],
-			'comment' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return Message
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'suggested_post_message' => [
+                'type' => [Message::class],
+            ],
+            'comment' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	public function getSuggestedPostMessage(): mixed
-	{
-		return $this->getFieldValue('suggested_post_message');
-	}
+    /**
+     * Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return Message|null
+     * @throws Base\TelegramException
+     */
+    public function getSuggestedPostMessage(): mixed
+    {
+        return $this->getFieldValue('suggested_post_message');
+    }
 
-	/**
-	* @param Message $value
-	* @return static
-	*/
+    /**
+     * @param Message|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSuggestedPostMessage(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_message', $value);
+    }
 
-	public function setSuggestedPostMessage(mixed $value): static
-	{
-		return $this->setFieldValue('suggested_post_message', $value);
-	}
+    /**
+     * Optional. Comment with which the post was declined
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getComment(): mixed
+    {
+        return $this->getFieldValue('comment');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getComment(): mixed
-	{
-		return $this->getFieldValue('comment');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setComment(mixed $value): static
-	{
-		return $this->setFieldValue('comment', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setComment(mixed $value): static
+    {
+        return $this->setFieldValue('comment', $value);
+    }
 }

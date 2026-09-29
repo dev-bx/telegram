@@ -14,114 +14,124 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about an option added to a poll.
- * @property MaybeInaccessibleMessage|Message|InaccessibleMessage $pollMessage
- * *Optional*. Message containing the poll to which the option was added, if known. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property string $optionPersistentId
- * Unique identifier of the added option
- * @property string $optionText
- * Option text
- * @property Base\ArrayObject|MessageEntity[] $optionTextEntities
- * *Optional*. Special entities that appear in the *option\_text*
+ *
+ * @link https://core.telegram.org/bots/api#polloptionadded
+ *
+ * @property-read MaybeInaccessibleMessage|null $pollMessage Optional. Message containing the poll to which the option was added, if known. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write MaybeInaccessibleMessage|array<string, mixed> $pollMessage
+ * @property-read string|null $optionPersistentId Required. Unique identifier of the added option
+ * @property-write string $optionPersistentId
+ * @property-read string|null $optionText Required. Option text
+ * @property-write string $optionText
+ * @property-read Base\ArrayObject<MessageEntity> $optionTextEntities Optional. Special entities that appear in the *option_text*
+ * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $optionTextEntities
  */
 class PollOptionAdded extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'poll_message' => [
-				'type' => [MaybeInaccessibleMessage::class],
-			],
-			'option_persistent_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'option_text' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'option_text_entities' => [
-				'type' => [MessageEntity::class],
-				'isArray' => true,
-			],
-		];
-	}
-	/**
-	* @return MaybeInaccessibleMessage|Message|InaccessibleMessage
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'poll_message' => [
+                'type' => [MaybeInaccessibleMessage::class],
+            ],
+            'option_persistent_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'option_text' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'option_text_entities' => [
+                'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+        ];
+    }
 
-	public function getPollMessage(): mixed
-	{
-		return $this->getFieldValue('poll_message');
-	}
+    /**
+     * Optional. Message containing the poll to which the option was added, if known. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return MaybeInaccessibleMessage|null
+     * @throws Base\TelegramException
+     */
+    public function getPollMessage(): mixed
+    {
+        return $this->getFieldValue('poll_message');
+    }
 
-	/**
-	* @param MaybeInaccessibleMessage|Message|InaccessibleMessage $value
-	* @return static
-	*/
+    /**
+     * @param MaybeInaccessibleMessage|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPollMessage(mixed $value): static
+    {
+        return $this->setFieldValue('poll_message', $value);
+    }
 
-	public function setPollMessage(mixed $value): static
-	{
-		return $this->setFieldValue('poll_message', $value);
-	}
+    /**
+     * Required. Unique identifier of the added option
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getOptionPersistentId(): mixed
+    {
+        return $this->getFieldValue('option_persistent_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setOptionPersistentId(mixed $value): static
+    {
+        return $this->setFieldValue('option_persistent_id', $value);
+    }
 
-	public function getOptionPersistentId(): mixed
-	{
-		return $this->getFieldValue('option_persistent_id');
-	}
+    /**
+     * Required. Option text
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getOptionText(): mixed
+    {
+        return $this->getFieldValue('option_text');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setOptionText(mixed $value): static
+    {
+        return $this->setFieldValue('option_text', $value);
+    }
 
-	public function setOptionPersistentId(mixed $value): static
-	{
-		return $this->setFieldValue('option_persistent_id', $value);
-	}
+    /**
+     * Optional. Special entities that appear in the *option_text*
+     *
+     * @return Base\ArrayObject<MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getOptionTextEntities(): mixed
+    {
+        return $this->getFieldValue('option_text_entities');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getOptionText(): mixed
-	{
-		return $this->getFieldValue('option_text');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setOptionText(mixed $value): static
-	{
-		return $this->setFieldValue('option_text', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|MessageEntity[]
-	*/
-
-	public function getOptionTextEntities(): mixed
-	{
-		return $this->getFieldValue('option_text_entities');
-	}
-
-	/**
-	* @param Base\ArrayObject|MessageEntity[] $value
-	* @return static
-	*/
-
-	public function setOptionTextEntities(mixed $value): static
-	{
-		return $this->setFieldValue('option_text_entities', $value);
-	}
-
+    /**
+     * @param list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setOptionTextEntities(mixed $value): static
+    {
+        return $this->setFieldValue('option_text_entities', $value);
+    }
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the current bot short description for the given user language. Returns [BotShortDescription](#botshortdescription) on success.
- * @property string $languageCode
- * A two-letter ISO 639-1 language code or an empty string
- * @method Types\BotShortDescription send(Api $gateway = null)
+ * Use this method to get the current bot short description for the given user language. Returns `BotShortDescription` on success.
+ *
+ * @link https://core.telegram.org/bots/api#getmyshortdescription
+ *
+ * @property-read string|null $languageCode Optional. A two-letter ISO 639-1 language code or an empty string
+ * @property-write string $languageCode
+ *
+ * @method Types\BotShortDescription send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetMyShortDescription extends Base\Request
 {
@@ -31,25 +35,27 @@ class GetMyShortDescription extends Base\Request
                 'type' => ['string'],
             ],
             '@return' => [
-                'type' => Types\BotShortDescription::class,
+                'type' => [Types\BotShortDescription::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. A two-letter ISO 639-1 language code or an empty string
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getLanguageCode(): mixed
     {
         return $this->getFieldValue('language_code');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLanguageCode(mixed $value): static
     {
         return $this->setFieldValue('language_code', $value);
@@ -57,6 +63,6 @@ class GetMyShortDescription extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetMyShortDescription';
+        return 'getMyShortDescription';
     }
 }

@@ -18,12 +18,16 @@ use DevBX\Telegram\InlineMode;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to reply to a received guest message. On success, a [SentGuestMessage](#sentguestmessage) object is returned.
- * @property string $guestQueryId
- * Unique identifier for the query to be answered
- * @property InlineMode\InlineQueryResult $result
- * A JSON-serialized object describing the message to be sent
- * @method Types\SentGuestMessage send(Api $gateway = null)
+ * Use this method to reply to a received guest message. On success, a `SentGuestMessage` object is returned.
+ *
+ * @link https://core.telegram.org/bots/api#answerguestquery
+ *
+ * @property-read string|null $guestQueryId Required. Unique identifier for the query to be answered
+ * @property-write string $guestQueryId
+ * @property-read InlineMode\InlineQueryResult|null $result Required. A JSON-serialized object describing the message to be sent
+ * @property-write InlineMode\InlineQueryResult|array<string, mixed> $result
+ *
+ * @method Types\SentGuestMessage send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class AnswerGuestQuery extends Base\Request
 {
@@ -39,44 +43,48 @@ class AnswerGuestQuery extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\SentGuestMessage::class,
+                'type' => [Types\SentGuestMessage::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier for the query to be answered
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getGuestQueryId(): mixed
     {
         return $this->getFieldValue('guest_query_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setGuestQueryId(mixed $value): static
     {
         return $this->setFieldValue('guest_query_id', $value);
     }
 
     /**
-    * @return InlineMode\InlineQueryResult
-    */
-
+     * Required. A JSON-serialized object describing the message to be sent
+     *
+     * @return InlineMode\InlineQueryResult|null
+     * @throws Base\TelegramException
+     */
     public function getResult(): mixed
     {
         return $this->getFieldValue('result');
     }
 
     /**
-    * @param InlineMode\InlineQueryResult $value
-    * @return static
-    */
-
+     * @param InlineMode\InlineQueryResult|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setResult(mixed $value): static
     {
         return $this->setFieldValue('result', $value);
@@ -84,6 +92,6 @@ class AnswerGuestQuery extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'AnswerGuestQuery';
+        return 'answerGuestQuery';
     }
 }

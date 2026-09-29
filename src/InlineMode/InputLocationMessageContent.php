@@ -14,161 +14,184 @@ namespace DevBX\Telegram\InlineMode;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * Represents the [content](#inputmessagecontent) of a location message to be sent as the result of an inline query.
- * @property float $latitude
- * Latitude of the location in degrees
- * @property float $longitude
- * Longitude of the location in degrees
- * @property float $horizontalAccuracy
- * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
- * @property int $livePeriod
- * *Optional*. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
- * @property int $heading
- * *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
- * @property int $proximityAlertRadius
- * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+ * Represents the `InputMessageContent` of a location message to be sent as the result of an inline query.
+ *
+ * @link https://core.telegram.org/bots/api#inputlocationmessagecontent
+ *
+ * @property-read float|null $latitude Required. Latitude of the location in degrees
+ * @property-write float|int $latitude
+ * @property-read float|null $longitude Required. Longitude of the location in degrees
+ * @property-write float|int $longitude
+ * @property-read float|null $horizontalAccuracy Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+ * @property-write float|int $horizontalAccuracy
+ * @property-read int|null $livePeriod Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
+ * @property-write int $livePeriod
+ * @property-read int|null $heading Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+ * @property-write int $heading
+ * @property-read int|null $proximityAlertRadius Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+ * @property-write int $proximityAlertRadius
  */
 class InputLocationMessageContent extends InputMessageContent
 {
-	public static function getFields(): array
-	{
-		return [
-			'latitude' => [
-				'type' => ['float'],
-				'required' => true,
-			],
-			'longitude' => [
-				'type' => ['float'],
-				'required' => true,
-			],
-			'horizontal_accuracy' => [
-				'type' => ['float'],
-			],
-			'live_period' => [
-				'type' => ['int'],
-			],
-			'heading' => [
-				'type' => ['int'],
-			],
-			'proximity_alert_radius' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return float
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getLatitude(): mixed
-	{
-		return $this->getFieldValue('latitude');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'latitude' => [
+                'type' => ['float'],
+                'required' => true,
+            ],
+            'longitude' => [
+                'type' => ['float'],
+                'required' => true,
+            ],
+            'horizontal_accuracy' => [
+                'type' => ['float'],
+            ],
+            'live_period' => [
+                'type' => ['int'],
+            ],
+            'heading' => [
+                'type' => ['int'],
+            ],
+            'proximity_alert_radius' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	/**
-	* @param float $value
-	* @return static
-	*/
+    /**
+     * Required. Latitude of the location in degrees
+     *
+     * @return float|null
+     * @throws Base\TelegramException
+     */
+    public function getLatitude(): mixed
+    {
+        return $this->getFieldValue('latitude');
+    }
 
-	public function setLatitude(mixed $value): static
-	{
-		return $this->setFieldValue('latitude', $value);
-	}
+    /**
+     * @param float|int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLatitude(mixed $value): static
+    {
+        return $this->setFieldValue('latitude', $value);
+    }
 
-	/**
-	* @return float
-	*/
+    /**
+     * Required. Longitude of the location in degrees
+     *
+     * @return float|null
+     * @throws Base\TelegramException
+     */
+    public function getLongitude(): mixed
+    {
+        return $this->getFieldValue('longitude');
+    }
 
-	public function getLongitude(): mixed
-	{
-		return $this->getFieldValue('longitude');
-	}
+    /**
+     * @param float|int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLongitude(mixed $value): static
+    {
+        return $this->setFieldValue('longitude', $value);
+    }
 
-	/**
-	* @param float $value
-	* @return static
-	*/
+    /**
+     * Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+     *
+     * @return float|null
+     * @throws Base\TelegramException
+     */
+    public function getHorizontalAccuracy(): mixed
+    {
+        return $this->getFieldValue('horizontal_accuracy');
+    }
 
-	public function setLongitude(mixed $value): static
-	{
-		return $this->setFieldValue('longitude', $value);
-	}
+    /**
+     * @param float|int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHorizontalAccuracy(mixed $value): static
+    {
+        return $this->setFieldValue('horizontal_accuracy', $value);
+    }
 
-	/**
-	* @return float
-	*/
+    /**
+     * Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getLivePeriod(): mixed
+    {
+        return $this->getFieldValue('live_period');
+    }
 
-	public function getHorizontalAccuracy(): mixed
-	{
-		return $this->getFieldValue('horizontal_accuracy');
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLivePeriod(mixed $value): static
+    {
+        return $this->setFieldValue('live_period', $value);
+    }
 
-	/**
-	* @param float $value
-	* @return static
-	*/
+    /**
+     * Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getHeading(): mixed
+    {
+        return $this->getFieldValue('heading');
+    }
 
-	public function setHorizontalAccuracy(mixed $value): static
-	{
-		return $this->setFieldValue('horizontal_accuracy', $value);
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHeading(mixed $value): static
+    {
+        return $this->setFieldValue('heading', $value);
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getProximityAlertRadius(): mixed
+    {
+        return $this->getFieldValue('proximity_alert_radius');
+    }
 
-	public function getLivePeriod(): mixed
-	{
-		return $this->getFieldValue('live_period');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setLivePeriod(mixed $value): static
-	{
-		return $this->setFieldValue('live_period', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getHeading(): mixed
-	{
-		return $this->getFieldValue('heading');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setHeading(mixed $value): static
-	{
-		return $this->setFieldValue('heading', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getProximityAlertRadius(): mixed
-	{
-		return $this->getFieldValue('proximity_alert_radius');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setProximityAlertRadius(mixed $value): static
-	{
-		return $this->setFieldValue('proximity_alert_radius', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setProximityAlertRadius(mixed $value): static
+    {
+        return $this->setFieldValue('proximity_alert_radius', $value);
+    }
 }

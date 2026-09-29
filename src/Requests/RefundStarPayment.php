@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90). Returns *True* on success.
- * @property int $userId
- * Identifier of the user whose payment will be refunded
- * @property string $telegramPaymentChargeId
- * Telegram payment identifier
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#refundstarpayment
+ *
+ * @property-read int|null $userId Required. Identifier of the user whose payment will be refunded
+ * @property-write int $userId
+ * @property-read string|null $telegramPaymentChargeId Required. Telegram payment identifier
+ * @property-write string $telegramPaymentChargeId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class RefundStarPayment extends Base\Request
 {
@@ -36,42 +40,49 @@ class RefundStarPayment extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the user whose payment will be refunded
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Telegram payment identifier
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getTelegramPaymentChargeId(): mixed
     {
         return $this->getFieldValue('telegram_payment_charge_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setTelegramPaymentChargeId(mixed $value): static
     {
         return $this->setFieldValue('telegram_payment_charge_id', $value);
@@ -79,6 +90,6 @@ class RefundStarPayment extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'RefundStarPayment';
+        return 'refundStarPayment';
     }
 }

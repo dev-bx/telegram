@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
- * @property int[] $messageIds
- * A JSON-serialized list of 1-100 identifiers of messages to delete. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#deletemessages
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read Base\ArrayObject<Base\ParameterInt> $messageIds Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See `deleteMessage` for limitations on which messages can be deleted.
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $messageIds
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteMessages extends Base\Request
 {
@@ -37,42 +41,49 @@ class DeleteMessages extends Base\Request
                 'isArray' => true,
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int[]
-    */
-
+     * Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See `deleteMessage` for limitations on which messages can be deleted.
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
     public function getMessageIds(): mixed
     {
         return $this->getFieldValue('message_ids');
     }
 
     /**
-    * @param int[] $value
-    * @return static
-    */
-
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageIds(mixed $value): static
     {
         return $this->setFieldValue('message_ids', $value);
@@ -80,6 +91,6 @@ class DeleteMessages extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteMessages';
+        return 'deleteMessages';
     }
 }

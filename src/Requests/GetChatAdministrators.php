@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get a list of administrators in a chat. Returns an Array of [ChatMember](#chatmember) objects.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
- * @property bool $returnBots
- * Pass *True* to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
- * @method Types\ChatMember[]|Base\BaseType send(Api $gateway = null)
+ * Use this method to get a list of administrators in a chat. Returns an Array of `ChatMember` objects.
+ *
+ * @link https://core.telegram.org/bots/api#getchatadministrators
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read bool|null $returnBots Optional. Pass *True* to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
+ * @property-write bool $returnBots
+ *
+ * @method Base\ArrayObject<Types\ChatMember> send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetChatAdministrators extends Base\Request
 {
@@ -37,45 +41,49 @@ class GetChatAdministrators extends Base\Request
                 'type' => ['bool'],
             ],
             '@return' => [
-                'type' => Types\ChatMember::class,
+                'type' => [Types\ChatMember::class],
                 'isArray' => true,
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getReturnBots(): mixed
     {
         return $this->getFieldValue('return_bots');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReturnBots(mixed $value): static
     {
         return $this->setFieldValue('return_bots', $value);
@@ -83,6 +91,6 @@ class GetChatAdministrators extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetChatAdministrators';
+        return 'getChatAdministrators';
     }
 }

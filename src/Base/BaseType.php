@@ -2,13 +2,42 @@
 
 namespace DevBX\Telegram\Base;
 
+/**
+ * Базовый класс всех типов и запросов Bot API.
+ *
+ * Значение хранится в snake_case-ключах Telegram; для каждого поля — объект BaseType (скаляры
+ * оборачиваются в Parameter*), ArrayObject (массив) или ArrayOfArrayObject (матрица).
+ *
+ * @phpstan-type FieldDefinition array{
+ *     type: list<string>, // 'int'|'bool'|'string'|'float' или class-string<BaseType>
+ *     isArray?: bool|'matrix', // true — массив значений, 'matrix' — массив массивов
+ *     required?: bool,
+ *     value?: scalar, // константное значение (например, поле type у вариантов объединения)
+ *     canReturnBool?: bool, // только для '@return': метод может вернуть true вместо объекта
+ * }
+ * @phpstan-type FieldDefinitions array<string, FieldDefinition>
+ * @phpstan-type UploadFile array{filename?: string, content?: string, resource?: resource, contentType?: string}
+ *
+ * @phpstan-consistent-constructor
+ * @implements \Iterator<array-key, mixed>
+ */
 class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 {
-    protected mixed $_initialValue;
-    protected mixed $_value;
+    /** Объединение допускает обычную строку (например, RichText — просто текст). */
+    public const RAW_FORM_STRING = 'string';
+
+    /** Объединение допускает список значений того же объединения (например, RichText — массив RichText). */
+    public const RAW_FORM_LIST = 'list';
+
+    protected mixed $_initialValue = null;
+    protected mixed $_value = null;
+    /** @var int */
     protected $_position = 0;
 
-    protected function __construct($value = null, $ignoreUnknownFields = false)
+    /**
+     * @throws TelegramException
+     */
+    protected function __construct(mixed $value = null, bool $ignoreUnknownFields = false)
     {
         $this->setEntityValue($value, $ignoreUnknownFields);
 
@@ -16,22 +45,54 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         {
             if ($this->getFieldValue($fieldName) === null)
             {
-                $this->setFieldValue($fieldName, $fieldData['value']);
+                $this->setFieldValue($fieldName, $fieldData['value'] ?? null);
             }
         }
     }
 
     /**
+     * Создаёт объект из массива (ключи snake_case или camelCase), другого объекта или скаляра.
+     * Объединения (ChatMember, InputMedia, RichText…) переопределяют метод и возвращают подходящий вариант.
+     *
+     * @return static
      * @throws TelegramException
      */
-    public static function create($value = null, $ignoreUnknownFields = false): static|null
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?BaseType
     {
-        $relations = static::getRelations();
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-        if (empty($relations) || in_array(get_called_class(), $relations)) {
-            return new static($value, $ignoreUnknownFields);
-        }
+    /**
+     * Экземпляр именно вызванного класса. Варианты объединений переопределяют create() через него,
+     * чтобы не унаследовать подбор варианта из create() объединения.
+     *
+     * @return static
+     * @throws TelegramException
+     */
+    protected static function createInstance(mixed $value, bool $ignoreUnknownFields): BaseType
+    {
+        return new static($value, $ignoreUnknownFields);
+    }
 
+    /**
+     * Пустой объект — заготовка результата запроса, к которой добавляются ошибки.
+     *
+     * @return static
+     * @throws TelegramException
+     */
+    public static function createEmpty(): BaseType
+    {
+        return new static(null);
+    }
+
+    /**
+     * Объединение как строка или список (см. getRawForms()): значение хранится внутри экземпляра объединения.
+     *
+     * @return static|null null — значение не является допустимой примитивной формой
+     * @throws TelegramException
+     */
+    protected static function createFromRawForm(mixed $value, bool $ignoreUnknownFields): ?BaseType
+    {
         $rawForms = static::getRawForms();
 
         if (is_string($value) && in_array(self::RAW_FORM_STRING, $rawForms, true)) {
@@ -48,11 +109,22 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             return new static($items, $ignoreUnknownFields);
         }
 
-        usort($relations, function ($a, $b) {
-            /** @var BaseType $a */
-            /** @var BaseType $b */
+        return null;
+    }
 
-            return count($a::getConstFields())-count($b::getConstFields());
+    /**
+     * Выбирает вариант объединения: сначала строгое совпадение (константы, обязательные поля, типы),
+     * затем мягкое (только константы). Варианты с меньшим числом констант проверяются первыми.
+     *
+     * @template T of BaseType
+     * @param list<class-string<T>> $relations
+     * @return T|null null — только в нестрогом режиме
+     * @throws TelegramException
+     */
+    protected static function createFromRelations(array $relations, mixed $value, bool $ignoreUnknownFields): ?BaseType
+    {
+        usort($relations, function (string $a, string $b): int {
+            return count($a::getConstFields()) - count($b::getConstFields());
         });
 
         foreach ($relations as $relation) {
@@ -68,17 +140,11 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         }
 
         if (static::isStrictMode()) {
-            throw new TelegramException('Incompatible values with class ' . get_called_class());
+            throw new TelegramException('Incompatible values with class ' . static::class);
         }
 
         return null;
     }
-
-    /** Объединение допускает обычную строку (например, RichText — просто текст). */
-    public const RAW_FORM_STRING = 'string';
-
-    /** Объединение допускает список значений того же объединения (например, RichText — массив RichText). */
-    public const RAW_FORM_LIST = 'list';
 
     /**
      * Примитивные формы, которые объединение (класс с getRelations()) принимает помимо объектов-вариантов.
@@ -101,7 +167,9 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     }
 
     /**
-     * @return BaseType[]
+     * Варианты объединения. Непустой список означает, что класс абстрактный (например, ChatMember).
+     *
+     * @return list<class-string<BaseType>>
      */
     public static function getRelations(): array
     {
@@ -109,11 +177,19 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     }
 
     /**
-     * @param $type
-     * @return BaseType|string
+     * @return class-string<BaseType>
      * @throws TelegramException
      */
-    public static function getFieldTypeClass($type): BaseType|string
+    public static function getFieldTypeClass(string $type): BaseType|string
+    {
+        return self::fieldTypeClass($type);
+    }
+
+    /**
+     * @return class-string<BaseType>
+     * @throws TelegramException
+     */
+    private static function fieldTypeClass(string $type): string
     {
         switch ($type) {
             case 'int':
@@ -132,7 +208,43 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $type;
     }
 
-    public static function createIsCompatible($data): bool
+    /**
+     * @param list<string> $types
+     * @return list<class-string<BaseType>>
+     * @throws TelegramException
+     */
+    public static function resolveFieldTypes(array $types): array
+    {
+        $result = [];
+
+        foreach ($types as $type) {
+            $result[] = self::fieldTypeClass($type);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Приводит ключи camelCase к snake_case.
+     *
+     * @param array<mixed> $data
+     * @return array<mixed>
+     */
+    private static function normalizeKeys(array $data): array
+    {
+        $result = [];
+
+        foreach ($data as $key => $value) {
+            $result[is_string($key) ? static::camel2snake($key) : $key] = $value;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Мягкая проверка: совпадают константные поля (для выбора варианта объединения при создании).
+     */
+    public static function createIsCompatible(mixed $data): bool
     {
         $fields = static::getFields();
 
@@ -146,28 +258,25 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         if (!is_array($data))
             return false;
 
-        foreach ($data as $key=>$value)
-        {
-            if (static::camel2snake($key) != $key)
-            {
-                unset($data[$key]);
-                $key = static::camel2snake($key);
-                $data[$key] = $value;
-            }
-        }
+        $data = self::normalizeKeys($data);
 
         foreach (static::getConstFields() as $field => $fieldData) {
             if (!array_key_exists($field, $data))
                 return false;
 
-            if ($data[$field] != $fieldData['value'])
+            if ($data[$field] != ($fieldData['value'] ?? null))
                 return false;
         }
 
         return true;
     }
 
-    public static function isCompatible($data): bool
+    /**
+     * Строгая проверка: константные и обязательные поля присутствуют, значения подходят по типам.
+     *
+     * @throws TelegramException
+     */
+    public static function isCompatible(mixed $data): bool
     {
         $fields = static::getFields();
 
@@ -181,21 +290,13 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         if (!is_array($data))
             return false;
 
-        foreach ($data as $key=>$value)
-        {
-            if (static::camel2snake($key) != $key)
-            {
-                unset($data[$key]);
-                $key = static::camel2snake($key);
-                $data[$key] = $value;
-            }
-        }
+        $data = self::normalizeKeys($data);
 
         foreach (static::getConstFields() as $field => $fieldData) {
             if (!array_key_exists($field, $data))
                 return false;
 
-            if ($data[$field] != $fieldData['value'])
+            if ($data[$field] != ($fieldData['value'] ?? null))
                 return false;
         }
 
@@ -231,33 +332,13 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
                         return false;
 
                     foreach ($matrix as $arrayValue) {
-                        $result = false;
-
-                        foreach ($fieldData['type'] as $fieldType) {
-                            $fieldType = static::getFieldTypeClass($fieldType);
-                            if ($fieldType::isCompatible($arrayValue)) {
-                                $result = true;
-                                break;
-                            }
-                        }
-
-                        if (!$result)
+                        if (!self::isCompatibleWithAnyType($fieldData['type'], $arrayValue))
                             return false;
                     }
                 }
             } else {
                 foreach ($value as $arrayValue) {
-                    $result = false;
-
-                    foreach ($fieldData['type'] as $fieldType) {
-                        $fieldType = static::getFieldTypeClass($fieldType);
-                        if ($fieldType::isCompatible($arrayValue)) {
-                            $result = true;
-                            break;
-                        }
-                    }
-
-                    if (!$result)
+                    if (!self::isCompatibleWithAnyType($fieldData['type'], $arrayValue))
                         return false;
                 }
             }
@@ -266,11 +347,34 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return true;
     }
 
+    /**
+     * @param list<string> $types
+     * @throws TelegramException
+     */
+    private static function isCompatibleWithAnyType(array $types, mixed $value): bool
+    {
+        foreach ($types as $fieldType) {
+            if (static::getFieldTypeClass($fieldType)::isCompatible($value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Описание полей типа (генерируется из документации Bot API).
+     *
+     * @return FieldDefinitions
+     */
     public static function getFields(): array
     {
         return [];
     }
 
+    /**
+     * @return FieldDefinitions
+     */
     public static function getConstFields(): array
     {
         $result = [];
@@ -284,6 +388,9 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $result;
     }
 
+    /**
+     * @return FieldDefinitions
+     */
     public static function getRequiredFields(): array
     {
         $result = [];
@@ -297,11 +404,17 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return $result;
     }
 
+    /**
+     * @return mixed Значение, переданное при создании (до разбора по полям)
+     */
     public function getEntityInitialValue()
     {
         return $this->_initialValue;
     }
 
+    /**
+     * @return mixed Для типа с полями — array<string, BaseObject>, для скаляра — само значение
+     */
     public function getEntityValue()
     {
         return $this->_value;
@@ -310,14 +423,15 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     public function isEmpty(): bool
     {
         return $this->_value === null
-            || (gettype($this->_value) === 'string' && $this->_value === '')
-            || (gettype($this->_value) === 'array' && count($this->_value) === 0);
+            || $this->_value === ''
+            || (is_array($this->_value) && count($this->_value) === 0);
     }
 
     /**
+     * @return void
      * @throws TelegramException
      */
-    public function setEntityValue($newValue, $ignoreUnknownFields = false)
+    public function setEntityValue(mixed $newValue, bool $ignoreUnknownFields = false)
     {
         $fields = static::getFields();
 
@@ -345,7 +459,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             if ($ignoreUnknownFields && !array_key_exists($field, $fields))
                 continue;
 
-            $this->setFieldValue($field, $fieldValue, $ignoreUnknownFields);
+            $this->setFieldValue((string)$field, $fieldValue, $ignoreUnknownFields);
         }
 
     }
@@ -366,9 +480,12 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     }
 
     /**
+     * Устанавливает поле (ключ snake_case или camelCase). Объект типа можно передать массивом полей.
+     *
+     * @return $this
      * @throws TelegramException
      */
-    public function setFieldValue($field, $value, $ignoreUnknownFields = false): static
+    public function setFieldValue(string $field, mixed $value, bool $ignoreUnknownFields = false): static
     {
         $field = static::camel2snake($field);
 
@@ -399,6 +516,10 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         $isArray = $fieldData['isArray'] ?? false;
 
         if ($isArray) {
+            if ($value instanceof ArrayObject || $value instanceof ArrayOfArrayObject) {
+                $value = $value->jsonSerialize();
+            }
+
             if (!empty($value) && !is_array($value)) {
                 $this->addErrorItem(new Error('Invalid value '.var_export($value, true).' for field "' . $field . '" entity "'.static::entityName().'"'));
                 return $this;
@@ -406,15 +527,21 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
             if ($isArray === 'matrix')
             {
-                $this->_value[$field] = new ArrayOfArrayObject($fieldData['type']);
-            } else {
-                $this->_value[$field] = new ArrayObject($fieldData['type']);
-            }
+                $matrix = new ArrayOfArrayObject(static::resolveFieldTypes($fieldData['type']));
 
-            if (!empty($value)) {
-                foreach ($value as $fieldValueItem) {
-                    $this->_value[$field]->add($fieldValueItem, $ignoreUnknownFields);
+                foreach (is_array($value) ? $value : [] as $row) {
+                    $matrix->add($row);
                 }
+
+                $this->_value[$field] = $matrix;
+            } else {
+                $list = new ArrayObject(static::resolveFieldTypes($fieldData['type']));
+
+                foreach (is_array($value) ? $value : [] as $fieldValueItem) {
+                    $list->add($fieldValueItem, $ignoreUnknownFields);
+                }
+
+                $this->_value[$field] = $list;
             }
 
             return $this;
@@ -450,7 +577,13 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         return isset($objFields[$field]);
     }
 
-    public function getFieldValue($field)
+    /**
+     * Значение поля: скаляр, объект типа, ArrayObject/ArrayOfArrayObject (массивы создаются пустыми) или null.
+     *
+     * @return mixed
+     * @throws TelegramException
+     */
+    public function getFieldValue(string $field)
     {
         $field = static::camel2snake($field);
 
@@ -482,9 +615,9 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
 
             if ($isArray === 'matrix')
             {
-                $this->_value[$field] = new ArrayOfArrayObject($fieldType['type']);
+                $this->_value[$field] = new ArrayOfArrayObject(static::resolveFieldTypes($fieldType['type']));
             } else {
-                $this->_value[$field] = new ArrayObject($fieldType['type']);
+                $this->_value[$field] = new ArrayObject(static::resolveFieldTypes($fieldType['type']));
             }
 
             return $this->_value[$field];
@@ -494,6 +627,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     }
 
     /**
+     * @return mixed
      * @throws TelegramException
      */
     public function __get(string $name)
@@ -502,14 +636,23 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
     }
 
     /**
+     * @return void
      * @throws TelegramException
      */
-    public function __set(string $name, $value)
+    public function __set(string $name, mixed $value)
     {
         $this->setFieldValue($name, $value);
     }
 
+    public function __isset(string $name): bool
+    {
+        return static::hasField($name) && isset($this->_value[static::camel2snake($name)]);
+    }
+
     /**
+     * Проверяет обязательные поля. Результат — в isSuccess()/getErrorMessages()
+     * (в строгом режиме первая ошибка бросает TelegramException).
+     *
      * @throws TelegramException
      */
     public function validate(): bool
@@ -518,7 +661,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             if (!isset($fieldData['required']) || !$fieldData['required'])
                 continue;
 
-            if (!array_key_exists($field, $this->_value)) {
+            if (!is_array($this->_value) || !array_key_exists($field, $this->_value)) {
                 $this->addErrorItem(new Error('Required field "' . $field . '" not found in entity ' . static::entityName()));
                 continue;
             }
@@ -577,7 +720,7 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         if (empty($this->_value) || !is_array($this->_value))
             return false;
 
-        return $this->_position<count(array_keys($this->_value));
+        return $this->_position<count($this->_value);
     }
 
     public function rewind(): void

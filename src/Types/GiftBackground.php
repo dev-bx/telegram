@@ -14,90 +14,98 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object describes the background of a gift.
- * @property int $centerColor
- * Center color of the background in RGB format
- * @property int $edgeColor
- * Edge color of the background in RGB format
- * @property int $textColor
- * Text color of the background in RGB format
+ *
+ * @link https://core.telegram.org/bots/api#giftbackground
+ *
+ * @property-read int|null $centerColor Required. Center color of the background in RGB format
+ * @property-write int $centerColor
+ * @property-read int|null $edgeColor Required. Edge color of the background in RGB format
+ * @property-write int $edgeColor
+ * @property-read int|null $textColor Required. Text color of the background in RGB format
+ * @property-write int $textColor
  */
 class GiftBackground extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'center_color' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'edge_color' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'text_color' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'center_color' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'edge_color' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'text_color' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getCenterColor(): mixed
-	{
-		return $this->getFieldValue('center_color');
-	}
+    /**
+     * Required. Center color of the background in RGB format
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getCenterColor(): mixed
+    {
+        return $this->getFieldValue('center_color');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCenterColor(mixed $value): static
+    {
+        return $this->setFieldValue('center_color', $value);
+    }
 
-	public function setCenterColor(mixed $value): static
-	{
-		return $this->setFieldValue('center_color', $value);
-	}
+    /**
+     * Required. Edge color of the background in RGB format
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getEdgeColor(): mixed
+    {
+        return $this->getFieldValue('edge_color');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setEdgeColor(mixed $value): static
+    {
+        return $this->setFieldValue('edge_color', $value);
+    }
 
-	public function getEdgeColor(): mixed
-	{
-		return $this->getFieldValue('edge_color');
-	}
+    /**
+     * Required. Text color of the background in RGB format
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getTextColor(): mixed
+    {
+        return $this->getFieldValue('text_color');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setEdgeColor(mixed $value): static
-	{
-		return $this->setFieldValue('edge_color', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getTextColor(): mixed
-	{
-		return $this->getFieldValue('text_color');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setTextColor(mixed $value): static
-	{
-		return $this->setFieldValue('text_color', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTextColor(mixed $value): static
+    {
+        return $this->setFieldValue('text_color', $value);
+    }
 }

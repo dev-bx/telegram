@@ -17,6 +17,10 @@ class GuzzleClient extends PsrClient {
         return new Client($this->clientOptions);
     }
 
+    /**
+     * @param array<string, string> $headers
+     * @param string|resource $body
+     */
     protected function createPsrRequest(string $method, string $url, array $headers, $body): RequestInterface
     {
         return new Request($method, $url, $headers, $body);

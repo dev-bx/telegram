@@ -14,66 +14,81 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A block with an anchor, corresponding to the HTML tag `<a>` with the attribute `name`.
- * @property string $type
- * Type of the block, always “anchor”
- * @property string $name
- * The name of the anchor
+ *
+ * @link https://core.telegram.org/bots/api#richblockanchor
+ *
+ * @property-read string|null $type Required. Type of the block, always “anchor”
+ * @property-write string $type
+ * @property-read string|null $name Required. The name of the anchor
+ * @property-write string $name
  */
 class RichBlockAnchor extends RichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'anchor',
-				'required' => true,
-			],
-			'name' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'anchor',
+                'required' => true,
+            ],
+            'name' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “anchor”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. The name of the anchor
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getName(): mixed
+    {
+        return $this->getFieldValue('name');
+    }
 
-	public function getName(): mixed
-	{
-		return $this->getFieldValue('name');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setName(mixed $value): static
-	{
-		return $this->setFieldValue('name', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setName(mixed $value): static
+    {
+        return $this->setFieldValue('name', $value);
+    }
 }

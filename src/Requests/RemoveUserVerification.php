@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Removes verification from a user who is currently verified [on behalf of the organization](https://telegram.org/verify#third-party-verification) represented by the bot. Returns *True* on success.
- * @property int $userId
- * Unique identifier of the target user
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#removeuserverification
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class RemoveUserVerification extends Base\Request
 {
@@ -30,23 +34,28 @@ class RemoveUserVerification extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -54,6 +63,6 @@ class RemoveUserVerification extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'RemoveUserVerification';
+        return 'removeUserVerification';
     }
 }

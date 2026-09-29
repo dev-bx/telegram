@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,141 +14,162 @@ namespace DevBX\Telegram\Passport;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
- * @property string $source
- * Error source, must be *data*
- * @property string $type
- * The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”
- * @property string $fieldName
- * Name of the data field which has the error
- * @property string $dataHash
- * Base64-encoded data hash
- * @property string $message
- * Error message
+ *
+ * @link https://core.telegram.org/bots/api#passportelementerrordatafield
+ *
+ * @property-read string|null $source Required. Error source, must be *data*
+ * @property-write string $source
+ * @property-read string|null $type Required. The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+ * @property-write string $type
+ * @property-read string|null $fieldName Required. Name of the data field which has the error
+ * @property-write string $fieldName
+ * @property-read string|null $dataHash Required. Base64-encoded data hash
+ * @property-write string $dataHash
+ * @property-read string|null $message Required. Error message
+ * @property-write string $message
  */
 class PassportElementErrorDataField extends PassportElementError
 {
-	public static function getFields(): array
-	{
-		return [
-			'source' => [
-				'type' => ['string'],
-				'value' => 'data',
-				'required' => true,
-			],
-			'type' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'field_name' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'data_hash' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'message' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getSource(): mixed
-	{
-		return $this->getFieldValue('source');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'source' => [
+                'type' => ['string'],
+                'value' => 'data',
+                'required' => true,
+            ],
+            'type' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'field_name' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'data_hash' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'message' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Error source, must be *data*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getSource(): mixed
+    {
+        return $this->getFieldValue('source');
+    }
 
-	public function setSource(mixed $value): static
-	{
-		return $this->setFieldValue('source', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSource(mixed $value): static
+    {
+        return $this->setFieldValue('source', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Name of the data field which has the error
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFieldName(): mixed
+    {
+        return $this->getFieldValue('field_name');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFieldName(mixed $value): static
+    {
+        return $this->setFieldValue('field_name', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Base64-encoded data hash
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getDataHash(): mixed
+    {
+        return $this->getFieldValue('data_hash');
+    }
 
-	public function getFieldName(): mixed
-	{
-		return $this->getFieldValue('field_name');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDataHash(mixed $value): static
+    {
+        return $this->setFieldValue('data_hash', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Error message
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMessage(): mixed
+    {
+        return $this->getFieldValue('message');
+    }
 
-	public function setFieldName(mixed $value): static
-	{
-		return $this->setFieldValue('field_name', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getDataHash(): mixed
-	{
-		return $this->getFieldValue('data_hash');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setDataHash(mixed $value): static
-	{
-		return $this->setFieldValue('data_hash', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getMessage(): mixed
-	{
-		return $this->getFieldValue('message');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setMessage(mixed $value): static
-	{
-		return $this->setFieldValue('message', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessage(mixed $value): static
+    {
+        return $this->setFieldValue('message', $value);
+    }
 }

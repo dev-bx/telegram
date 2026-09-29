@@ -14,64 +14,70 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about the failed approval of a suggested post. Currently, only caused by insufficient user funds at the time of approval.
- * @property Message $suggestedPostMessage
- * *Optional*. Message containing the suggested post whose approval has failed. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property SuggestedPostPrice $price
- * Expected price of the post
+ *
+ * @link https://core.telegram.org/bots/api#suggestedpostapprovalfailed
+ *
+ * @property-read Message|null $suggestedPostMessage Optional. Message containing the suggested post whose approval has failed. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write Message|array<string, mixed> $suggestedPostMessage
+ * @property-read SuggestedPostPrice|null $price Required. Expected price of the post
+ * @property-write SuggestedPostPrice|array<string, mixed> $price
  */
 class SuggestedPostApprovalFailed extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'suggested_post_message' => [
-				'type' => [Message::class],
-			],
-			'price' => [
-				'type' => [SuggestedPostPrice::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Message
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'suggested_post_message' => [
+                'type' => [Message::class],
+            ],
+            'price' => [
+                'type' => [SuggestedPostPrice::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getSuggestedPostMessage(): mixed
-	{
-		return $this->getFieldValue('suggested_post_message');
-	}
+    /**
+     * Optional. Message containing the suggested post whose approval has failed. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return Message|null
+     * @throws Base\TelegramException
+     */
+    public function getSuggestedPostMessage(): mixed
+    {
+        return $this->getFieldValue('suggested_post_message');
+    }
 
-	/**
-	* @param Message $value
-	* @return static
-	*/
+    /**
+     * @param Message|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSuggestedPostMessage(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_message', $value);
+    }
 
-	public function setSuggestedPostMessage(mixed $value): static
-	{
-		return $this->setFieldValue('suggested_post_message', $value);
-	}
+    /**
+     * Required. Expected price of the post
+     *
+     * @return SuggestedPostPrice|null
+     * @throws Base\TelegramException
+     */
+    public function getPrice(): mixed
+    {
+        return $this->getFieldValue('price');
+    }
 
-	/**
-	* @return SuggestedPostPrice
-	*/
-
-	public function getPrice(): mixed
-	{
-		return $this->getFieldValue('price');
-	}
-
-	/**
-	* @param SuggestedPostPrice $value
-	* @return static
-	*/
-
-	public function setPrice(mixed $value): static
-	{
-		return $this->setFieldValue('price', $value);
-	}
-
+    /**
+     * @param SuggestedPostPrice|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPrice(mixed $value): static
+    {
+        return $this->setFieldValue('price', $value);
+    }
 }

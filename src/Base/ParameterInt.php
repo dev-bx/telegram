@@ -4,16 +4,21 @@ namespace DevBX\Telegram\Base;
 
 class ParameterInt extends BaseType {
 
-    public static function isCompatible($data): bool
+    public static function isCompatible(mixed $data): bool
     {
-        $castInt = (int) $data;
+        if (!is_scalar($data) && $data !== null) {
+            return false;
+        }
 
-        return (string)$castInt === (string)$data;
+        return (string)(int)$data === (string)$data;
     }
 
-    public function setEntityValue($newValue, $ignoreUnknownFields = false)
+    /**
+     * @return void
+     */
+    public function setEntityValue(mixed $newValue, bool $ignoreUnknownFields = false)
     {
-        $this->_value = (int)$newValue;
+        $this->_value = is_scalar($newValue) ? (int)$newValue : 0;
     }
 
 }

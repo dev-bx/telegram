@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get information about the connection of the bot with a business account. Returns a [BusinessConnection](#businessconnection) object on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection
- * @method Types\BusinessConnection send(Api $gateway = null)
+ * Use this method to get information about the connection of the bot with a business account. Returns a `BusinessConnection` object on success.
+ *
+ * @link https://core.telegram.org/bots/api#getbusinessconnection
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection
+ * @property-write string $businessConnectionId
+ *
+ * @method Types\BusinessConnection send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetBusinessConnection extends Base\Request
 {
@@ -32,25 +36,27 @@ class GetBusinessConnection extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\BusinessConnection::class,
+                'type' => [Types\BusinessConnection::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
@@ -58,6 +64,6 @@ class GetBusinessConnection extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetBusinessConnection';
+        return 'getBusinessConnection';
     }
 }

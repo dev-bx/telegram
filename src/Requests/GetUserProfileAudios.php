@@ -17,14 +17,18 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get a list of profile audios for a user. Returns a [UserProfileAudios](#userprofileaudios) object.
- * @property int $userId
- * Unique identifier of the target user
- * @property int $offset
- * Sequential number of the first audio to be returned. By default, all audios are returned.
- * @property int $limit
- * Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
- * @method Types\UserProfileAudios send(Api $gateway = null)
+ * Use this method to get a list of profile audios for a user. Returns a `UserProfileAudios` object.
+ *
+ * @link https://core.telegram.org/bots/api#getuserprofileaudios
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ * @property-read int|null $offset Optional. Sequential number of the first audio to be returned. By default, all audios are returned.
+ * @property-write int $offset
+ * @property-read int|null $limit Optional. Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+ * @property-write int $limit
+ *
+ * @method Types\UserProfileAudios send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetUserProfileAudios extends Base\Request
 {
@@ -42,63 +46,69 @@ class GetUserProfileAudios extends Base\Request
                 'type' => ['int'],
             ],
             '@return' => [
-                'type' => Types\UserProfileAudios::class,
+                'type' => [Types\UserProfileAudios::class],
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Sequential number of the first audio to be returned. By default, all audios are returned.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getOffset(): mixed
     {
         return $this->getFieldValue('offset');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setOffset(mixed $value): static
     {
         return $this->setFieldValue('offset', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getLimit(): mixed
     {
         return $this->getFieldValue('limit');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLimit(mixed $value): static
     {
         return $this->setFieldValue('limit', $value);
@@ -106,6 +116,6 @@ class GetUserProfileAudios extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetUserProfileAudios';
+        return 'getUserProfileAudios';
     }
 }

@@ -16,12 +16,16 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](#getchat) requests to check if the bot can use this method. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property string $stickerSetName
- * Name of the sticker set to be set as the group sticker set
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can_set_sticker_set* optionally returned in `getChat` requests to check if the bot can use this method. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#setchatstickerset
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read string|null $stickerSetName Required. Name of the sticker set to be set as the group sticker set
+ * @property-write string $stickerSetName
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetChatStickerSet extends Base\Request
 {
@@ -36,42 +40,49 @@ class SetChatStickerSet extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Name of the sticker set to be set as the group sticker set
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getStickerSetName(): mixed
     {
         return $this->getFieldValue('sticker_set_name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setStickerSetName(mixed $value): static
     {
         return $this->setFieldValue('sticker_set_name', $value);
@@ -79,6 +90,6 @@ class SetChatStickerSet extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetChatStickerSet';
+        return 'setChatStickerSet';
     }
 }

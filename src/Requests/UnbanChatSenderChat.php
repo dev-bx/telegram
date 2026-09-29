@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @property int $senderChatId
- * Unique identifier of the target sender chat
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#unbanchatsenderchat
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $senderChatId Required. Unique identifier of the target sender chat
+ * @property-write int $senderChatId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class UnbanChatSenderChat extends Base\Request
 {
@@ -36,42 +40,49 @@ class UnbanChatSenderChat extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target sender chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getSenderChatId(): mixed
     {
         return $this->getFieldValue('sender_chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSenderChatId(mixed $value): static
     {
         return $this->setFieldValue('sender_chat_id', $value);
@@ -79,6 +90,6 @@ class UnbanChatSenderChat extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'UnbanChatSenderChat';
+        return 'unbanChatSenderChat';
     }
 }

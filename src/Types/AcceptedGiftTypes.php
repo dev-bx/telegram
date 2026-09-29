@@ -14,140 +14,152 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object describes the types of gifts that can be gifted to a user or a chat.
- * @property bool $unlimitedGifts
- * *True*, if unlimited regular gifts are accepted
- * @property bool $limitedGifts
- * *True*, if limited regular gifts are accepted
- * @property bool $uniqueGifts
- * *True*, if unique gifts or gifts that can be upgraded to unique for free are accepted
- * @property bool $premiumSubscription
- * *True*, if a Telegram Premium subscription is accepted
- * @property bool $giftsFromChannels
- * *True*, if transfers of unique gifts from channels are accepted
+ *
+ * @link https://core.telegram.org/bots/api#acceptedgifttypes
+ *
+ * @property-read bool|null $unlimitedGifts Required. *True*, if unlimited regular gifts are accepted
+ * @property-write bool $unlimitedGifts
+ * @property-read bool|null $limitedGifts Required. *True*, if limited regular gifts are accepted
+ * @property-write bool $limitedGifts
+ * @property-read bool|null $uniqueGifts Required. *True*, if unique gifts or gifts that can be upgraded to unique for free are accepted
+ * @property-write bool $uniqueGifts
+ * @property-read bool|null $premiumSubscription Required. *True*, if a Telegram Premium subscription is accepted
+ * @property-write bool $premiumSubscription
+ * @property-read bool|null $giftsFromChannels Required. *True*, if transfers of unique gifts from channels are accepted
+ * @property-write bool $giftsFromChannels
  */
 class AcceptedGiftTypes extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'unlimited_gifts' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'limited_gifts' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'unique_gifts' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'premium_subscription' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'gifts_from_channels' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return bool
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'unlimited_gifts' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'limited_gifts' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'unique_gifts' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'premium_subscription' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'gifts_from_channels' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getUnlimitedGifts(): mixed
-	{
-		return $this->getFieldValue('unlimited_gifts');
-	}
+    /**
+     * Required. *True*, if unlimited regular gifts are accepted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getUnlimitedGifts(): mixed
+    {
+        return $this->getFieldValue('unlimited_gifts');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUnlimitedGifts(mixed $value): static
+    {
+        return $this->setFieldValue('unlimited_gifts', $value);
+    }
 
-	public function setUnlimitedGifts(mixed $value): static
-	{
-		return $this->setFieldValue('unlimited_gifts', $value);
-	}
+    /**
+     * Required. *True*, if limited regular gifts are accepted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getLimitedGifts(): mixed
+    {
+        return $this->getFieldValue('limited_gifts');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLimitedGifts(mixed $value): static
+    {
+        return $this->setFieldValue('limited_gifts', $value);
+    }
 
-	public function getLimitedGifts(): mixed
-	{
-		return $this->getFieldValue('limited_gifts');
-	}
+    /**
+     * Required. *True*, if unique gifts or gifts that can be upgraded to unique for free are accepted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getUniqueGifts(): mixed
+    {
+        return $this->getFieldValue('unique_gifts');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUniqueGifts(mixed $value): static
+    {
+        return $this->setFieldValue('unique_gifts', $value);
+    }
 
-	public function setLimitedGifts(mixed $value): static
-	{
-		return $this->setFieldValue('limited_gifts', $value);
-	}
+    /**
+     * Required. *True*, if a Telegram Premium subscription is accepted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getPremiumSubscription(): mixed
+    {
+        return $this->getFieldValue('premium_subscription');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPremiumSubscription(mixed $value): static
+    {
+        return $this->setFieldValue('premium_subscription', $value);
+    }
 
-	public function getUniqueGifts(): mixed
-	{
-		return $this->getFieldValue('unique_gifts');
-	}
+    /**
+     * Required. *True*, if transfers of unique gifts from channels are accepted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getGiftsFromChannels(): mixed
+    {
+        return $this->getFieldValue('gifts_from_channels');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setUniqueGifts(mixed $value): static
-	{
-		return $this->setFieldValue('unique_gifts', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getPremiumSubscription(): mixed
-	{
-		return $this->getFieldValue('premium_subscription');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setPremiumSubscription(mixed $value): static
-	{
-		return $this->setFieldValue('premium_subscription', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getGiftsFromChannels(): mixed
-	{
-		return $this->getFieldValue('gifts_from_channels');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setGiftsFromChannels(mixed $value): static
-	{
-		return $this->setFieldValue('gifts_from_channels', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGiftsFromChannels(mixed $value): static
+    {
+        return $this->setFieldValue('gifts_from_channels', $value);
+    }
 }

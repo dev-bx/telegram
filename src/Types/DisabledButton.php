@@ -14,16 +14,15 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a disabled button which does nothing. Currently holds no information.
+ *
+ * @link https://core.telegram.org/bots/api#disabledbutton
  */
 class DisabledButton extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-
-		];
-	}
+    public static function getFields(): array
+    {
+        return [];
+    }
 }

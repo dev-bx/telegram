@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the current default administrator rights of the bot. Returns [ChatAdministratorRights](#chatadministratorrights) on success.
- * @property bool $forChannels
- * Pass *True* to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
- * @method Types\ChatAdministratorRights send(Api $gateway = null)
+ * Use this method to get the current default administrator rights of the bot. Returns `ChatAdministratorRights` on success.
+ *
+ * @link https://core.telegram.org/bots/api#getmydefaultadministratorrights
+ *
+ * @property-read bool|null $forChannels Optional. Pass *True* to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+ * @property-write bool $forChannels
+ *
+ * @method Types\ChatAdministratorRights send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetMyDefaultAdministratorRights extends Base\Request
 {
@@ -31,25 +35,27 @@ class GetMyDefaultAdministratorRights extends Base\Request
                 'type' => ['bool'],
             ],
             '@return' => [
-                'type' => Types\ChatAdministratorRights::class,
+                'type' => [Types\ChatAdministratorRights::class],
             ],
         ];
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getForChannels(): mixed
     {
         return $this->getFieldValue('for_channels');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setForChannels(mixed $value): static
     {
         return $this->setFieldValue('for_channels', $value);
@@ -57,6 +63,6 @@ class GetMyDefaultAdministratorRights extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetMyDefaultAdministratorRights';
+        return 'getMyDefaultAdministratorRights';
     }
 }

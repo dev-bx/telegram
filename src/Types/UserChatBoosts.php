@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,41 +14,45 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a list of boosts added to a chat by a user.
- * @property Base\ArrayObject|ChatBoost[] $boosts
- * The list of boosts added to the chat by the user
+ *
+ * @link https://core.telegram.org/bots/api#userchatboosts
+ *
+ * @property-read Base\ArrayObject<ChatBoost> $boosts Required. The list of boosts added to the chat by the user
+ * @property-write list<ChatBoost|array<string, mixed>>|Base\ArrayObject<ChatBoost> $boosts
  */
 class UserChatBoosts extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'boosts' => [
-				'type' => [ChatBoost::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Base\ArrayObject|ChatBoost[]
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'boosts' => [
+                'type' => [ChatBoost::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getBoosts(): mixed
-	{
-		return $this->getFieldValue('boosts');
-	}
+    /**
+     * Required. The list of boosts added to the chat by the user
+     *
+     * @return Base\ArrayObject<ChatBoost>
+     * @throws Base\TelegramException
+     */
+    public function getBoosts(): mixed
+    {
+        return $this->getFieldValue('boosts');
+    }
 
-	/**
-	* @param Base\ArrayObject|ChatBoost[] $value
-	* @return static
-	*/
-
-	public function setBoosts(mixed $value): static
-	{
-		return $this->setFieldValue('boosts', $value);
-	}
-
+    /**
+     * @param list<ChatBoost|array<string, mixed>>|Base\ArrayObject<ChatBoost> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBoosts(mixed $value): static
+    {
+        return $this->setFieldValue('boosts', $value);
+    }
 }

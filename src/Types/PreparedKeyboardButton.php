@@ -14,40 +14,44 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a keyboard button to be used by a user of a Mini App.
- * @property string $id
- * Unique identifier of the keyboard button
+ *
+ * @link https://core.telegram.org/bots/api#preparedkeyboardbutton
+ *
+ * @property-read string|null $id Required. Unique identifier of the keyboard button
+ * @property-write string $id
  */
 class PreparedKeyboardButton extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique identifier of the keyboard button
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 }

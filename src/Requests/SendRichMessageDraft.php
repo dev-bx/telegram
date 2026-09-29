@@ -17,20 +17,24 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\RichMessages;
 
 /**
- * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you **must** call [sendRichMessage](#sendrichmessage) with the complete message to persist it in the user's chat. Returns *True* on success.
- * @property int $chatId
- * Unique identifier for the target private chat
- * @property int $messageThreadId
- * Unique identifier for the target message thread
- * @property int $draftId
- * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
- * @property RichMessages\InputRichMessage $richMessage
- * The partial message to be streamed. Direct upload of new files and explicit upload of files by a URL isn't supported.
- * @property bool $canStop
- * Pass *True* to show the user a button to stop further drafts. The bot will receive an [Update](#update) “stopped\_message\_generation” if the user presses the button.
- * @property bool $keepOnStop
- * Pass *True* to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you **must** call `sendRichMessage` with the complete message to persist it in the user's chat. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#sendrichmessagedraft
+ *
+ * @property-read int|null $chatId Required. Unique identifier for the target private chat
+ * @property-write int $chatId
+ * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread
+ * @property-write int $messageThreadId
+ * @property-read int|null $draftId Required. Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
+ * @property-write int $draftId
+ * @property-read RichMessages\InputRichMessage|null $richMessage Required. The partial message to be streamed. Direct upload of new files and explicit upload of files by a URL isn't supported.
+ * @property-write RichMessages\InputRichMessage|array<string, mixed> $richMessage
+ * @property-read bool|null $canStop Optional. Pass *True* to show the user a button to stop further drafts. The bot will receive an `Update` “stopped_message_generation” if the user presses the button.
+ * @property-write bool $canStop
+ * @property-read bool|null $keepOnStop Optional. Pass *True* to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
+ * @property-write bool $keepOnStop
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SendRichMessageDraft extends Base\Request
 {
@@ -58,118 +62,133 @@ class SendRichMessageDraft extends Base\Request
             'keep_on_stop' => [
                 'type' => ['bool'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier for the target private chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Unique identifier for the target message thread
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageThreadId(): mixed
     {
         return $this->getFieldValue('message_thread_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageThreadId(mixed $value): static
     {
         return $this->setFieldValue('message_thread_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getDraftId(): mixed
     {
         return $this->getFieldValue('draft_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDraftId(mixed $value): static
     {
         return $this->setFieldValue('draft_id', $value);
     }
 
     /**
-    * @return RichMessages\InputRichMessage
-    */
-
+     * Required. The partial message to be streamed. Direct upload of new files and explicit upload of files by a URL isn't supported.
+     *
+     * @return RichMessages\InputRichMessage|null
+     * @throws Base\TelegramException
+     */
     public function getRichMessage(): mixed
     {
         return $this->getFieldValue('rich_message');
     }
 
     /**
-    * @param RichMessages\InputRichMessage $value
-    * @return static
-    */
-
+     * @param RichMessages\InputRichMessage|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setRichMessage(mixed $value): static
     {
         return $this->setFieldValue('rich_message', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to show the user a button to stop further drafts. The bot will receive an `Update` “stopped_message_generation” if the user presses the button.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getCanStop(): mixed
     {
         return $this->getFieldValue('can_stop');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCanStop(mixed $value): static
     {
         return $this->setFieldValue('can_stop', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getKeepOnStop(): mixed
     {
         return $this->getFieldValue('keep_on_stop');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setKeepOnStop(mixed $value): static
     {
         return $this->setFieldValue('keep_on_stop', $value);
@@ -177,6 +196,6 @@ class SendRichMessageDraft extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SendRichMessageDraft';
+        return 'sendRichMessageDraft';
     }
 }

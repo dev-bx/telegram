@@ -14,40 +14,44 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about a chat being joined by a user from a community.
- * @property Community $community
- * The community from which the chat was joined
+ *
+ * @link https://core.telegram.org/bots/api#communitychatjoined
+ *
+ * @property-read Community|null $community Required. The community from which the chat was joined
+ * @property-write Community|array<string, mixed> $community
  */
 class CommunityChatJoined extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'community' => [
-				'type' => [Community::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Community
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'community' => [
+                'type' => [Community::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getCommunity(): mixed
-	{
-		return $this->getFieldValue('community');
-	}
+    /**
+     * Required. The community from which the chat was joined
+     *
+     * @return Community|null
+     * @throws Base\TelegramException
+     */
+    public function getCommunity(): mixed
+    {
+        return $this->getFieldValue('community');
+    }
 
-	/**
-	* @param Community $value
-	* @return static
-	*/
-
-	public function setCommunity(mixed $value): static
-	{
-		return $this->setFieldValue('community', $value);
-	}
-
+    /**
+     * @param Community|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCommunity(mixed $value): static
+    {
+        return $this->setFieldValue('community', $value);
+    }
 }

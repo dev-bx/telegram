@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns *True* on success.
- * @property string $description
- * New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
- * @property string $languageCode
- * A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setmydescription
+ *
+ * @property-read string|null $description Optional. New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+ * @property-write string $description
+ * @property-read string|null $languageCode Optional. A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+ * @property-write string $languageCode
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetMyDescription extends Base\Request
 {
@@ -34,42 +38,49 @@ class SetMyDescription extends Base\Request
             'language_code' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getDescription(): mixed
     {
         return $this->getFieldValue('description');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDescription(mixed $value): static
     {
         return $this->setFieldValue('description', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getLanguageCode(): mixed
     {
         return $this->getFieldValue('language_code');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLanguageCode(mixed $value): static
     {
         return $this->setFieldValue('language_code', $value);
@@ -77,6 +88,6 @@ class SetMyDescription extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetMyDescription';
+        return 'setMyDescription';
     }
 }

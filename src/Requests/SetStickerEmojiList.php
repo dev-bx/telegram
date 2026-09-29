@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
- * @property string $sticker
- * File identifier of the sticker
- * @property string[] $emojiList
- * A JSON-serialized list of 1-20 emoji associated with the sticker
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setstickeremojilist
+ *
+ * @property-read string|null $sticker Required. File identifier of the sticker
+ * @property-write string $sticker
+ * @property-read Base\ArrayObject<Base\ParameterString> $emojiList Required. A JSON-serialized list of 1-20 emoji associated with the sticker
+ * @property-write list<string>|Base\ArrayObject<Base\ParameterString> $emojiList
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetStickerEmojiList extends Base\Request
 {
@@ -37,42 +41,49 @@ class SetStickerEmojiList extends Base\Request
                 'isArray' => true,
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. File identifier of the sticker
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getSticker(): mixed
     {
         return $this->getFieldValue('sticker');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSticker(mixed $value): static
     {
         return $this->setFieldValue('sticker', $value);
     }
 
     /**
-    * @return string[]
-    */
-
+     * Required. A JSON-serialized list of 1-20 emoji associated with the sticker
+     *
+     * @return Base\ArrayObject<Base\ParameterString>
+     * @throws Base\TelegramException
+     */
     public function getEmojiList(): mixed
     {
         return $this->getFieldValue('emoji_list');
     }
 
     /**
-    * @param string[] $value
-    * @return static
-    */
-
+     * @param list<string>|Base\ArrayObject<Base\ParameterString> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setEmojiList(mixed $value): static
     {
         return $this->setFieldValue('emoji_list', $value);
@@ -80,6 +91,6 @@ class SetStickerEmojiList extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetStickerEmojiList';
+        return 'setStickerEmojiList';
     }
 }

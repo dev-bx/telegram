@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,91 +14,99 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents one shipping option.
- * @property string $id
- * Shipping option identifier
- * @property string $title
- * Option title
- * @property Base\ArrayObject|LabeledPrice[] $prices
- * List of price portions
+ *
+ * @link https://core.telegram.org/bots/api#shippingoption
+ *
+ * @property-read string|null $id Required. Shipping option identifier
+ * @property-write string $id
+ * @property-read string|null $title Required. Option title
+ * @property-write string $title
+ * @property-read Base\ArrayObject<LabeledPrice> $prices Required. List of price portions
+ * @property-write list<LabeledPrice|array<string, mixed>>|Base\ArrayObject<LabeledPrice> $prices
  */
 class ShippingOption extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'title' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'prices' => [
-				'type' => [LabeledPrice::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'title' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'prices' => [
+                'type' => [LabeledPrice::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Shipping option identifier
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. Option title
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getTitle(): mixed
+    {
+        return $this->getFieldValue('title');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTitle(mixed $value): static
+    {
+        return $this->setFieldValue('title', $value);
+    }
 
-	public function getTitle(): mixed
-	{
-		return $this->getFieldValue('title');
-	}
+    /**
+     * Required. List of price portions
+     *
+     * @return Base\ArrayObject<LabeledPrice>
+     * @throws Base\TelegramException
+     */
+    public function getPrices(): mixed
+    {
+        return $this->getFieldValue('prices');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setTitle(mixed $value): static
-	{
-		return $this->setFieldValue('title', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|LabeledPrice[]
-	*/
-
-	public function getPrices(): mixed
-	{
-		return $this->getFieldValue('prices');
-	}
-
-	/**
-	* @param Base\ArrayObject|LabeledPrice[] $value
-	* @return static
-	*/
-
-	public function setPrices(mixed $value): static
-	{
-		return $this->setFieldValue('prices', $value);
-	}
-
+    /**
+     * @param list<LabeledPrice|array<string, mixed>>|Base\ArrayObject<LabeledPrice> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPrices(mixed $value): static
+    {
+        return $this->setFieldValue('prices', $value);
+    }
 }

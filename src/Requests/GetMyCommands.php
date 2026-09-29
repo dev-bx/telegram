@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of [BotCommand](#botcommand) objects. If commands aren't set, an empty list is returned.
- * @property Types\BotCommandScope $scope
- * A JSON-serialized object, describing scope of users. Defaults to [BotCommandScopeDefault](#botcommandscopedefault).
- * @property string $languageCode
- * A two-letter ISO 639-1 language code or an empty string
- * @method Types\BotCommand[]|Base\BaseType send(Api $gateway = null)
+ * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of `BotCommand` objects. If commands aren't set, an empty list is returned.
+ *
+ * @link https://core.telegram.org/bots/api#getmycommands
+ *
+ * @property-read Types\BotCommandScope|null $scope Optional. A JSON-serialized object, describing scope of users. Defaults to `BotCommandScopeDefault`.
+ * @property-write Types\BotCommandScope|array<string, mixed> $scope
+ * @property-read string|null $languageCode Optional. A two-letter ISO 639-1 language code or an empty string
+ * @property-write string $languageCode
+ *
+ * @method Base\ArrayObject<Types\BotCommand> send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetMyCommands extends Base\Request
 {
@@ -36,45 +40,49 @@ class GetMyCommands extends Base\Request
                 'type' => ['string'],
             ],
             '@return' => [
-                'type' => Types\BotCommand::class,
+                'type' => [Types\BotCommand::class],
                 'isArray' => true,
             ],
         ];
     }
 
     /**
-    * @return Types\BotCommandScope
-    */
-
+     * Optional. A JSON-serialized object, describing scope of users. Defaults to `BotCommandScopeDefault`.
+     *
+     * @return Types\BotCommandScope|null
+     * @throws Base\TelegramException
+     */
     public function getScope(): mixed
     {
         return $this->getFieldValue('scope');
     }
 
     /**
-    * @param Types\BotCommandScope $value
-    * @return static
-    */
-
+     * @param Types\BotCommandScope|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setScope(mixed $value): static
     {
         return $this->setFieldValue('scope', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. A two-letter ISO 639-1 language code or an empty string
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getLanguageCode(): mixed
     {
         return $this->getFieldValue('language_code');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLanguageCode(mixed $value): static
     {
         return $this->setFieldValue('language_code', $value);
@@ -82,6 +90,6 @@ class GetMyCommands extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetMyCommands';
+        return 'getMyCommands';
     }
 }

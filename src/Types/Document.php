@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,161 +14,175 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * This object represents a general file (as opposed to [photos](#photosize), [voice messages](#voice) and [audio files](#audio)).
- * @property string $fileId
- * Identifier for this file, which can be used to download or reuse the file
- * @property string $fileUniqueId
- * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
- * @property PhotoSize $thumbnail
- * *Optional*. Document thumbnail as defined by the sender
- * @property string $fileName
- * *Optional*. Original filename as defined by the sender
- * @property string $mimeType
- * *Optional*. MIME type of the file as defined by the sender
- * @property int $fileSize
- * *Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+ * This object represents a general file (as opposed to `PhotoSize`, `Voice` and `Audio`).
+ *
+ * @link https://core.telegram.org/bots/api#document
+ *
+ * @property-read string|null $fileId Required. Identifier for this file, which can be used to download or reuse the file
+ * @property-write string $fileId
+ * @property-read string|null $fileUniqueId Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property-write string $fileUniqueId
+ * @property-read PhotoSize|null $thumbnail Optional. Document thumbnail as defined by the sender
+ * @property-write PhotoSize|array<string, mixed> $thumbnail
+ * @property-read string|null $fileName Optional. Original filename as defined by the sender
+ * @property-write string $fileName
+ * @property-read string|null $mimeType Optional. MIME type of the file as defined by the sender
+ * @property-write string $mimeType
+ * @property-read int|null $fileSize Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+ * @property-write int $fileSize
  */
 class Document extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'file_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'file_unique_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'thumbnail' => [
-				'type' => [PhotoSize::class],
-			],
-			'file_name' => [
-				'type' => ['string'],
-			],
-			'mime_type' => [
-				'type' => ['string'],
-			],
-			'file_size' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'file_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'file_unique_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'thumbnail' => [
+                'type' => [PhotoSize::class],
+            ],
+            'file_name' => [
+                'type' => ['string'],
+            ],
+            'mime_type' => [
+                'type' => ['string'],
+            ],
+            'file_size' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getFileId(): mixed
-	{
-		return $this->getFieldValue('file_id');
-	}
+    /**
+     * Required. Identifier for this file, which can be used to download or reuse the file
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileId(): mixed
+    {
+        return $this->getFieldValue('file_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileId(mixed $value): static
+    {
+        return $this->setFieldValue('file_id', $value);
+    }
 
-	public function setFileId(mixed $value): static
-	{
-		return $this->setFieldValue('file_id', $value);
-	}
+    /**
+     * Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileUniqueId(): mixed
+    {
+        return $this->getFieldValue('file_unique_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileUniqueId(mixed $value): static
+    {
+        return $this->setFieldValue('file_unique_id', $value);
+    }
 
-	public function getFileUniqueId(): mixed
-	{
-		return $this->getFieldValue('file_unique_id');
-	}
+    /**
+     * Optional. Document thumbnail as defined by the sender
+     *
+     * @return PhotoSize|null
+     * @throws Base\TelegramException
+     */
+    public function getThumbnail(): mixed
+    {
+        return $this->getFieldValue('thumbnail');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param PhotoSize|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setThumbnail(mixed $value): static
+    {
+        return $this->setFieldValue('thumbnail', $value);
+    }
 
-	public function setFileUniqueId(mixed $value): static
-	{
-		return $this->setFieldValue('file_unique_id', $value);
-	}
+    /**
+     * Optional. Original filename as defined by the sender
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileName(): mixed
+    {
+        return $this->getFieldValue('file_name');
+    }
 
-	/**
-	* @return PhotoSize
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileName(mixed $value): static
+    {
+        return $this->setFieldValue('file_name', $value);
+    }
 
-	public function getThumbnail(): mixed
-	{
-		return $this->getFieldValue('thumbnail');
-	}
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMimeType(): mixed
+    {
+        return $this->getFieldValue('mime_type');
+    }
 
-	/**
-	* @param PhotoSize $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMimeType(mixed $value): static
+    {
+        return $this->setFieldValue('mime_type', $value);
+    }
 
-	public function setThumbnail(mixed $value): static
-	{
-		return $this->setFieldValue('thumbnail', $value);
-	}
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getFileSize(): mixed
+    {
+        return $this->getFieldValue('file_size');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getFileName(): mixed
-	{
-		return $this->getFieldValue('file_name');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setFileName(mixed $value): static
-	{
-		return $this->setFieldValue('file_name', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getMimeType(): mixed
-	{
-		return $this->getFieldValue('mime_type');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setMimeType(mixed $value): static
-	{
-		return $this->setFieldValue('mime_type', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getFileSize(): mixed
-	{
-		return $this->getFieldValue('file_size');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setFileSize(mixed $value): static
-	{
-		return $this->setFieldValue('file_size', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileSize(mixed $value): static
+    {
+        return $this->setFieldValue('file_size', $value);
+    }
 }

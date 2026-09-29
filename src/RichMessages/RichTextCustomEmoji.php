@@ -14,91 +14,108 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A custom emoji.
- * @property string $type
- * Type of the rich text, always “custom\_emoji”
- * @property string $customEmojiId
- * Unique identifier of the custom emoji. Use [getCustomEmojiStickers](#getcustomemojistickers) to get full information about the sticker.
- * @property string $alternativeText
- * Alternative emoji for the custom emoji
+ *
+ * @link https://core.telegram.org/bots/api#richtextcustomemoji
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “custom_emoji”
+ * @property-write string $type
+ * @property-read string|null $customEmojiId Required. Unique identifier of the custom emoji. Use `getCustomEmojiStickers` to get full information about the sticker.
+ * @property-write string $customEmojiId
+ * @property-read string|null $alternativeText Required. Alternative emoji for the custom emoji
+ * @property-write string $alternativeText
  */
 class RichTextCustomEmoji extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'custom_emoji',
-				'required' => true,
-			],
-			'custom_emoji_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'alternative_text' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'custom_emoji',
+                'required' => true,
+            ],
+            'custom_emoji_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'alternative_text' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “custom_emoji”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Unique identifier of the custom emoji. Use `getCustomEmojiStickers` to get full information about the sticker.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCustomEmojiId(): mixed
+    {
+        return $this->getFieldValue('custom_emoji_id');
+    }
 
-	public function getCustomEmojiId(): mixed
-	{
-		return $this->getFieldValue('custom_emoji_id');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCustomEmojiId(mixed $value): static
+    {
+        return $this->setFieldValue('custom_emoji_id', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Alternative emoji for the custom emoji
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getAlternativeText(): mixed
+    {
+        return $this->getFieldValue('alternative_text');
+    }
 
-	public function setCustomEmojiId(mixed $value): static
-	{
-		return $this->setFieldValue('custom_emoji_id', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getAlternativeText(): mixed
-	{
-		return $this->getFieldValue('alternative_text');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setAlternativeText(mixed $value): static
-	{
-		return $this->setFieldValue('alternative_text', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAlternativeText(mixed $value): static
+    {
+        return $this->setFieldValue('alternative_text', $value);
+    }
 }

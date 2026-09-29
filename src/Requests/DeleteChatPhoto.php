@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#deletechatphoto
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteChatPhoto extends Base\Request
 {
@@ -30,23 +34,28 @@ class DeleteChatPhoto extends Base\Request
                 'type' => ['int', 'string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
@@ -54,6 +63,6 @@ class DeleteChatPhoto extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteChatPhoto';
+        return 'deleteChatPhoto';
     }
 }

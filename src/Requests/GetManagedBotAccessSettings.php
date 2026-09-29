@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the access settings of a managed bot. Returns a [BotAccessSettings](#botaccesssettings) object on success.
- * @property int $userId
- * User identifier of the managed bot whose access settings will be returned
- * @method Types\BotAccessSettings send(Api $gateway = null)
+ * Use this method to get the access settings of a managed bot. Returns a `BotAccessSettings` object on success.
+ *
+ * @link https://core.telegram.org/bots/api#getmanagedbotaccesssettings
+ *
+ * @property-read int|null $userId Required. User identifier of the managed bot whose access settings will be returned
+ * @property-write int $userId
+ *
+ * @method Types\BotAccessSettings send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetManagedBotAccessSettings extends Base\Request
 {
@@ -32,25 +36,27 @@ class GetManagedBotAccessSettings extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\BotAccessSettings::class,
+                'type' => [Types\BotAccessSettings::class],
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. User identifier of the managed bot whose access settings will be returned
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -58,6 +64,6 @@ class GetManagedBotAccessSettings extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetManagedBotAccessSettings';
+        return 'getManagedBotAccessSettings';
     }
 }

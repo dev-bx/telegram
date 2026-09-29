@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns *True* on success.
- * @property string $shortDescription
- * New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
- * @property string $languageCode
- * A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setmyshortdescription
+ *
+ * @property-read string|null $shortDescription Optional. New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+ * @property-write string $shortDescription
+ * @property-read string|null $languageCode Optional. A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+ * @property-write string $languageCode
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetMyShortDescription extends Base\Request
 {
@@ -34,42 +38,49 @@ class SetMyShortDescription extends Base\Request
             'language_code' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getShortDescription(): mixed
     {
         return $this->getFieldValue('short_description');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setShortDescription(mixed $value): static
     {
         return $this->setFieldValue('short_description', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getLanguageCode(): mixed
     {
         return $this->getFieldValue('language_code');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLanguageCode(mixed $value): static
     {
         return $this->setFieldValue('language_code', $value);
@@ -77,6 +88,6 @@ class SetMyShortDescription extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetMyShortDescription';
+        return 'setMyShortDescription';
     }
 }

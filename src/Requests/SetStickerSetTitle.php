@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to set the title of a created sticker set. Returns *True* on success.
- * @property string $name
- * Sticker set name
- * @property string $title
- * Sticker set title, 1-64 characters
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setstickersettitle
+ *
+ * @property-read string|null $name Required. Sticker set name
+ * @property-write string $name
+ * @property-read string|null $title Required. Sticker set title, 1-64 characters
+ * @property-write string $title
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetStickerSetTitle extends Base\Request
 {
@@ -36,42 +40,49 @@ class SetStickerSetTitle extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Sticker set name
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Sticker set title, 1-64 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getTitle(): mixed
     {
         return $this->getFieldValue('title');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setTitle(mixed $value): static
     {
         return $this->setFieldValue('title', $value);
@@ -79,6 +90,6 @@ class SetStickerSetTitle extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetStickerSetTitle';
+        return 'setStickerSetTitle';
     }
 }

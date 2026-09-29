@@ -17,18 +17,22 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to edit a checklist on behalf of a connected business account. On success, the edited [Message](#message) is returned.
- * @property string $businessConnectionId
- * Unique identifier of the business connection on behalf of which the message will be sent
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target bot in the format `@username`
- * @property int $messageId
- * Unique identifier for the target message
- * @property Types\InputChecklist $checklist
- * A JSON-serialized object for the new checklist
- * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for the new [inline keyboard](/bots/features#inline-keyboards) for the message
- * @method Types\Message send(Api $gateway = null)
+ * Use this method to edit a checklist on behalf of a connected business account. On success, the edited `Message` is returned.
+ *
+ * @link https://core.telegram.org/bots/api#editmessagechecklist
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection on behalf of which the message will be sent
+ * @property-write string $businessConnectionId
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $messageId Required. Unique identifier for the target message
+ * @property-write int $messageId
+ * @property-read Types\InputChecklist|null $checklist Required. A JSON-serialized object for the new checklist
+ * @property-write Types\InputChecklist|array<string, mixed> $checklist
+ * @property-read Types\InlineKeyboardMarkup|null $replyMarkup Optional. A JSON-serialized object for the new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) for the message
+ * @property-write Types\InlineKeyboardMarkup|array<string, mixed> $replyMarkup
+ *
+ * @method Types\Message send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditMessageChecklist extends Base\Request
 {
@@ -55,101 +59,111 @@ class EditMessageChecklist extends Base\Request
                 'type' => [Types\InlineKeyboardMarkup::class],
             ],
             '@return' => [
-                'type' => Types\Message::class,
+                'type' => [Types\Message::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection on behalf of which the message will be sent
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target bot in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier for the target message
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
     }
 
     /**
-    * @return Types\InputChecklist
-    */
-
+     * Required. A JSON-serialized object for the new checklist
+     *
+     * @return Types\InputChecklist|null
+     * @throws Base\TelegramException
+     */
     public function getChecklist(): mixed
     {
         return $this->getFieldValue('checklist');
     }
 
     /**
-    * @param Types\InputChecklist $value
-    * @return static
-    */
-
+     * @param Types\InputChecklist|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChecklist(mixed $value): static
     {
         return $this->setFieldValue('checklist', $value);
     }
 
     /**
-    * @return Types\InlineKeyboardMarkup
-    */
-
+     * Optional. A JSON-serialized object for the new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) for the message
+     *
+     * @return Types\InlineKeyboardMarkup|null
+     * @throws Base\TelegramException
+     */
     public function getReplyMarkup(): mixed
     {
         return $this->getFieldValue('reply_markup');
     }
 
     /**
-    * @param Types\InlineKeyboardMarkup $value
-    * @return static
-    */
-
+     * @param Types\InlineKeyboardMarkup|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReplyMarkup(mixed $value): static
     {
         return $this->setFieldValue('reply_markup', $value);
@@ -157,6 +171,6 @@ class EditMessageChecklist extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditMessageChecklist';
+        return 'editMessageChecklist';
     }
 }

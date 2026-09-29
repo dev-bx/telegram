@@ -14,116 +14,135 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Formatted date and time.
- * @property string $type
- * Type of the rich text, always “date\_time”
- * @property RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $text
- * The text
- * @property int $unixTime
- * The Unix time associated with the entity
- * @property string $dateTimeFormat
- * The string that defines the formatting of the date and time. See [date-time entity formatting](#date-time-entity-formatting) for more details.
+ *
+ * @link https://core.telegram.org/bots/api#richtextdatetime
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “date_time”
+ * @property-write string $type
+ * @property-read RichText|string|list<mixed>|null $text Required. The text
+ * @property-write RichText|string|list<mixed>|array<string, mixed> $text
+ * @property-read int|null $unixTime Required. The Unix time associated with the entity
+ * @property-write int $unixTime
+ * @property-read string|null $dateTimeFormat Required. The string that defines the formatting of the date and time. See [date-time entity formatting](https://core.telegram.org/bots/api#date-time-entity-formatting) for more details.
+ * @property-write string $dateTimeFormat
  */
 class RichTextDateTime extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'date_time',
-				'required' => true,
-			],
-			'text' => [
-				'type' => [RichText::class],
-				'required' => true,
-			],
-			'unix_time' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'date_time_format' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'date_time',
+                'required' => true,
+            ],
+            'text' => [
+                'type' => [RichText::class],
+                'required' => true,
+            ],
+            'unix_time' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'date_time_format' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “date_time”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink
-	*/
+    /**
+     * Required. The text
+     *
+     * @return RichText|string|list<mixed>|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * @param RichText|string|list<mixed>|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	/**
-	* @param RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $value
-	* @return static
-	*/
+    /**
+     * Required. The Unix time associated with the entity
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getUnixTime(): mixed
+    {
+        return $this->getFieldValue('unix_time');
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUnixTime(mixed $value): static
+    {
+        return $this->setFieldValue('unix_time', $value);
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * Required. The string that defines the formatting of the date and time. See [date-time entity formatting](https://core.telegram.org/bots/api#date-time-entity-formatting) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getDateTimeFormat(): mixed
+    {
+        return $this->getFieldValue('date_time_format');
+    }
 
-	public function getUnixTime(): mixed
-	{
-		return $this->getFieldValue('unix_time');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setUnixTime(mixed $value): static
-	{
-		return $this->setFieldValue('unix_time', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getDateTimeFormat(): mixed
-	{
-		return $this->getFieldValue('date_time_format');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setDateTimeFormat(mixed $value): static
-	{
-		return $this->setFieldValue('date_time_format', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDateTimeFormat(mixed $value): static
+    {
+        return $this->setFieldValue('date_time_format', $value);
+    }
 }

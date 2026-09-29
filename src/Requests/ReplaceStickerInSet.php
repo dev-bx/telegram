@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,16 +17,20 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Stickers;
 
 /**
- * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling [deleteStickerFromSet](#deletestickerfromset), then [addStickerToSet](#addstickertoset), then [setStickerPositionInSet](#setstickerpositioninset). Returns *True* on success.
- * @property int $userId
- * User identifier of the sticker set owner
- * @property string $name
- * Sticker set name
- * @property string $oldSticker
- * File identifier of the replaced sticker
- * @property Stickers\InputSticker $sticker
- * A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling `deleteStickerFromSet`, then `addStickerToSet`, then `setStickerPositionInSet`. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#replacestickerinset
+ *
+ * @property-read int|null $userId Required. User identifier of the sticker set owner
+ * @property-write int $userId
+ * @property-read string|null $name Required. Sticker set name
+ * @property-write string $name
+ * @property-read string|null $oldSticker Required. File identifier of the replaced sticker
+ * @property-write string $oldSticker
+ * @property-read Stickers\InputSticker|null $sticker Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
+ * @property-write Stickers\InputSticker|array<string, mixed> $sticker
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class ReplaceStickerInSet extends Base\Request
 {
@@ -49,80 +53,91 @@ class ReplaceStickerInSet extends Base\Request
                 'type' => [Stickers\InputSticker::class],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. User identifier of the sticker set owner
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Sticker set name
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. File identifier of the replaced sticker
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getOldSticker(): mixed
     {
         return $this->getFieldValue('old_sticker');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setOldSticker(mixed $value): static
     {
         return $this->setFieldValue('old_sticker', $value);
     }
 
     /**
-    * @return Stickers\InputSticker
-    */
-
+     * Required. A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
+     *
+     * @return Stickers\InputSticker|null
+     * @throws Base\TelegramException
+     */
     public function getSticker(): mixed
     {
         return $this->getFieldValue('sticker');
     }
 
     /**
-    * @param Stickers\InputSticker $value
-    * @return static
-    */
-
+     * @param Stickers\InputSticker|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSticker(mixed $value): static
     {
         return $this->setFieldValue('sticker', $value);
@@ -130,6 +145,6 @@ class ReplaceStickerInSet extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'ReplaceStickerInSet';
+        return 'replaceStickerInSet';
     }
 }

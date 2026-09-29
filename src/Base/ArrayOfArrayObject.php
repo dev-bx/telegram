@@ -2,18 +2,39 @@
 
 namespace DevBX\Telegram\Base;
 
-class ArrayOfArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
+/**
+ * Матрица значений (массив массивов), например, строки кнопок inline-клавиатуры.
+ *
+ * @template T of BaseType
+ * @implements \Iterator<int, ArrayObject<T>>
+ */
+class ArrayOfArrayObject extends BaseObject implements \Iterator, \JsonSerializable, \Countable {
 
+    /** @var list<class-string<T>> */
     protected $types;
+
+    /** @var list<ArrayObject<T>> */
     protected $arrayData = [];
+
+    /** @var int */
     protected $position = 0;
 
+    /**
+     * @param list<class-string<T>> $types
+     */
     public function __construct(array $types)
     {
         $this->types = $types;
     }
 
-    public function add(ArrayObject|array $data = null): static
+    /**
+     * Добавляет строку матрицы.
+     *
+     * @param ArrayObject<T>|array<mixed>|null $data
+     * @return $this
+     * @throws TelegramException
+     */
+    public function add(ArrayObject|array|null $data = null): static
     {
         $item = new ArrayObject($this->types);
 
@@ -29,6 +50,9 @@ class ArrayOfArrayObject extends BaseObject implements \Iterator, \JsonSerializa
         return $this;
     }
 
+    /**
+     * @return ArrayObject<T>
+     */
     public function current(): ArrayObject
     {
         return $this->arrayData[$this->position];
@@ -54,6 +78,14 @@ class ArrayOfArrayObject extends BaseObject implements \Iterator, \JsonSerializa
         $this->position = 0;
     }
 
+    public function count(): int
+    {
+        return count($this->arrayData);
+    }
+
+    /**
+     * @return list<list<mixed>>
+     */
     public function jsonSerialize(): array
     {
         $result = [];

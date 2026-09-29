@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of [Message](#message) objects is returned.
- * @property int $userId
- * Unique identifier for the target user
- * @property int $limit
- * The maximum number of messages to return; 1-20
- * @method Types\Message send(Api $gateway = null)
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of `Message` objects is returned.
+ *
+ * @link https://core.telegram.org/bots/api#getuserpersonalchatmessages
+ *
+ * @property-read int|null $userId Required. Unique identifier for the target user
+ * @property-write int $userId
+ * @property-read int|null $limit Required. The maximum number of messages to return; 1-20
+ * @property-write int $limit
+ *
+ * @method Base\ArrayObject<Types\Message> send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetUserPersonalChatMessages extends Base\Request
 {
@@ -38,44 +42,49 @@ class GetUserPersonalChatMessages extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\Message::class,
+                'type' => [Types\Message::class],
+                'isArray' => true,
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier for the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. The maximum number of messages to return; 1-20
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getLimit(): mixed
     {
         return $this->getFieldValue('limit');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLimit(mixed $value): static
     {
         return $this->setFieldValue('limit', $value);
@@ -83,6 +92,6 @@ class GetUserPersonalChatMessages extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetUserPersonalChatMessages';
+        return 'getUserPersonalChatMessages';
     }
 }

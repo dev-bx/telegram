@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,67 +14,82 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The background is a freeform gradient that rotates after every message in the chat.
- * @property string $type
- * Type of the background fill, always “freeform\_gradient”
- * @property int[] $colors
- * A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format
+ *
+ * @link https://core.telegram.org/bots/api#backgroundfillfreeformgradient
+ *
+ * @property-read string|null $type Required. Type of the background fill, always “freeform_gradient”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<Base\ParameterInt> $colors Required. A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $colors
  */
 class BackgroundFillFreeformGradient extends BackgroundFill
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'freeform_gradient',
-				'required' => true,
-			],
-			'colors' => [
-				'type' => ['int'],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'freeform_gradient',
+                'required' => true,
+            ],
+            'colors' => [
+                'type' => ['int'],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the background fill, always “freeform_gradient”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return int[]
-	*/
+    /**
+     * Required. A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
+    public function getColors(): mixed
+    {
+        return $this->getFieldValue('colors');
+    }
 
-	public function getColors(): mixed
-	{
-		return $this->getFieldValue('colors');
-	}
-
-	/**
-	* @param int[] $value
-	* @return static
-	*/
-
-	public function setColors(mixed $value): static
-	{
-		return $this->setFieldValue('colors', $value);
-	}
-
+    /**
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setColors(mixed $value): static
+    {
+        return $this->setFieldValue('colors', $value);
+    }
 }

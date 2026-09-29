@@ -14,91 +14,108 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The paid media to send is a live photo.
- * @property string $type
- * Type of the media, must be *live\_photo*
- * @property string $media
- * Video of the live photo to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files). Sending live photos by a URL is currently unsupported.</file_attach_name></file_attach_name>
- * @property string $photo
- * The static photo to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files). Sending live photos by a URL is currently unsupported.</file_attach_name></file_attach_name>
+ *
+ * @link https://core.telegram.org/bots/api#inputpaidmedialivephoto
+ *
+ * @property-read string|null $type Required. Type of the media, must be *live_photo*
+ * @property-write string $type
+ * @property-read string|null $media Required. Video of the live photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Sending live photos by a URL is currently unsupported.
+ * @property-write string $media
+ * @property-read string|null $photo Required. The static photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Sending live photos by a URL is currently unsupported.
+ * @property-write string $photo
  */
 class InputPaidMediaLivePhoto extends InputPaidMedia
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'live_photo',
-				'required' => true,
-			],
-			'media' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'photo' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'live_photo',
+                'required' => true,
+            ],
+            'media' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'photo' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the media, must be *live_photo*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Video of the live photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Sending live photos by a URL is currently unsupported.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMedia(): mixed
+    {
+        return $this->getFieldValue('media');
+    }
 
-	public function getMedia(): mixed
-	{
-		return $this->getFieldValue('media');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMedia(mixed $value): static
+    {
+        return $this->setFieldValue('media', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. The static photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Sending live photos by a URL is currently unsupported.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getPhoto(): mixed
+    {
+        return $this->getFieldValue('photo');
+    }
 
-	public function setMedia(mixed $value): static
-	{
-		return $this->setFieldValue('media', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getPhoto(): mixed
-	{
-		return $this->getFieldValue('photo');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setPhoto(mixed $value): static
-	{
-		return $this->setFieldValue('photo', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPhoto(mixed $value): static
+    {
+        return $this->setFieldValue('photo', $value);
+    }
 }

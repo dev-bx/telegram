@@ -14,40 +14,44 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes an inline message sent by a guest bot.
- * @property string $inlineMessageId
- * Identifier of the sent inline message
+ *
+ * @link https://core.telegram.org/bots/api#sentguestmessage
+ *
+ * @property-read string|null $inlineMessageId Required. Identifier of the sent inline message
+ * @property-write string $inlineMessageId
  */
 class SentGuestMessage extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'inline_message_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'inline_message_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getInlineMessageId(): mixed
-	{
-		return $this->getFieldValue('inline_message_id');
-	}
+    /**
+     * Required. Identifier of the sent inline message
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInlineMessageId(): mixed
+    {
+        return $this->getFieldValue('inline_message_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setInlineMessageId(mixed $value): static
-	{
-		return $this->setFieldValue('inline_message_id', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInlineMessageId(mixed $value): static
+    {
+        return $this->setFieldValue('inline_message_id', $value);
+    }
 }

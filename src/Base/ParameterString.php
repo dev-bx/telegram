@@ -4,14 +4,17 @@ namespace DevBX\Telegram\Base;
 
 class ParameterString extends BaseType {
 
-    public static function isCompatible($data): bool
+    public static function isCompatible(mixed $data): bool
     {
-        return (string)$data == $data;
+        return is_scalar($data) || $data === null || $data instanceof \Stringable;
     }
 
-    public function setEntityValue($newValue, $ignoreUnknownFields = false)
+    /**
+     * @return void
+     */
+    public function setEntityValue(mixed $newValue, bool $ignoreUnknownFields = false)
     {
-        $this->_value = (string)$newValue;
+        $this->_value = is_scalar($newValue) || $newValue instanceof \Stringable ? (string)$newValue : '';
     }
 
 }

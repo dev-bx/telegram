@@ -14,65 +14,71 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents a community (a group of chats).
- * @property int $id
- * Unique identifier for this community. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
- * @property string $name
- * Name of the community
+ *
+ * @link https://core.telegram.org/bots/api#community
+ *
+ * @property-read int|null $id Required. Unique identifier for this community. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+ * @property-write int $id
+ * @property-read string|null $name Required. Name of the community
+ * @property-write string $name
  */
 class Community extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'name' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'name' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique identifier for this community. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. Name of the community
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getName(): mixed
+    {
+        return $this->getFieldValue('name');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getName(): mixed
-	{
-		return $this->getFieldValue('name');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setName(mixed $value): static
-	{
-		return $this->setFieldValue('name', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setName(mixed $value): static
+    {
+        return $this->setFieldValue('name', $value);
+    }
 }

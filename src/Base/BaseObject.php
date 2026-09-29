@@ -8,6 +8,7 @@ class BaseObject
     /** @var bool */
     protected bool $isSuccess = true;
 
+    /** @var Error[] */
     protected array $errors = [];
 
     /**
@@ -22,7 +23,9 @@ class BaseObject
         if (static::isStrictMode())
         {
             $exceptionClass = TelegramException::getExceptionClass($error->getMessage());
-            throw new $exceptionClass($error->getMessage(), $error->getCode(), $error->getCustomData());
+            $customData = $error->getCustomData();
+
+            throw new $exceptionClass($error->getMessage(), $error->getCode(), is_array($customData) ? $customData : null);
         }
 
         $this->isSuccess = false;
@@ -77,8 +80,13 @@ class BaseObject
         return $this->isSuccess;
     }
 
+    /** @var bool */
     protected static $strictMode = true;
 
+    /**
+     * @param bool $value
+     * @return void
+     */
     public static function setStrictMode($value)
     {
         static::$strictMode = (bool)$value;
@@ -96,13 +104,16 @@ class BaseObject
 
     public static function entityName(): string
     {
-        $name = explode('\\', get_called_class());
+        $name = explode('\\', static::class);
         return end($name);
     }
 
-    public static function camel2snake($str)
+    /**
+     * @return string
+     */
+    public static function camel2snake(string $str)
     {
-        return mb_strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $str));
+        return mb_strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $str) ?? $str);
     }
 
 }

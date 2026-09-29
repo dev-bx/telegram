@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,211 +14,238 @@ namespace DevBX\Telegram\InlineMode;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * Represents the [content](#inputmessagecontent) of a venue message to be sent as the result of an inline query.
- * @property float $latitude
- * Latitude of the venue in degrees
- * @property float $longitude
- * Longitude of the venue in degrees
- * @property string $title
- * Name of the venue
- * @property string $address
- * Address of the venue
- * @property string $foursquareId
- * *Optional*. Foursquare identifier of the venue, if known
- * @property string $foursquareType
- * *Optional*. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
- * @property string $googlePlaceId
- * *Optional*. Google Places identifier of the venue
- * @property string $googlePlaceType
- * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+ * Represents the `InputMessageContent` of a venue message to be sent as the result of an inline query.
+ *
+ * @link https://core.telegram.org/bots/api#inputvenuemessagecontent
+ *
+ * @property-read float|null $latitude Required. Latitude of the venue in degrees
+ * @property-write float|int $latitude
+ * @property-read float|null $longitude Required. Longitude of the venue in degrees
+ * @property-write float|int $longitude
+ * @property-read string|null $title Required. Name of the venue
+ * @property-write string $title
+ * @property-read string|null $address Required. Address of the venue
+ * @property-write string $address
+ * @property-read string|null $foursquareId Optional. Foursquare identifier of the venue, if known
+ * @property-write string $foursquareId
+ * @property-read string|null $foursquareType Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+ * @property-write string $foursquareType
+ * @property-read string|null $googlePlaceId Optional. Google Places identifier of the venue
+ * @property-write string $googlePlaceId
+ * @property-read string|null $googlePlaceType Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+ * @property-write string $googlePlaceType
  */
 class InputVenueMessageContent extends InputMessageContent
 {
-	public static function getFields(): array
-	{
-		return [
-			'latitude' => [
-				'type' => ['float'],
-				'required' => true,
-			],
-			'longitude' => [
-				'type' => ['float'],
-				'required' => true,
-			],
-			'title' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'address' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'foursquare_id' => [
-				'type' => ['string'],
-			],
-			'foursquare_type' => [
-				'type' => ['string'],
-			],
-			'google_place_id' => [
-				'type' => ['string'],
-			],
-			'google_place_type' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return float
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getLatitude(): mixed
-	{
-		return $this->getFieldValue('latitude');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'latitude' => [
+                'type' => ['float'],
+                'required' => true,
+            ],
+            'longitude' => [
+                'type' => ['float'],
+                'required' => true,
+            ],
+            'title' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'address' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'foursquare_id' => [
+                'type' => ['string'],
+            ],
+            'foursquare_type' => [
+                'type' => ['string'],
+            ],
+            'google_place_id' => [
+                'type' => ['string'],
+            ],
+            'google_place_type' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	/**
-	* @param float $value
-	* @return static
-	*/
+    /**
+     * Required. Latitude of the venue in degrees
+     *
+     * @return float|null
+     * @throws Base\TelegramException
+     */
+    public function getLatitude(): mixed
+    {
+        return $this->getFieldValue('latitude');
+    }
 
-	public function setLatitude(mixed $value): static
-	{
-		return $this->setFieldValue('latitude', $value);
-	}
+    /**
+     * @param float|int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLatitude(mixed $value): static
+    {
+        return $this->setFieldValue('latitude', $value);
+    }
 
-	/**
-	* @return float
-	*/
+    /**
+     * Required. Longitude of the venue in degrees
+     *
+     * @return float|null
+     * @throws Base\TelegramException
+     */
+    public function getLongitude(): mixed
+    {
+        return $this->getFieldValue('longitude');
+    }
 
-	public function getLongitude(): mixed
-	{
-		return $this->getFieldValue('longitude');
-	}
+    /**
+     * @param float|int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLongitude(mixed $value): static
+    {
+        return $this->setFieldValue('longitude', $value);
+    }
 
-	/**
-	* @param float $value
-	* @return static
-	*/
+    /**
+     * Required. Name of the venue
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getTitle(): mixed
+    {
+        return $this->getFieldValue('title');
+    }
 
-	public function setLongitude(mixed $value): static
-	{
-		return $this->setFieldValue('longitude', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTitle(mixed $value): static
+    {
+        return $this->setFieldValue('title', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Address of the venue
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getAddress(): mixed
+    {
+        return $this->getFieldValue('address');
+    }
 
-	public function getTitle(): mixed
-	{
-		return $this->getFieldValue('title');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAddress(mixed $value): static
+    {
+        return $this->setFieldValue('address', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Foursquare identifier of the venue, if known
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFoursquareId(): mixed
+    {
+        return $this->getFieldValue('foursquare_id');
+    }
 
-	public function setTitle(mixed $value): static
-	{
-		return $this->setFieldValue('title', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFoursquareId(mixed $value): static
+    {
+        return $this->setFieldValue('foursquare_id', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFoursquareType(): mixed
+    {
+        return $this->getFieldValue('foursquare_type');
+    }
 
-	public function getAddress(): mixed
-	{
-		return $this->getFieldValue('address');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFoursquareType(mixed $value): static
+    {
+        return $this->setFieldValue('foursquare_type', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Google Places identifier of the venue
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getGooglePlaceId(): mixed
+    {
+        return $this->getFieldValue('google_place_id');
+    }
 
-	public function setAddress(mixed $value): static
-	{
-		return $this->setFieldValue('address', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGooglePlaceId(mixed $value): static
+    {
+        return $this->setFieldValue('google_place_id', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getGooglePlaceType(): mixed
+    {
+        return $this->getFieldValue('google_place_type');
+    }
 
-	public function getFoursquareId(): mixed
-	{
-		return $this->getFieldValue('foursquare_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setFoursquareId(mixed $value): static
-	{
-		return $this->setFieldValue('foursquare_id', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getFoursquareType(): mixed
-	{
-		return $this->getFieldValue('foursquare_type');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setFoursquareType(mixed $value): static
-	{
-		return $this->setFieldValue('foursquare_type', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getGooglePlaceId(): mixed
-	{
-		return $this->getFieldValue('google_place_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setGooglePlaceId(mixed $value): static
-	{
-		return $this->setFieldValue('google_place_id', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getGooglePlaceType(): mixed
-	{
-		return $this->getFieldValue('google_place_type');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setGooglePlaceType(mixed $value): static
-	{
-		return $this->setFieldValue('google_place_type', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGooglePlaceType(mixed $value): static
+    {
+        return $this->setFieldValue('google_place_type', $value);
+    }
 }

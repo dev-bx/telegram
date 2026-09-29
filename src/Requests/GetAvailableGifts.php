@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,8 +17,11 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a [Gifts](#gifts) object.
- * @method Types\Gifts send(Api $gateway = null)
+ * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a `Gifts` object.
+ *
+ * @link https://core.telegram.org/bots/api#getavailablegifts
+ *
+ * @method Types\Gifts send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetAvailableGifts extends Base\Request
 {
@@ -26,13 +29,13 @@ class GetAvailableGifts extends Base\Request
     {
         return [
             '@return' => [
-                'type' => Types\Gifts::class,
+                'type' => [Types\Gifts::class],
             ],
         ];
     }
 
     protected function getRequestMethod(): string
     {
-        return 'GetAvailableGifts';
+        return 'getAvailableGifts';
     }
 }

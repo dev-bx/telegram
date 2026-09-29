@@ -14,161 +14,175 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a rich message to be sent. Exactly **one** of the fields *html*, *markdown*, or *blocks* must be used.
- * @property Base\ArrayObject|InputRichBlock[] $blocks
- * *Optional*. Content of the rich message to send described as a list of blocks
- * @property string $html
- * *Optional*. Content of the rich message to send described using HTML formatting. See [rich message formatting options](#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
- * @property string $markdown
- * *Optional*. Content of the rich message to send described using Markdown formatting. See [rich message formatting options](#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
- * @property Base\ArrayObject|InputRichMessageMedia[] $media
- * *Optional*. List of media that are specified in the *markdown* or *html* fields using `tg://photo?id=`, `tg://video?id=`, `tg://document?id=`, and `tg://audio?id=` links
- * @property bool $isRtl
- * *Optional*. Pass *True* if the rich message must be shown right-to-left
- * @property bool $skipEntityDetection
- * *Optional*. Pass *True* to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
+ *
+ * @link https://core.telegram.org/bots/api#inputrichmessage
+ *
+ * @property-read Base\ArrayObject<InputRichBlock> $blocks Optional. Content of the rich message to send described as a list of blocks
+ * @property-write list<InputRichBlock|array<string, mixed>>|Base\ArrayObject<InputRichBlock> $blocks
+ * @property-read string|null $html Optional. Content of the rich message to send described using HTML formatting. See [rich message formatting options](https://core.telegram.org/bots/api#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
+ * @property-write string $html
+ * @property-read string|null $markdown Optional. Content of the rich message to send described using Markdown formatting. See [rich message formatting options](https://core.telegram.org/bots/api#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
+ * @property-write string $markdown
+ * @property-read Base\ArrayObject<InputRichMessageMedia> $media Optional. List of media that are specified in the *markdown* or *html* fields using `tg://photo?id=`, `tg://video?id=`, `tg://document?id=`, and `tg://audio?id=` links
+ * @property-write list<InputRichMessageMedia|array<string, mixed>>|Base\ArrayObject<InputRichMessageMedia> $media
+ * @property-read bool|null $isRtl Optional. Pass *True* if the rich message must be shown right-to-left
+ * @property-write bool $isRtl
+ * @property-read bool|null $skipEntityDetection Optional. Pass *True* to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
+ * @property-write bool $skipEntityDetection
  */
 class InputRichMessage extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'blocks' => [
-				'type' => [InputRichBlock::class],
-				'isArray' => true,
-			],
-			'html' => [
-				'type' => ['string'],
-			],
-			'markdown' => [
-				'type' => ['string'],
-			],
-			'media' => [
-				'type' => [InputRichMessageMedia::class],
-				'isArray' => true,
-			],
-			'is_rtl' => [
-				'type' => ['bool'],
-			],
-			'skip_entity_detection' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return Base\ArrayObject|InputRichBlock[]
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'blocks' => [
+                'type' => [InputRichBlock::class],
+                'isArray' => true,
+            ],
+            'html' => [
+                'type' => ['string'],
+            ],
+            'markdown' => [
+                'type' => ['string'],
+            ],
+            'media' => [
+                'type' => [InputRichMessageMedia::class],
+                'isArray' => true,
+            ],
+            'is_rtl' => [
+                'type' => ['bool'],
+            ],
+            'skip_entity_detection' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	public function getBlocks(): mixed
-	{
-		return $this->getFieldValue('blocks');
-	}
+    /**
+     * Optional. Content of the rich message to send described as a list of blocks
+     *
+     * @return Base\ArrayObject<InputRichBlock>
+     * @throws Base\TelegramException
+     */
+    public function getBlocks(): mixed
+    {
+        return $this->getFieldValue('blocks');
+    }
 
-	/**
-	* @param Base\ArrayObject|InputRichBlock[] $value
-	* @return static
-	*/
+    /**
+     * @param list<InputRichBlock|array<string, mixed>>|Base\ArrayObject<InputRichBlock> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBlocks(mixed $value): static
+    {
+        return $this->setFieldValue('blocks', $value);
+    }
 
-	public function setBlocks(mixed $value): static
-	{
-		return $this->setFieldValue('blocks', $value);
-	}
+    /**
+     * Optional. Content of the rich message to send described using HTML formatting. See [rich message formatting options](https://core.telegram.org/bots/api#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getHtml(): mixed
+    {
+        return $this->getFieldValue('html');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHtml(mixed $value): static
+    {
+        return $this->setFieldValue('html', $value);
+    }
 
-	public function getHtml(): mixed
-	{
-		return $this->getFieldValue('html');
-	}
+    /**
+     * Optional. Content of the rich message to send described using Markdown formatting. See [rich message formatting options](https://core.telegram.org/bots/api#rich-message-formatting-options) for more details. Use *media* field to specify the media used in the message.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMarkdown(): mixed
+    {
+        return $this->getFieldValue('markdown');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMarkdown(mixed $value): static
+    {
+        return $this->setFieldValue('markdown', $value);
+    }
 
-	public function setHtml(mixed $value): static
-	{
-		return $this->setFieldValue('html', $value);
-	}
+    /**
+     * Optional. List of media that are specified in the *markdown* or *html* fields using `tg://photo?id=`, `tg://video?id=`, `tg://document?id=`, and `tg://audio?id=` links
+     *
+     * @return Base\ArrayObject<InputRichMessageMedia>
+     * @throws Base\TelegramException
+     */
+    public function getMedia(): mixed
+    {
+        return $this->getFieldValue('media');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param list<InputRichMessageMedia|array<string, mixed>>|Base\ArrayObject<InputRichMessageMedia> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMedia(mixed $value): static
+    {
+        return $this->setFieldValue('media', $value);
+    }
 
-	public function getMarkdown(): mixed
-	{
-		return $this->getFieldValue('markdown');
-	}
+    /**
+     * Optional. Pass *True* if the rich message must be shown right-to-left
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsRtl(): mixed
+    {
+        return $this->getFieldValue('is_rtl');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsRtl(mixed $value): static
+    {
+        return $this->setFieldValue('is_rtl', $value);
+    }
 
-	public function setMarkdown(mixed $value): static
-	{
-		return $this->setFieldValue('markdown', $value);
-	}
+    /**
+     * Optional. Pass *True* to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getSkipEntityDetection(): mixed
+    {
+        return $this->getFieldValue('skip_entity_detection');
+    }
 
-	/**
-	* @return Base\ArrayObject|InputRichMessageMedia[]
-	*/
-
-	public function getMedia(): mixed
-	{
-		return $this->getFieldValue('media');
-	}
-
-	/**
-	* @param Base\ArrayObject|InputRichMessageMedia[] $value
-	* @return static
-	*/
-
-	public function setMedia(mixed $value): static
-	{
-		return $this->setFieldValue('media', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsRtl(): mixed
-	{
-		return $this->getFieldValue('is_rtl');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsRtl(mixed $value): static
-	{
-		return $this->setFieldValue('is_rtl', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getSkipEntityDetection(): mixed
-	{
-		return $this->getFieldValue('skip_entity_detection');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setSkipEntityDetection(mixed $value): static
-	{
-		return $this->setFieldValue('skip_entity_detection', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSkipEntityDetection(mixed $value): static
+    {
+        return $this->setFieldValue('skip_entity_detection', $value);
+    }
 }

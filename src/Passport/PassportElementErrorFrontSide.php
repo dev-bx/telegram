@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,116 +14,135 @@ namespace DevBX\Telegram\Passport;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
- * @property string $source
- * Error source, must be *front\_side*
- * @property string $type
- * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
- * @property string $fileHash
- * Base64-encoded hash of the file with the front side of the document
- * @property string $message
- * Error message
+ *
+ * @link https://core.telegram.org/bots/api#passportelementerrorfrontside
+ *
+ * @property-read string|null $source Required. Error source, must be *front_side*
+ * @property-write string $source
+ * @property-read string|null $type Required. The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+ * @property-write string $type
+ * @property-read string|null $fileHash Required. Base64-encoded hash of the file with the front side of the document
+ * @property-write string $fileHash
+ * @property-read string|null $message Required. Error message
+ * @property-write string $message
  */
 class PassportElementErrorFrontSide extends PassportElementError
 {
-	public static function getFields(): array
-	{
-		return [
-			'source' => [
-				'type' => ['string'],
-				'value' => 'front_side',
-				'required' => true,
-			],
-			'type' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'file_hash' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'message' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getSource(): mixed
-	{
-		return $this->getFieldValue('source');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'source' => [
+                'type' => ['string'],
+                'value' => 'front_side',
+                'required' => true,
+            ],
+            'type' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'file_hash' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'message' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Error source, must be *front_side*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getSource(): mixed
+    {
+        return $this->getFieldValue('source');
+    }
 
-	public function setSource(mixed $value): static
-	{
-		return $this->setFieldValue('source', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSource(mixed $value): static
+    {
+        return $this->setFieldValue('source', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Base64-encoded hash of the file with the front side of the document
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileHash(): mixed
+    {
+        return $this->getFieldValue('file_hash');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileHash(mixed $value): static
+    {
+        return $this->setFieldValue('file_hash', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Error message
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMessage(): mixed
+    {
+        return $this->getFieldValue('message');
+    }
 
-	public function getFileHash(): mixed
-	{
-		return $this->getFieldValue('file_hash');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setFileHash(mixed $value): static
-	{
-		return $this->setFieldValue('file_hash', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getMessage(): mixed
-	{
-		return $this->getFieldValue('message');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setMessage(mixed $value): static
-	{
-		return $this->setFieldValue('message', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessage(mixed $value): static
+    {
+        return $this->setFieldValue('message', $value);
+    }
 }

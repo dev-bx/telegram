@@ -17,14 +17,18 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the *can\_change\_gift\_settings* business bot right. Returns *True* on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection
- * @property bool $showGiftButton
- * Pass *True* if a button for sending a gift to the user or by the business account must always be shown in the input field
- * @property Types\AcceptedGiftTypes $acceptedGiftTypes
- * Types of gifts accepted by the business account
- * @method Base\BaseType send(Api $gateway = null)
+ * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the *can_change_gift_settings* business bot right. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection
+ * @property-write string $businessConnectionId
+ * @property-read bool|null $showGiftButton Required. Pass *True* if a button for sending a gift to the user or by the business account must always be shown in the input field
+ * @property-write bool $showGiftButton
+ * @property-read Types\AcceptedGiftTypes|null $acceptedGiftTypes Required. Types of gifts accepted by the business account
+ * @property-write Types\AcceptedGiftTypes|array<string, mixed> $acceptedGiftTypes
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetBusinessAccountGiftSettings extends Base\Request
 {
@@ -43,61 +47,70 @@ class SetBusinessAccountGiftSettings extends Base\Request
                 'type' => [Types\AcceptedGiftTypes::class],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Required. Pass *True* if a button for sending a gift to the user or by the business account must always be shown in the input field
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getShowGiftButton(): mixed
     {
         return $this->getFieldValue('show_gift_button');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setShowGiftButton(mixed $value): static
     {
         return $this->setFieldValue('show_gift_button', $value);
     }
 
     /**
-    * @return Types\AcceptedGiftTypes
-    */
-
+     * Required. Types of gifts accepted by the business account
+     *
+     * @return Types\AcceptedGiftTypes|null
+     * @throws Base\TelegramException
+     */
     public function getAcceptedGiftTypes(): mixed
     {
         return $this->getFieldValue('accepted_gift_types');
     }
 
     /**
-    * @param Types\AcceptedGiftTypes $value
-    * @return static
-    */
-
+     * @param Types\AcceptedGiftTypes|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAcceptedGiftTypes(mixed $value): static
     {
         return $this->setFieldValue('accepted_gift_types', $value);
@@ -105,6 +118,6 @@ class SetBusinessAccountGiftSettings extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetBusinessAccountGiftSettings';
+        return 'setBusinessAccountGiftSettings';
     }
 }

@@ -14,66 +14,81 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A mathematical expression.
- * @property string $type
- * Type of the rich text, always “mathematical\_expression”
- * @property string $expression
- * The expression in LaTeX format
+ *
+ * @link https://core.telegram.org/bots/api#richtextmathematicalexpression
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “mathematical_expression”
+ * @property-write string $type
+ * @property-read string|null $expression Required. The expression in LaTeX format
+ * @property-write string $expression
  */
 class RichTextMathematicalExpression extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'mathematical_expression',
-				'required' => true,
-			],
-			'expression' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'mathematical_expression',
+                'required' => true,
+            ],
+            'expression' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “mathematical_expression”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. The expression in LaTeX format
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getExpression(): mixed
+    {
+        return $this->getFieldValue('expression');
+    }
 
-	public function getExpression(): mixed
-	{
-		return $this->getFieldValue('expression');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setExpression(mixed $value): static
-	{
-		return $this->setFieldValue('expression', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setExpression(mixed $value): static
+    {
+        return $this->setFieldValue('expression', $value);
+    }
 }

@@ -15,90 +15,107 @@ namespace DevBX\Telegram\RichMessages;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * A block with a general file, corresponding to the custom HTML tag `<tg-document>`.
- * @property string $type
- * Type of the block, always “document”
- * @property Types\InputMediaDocument $document
- * The document. Caption is ignored.
- * @property RichBlockCaption $caption
- * *Optional*. Caption of the block
+ *
+ * @link https://core.telegram.org/bots/api#inputrichblockdocument
+ *
+ * @property-read string|null $type Required. Type of the block, always “document”
+ * @property-write string $type
+ * @property-read Types\InputMediaDocument|null $document Required. The document. Caption is ignored.
+ * @property-write Types\InputMediaDocument|array<string, mixed> $document
+ * @property-read RichBlockCaption|null $caption Optional. Caption of the block
+ * @property-write RichBlockCaption|array<string, mixed> $caption
  */
 class InputRichBlockDocument extends InputRichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'document',
-				'required' => true,
-			],
-			'document' => [
-				'type' => [Types\InputMediaDocument::class],
-				'required' => true,
-			],
-			'caption' => [
-				'type' => [RichBlockCaption::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'document',
+                'required' => true,
+            ],
+            'document' => [
+                'type' => [Types\InputMediaDocument::class],
+                'required' => true,
+            ],
+            'caption' => [
+                'type' => [RichBlockCaption::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “document”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Types\InputMediaDocument
-	*/
+    /**
+     * Required. The document. Caption is ignored.
+     *
+     * @return Types\InputMediaDocument|null
+     * @throws Base\TelegramException
+     */
+    public function getDocument(): mixed
+    {
+        return $this->getFieldValue('document');
+    }
 
-	public function getDocument(): mixed
-	{
-		return $this->getFieldValue('document');
-	}
+    /**
+     * @param Types\InputMediaDocument|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDocument(mixed $value): static
+    {
+        return $this->setFieldValue('document', $value);
+    }
 
-	/**
-	* @param Types\InputMediaDocument $value
-	* @return static
-	*/
+    /**
+     * Optional. Caption of the block
+     *
+     * @return RichBlockCaption|null
+     * @throws Base\TelegramException
+     */
+    public function getCaption(): mixed
+    {
+        return $this->getFieldValue('caption');
+    }
 
-	public function setDocument(mixed $value): static
-	{
-		return $this->setFieldValue('document', $value);
-	}
-
-	/**
-	* @return RichBlockCaption
-	*/
-
-	public function getCaption(): mixed
-	{
-		return $this->getFieldValue('caption');
-	}
-
-	/**
-	* @param RichBlockCaption $value
-	* @return static
-	*/
-
-	public function setCaption(mixed $value): static
-	{
-		return $this->setFieldValue('caption', $value);
-	}
-
+    /**
+     * @param RichBlockCaption|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaption(mixed $value): static
+    {
+        return $this->setFieldValue('caption', $value);
+    }
 }

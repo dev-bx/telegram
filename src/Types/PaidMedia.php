@@ -14,25 +14,46 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object describes paid media. Currently, it can be one of
+ *
+ * - `PaidMediaLivePhoto`
+ * - `PaidMediaPhoto`
+ * - `PaidMediaPreview`
+ * - `PaidMediaVideo`
+ *
+ * @link https://core.telegram.org/bots/api#paidmedia
+ *
+ * Объединение: create() возвращает подходящий вариант — `PaidMediaLivePhoto`, `PaidMediaPhoto`, `PaidMediaPreview`, `PaidMediaVideo`.
  */
 class PaidMedia extends Base\BaseType
 {
-	public static function getRelations(): array
-	{
-		return [
-			PaidMediaLivePhoto::class,
-			PaidMediaPhoto::class,
-			PaidMediaPreview::class,
-			PaidMediaVideo::class,
-		];
-	}
-	public static function getFields(): array
-	{
-		return [
+    /**
+     * @return list<class-string<PaidMediaLivePhoto|PaidMediaPhoto|PaidMediaPreview|PaidMediaVideo>>
+     */
+    public static function getRelations(): array
+    {
+        return [
+            PaidMediaLivePhoto::class,
+            PaidMediaPhoto::class,
+            PaidMediaPreview::class,
+            PaidMediaVideo::class,
+        ];
+    }
 
-		];
-	}
+    /**
+     * Создаёт вариант объединения, подходящий под значение (по полю-дискриминатору и обязательным полям).
+     *
+     * @return PaidMediaLivePhoto|PaidMediaPhoto|PaidMediaPreview|PaidMediaVideo|null null — значение не подошло ни одному варианту (только в нестрогом режиме)
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createFromRelations(static::getRelations(), $value, $ignoreUnknownFields);
+    }
+
+    public static function getFields(): array
+    {
+        return [];
+    }
 }

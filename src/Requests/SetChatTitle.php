@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @property string $title
- * New chat title, 1-128 characters
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setchattitle
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read string|null $title Required. New chat title, 1-128 characters
+ * @property-write string $title
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetChatTitle extends Base\Request
 {
@@ -36,42 +40,49 @@ class SetChatTitle extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. New chat title, 1-128 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getTitle(): mixed
     {
         return $this->getFieldValue('title');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setTitle(mixed $value): static
     {
         return $this->setFieldValue('title', $value);
@@ -79,6 +90,6 @@ class SetChatTitle extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetChatTitle';
+        return 'setChatTitle';
     }
 }

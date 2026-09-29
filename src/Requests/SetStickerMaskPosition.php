@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Stickers;
 
 /**
- * Use this method to change the [mask position](#maskposition) of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns *True* on success.
- * @property string $sticker
- * File identifier of the sticker
- * @property Stickers\MaskPosition $maskPosition
- * A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to change the `MaskPosition` of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#setstickermaskposition
+ *
+ * @property-read string|null $sticker Required. File identifier of the sticker
+ * @property-write string $sticker
+ * @property-read Stickers\MaskPosition|null $maskPosition Optional. A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
+ * @property-write Stickers\MaskPosition|array<string, mixed> $maskPosition
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetStickerMaskPosition extends Base\Request
 {
@@ -36,42 +40,49 @@ class SetStickerMaskPosition extends Base\Request
             'mask_position' => [
                 'type' => [Stickers\MaskPosition::class],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. File identifier of the sticker
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getSticker(): mixed
     {
         return $this->getFieldValue('sticker');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setSticker(mixed $value): static
     {
         return $this->setFieldValue('sticker', $value);
     }
 
     /**
-    * @return Stickers\MaskPosition
-    */
-
+     * Optional. A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
+     *
+     * @return Stickers\MaskPosition|null
+     * @throws Base\TelegramException
+     */
     public function getMaskPosition(): mixed
     {
         return $this->getFieldValue('mask_position');
     }
 
     /**
-    * @param Stickers\MaskPosition $value
-    * @return static
-    */
-
+     * @param Stickers\MaskPosition|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMaskPosition(mixed $value): static
     {
         return $this->setFieldValue('mask_position', $value);
@@ -79,6 +90,6 @@ class SetStickerMaskPosition extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetStickerMaskPosition';
+        return 'setStickerMaskPosition';
     }
 }

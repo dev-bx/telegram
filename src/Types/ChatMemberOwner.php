@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,115 +14,134 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * Represents a [chat member](#chatmember) that owns the chat and has all administrator privileges.
- * @property string $status
- * The member's status in the chat, always “creator”
- * @property User $user
- * Information about the user
- * @property bool $isAnonymous
- * *True*, if the user's presence in the chat is hidden
- * @property string $customTitle
- * *Optional*. Custom title for this user
+ * Represents a `ChatMember` that owns the chat and has all administrator privileges.
+ *
+ * @link https://core.telegram.org/bots/api#chatmemberowner
+ *
+ * @property-read string|null $status Required. The member's status in the chat, always “creator”
+ * @property-write string $status
+ * @property-read User|null $user Required. Information about the user
+ * @property-write User|array<string, mixed> $user
+ * @property-read bool|null $isAnonymous Required. *True*, if the user's presence in the chat is hidden
+ * @property-write bool $isAnonymous
+ * @property-read string|null $customTitle Optional. Custom title for this user
+ * @property-write string $customTitle
  */
 class ChatMemberOwner extends ChatMember
 {
-	public static function getFields(): array
-	{
-		return [
-			'status' => [
-				'type' => ['string'],
-				'value' => 'creator',
-				'required' => true,
-			],
-			'user' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-			'is_anonymous' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'custom_title' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getStatus(): mixed
-	{
-		return $this->getFieldValue('status');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'status' => [
+                'type' => ['string'],
+                'value' => 'creator',
+                'required' => true,
+            ],
+            'user' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+            'is_anonymous' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'custom_title' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. The member's status in the chat, always “creator”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getStatus(): mixed
+    {
+        return $this->getFieldValue('status');
+    }
 
-	public function setStatus(mixed $value): static
-	{
-		return $this->setFieldValue('status', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setStatus(mixed $value): static
+    {
+        return $this->setFieldValue('status', $value);
+    }
 
-	/**
-	* @return User
-	*/
+    /**
+     * Required. Information about the user
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getUser(): mixed
+    {
+        return $this->getFieldValue('user');
+    }
 
-	public function getUser(): mixed
-	{
-		return $this->getFieldValue('user');
-	}
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUser(mixed $value): static
+    {
+        return $this->setFieldValue('user', $value);
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
+    /**
+     * Required. *True*, if the user's presence in the chat is hidden
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsAnonymous(): mixed
+    {
+        return $this->getFieldValue('is_anonymous');
+    }
 
-	public function setUser(mixed $value): static
-	{
-		return $this->setFieldValue('user', $value);
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsAnonymous(mixed $value): static
+    {
+        return $this->setFieldValue('is_anonymous', $value);
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * Optional. Custom title for this user
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCustomTitle(): mixed
+    {
+        return $this->getFieldValue('custom_title');
+    }
 
-	public function getIsAnonymous(): mixed
-	{
-		return $this->getFieldValue('is_anonymous');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsAnonymous(mixed $value): static
-	{
-		return $this->setFieldValue('is_anonymous', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getCustomTitle(): mixed
-	{
-		return $this->getFieldValue('custom_title');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setCustomTitle(mixed $value): static
-	{
-		return $this->setFieldValue('custom_title', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCustomTitle(mixed $value): static
+    {
+        return $this->setFieldValue('custom_title', $value);
+    }
 }

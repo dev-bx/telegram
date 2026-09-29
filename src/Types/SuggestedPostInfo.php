@@ -14,88 +14,96 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Contains information about a suggested post.
- * @property string $state
- * State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
- * @property SuggestedPostPrice $price
- * *Optional*. Proposed price of the post. If the field is omitted, then the post is unpaid.
- * @property int $sendDate
- * *Optional*. Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it.
+ *
+ * @link https://core.telegram.org/bots/api#suggestedpostinfo
+ *
+ * @property-read string|null $state Required. State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
+ * @property-write string $state
+ * @property-read SuggestedPostPrice|null $price Optional. Proposed price of the post. If the field is omitted, then the post is unpaid.
+ * @property-write SuggestedPostPrice|array<string, mixed> $price
+ * @property-read int|null $sendDate Optional. Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it.
+ * @property-write int $sendDate
  */
 class SuggestedPostInfo extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'state' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'price' => [
-				'type' => [SuggestedPostPrice::class],
-			],
-			'send_date' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'state' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'price' => [
+                'type' => [SuggestedPostPrice::class],
+            ],
+            'send_date' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getState(): mixed
-	{
-		return $this->getFieldValue('state');
-	}
+    /**
+     * Required. State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getState(): mixed
+    {
+        return $this->getFieldValue('state');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setState(mixed $value): static
+    {
+        return $this->setFieldValue('state', $value);
+    }
 
-	public function setState(mixed $value): static
-	{
-		return $this->setFieldValue('state', $value);
-	}
+    /**
+     * Optional. Proposed price of the post. If the field is omitted, then the post is unpaid.
+     *
+     * @return SuggestedPostPrice|null
+     * @throws Base\TelegramException
+     */
+    public function getPrice(): mixed
+    {
+        return $this->getFieldValue('price');
+    }
 
-	/**
-	* @return SuggestedPostPrice
-	*/
+    /**
+     * @param SuggestedPostPrice|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPrice(mixed $value): static
+    {
+        return $this->setFieldValue('price', $value);
+    }
 
-	public function getPrice(): mixed
-	{
-		return $this->getFieldValue('price');
-	}
+    /**
+     * Optional. Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getSendDate(): mixed
+    {
+        return $this->getFieldValue('send_date');
+    }
 
-	/**
-	* @param SuggestedPostPrice $value
-	* @return static
-	*/
-
-	public function setPrice(mixed $value): static
-	{
-		return $this->setFieldValue('price', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getSendDate(): mixed
-	{
-		return $this->getFieldValue('send_date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setSendDate(mixed $value): static
-	{
-		return $this->setFieldValue('send_date', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSendDate(mixed $value): static
+    {
+        return $this->setFieldValue('send_date', $value);
+    }
 }

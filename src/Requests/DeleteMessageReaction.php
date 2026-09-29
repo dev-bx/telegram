@@ -16,16 +16,20 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can\_delete\_messages' administrator right in the chat. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property int $messageId
- * Identifier of the target message
- * @property int $userId
- * Identifier of the user whose reaction will be removed, if the reaction was added by a user
- * @property int $actorChatId
- * Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#deletemessagereaction
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $messageId Required. Identifier of the target message
+ * @property-write int $messageId
+ * @property-read int|null $userId Optional. Identifier of the user whose reaction will be removed, if the reaction was added by a user
+ * @property-write int $userId
+ * @property-read int|null $actorChatId Optional. Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
+ * @property-write int $actorChatId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteMessageReaction extends Base\Request
 {
@@ -46,80 +50,91 @@ class DeleteMessageReaction extends Base\Request
             'actor_chat_id' => [
                 'type' => ['int'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the target message
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Identifier of the user whose reaction will be removed, if the reaction was added by a user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getActorChatId(): mixed
     {
         return $this->getFieldValue('actor_chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setActorChatId(mixed $value): static
     {
         return $this->setFieldValue('actor_chat_id', $value);
@@ -127,6 +142,6 @@ class DeleteMessageReaction extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteMessageReaction';
+        return 'deleteMessageReaction';
     }
 }

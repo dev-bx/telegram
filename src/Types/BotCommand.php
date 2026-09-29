@@ -14,89 +14,97 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a bot command.
- * @property string $command
- * Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
- * @property string $description
- * Description of the command; 1-256 characters
- * @property bool $isEphemeral
- * *Optional*. *True*, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
+ *
+ * @link https://core.telegram.org/bots/api#botcommand
+ *
+ * @property-read string|null $command Required. Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+ * @property-write string $command
+ * @property-read string|null $description Required. Description of the command; 1-256 characters
+ * @property-write string $description
+ * @property-read bool|null $isEphemeral Optional. *True*, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
+ * @property-write bool $isEphemeral
  */
 class BotCommand extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'command' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'description' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'is_ephemeral' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'command' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'description' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'is_ephemeral' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	public function getCommand(): mixed
-	{
-		return $this->getFieldValue('command');
-	}
+    /**
+     * Required. Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCommand(): mixed
+    {
+        return $this->getFieldValue('command');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCommand(mixed $value): static
+    {
+        return $this->setFieldValue('command', $value);
+    }
 
-	public function setCommand(mixed $value): static
-	{
-		return $this->setFieldValue('command', $value);
-	}
+    /**
+     * Required. Description of the command; 1-256 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getDescription(): mixed
+    {
+        return $this->getFieldValue('description');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDescription(mixed $value): static
+    {
+        return $this->setFieldValue('description', $value);
+    }
 
-	public function getDescription(): mixed
-	{
-		return $this->getFieldValue('description');
-	}
+    /**
+     * Optional. *True*, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsEphemeral(): mixed
+    {
+        return $this->getFieldValue('is_ephemeral');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setDescription(mixed $value): static
-	{
-		return $this->setFieldValue('description', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsEphemeral(): mixed
-	{
-		return $this->getFieldValue('is_ephemeral');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsEphemeral(mixed $value): static
-	{
-		return $this->setFieldValue('is_ephemeral', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsEphemeral(mixed $value): static
+    {
+        return $this->setFieldValue('is_ephemeral', $value);
+    }
 }

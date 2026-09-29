@@ -14,137 +14,149 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * An item of a list to be sent.
- * @property Base\ArrayObject|InputRichBlock[] $blocks
- * The content of the item
- * @property bool $hasCheckbox
- * *Optional*. Pass *True* if the item has a checkbox
- * @property bool $isChecked
- * *Optional*. Pass *True* if the item has a checked checkbox
- * @property int $value
- * *Optional*. For ordered lists, the numeric value of the item label
- * @property string $type
- * *Optional*. For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+ *
+ * @link https://core.telegram.org/bots/api#inputrichblocklistitem
+ *
+ * @property-read Base\ArrayObject<InputRichBlock> $blocks Required. The content of the item
+ * @property-write list<InputRichBlock|array<string, mixed>>|Base\ArrayObject<InputRichBlock> $blocks
+ * @property-read bool|null $hasCheckbox Optional. Pass *True* if the item has a checkbox
+ * @property-write bool $hasCheckbox
+ * @property-read bool|null $isChecked Optional. Pass *True* if the item has a checked checkbox
+ * @property-write bool $isChecked
+ * @property-read int|null $value Optional. For ordered lists, the numeric value of the item label
+ * @property-write int $value
+ * @property-read string|null $type Optional. For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+ * @property-write string $type
  */
 class InputRichBlockListItem extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'blocks' => [
-				'type' => [InputRichBlock::class],
-				'isArray' => true,
-				'required' => true,
-			],
-			'has_checkbox' => [
-				'type' => ['bool'],
-			],
-			'is_checked' => [
-				'type' => ['bool'],
-			],
-			'value' => [
-				'type' => ['int'],
-			],
-			'type' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return Base\ArrayObject|InputRichBlock[]
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'blocks' => [
+                'type' => [InputRichBlock::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+            'has_checkbox' => [
+                'type' => ['bool'],
+            ],
+            'is_checked' => [
+                'type' => ['bool'],
+            ],
+            'value' => [
+                'type' => ['int'],
+            ],
+            'type' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	public function getBlocks(): mixed
-	{
-		return $this->getFieldValue('blocks');
-	}
+    /**
+     * Required. The content of the item
+     *
+     * @return Base\ArrayObject<InputRichBlock>
+     * @throws Base\TelegramException
+     */
+    public function getBlocks(): mixed
+    {
+        return $this->getFieldValue('blocks');
+    }
 
-	/**
-	* @param Base\ArrayObject|InputRichBlock[] $value
-	* @return static
-	*/
+    /**
+     * @param list<InputRichBlock|array<string, mixed>>|Base\ArrayObject<InputRichBlock> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBlocks(mixed $value): static
+    {
+        return $this->setFieldValue('blocks', $value);
+    }
 
-	public function setBlocks(mixed $value): static
-	{
-		return $this->setFieldValue('blocks', $value);
-	}
+    /**
+     * Optional. Pass *True* if the item has a checkbox
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getHasCheckbox(): mixed
+    {
+        return $this->getFieldValue('has_checkbox');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHasCheckbox(mixed $value): static
+    {
+        return $this->setFieldValue('has_checkbox', $value);
+    }
 
-	public function getHasCheckbox(): mixed
-	{
-		return $this->getFieldValue('has_checkbox');
-	}
+    /**
+     * Optional. Pass *True* if the item has a checked checkbox
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsChecked(): mixed
+    {
+        return $this->getFieldValue('is_checked');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsChecked(mixed $value): static
+    {
+        return $this->setFieldValue('is_checked', $value);
+    }
 
-	public function setHasCheckbox(mixed $value): static
-	{
-		return $this->setFieldValue('has_checkbox', $value);
-	}
+    /**
+     * Optional. For ordered lists, the numeric value of the item label
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getValue(): mixed
+    {
+        return $this->getFieldValue('value');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setValue(mixed $value): static
+    {
+        return $this->setFieldValue('value', $value);
+    }
 
-	public function getIsChecked(): mixed
-	{
-		return $this->getFieldValue('is_checked');
-	}
+    /**
+     * Optional. For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsChecked(mixed $value): static
-	{
-		return $this->setFieldValue('is_checked', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getValue(): mixed
-	{
-		return $this->getFieldValue('value');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setValue(mixed $value): static
-	{
-		return $this->setFieldValue('value', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 }

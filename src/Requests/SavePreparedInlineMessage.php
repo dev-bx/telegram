@@ -18,20 +18,24 @@ use DevBX\Telegram\InlineMode;
 use DevBX\Telegram\Types;
 
 /**
- * Stores a message that can be sent by a user of a Mini App. Returns a [PreparedInlineMessage](#preparedinlinemessage) object.
- * @property int $userId
- * Unique identifier of the target user that can use the prepared message
- * @property InlineMode\InlineQueryResult $result
- * A JSON-serialized object describing the message to be sent
- * @property bool $allowUserChats
- * Pass *True* if the message can be sent to private chats with users
- * @property bool $allowBotChats
- * Pass *True* if the message can be sent to private chats with bots
- * @property bool $allowGroupChats
- * Pass *True* if the message can be sent to group and supergroup chats
- * @property bool $allowChannelChats
- * Pass *True* if the message can be sent to channel chats
- * @method Types\PreparedInlineMessage send(Api $gateway = null)
+ * Stores a message that can be sent by a user of a Mini App. Returns a `PreparedInlineMessage` object.
+ *
+ * @link https://core.telegram.org/bots/api#savepreparedinlinemessage
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user that can use the prepared message
+ * @property-write int $userId
+ * @property-read InlineMode\InlineQueryResult|null $result Required. A JSON-serialized object describing the message to be sent
+ * @property-write InlineMode\InlineQueryResult|array<string, mixed> $result
+ * @property-read bool|null $allowUserChats Optional. Pass *True* if the message can be sent to private chats with users
+ * @property-write bool $allowUserChats
+ * @property-read bool|null $allowBotChats Optional. Pass *True* if the message can be sent to private chats with bots
+ * @property-write bool $allowBotChats
+ * @property-read bool|null $allowGroupChats Optional. Pass *True* if the message can be sent to group and supergroup chats
+ * @property-write bool $allowGroupChats
+ * @property-read bool|null $allowChannelChats Optional. Pass *True* if the message can be sent to channel chats
+ * @property-write bool $allowChannelChats
+ *
+ * @method Types\PreparedInlineMessage send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SavePreparedInlineMessage extends Base\Request
 {
@@ -59,120 +63,132 @@ class SavePreparedInlineMessage extends Base\Request
                 'type' => ['bool'],
             ],
             '@return' => [
-                'type' => Types\PreparedInlineMessage::class,
+                'type' => [Types\PreparedInlineMessage::class],
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user that can use the prepared message
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return InlineMode\InlineQueryResult
-    */
-
+     * Required. A JSON-serialized object describing the message to be sent
+     *
+     * @return InlineMode\InlineQueryResult|null
+     * @throws Base\TelegramException
+     */
     public function getResult(): mixed
     {
         return $this->getFieldValue('result');
     }
 
     /**
-    * @param InlineMode\InlineQueryResult $value
-    * @return static
-    */
-
+     * @param InlineMode\InlineQueryResult|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setResult(mixed $value): static
     {
         return $this->setFieldValue('result', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the message can be sent to private chats with users
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getAllowUserChats(): mixed
     {
         return $this->getFieldValue('allow_user_chats');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAllowUserChats(mixed $value): static
     {
         return $this->setFieldValue('allow_user_chats', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the message can be sent to private chats with bots
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getAllowBotChats(): mixed
     {
         return $this->getFieldValue('allow_bot_chats');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAllowBotChats(mixed $value): static
     {
         return $this->setFieldValue('allow_bot_chats', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the message can be sent to group and supergroup chats
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getAllowGroupChats(): mixed
     {
         return $this->getFieldValue('allow_group_chats');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAllowGroupChats(mixed $value): static
     {
         return $this->setFieldValue('allow_group_chats', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the message can be sent to channel chats
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getAllowChannelChats(): mixed
     {
         return $this->getFieldValue('allow_channel_chats');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAllowChannelChats(mixed $value): static
     {
         return $this->setFieldValue('allow_channel_chats', $value);
@@ -180,6 +196,6 @@ class SavePreparedInlineMessage extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SavePreparedInlineMessage';
+        return 'savePreparedInlineMessage';
     }
 }

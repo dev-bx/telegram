@@ -15,260 +15,291 @@ namespace DevBX\Telegram\InlineMode;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
- * Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with specified content instead of the animation.
- * @property string $type
- * Type of the result, must be *gif*
- * @property string $id
- * Unique identifier for this result, 1-64 bytes
- * @property string $gifFileId
- * A valid file identifier for the GIF file
- * @property string $title
- * *Optional*. Title for the result
- * @property string $caption
- * *Optional*. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
- * @property string $parseMode
- * *Optional*. Mode for parsing entities in the caption. See [formatting options](#formatting-options) for more details.
- * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
- * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
- * @property bool $showCaptionAboveMedia
- * *Optional*. Pass *True* if the caption must be shown above the message media
- * @property Types\InlineKeyboardMarkup $replyMarkup
- * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
- * @property InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
- * *Optional*. Content of the message to be sent instead of the GIF animation
+ * Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use *input_message_content* to send a message with specified content instead of the animation.
+ *
+ * @link https://core.telegram.org/bots/api#inlinequeryresultcachedgif
+ *
+ * @property-read string|null $type Required. Type of the result, must be *gif*
+ * @property-write string $type
+ * @property-read string|null $id Required. Unique identifier for this result, 1-64 bytes
+ * @property-write string $id
+ * @property-read string|null $gifFileId Required. A valid file identifier for the GIF file
+ * @property-write string $gifFileId
+ * @property-read string|null $title Optional. Title for the result
+ * @property-write string $title
+ * @property-read string|null $caption Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+ * @property-write string $caption
+ * @property-read string|null $parseMode Optional. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * @property-write string $parseMode
+ * @property-read Base\ArrayObject<Types\MessageEntity> $captionEntities Optional. List of special entities that appear in the caption, which can be specified instead of *parse_mode*
+ * @property-write list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $captionEntities
+ * @property-read bool|null $showCaptionAboveMedia Optional. Pass *True* if the caption must be shown above the message media
+ * @property-write bool $showCaptionAboveMedia
+ * @property-read Types\InlineKeyboardMarkup|null $replyMarkup Optional. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
+ * @property-write Types\InlineKeyboardMarkup|array<string, mixed> $replyMarkup
+ * @property-read InputMessageContent|null $inputMessageContent Optional. Content of the message to be sent instead of the GIF animation
+ * @property-write InputMessageContent|array<string, mixed> $inputMessageContent
  */
 class InlineQueryResultCachedGif extends InlineQueryResult
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'gif',
-				'required' => true,
-			],
-			'id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'gif_file_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'title' => [
-				'type' => ['string'],
-			],
-			'caption' => [
-				'type' => ['string'],
-			],
-			'parse_mode' => [
-				'type' => ['string'],
-			],
-			'caption_entities' => [
-				'type' => [Types\MessageEntity::class],
-				'isArray' => true,
-			],
-			'show_caption_above_media' => [
-				'type' => ['bool'],
-			],
-			'reply_markup' => [
-				'type' => [Types\InlineKeyboardMarkup::class],
-			],
-			'input_message_content' => [
-				'type' => [InputMessageContent::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'gif',
+                'required' => true,
+            ],
+            'id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'gif_file_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'title' => [
+                'type' => ['string'],
+            ],
+            'caption' => [
+                'type' => ['string'],
+            ],
+            'parse_mode' => [
+                'type' => ['string'],
+            ],
+            'caption_entities' => [
+                'type' => [Types\MessageEntity::class],
+                'isArray' => true,
+            ],
+            'show_caption_above_media' => [
+                'type' => ['bool'],
+            ],
+            'reply_markup' => [
+                'type' => [Types\InlineKeyboardMarkup::class],
+            ],
+            'input_message_content' => [
+                'type' => [InputMessageContent::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the result, must be *gif*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. Unique identifier for this result, 1-64 bytes
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. A valid file identifier for the GIF file
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getGifFileId(): mixed
+    {
+        return $this->getFieldValue('gif_file_id');
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGifFileId(mixed $value): static
+    {
+        return $this->setFieldValue('gif_file_id', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Title for the result
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getTitle(): mixed
+    {
+        return $this->getFieldValue('title');
+    }
 
-	public function getGifFileId(): mixed
-	{
-		return $this->getFieldValue('gif_file_id');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTitle(mixed $value): static
+    {
+        return $this->setFieldValue('title', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCaption(): mixed
+    {
+        return $this->getFieldValue('caption');
+    }
 
-	public function setGifFileId(mixed $value): static
-	{
-		return $this->setFieldValue('gif_file_id', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaption(mixed $value): static
+    {
+        return $this->setFieldValue('caption', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getParseMode(): mixed
+    {
+        return $this->getFieldValue('parse_mode');
+    }
 
-	public function getTitle(): mixed
-	{
-		return $this->getFieldValue('title');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setParseMode(mixed $value): static
+    {
+        return $this->setFieldValue('parse_mode', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. List of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *
+     * @return Base\ArrayObject<Types\MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getCaptionEntities(): mixed
+    {
+        return $this->getFieldValue('caption_entities');
+    }
 
-	public function setTitle(mixed $value): static
-	{
-		return $this->setFieldValue('title', $value);
-	}
+    /**
+     * @param list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaptionEntities(mixed $value): static
+    {
+        return $this->setFieldValue('caption_entities', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Pass *True* if the caption must be shown above the message media
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getShowCaptionAboveMedia(): mixed
+    {
+        return $this->getFieldValue('show_caption_above_media');
+    }
 
-	public function getCaption(): mixed
-	{
-		return $this->getFieldValue('caption');
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setShowCaptionAboveMedia(mixed $value): static
+    {
+        return $this->setFieldValue('show_caption_above_media', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
+     *
+     * @return Types\InlineKeyboardMarkup|null
+     * @throws Base\TelegramException
+     */
+    public function getReplyMarkup(): mixed
+    {
+        return $this->getFieldValue('reply_markup');
+    }
 
-	public function setCaption(mixed $value): static
-	{
-		return $this->setFieldValue('caption', $value);
-	}
+    /**
+     * @param Types\InlineKeyboardMarkup|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setReplyMarkup(mixed $value): static
+    {
+        return $this->setFieldValue('reply_markup', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Content of the message to be sent instead of the GIF animation
+     *
+     * @return InputMessageContent|null
+     * @throws Base\TelegramException
+     */
+    public function getInputMessageContent(): mixed
+    {
+        return $this->getFieldValue('input_message_content');
+    }
 
-	public function getParseMode(): mixed
-	{
-		return $this->getFieldValue('parse_mode');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setParseMode(mixed $value): static
-	{
-		return $this->setFieldValue('parse_mode', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|Types\MessageEntity[]
-	*/
-
-	public function getCaptionEntities(): mixed
-	{
-		return $this->getFieldValue('caption_entities');
-	}
-
-	/**
-	* @param Base\ArrayObject|Types\MessageEntity[] $value
-	* @return static
-	*/
-
-	public function setCaptionEntities(mixed $value): static
-	{
-		return $this->setFieldValue('caption_entities', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getShowCaptionAboveMedia(): mixed
-	{
-		return $this->getFieldValue('show_caption_above_media');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setShowCaptionAboveMedia(mixed $value): static
-	{
-		return $this->setFieldValue('show_caption_above_media', $value);
-	}
-
-	/**
-	* @return Types\InlineKeyboardMarkup
-	*/
-
-	public function getReplyMarkup(): mixed
-	{
-		return $this->getFieldValue('reply_markup');
-	}
-
-	/**
-	* @param Types\InlineKeyboardMarkup $value
-	* @return static
-	*/
-
-	public function setReplyMarkup(mixed $value): static
-	{
-		return $this->setFieldValue('reply_markup', $value);
-	}
-
-	/**
-	* @return InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
-	*/
-
-	public function getInputMessageContent(): mixed
-	{
-		return $this->getFieldValue('input_message_content');
-	}
-
-	/**
-	* @param InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
-	* @return static
-	*/
-
-	public function setInputMessageContent(mixed $value): static
-	{
-		return $this->setFieldValue('input_message_content', $value);
-	}
-
+    /**
+     * @param InputMessageContent|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInputMessageContent(mixed $value): static
+    {
+        return $this->setFieldValue('input_message_content', $value);
+    }
 }

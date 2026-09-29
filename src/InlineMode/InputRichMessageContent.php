@@ -15,40 +15,53 @@ namespace DevBX\Telegram\InlineMode;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\RichMessages;
 
-
 /**
- * Represents the [content](#inputmessagecontent) of a rich message to be sent as the result of an inline query.
- * @property RichMessages\InputRichMessage $richMessage
- * The message to be sent. Only previously uploaded files may be used in the message.
+ * Represents the `InputMessageContent` of a rich message to be sent as the result of an inline query.
+ *
+ * @link https://core.telegram.org/bots/api#inputrichmessagecontent
+ *
+ * @property-read RichMessages\InputRichMessage|null $richMessage Required. The message to be sent. Only previously uploaded files may be used in the message.
+ * @property-write RichMessages\InputRichMessage|array<string, mixed> $richMessage
  */
 class InputRichMessageContent extends InputMessageContent
 {
-	public static function getFields(): array
-	{
-		return [
-			'rich_message' => [
-				'type' => [RichMessages\InputRichMessage::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return RichMessages\InputRichMessage
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getRichMessage(): mixed
-	{
-		return $this->getFieldValue('rich_message');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'rich_message' => [
+                'type' => [RichMessages\InputRichMessage::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param RichMessages\InputRichMessage $value
-	* @return static
-	*/
+    /**
+     * Required. The message to be sent. Only previously uploaded files may be used in the message.
+     *
+     * @return RichMessages\InputRichMessage|null
+     * @throws Base\TelegramException
+     */
+    public function getRichMessage(): mixed
+    {
+        return $this->getFieldValue('rich_message');
+    }
 
-	public function setRichMessage(mixed $value): static
-	{
-		return $this->setFieldValue('rich_message', $value);
-	}
-
+    /**
+     * @param RichMessages\InputRichMessage|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setRichMessage(mixed $value): static
+    {
+        return $this->setFieldValue('rich_message', $value);
+    }
 }

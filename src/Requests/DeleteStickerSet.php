@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to delete a sticker set that was created by the bot. Returns *True* on success.
- * @property string $name
- * Sticker set name
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#deletestickerset
+ *
+ * @property-read string|null $name Required. Sticker set name
+ * @property-write string $name
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteStickerSet extends Base\Request
 {
@@ -30,23 +34,28 @@ class DeleteStickerSet extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Sticker set name
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
@@ -54,6 +63,6 @@ class DeleteStickerSet extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteStickerSet';
+        return 'deleteStickerSet';
     }
 }

@@ -15,90 +15,107 @@ namespace DevBX\Telegram\RichMessages;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * A block with a music file, corresponding to the HTML tag `<audio>`.
- * @property string $type
- * Type of the block, always “audio”
- * @property Types\Audio $audio
- * The audio
- * @property RichBlockCaption $caption
- * *Optional*. Caption of the block
+ *
+ * @link https://core.telegram.org/bots/api#richblockaudio
+ *
+ * @property-read string|null $type Required. Type of the block, always “audio”
+ * @property-write string $type
+ * @property-read Types\Audio|null $audio Required. The audio
+ * @property-write Types\Audio|array<string, mixed> $audio
+ * @property-read RichBlockCaption|null $caption Optional. Caption of the block
+ * @property-write RichBlockCaption|array<string, mixed> $caption
  */
 class RichBlockAudio extends RichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'audio',
-				'required' => true,
-			],
-			'audio' => [
-				'type' => [Types\Audio::class],
-				'required' => true,
-			],
-			'caption' => [
-				'type' => [RichBlockCaption::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'audio',
+                'required' => true,
+            ],
+            'audio' => [
+                'type' => [Types\Audio::class],
+                'required' => true,
+            ],
+            'caption' => [
+                'type' => [RichBlockCaption::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “audio”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Types\Audio
-	*/
+    /**
+     * Required. The audio
+     *
+     * @return Types\Audio|null
+     * @throws Base\TelegramException
+     */
+    public function getAudio(): mixed
+    {
+        return $this->getFieldValue('audio');
+    }
 
-	public function getAudio(): mixed
-	{
-		return $this->getFieldValue('audio');
-	}
+    /**
+     * @param Types\Audio|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAudio(mixed $value): static
+    {
+        return $this->setFieldValue('audio', $value);
+    }
 
-	/**
-	* @param Types\Audio $value
-	* @return static
-	*/
+    /**
+     * Optional. Caption of the block
+     *
+     * @return RichBlockCaption|null
+     * @throws Base\TelegramException
+     */
+    public function getCaption(): mixed
+    {
+        return $this->getFieldValue('caption');
+    }
 
-	public function setAudio(mixed $value): static
-	{
-		return $this->setFieldValue('audio', $value);
-	}
-
-	/**
-	* @return RichBlockCaption
-	*/
-
-	public function getCaption(): mixed
-	{
-		return $this->getFieldValue('caption');
-	}
-
-	/**
-	* @param RichBlockCaption $value
-	* @return static
-	*/
-
-	public function setCaption(mixed $value): static
-	{
-		return $this->setFieldValue('caption', $value);
-	}
-
+    /**
+     * @param RichBlockCaption|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaption(mixed $value): static
+    {
+        return $this->setFieldValue('caption', $value);
+    }
 }

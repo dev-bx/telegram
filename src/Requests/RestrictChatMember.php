@@ -18,17 +18,21 @@ use DevBX\Telegram\Types;
 
 /**
  * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass *True* for all permissions to lift restrictions from a user. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property int $userId
- * Unique identifier of the target user
- * @property Types\ChatPermissions $permissions
- * A JSON-serialized object for new user permissions
- * @property bool $useIndependentChatPermissions
- * Pass *True* if chat permissions are set independently. Otherwise, the *can\_send\_other\_messages* and *can\_add\_web\_page\_previews* permissions will imply the *can\_send\_messages*, *can\_send\_audios*, *can\_send\_documents*, *can\_send\_photos*, *can\_send\_videos*, *can\_send\_video\_notes*, and *can\_send\_voice\_notes* permissions; the *can\_send\_polls* permission will imply the *can\_send\_messages* permission.
- * @property int $untilDate
- * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#restrictchatmember
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ * @property-read Types\ChatPermissions|null $permissions Required. A JSON-serialized object for new user permissions
+ * @property-write Types\ChatPermissions|array<string, mixed> $permissions
+ * @property-read bool|null $useIndependentChatPermissions Optional. Pass *True* if chat permissions are set independently. Otherwise, the *can_send_other_messages* and *can_add_web_page_previews* permissions will imply the *can_send_messages*, *can_send_audios*, *can_send_documents*, *can_send_photos*, *can_send_videos*, *can_send_video_notes*, and *can_send_voice_notes* permissions; the *can_send_polls* permission will imply the *can_send_messages* permission.
+ * @property-write bool $useIndependentChatPermissions
+ * @property-read int|null $untilDate Optional. Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.
+ * @property-write int $untilDate
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class RestrictChatMember extends Base\Request
 {
@@ -53,99 +57,112 @@ class RestrictChatMember extends Base\Request
             'until_date' => [
                 'type' => ['int'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return Types\ChatPermissions
-    */
-
+     * Required. A JSON-serialized object for new user permissions
+     *
+     * @return Types\ChatPermissions|null
+     * @throws Base\TelegramException
+     */
     public function getPermissions(): mixed
     {
         return $this->getFieldValue('permissions');
     }
 
     /**
-    * @param Types\ChatPermissions $value
-    * @return static
-    */
-
+     * @param Types\ChatPermissions|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPermissions(mixed $value): static
     {
         return $this->setFieldValue('permissions', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if chat permissions are set independently. Otherwise, the *can_send_other_messages* and *can_add_web_page_previews* permissions will imply the *can_send_messages*, *can_send_audios*, *can_send_documents*, *can_send_photos*, *can_send_videos*, *can_send_video_notes*, and *can_send_voice_notes* permissions; the *can_send_polls* permission will imply the *can_send_messages* permission.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getUseIndependentChatPermissions(): mixed
     {
         return $this->getFieldValue('use_independent_chat_permissions');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUseIndependentChatPermissions(mixed $value): static
     {
         return $this->setFieldValue('use_independent_chat_permissions', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUntilDate(): mixed
     {
         return $this->getFieldValue('until_date');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUntilDate(mixed $value): static
     {
         return $this->setFieldValue('until_date', $value);
@@ -153,6 +170,6 @@ class RestrictChatMember extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'RestrictChatMember';
+        return 'restrictChatMember';
     }
 }

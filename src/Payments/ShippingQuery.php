@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,115 +15,125 @@ namespace DevBX\Telegram\Payments;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * This object contains information about an incoming shipping query.
- * @property string $id
- * Unique query identifier
- * @property Types\User $from
- * User who sent the query
- * @property string $invoicePayload
- * Bot-specified invoice payload
- * @property ShippingAddress $shippingAddress
- * User specified shipping address
+ *
+ * @link https://core.telegram.org/bots/api#shippingquery
+ *
+ * @property-read string|null $id Required. Unique query identifier
+ * @property-write string $id
+ * @property-read Types\User|null $from Required. User who sent the query
+ * @property-write Types\User|array<string, mixed> $from
+ * @property-read string|null $invoicePayload Required. Bot-specified invoice payload
+ * @property-write string $invoicePayload
+ * @property-read ShippingAddress|null $shippingAddress Required. User specified shipping address
+ * @property-write ShippingAddress|array<string, mixed> $shippingAddress
  */
 class ShippingQuery extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'from' => [
-				'type' => [Types\User::class],
-				'required' => true,
-			],
-			'invoice_payload' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'shipping_address' => [
-				'type' => [ShippingAddress::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'from' => [
+                'type' => [Types\User::class],
+                'required' => true,
+            ],
+            'invoice_payload' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'shipping_address' => [
+                'type' => [ShippingAddress::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique query identifier
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. User who sent the query
+     *
+     * @return Types\User|null
+     * @throws Base\TelegramException
+     */
+    public function getFrom(): mixed
+    {
+        return $this->getFieldValue('from');
+    }
 
-	/**
-	* @return Types\User
-	*/
+    /**
+     * @param Types\User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFrom(mixed $value): static
+    {
+        return $this->setFieldValue('from', $value);
+    }
 
-	public function getFrom(): mixed
-	{
-		return $this->getFieldValue('from');
-	}
+    /**
+     * Required. Bot-specified invoice payload
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInvoicePayload(): mixed
+    {
+        return $this->getFieldValue('invoice_payload');
+    }
 
-	/**
-	* @param Types\User $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInvoicePayload(mixed $value): static
+    {
+        return $this->setFieldValue('invoice_payload', $value);
+    }
 
-	public function setFrom(mixed $value): static
-	{
-		return $this->setFieldValue('from', $value);
-	}
+    /**
+     * Required. User specified shipping address
+     *
+     * @return ShippingAddress|null
+     * @throws Base\TelegramException
+     */
+    public function getShippingAddress(): mixed
+    {
+        return $this->getFieldValue('shipping_address');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getInvoicePayload(): mixed
-	{
-		return $this->getFieldValue('invoice_payload');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setInvoicePayload(mixed $value): static
-	{
-		return $this->setFieldValue('invoice_payload', $value);
-	}
-
-	/**
-	* @return ShippingAddress
-	*/
-
-	public function getShippingAddress(): mixed
-	{
-		return $this->getFieldValue('shipping_address');
-	}
-
-	/**
-	* @param ShippingAddress $value
-	* @return static
-	*/
-
-	public function setShippingAddress(mixed $value): static
-	{
-		return $this->setFieldValue('shipping_address', $value);
-	}
-
+    /**
+     * @param ShippingAddress|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setShippingAddress(mixed $value): static
+    {
+        return $this->setFieldValue('shipping_address', $value);
+    }
 }

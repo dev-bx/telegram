@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,13 +17,17 @@ use DevBX\Telegram\Api;
 
 /**
  * Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns *True* on success.
- * @property int $userId
- * Identifier of the user whose subscription will be edited
- * @property string $telegramPaymentChargeId
- * Telegram payment identifier for the subscription
- * @property bool $isCanceled
- * Pass *True* to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass *False* to allow the user to re-enable a subscription that was previously canceled by the bot.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#edituserstarsubscription
+ *
+ * @property-read int|null $userId Required. Identifier of the user whose subscription will be edited
+ * @property-write int $userId
+ * @property-read string|null $telegramPaymentChargeId Required. Telegram payment identifier for the subscription
+ * @property-write string $telegramPaymentChargeId
+ * @property-read bool|null $isCanceled Required. Pass *True* to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass *False* to allow the user to re-enable a subscription that was previously canceled by the bot.
+ * @property-write bool $isCanceled
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditUserStarSubscription extends Base\Request
 {
@@ -42,61 +46,70 @@ class EditUserStarSubscription extends Base\Request
                 'type' => ['bool'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the user whose subscription will be edited
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Telegram payment identifier for the subscription
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getTelegramPaymentChargeId(): mixed
     {
         return $this->getFieldValue('telegram_payment_charge_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setTelegramPaymentChargeId(mixed $value): static
     {
         return $this->setFieldValue('telegram_payment_charge_id', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Required. Pass *True* to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass *False* to allow the user to re-enable a subscription that was previously canceled by the bot.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getIsCanceled(): mixed
     {
         return $this->getFieldValue('is_canceled');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setIsCanceled(mixed $value): static
     {
         return $this->setFieldValue('is_canceled', $value);
@@ -104,6 +117,6 @@ class EditUserStarSubscription extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditUserStarSubscription';
+        return 'editUserStarSubscription';
     }
 }

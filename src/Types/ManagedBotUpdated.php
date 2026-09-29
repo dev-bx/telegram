@@ -14,65 +14,71 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains information about the creation, token update, or owner update of a bot that is managed by the current bot.
- * @property User $user
- * User that created the bot
- * @property User $bot
- * Information about the bot. Token of the bot can be fetched using the method [getManagedBotToken](#getmanagedbottoken).
+ *
+ * @link https://core.telegram.org/bots/api#managedbotupdated
+ *
+ * @property-read User|null $user Required. User that created the bot
+ * @property-write User|array<string, mixed> $user
+ * @property-read User|null $bot Required. Information about the bot. Token of the bot can be fetched using the method `getManagedBotToken`.
+ * @property-write User|array<string, mixed> $bot
  */
 class ManagedBotUpdated extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'user' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-			'bot' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return User
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'user' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+            'bot' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getUser(): mixed
-	{
-		return $this->getFieldValue('user');
-	}
+    /**
+     * Required. User that created the bot
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getUser(): mixed
+    {
+        return $this->getFieldValue('user');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUser(mixed $value): static
+    {
+        return $this->setFieldValue('user', $value);
+    }
 
-	public function setUser(mixed $value): static
-	{
-		return $this->setFieldValue('user', $value);
-	}
+    /**
+     * Required. Information about the bot. Token of the bot can be fetched using the method `getManagedBotToken`.
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getBot(): mixed
+    {
+        return $this->getFieldValue('bot');
+    }
 
-	/**
-	* @return User
-	*/
-
-	public function getBot(): mixed
-	{
-		return $this->getFieldValue('bot');
-	}
-
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setBot(mixed $value): static
-	{
-		return $this->setFieldValue('bot', $value);
-	}
-
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBot(mixed $value): static
+    {
+        return $this->setFieldValue('bot', $value);
+    }
 }

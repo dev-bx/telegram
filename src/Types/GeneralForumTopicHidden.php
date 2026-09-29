@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,16 +14,15 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a service message about General forum topic hidden in the chat. Currently holds no information.
+ *
+ * @link https://core.telegram.org/bots/api#generalforumtopichidden
  */
 class GeneralForumTopicHidden extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-
-		];
-	}
+    public static function getFields(): array
+    {
+        return [];
+    }
 }

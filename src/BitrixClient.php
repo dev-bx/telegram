@@ -9,13 +9,18 @@ use DevBX\Telegram\Base\Error;
 class BitrixClient extends \DevBX\Telegram\Api
 {
 
+    /**
+     * @param array<string, mixed> $params
+     * @return string|false
+     * @throws Base\TelegramException
+     */
     public function sendRequest(string $url, array $params, Base\BaseObject $result, bool $multipart)
     {
         $client = new Web\HttpClient($this->clientOptions);
 
         $response = $client->post($url, $params, $multipart);
 
-        if ($response === false) {
+        if (!is_string($response)) {
             foreach ($client->getError() as $error_code => $error) {
                 $result->addErrorItem(new Error($error, $error_code));
             }

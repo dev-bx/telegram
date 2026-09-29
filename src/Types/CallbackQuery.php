@@ -14,186 +14,204 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * This object represents an incoming callback query from a callback button in an [inline keyboard](/bots/features#inline-keyboards). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](#inline-mode)), the field *inline\_message\_id* will be present. Exactly one of the fields *data* or *game\_short\_name* will be present.
- * @property string $id
- * Unique identifier for this query
- * @property User $from
- * Sender
- * @property MaybeInaccessibleMessage|Message|InaccessibleMessage $message
- * *Optional*. Message sent by the bot with the callback button that originated the query
- * @property string $inlineMessageId
- * *Optional*. Identifier of the message sent via the bot in inline mode, that originated the query
- * @property string $chatInstance
- * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in [games](#games).
- * @property string $data
- * *Optional*. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
- * @property string $gameShortName
- * *Optional*. Short name of a [Game](#game) to be returned, serves as the unique identifier for the game
+ * This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api#inline-mode)), the field *inline_message_id* will be present. Exactly one of the fields *data* or *game_short_name* will be present.
+ *
+ * **NOTE:** After the user presses a callback button, Telegram clients will display a progress bar until you call `answerCallbackQuery`. It is, therefore, necessary to react by calling `answerCallbackQuery` even if no notification to the user is needed (e.g., without specifying any of the optional parameters).
+ *
+ * @link https://core.telegram.org/bots/api#callbackquery
+ *
+ * @property-read string|null $id Required. Unique identifier for this query
+ * @property-write string $id
+ * @property-read User|null $from Required. Sender
+ * @property-write User|array<string, mixed> $from
+ * @property-read MaybeInaccessibleMessage|null $message Optional. Message sent by the bot with the callback button that originated the query
+ * @property-write MaybeInaccessibleMessage|array<string, mixed> $message
+ * @property-read string|null $inlineMessageId Optional. Identifier of the message sent via the bot in inline mode, that originated the query
+ * @property-write string $inlineMessageId
+ * @property-read string|null $chatInstance Required. Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in [games](https://core.telegram.org/bots/api#games).
+ * @property-write string $chatInstance
+ * @property-read string|null $data Optional. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
+ * @property-write string $data
+ * @property-read string|null $gameShortName Optional. Short name of a `Game` to be returned, serves as the unique identifier for the game
+ * @property-write string $gameShortName
  */
 class CallbackQuery extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'from' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-			'message' => [
-				'type' => [MaybeInaccessibleMessage::class],
-			],
-			'inline_message_id' => [
-				'type' => ['string'],
-			],
-			'chat_instance' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'data' => [
-				'type' => ['string'],
-			],
-			'game_short_name' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'from' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+            'message' => [
+                'type' => [MaybeInaccessibleMessage::class],
+            ],
+            'inline_message_id' => [
+                'type' => ['string'],
+            ],
+            'chat_instance' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'data' => [
+                'type' => ['string'],
+            ],
+            'game_short_name' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique identifier for this query
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. Sender
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getFrom(): mixed
+    {
+        return $this->getFieldValue('from');
+    }
 
-	/**
-	* @return User
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFrom(mixed $value): static
+    {
+        return $this->setFieldValue('from', $value);
+    }
 
-	public function getFrom(): mixed
-	{
-		return $this->getFieldValue('from');
-	}
+    /**
+     * Optional. Message sent by the bot with the callback button that originated the query
+     *
+     * @return MaybeInaccessibleMessage|null
+     * @throws Base\TelegramException
+     */
+    public function getMessage(): mixed
+    {
+        return $this->getFieldValue('message');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
+    /**
+     * @param MaybeInaccessibleMessage|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessage(mixed $value): static
+    {
+        return $this->setFieldValue('message', $value);
+    }
 
-	public function setFrom(mixed $value): static
-	{
-		return $this->setFieldValue('from', $value);
-	}
+    /**
+     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInlineMessageId(): mixed
+    {
+        return $this->getFieldValue('inline_message_id');
+    }
 
-	/**
-	* @return MaybeInaccessibleMessage|Message|InaccessibleMessage
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInlineMessageId(mixed $value): static
+    {
+        return $this->setFieldValue('inline_message_id', $value);
+    }
 
-	public function getMessage(): mixed
-	{
-		return $this->getFieldValue('message');
-	}
+    /**
+     * Required. Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in [games](https://core.telegram.org/bots/api#games).
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getChatInstance(): mixed
+    {
+        return $this->getFieldValue('chat_instance');
+    }
 
-	/**
-	* @param MaybeInaccessibleMessage|Message|InaccessibleMessage $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChatInstance(mixed $value): static
+    {
+        return $this->setFieldValue('chat_instance', $value);
+    }
 
-	public function setMessage(mixed $value): static
-	{
-		return $this->setFieldValue('message', $value);
-	}
+    /**
+     * Optional. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getData(): mixed
+    {
+        return $this->getFieldValue('data');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setData(mixed $value): static
+    {
+        return $this->setFieldValue('data', $value);
+    }
 
-	public function getInlineMessageId(): mixed
-	{
-		return $this->getFieldValue('inline_message_id');
-	}
+    /**
+     * Optional. Short name of a `Game` to be returned, serves as the unique identifier for the game
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getGameShortName(): mixed
+    {
+        return $this->getFieldValue('game_short_name');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setInlineMessageId(mixed $value): static
-	{
-		return $this->setFieldValue('inline_message_id', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getChatInstance(): mixed
-	{
-		return $this->getFieldValue('chat_instance');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setChatInstance(mixed $value): static
-	{
-		return $this->setFieldValue('chat_instance', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getData(): mixed
-	{
-		return $this->getFieldValue('data');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setData(mixed $value): static
-	{
-		return $this->setFieldValue('data', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getGameShortName(): mixed
-	{
-		return $this->getFieldValue('game_short_name');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setGameShortName(mixed $value): static
-	{
-		return $this->setFieldValue('game_short_name', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGameShortName(mixed $value): static
+    {
+        return $this->setFieldValue('game_short_name', $value);
+    }
 }

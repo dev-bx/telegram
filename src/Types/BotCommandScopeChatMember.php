@@ -14,91 +14,108 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * Represents the [scope](#botcommandscope) of bot commands, covering a specific member of a group or supergroup chat.
- * @property string $type
- * Scope type, must be *chat\_member*
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
- * @property int $userId
- * Unique identifier of the target user
+ * Represents the `BotCommandScope` of bot commands, covering a specific member of a group or supergroup chat.
+ *
+ * @link https://core.telegram.org/bots/api#botcommandscopechatmember
+ *
+ * @property-read string|null $type Required. Scope type, must be *chat_member*
+ * @property-write string $type
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
+ * @property-write int|string $chatId
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
  */
 class BotCommandScopeChatMember extends BotCommandScope
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'chat_member',
-				'required' => true,
-			],
-			'chat_id' => [
-				'type' => ['int', 'string'],
-				'required' => true,
-			],
-			'user_id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'chat_member',
+                'required' => true,
+            ],
+            'chat_id' => [
+                'type' => ['int', 'string'],
+                'required' => true,
+            ],
+            'user_id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Scope type, must be *chat_member*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return int|string
-	*/
+    /**
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
+    public function getChatId(): mixed
+    {
+        return $this->getFieldValue('chat_id');
+    }
 
-	public function getChatId(): mixed
-	{
-		return $this->getFieldValue('chat_id');
-	}
+    /**
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChatId(mixed $value): static
+    {
+        return $this->setFieldValue('chat_id', $value);
+    }
 
-	/**
-	* @param int|string $value
-	* @return static
-	*/
+    /**
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getUserId(): mixed
+    {
+        return $this->getFieldValue('user_id');
+    }
 
-	public function setChatId(mixed $value): static
-	{
-		return $this->setFieldValue('chat_id', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getUserId(): mixed
-	{
-		return $this->getFieldValue('user_id');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setUserId(mixed $value): static
-	{
-		return $this->setFieldValue('user_id', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUserId(mixed $value): static
+    {
+        return $this->setFieldValue('user_id', $value);
+    }
 }

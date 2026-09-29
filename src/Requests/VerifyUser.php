@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
- * @property int $userId
- * Unique identifier of the target user
- * @property string $customDescription
- * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#verifyuser
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ * @property-read string|null $customDescription Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+ * @property-write string $customDescription
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class VerifyUser extends Base\Request
 {
@@ -35,42 +39,49 @@ class VerifyUser extends Base\Request
             'custom_description' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getCustomDescription(): mixed
     {
         return $this->getFieldValue('custom_description');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCustomDescription(mixed $value): static
     {
         return $this->setFieldValue('custom_description', $value);
@@ -78,6 +89,6 @@ class VerifyUser extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'VerifyUser';
+        return 'verifyUser';
     }
 }

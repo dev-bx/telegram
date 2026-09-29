@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,16 +14,15 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
+ *
+ * @link https://core.telegram.org/bots/api#inputfile
  */
 class InputFile extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-
-		];
-	}
+    public static function getFields(): array
+    {
+        return [];
+    }
 }

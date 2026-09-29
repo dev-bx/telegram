@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns [MenuButton](#menubutton) on success.
- * @property int $chatId
- * Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
- * @method Types\MenuButton send(Api $gateway = null)
+ * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns `MenuButton` on success.
+ *
+ * @link https://core.telegram.org/bots/api#getchatmenubutton
+ *
+ * @property-read int|null $chatId Optional. Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
+ * @property-write int $chatId
+ *
+ * @method Types\MenuButton send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetChatMenuButton extends Base\Request
 {
@@ -31,25 +35,27 @@ class GetChatMenuButton extends Base\Request
                 'type' => ['int'],
             ],
             '@return' => [
-                'type' => Types\MenuButton::class,
+                'type' => [Types\MenuButton::class],
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
@@ -57,6 +63,6 @@ class GetChatMenuButton extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetChatMenuButton';
+        return 'getChatMenuButton';
     }
 }

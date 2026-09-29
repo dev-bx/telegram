@@ -14,163 +14,177 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope).
- * @property string $fileId
- * Identifier for this file, which can be used to download or reuse the file
- * @property string $fileUniqueId
- * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
- * @property int $length
- * Video width and height (diameter of the video message) as defined by the sender
- * @property int $duration
- * Duration of the video in seconds as defined by the sender
- * @property PhotoSize $thumbnail
- * *Optional*. Video thumbnail
- * @property int $fileSize
- * *Optional*. File size in bytes
+ *
+ * @link https://core.telegram.org/bots/api#videonote
+ *
+ * @property-read string|null $fileId Required. Identifier for this file, which can be used to download or reuse the file
+ * @property-write string $fileId
+ * @property-read string|null $fileUniqueId Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property-write string $fileUniqueId
+ * @property-read int|null $length Required. Video width and height (diameter of the video message) as defined by the sender
+ * @property-write int $length
+ * @property-read int|null $duration Required. Duration of the video in seconds as defined by the sender
+ * @property-write int $duration
+ * @property-read PhotoSize|null $thumbnail Optional. Video thumbnail
+ * @property-write PhotoSize|array<string, mixed> $thumbnail
+ * @property-read int|null $fileSize Optional. File size in bytes
+ * @property-write int $fileSize
  */
 class VideoNote extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'file_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'file_unique_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'length' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'duration' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'thumbnail' => [
-				'type' => [PhotoSize::class],
-			],
-			'file_size' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'file_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'file_unique_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'length' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'duration' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'thumbnail' => [
+                'type' => [PhotoSize::class],
+            ],
+            'file_size' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getFileId(): mixed
-	{
-		return $this->getFieldValue('file_id');
-	}
+    /**
+     * Required. Identifier for this file, which can be used to download or reuse the file
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileId(): mixed
+    {
+        return $this->getFieldValue('file_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileId(mixed $value): static
+    {
+        return $this->setFieldValue('file_id', $value);
+    }
 
-	public function setFileId(mixed $value): static
-	{
-		return $this->setFieldValue('file_id', $value);
-	}
+    /**
+     * Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileUniqueId(): mixed
+    {
+        return $this->getFieldValue('file_unique_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileUniqueId(mixed $value): static
+    {
+        return $this->setFieldValue('file_unique_id', $value);
+    }
 
-	public function getFileUniqueId(): mixed
-	{
-		return $this->getFieldValue('file_unique_id');
-	}
+    /**
+     * Required. Video width and height (diameter of the video message) as defined by the sender
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getLength(): mixed
+    {
+        return $this->getFieldValue('length');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLength(mixed $value): static
+    {
+        return $this->setFieldValue('length', $value);
+    }
 
-	public function setFileUniqueId(mixed $value): static
-	{
-		return $this->setFieldValue('file_unique_id', $value);
-	}
+    /**
+     * Required. Duration of the video in seconds as defined by the sender
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDuration(): mixed
+    {
+        return $this->getFieldValue('duration');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDuration(mixed $value): static
+    {
+        return $this->setFieldValue('duration', $value);
+    }
 
-	public function getLength(): mixed
-	{
-		return $this->getFieldValue('length');
-	}
+    /**
+     * Optional. Video thumbnail
+     *
+     * @return PhotoSize|null
+     * @throws Base\TelegramException
+     */
+    public function getThumbnail(): mixed
+    {
+        return $this->getFieldValue('thumbnail');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param PhotoSize|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setThumbnail(mixed $value): static
+    {
+        return $this->setFieldValue('thumbnail', $value);
+    }
 
-	public function setLength(mixed $value): static
-	{
-		return $this->setFieldValue('length', $value);
-	}
+    /**
+     * Optional. File size in bytes
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getFileSize(): mixed
+    {
+        return $this->getFieldValue('file_size');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getDuration(): mixed
-	{
-		return $this->getFieldValue('duration');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDuration(mixed $value): static
-	{
-		return $this->setFieldValue('duration', $value);
-	}
-
-	/**
-	* @return PhotoSize
-	*/
-
-	public function getThumbnail(): mixed
-	{
-		return $this->getFieldValue('thumbnail');
-	}
-
-	/**
-	* @param PhotoSize $value
-	* @return static
-	*/
-
-	public function setThumbnail(mixed $value): static
-	{
-		return $this->setFieldValue('thumbnail', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getFileSize(): mixed
-	{
-		return $this->getFieldValue('file_size');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setFileSize(mixed $value): static
-	{
-		return $this->setFieldValue('file_size', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileSize(mixed $value): static
+    {
+        return $this->setFieldValue('file_size', $value);
+    }
 }

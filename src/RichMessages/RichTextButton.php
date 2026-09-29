@@ -14,66 +14,81 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A button.
- * @property string $type
- * Type of the rich text, always “button”
- * @property RichMessageButton $button
- * The button
+ *
+ * @link https://core.telegram.org/bots/api#richtextbutton
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “button”
+ * @property-write string $type
+ * @property-read RichMessageButton|null $button Required. The button
+ * @property-write RichMessageButton|array<string, mixed> $button
  */
 class RichTextButton extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'button',
-				'required' => true,
-			],
-			'button' => [
-				'type' => [RichMessageButton::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'button',
+                'required' => true,
+            ],
+            'button' => [
+                'type' => [RichMessageButton::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “button”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return RichMessageButton
-	*/
+    /**
+     * Required. The button
+     *
+     * @return RichMessageButton|null
+     * @throws Base\TelegramException
+     */
+    public function getButton(): mixed
+    {
+        return $this->getFieldValue('button');
+    }
 
-	public function getButton(): mixed
-	{
-		return $this->getFieldValue('button');
-	}
-
-	/**
-	* @param RichMessageButton $value
-	* @return static
-	*/
-
-	public function setButton(mixed $value): static
-	{
-		return $this->setFieldValue('button', $value);
-	}
-
+    /**
+     * @param RichMessageButton|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setButton(mixed $value): static
+    {
+        return $this->setFieldValue('button', $value);
+    }
 }

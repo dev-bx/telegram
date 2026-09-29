@@ -14,167 +14,181 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains information about the color scheme for a user's name, message replies and link previews based on a unique gift.
- * @property string $modelCustomEmojiId
- * Custom emoji identifier of the unique gift's model
- * @property string $symbolCustomEmojiId
- * Custom emoji identifier of the unique gift's symbol
- * @property int $lightThemeMainColor
- * Main color used in light themes; RGB format
- * @property int[] $lightThemeOtherColors
- * List of 1-3 additional colors used in light themes; RGB format
- * @property int $darkThemeMainColor
- * Main color used in dark themes; RGB format
- * @property int[] $darkThemeOtherColors
- * List of 1-3 additional colors used in dark themes; RGB format
+ *
+ * @link https://core.telegram.org/bots/api#uniquegiftcolors
+ *
+ * @property-read string|null $modelCustomEmojiId Required. Custom emoji identifier of the unique gift's model
+ * @property-write string $modelCustomEmojiId
+ * @property-read string|null $symbolCustomEmojiId Required. Custom emoji identifier of the unique gift's symbol
+ * @property-write string $symbolCustomEmojiId
+ * @property-read int|null $lightThemeMainColor Required. Main color used in light themes; RGB format
+ * @property-write int $lightThemeMainColor
+ * @property-read Base\ArrayObject<Base\ParameterInt> $lightThemeOtherColors Required. List of 1-3 additional colors used in light themes; RGB format
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $lightThemeOtherColors
+ * @property-read int|null $darkThemeMainColor Required. Main color used in dark themes; RGB format
+ * @property-write int $darkThemeMainColor
+ * @property-read Base\ArrayObject<Base\ParameterInt> $darkThemeOtherColors Required. List of 1-3 additional colors used in dark themes; RGB format
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $darkThemeOtherColors
  */
 class UniqueGiftColors extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'model_custom_emoji_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'symbol_custom_emoji_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'light_theme_main_color' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'light_theme_other_colors' => [
-				'type' => ['int'],
-				'isArray' => true,
-				'required' => true,
-			],
-			'dark_theme_main_color' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'dark_theme_other_colors' => [
-				'type' => ['int'],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'model_custom_emoji_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'symbol_custom_emoji_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'light_theme_main_color' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'light_theme_other_colors' => [
+                'type' => ['int'],
+                'isArray' => true,
+                'required' => true,
+            ],
+            'dark_theme_main_color' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'dark_theme_other_colors' => [
+                'type' => ['int'],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getModelCustomEmojiId(): mixed
-	{
-		return $this->getFieldValue('model_custom_emoji_id');
-	}
+    /**
+     * Required. Custom emoji identifier of the unique gift's model
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getModelCustomEmojiId(): mixed
+    {
+        return $this->getFieldValue('model_custom_emoji_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setModelCustomEmojiId(mixed $value): static
+    {
+        return $this->setFieldValue('model_custom_emoji_id', $value);
+    }
 
-	public function setModelCustomEmojiId(mixed $value): static
-	{
-		return $this->setFieldValue('model_custom_emoji_id', $value);
-	}
+    /**
+     * Required. Custom emoji identifier of the unique gift's symbol
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getSymbolCustomEmojiId(): mixed
+    {
+        return $this->getFieldValue('symbol_custom_emoji_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSymbolCustomEmojiId(mixed $value): static
+    {
+        return $this->setFieldValue('symbol_custom_emoji_id', $value);
+    }
 
-	public function getSymbolCustomEmojiId(): mixed
-	{
-		return $this->getFieldValue('symbol_custom_emoji_id');
-	}
+    /**
+     * Required. Main color used in light themes; RGB format
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getLightThemeMainColor(): mixed
+    {
+        return $this->getFieldValue('light_theme_main_color');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLightThemeMainColor(mixed $value): static
+    {
+        return $this->setFieldValue('light_theme_main_color', $value);
+    }
 
-	public function setSymbolCustomEmojiId(mixed $value): static
-	{
-		return $this->setFieldValue('symbol_custom_emoji_id', $value);
-	}
+    /**
+     * Required. List of 1-3 additional colors used in light themes; RGB format
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
+    public function getLightThemeOtherColors(): mixed
+    {
+        return $this->getFieldValue('light_theme_other_colors');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLightThemeOtherColors(mixed $value): static
+    {
+        return $this->setFieldValue('light_theme_other_colors', $value);
+    }
 
-	public function getLightThemeMainColor(): mixed
-	{
-		return $this->getFieldValue('light_theme_main_color');
-	}
+    /**
+     * Required. Main color used in dark themes; RGB format
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDarkThemeMainColor(): mixed
+    {
+        return $this->getFieldValue('dark_theme_main_color');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDarkThemeMainColor(mixed $value): static
+    {
+        return $this->setFieldValue('dark_theme_main_color', $value);
+    }
 
-	public function setLightThemeMainColor(mixed $value): static
-	{
-		return $this->setFieldValue('light_theme_main_color', $value);
-	}
+    /**
+     * Required. List of 1-3 additional colors used in dark themes; RGB format
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
+    public function getDarkThemeOtherColors(): mixed
+    {
+        return $this->getFieldValue('dark_theme_other_colors');
+    }
 
-	/**
-	* @return int[]
-	*/
-
-	public function getLightThemeOtherColors(): mixed
-	{
-		return $this->getFieldValue('light_theme_other_colors');
-	}
-
-	/**
-	* @param int[] $value
-	* @return static
-	*/
-
-	public function setLightThemeOtherColors(mixed $value): static
-	{
-		return $this->setFieldValue('light_theme_other_colors', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getDarkThemeMainColor(): mixed
-	{
-		return $this->getFieldValue('dark_theme_main_color');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDarkThemeMainColor(mixed $value): static
-	{
-		return $this->setFieldValue('dark_theme_main_color', $value);
-	}
-
-	/**
-	* @return int[]
-	*/
-
-	public function getDarkThemeOtherColors(): mixed
-	{
-		return $this->getFieldValue('dark_theme_other_colors');
-	}
-
-	/**
-	* @param int[] $value
-	* @return static
-	*/
-
-	public function setDarkThemeOtherColors(mixed $value): static
-	{
-		return $this->setFieldValue('dark_theme_other_colors', $value);
-	}
-
+    /**
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDarkThemeOtherColors(mixed $value): static
+    {
+        return $this->setFieldValue('dark_theme_other_colors', $value);
+    }
 }

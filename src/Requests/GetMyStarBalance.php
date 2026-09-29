@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,8 +17,11 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * A method to get the current Telegram Stars balance of the bot. Requires no parameters. On success, returns a [StarAmount](#staramount) object.
- * @method Types\StarAmount send(Api $gateway = null)
+ * A method to get the current Telegram Stars balance of the bot. Requires no parameters. On success, returns a `StarAmount` object.
+ *
+ * @link https://core.telegram.org/bots/api#getmystarbalance
+ *
+ * @method Types\StarAmount send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetMyStarBalance extends Base\Request
 {
@@ -26,13 +29,13 @@ class GetMyStarBalance extends Base\Request
     {
         return [
             '@return' => [
-                'type' => Types\StarAmount::class,
+                'type' => [Types\StarAmount::class],
             ],
         ];
     }
 
     protected function getRequestMethod(): string
     {
-        return 'GetMyStarBalance';
+        return 'getMyStarBalance';
     }
 }

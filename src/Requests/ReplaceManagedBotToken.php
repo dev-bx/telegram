@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as *String* on success.
- * @property int $userId
- * User identifier of the managed bot whose token will be replaced
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#replacemanagedbottoken
+ *
+ * @property-read int|null $userId Required. User identifier of the managed bot whose token will be replaced
+ * @property-write int $userId
+ *
+ * @method Base\ParameterString send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class ReplaceManagedBotToken extends Base\Request
 {
@@ -30,23 +34,28 @@ class ReplaceManagedBotToken extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['string'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. User identifier of the managed bot whose token will be replaced
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -54,6 +63,6 @@ class ReplaceManagedBotToken extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'ReplaceManagedBotToken';
+        return 'replaceManagedBotToken';
     }
 }

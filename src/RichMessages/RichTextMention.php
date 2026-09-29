@@ -14,91 +14,108 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A mention by a username.
- * @property string $type
- * Type of the rich text, always “mention”
- * @property RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $text
- * The text
- * @property string $username
- * The username
+ *
+ * @link https://core.telegram.org/bots/api#richtextmention
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “mention”
+ * @property-write string $type
+ * @property-read RichText|string|list<mixed>|null $text Required. The text
+ * @property-write RichText|string|list<mixed>|array<string, mixed> $text
+ * @property-read string|null $username Required. The username
+ * @property-write string $username
  */
 class RichTextMention extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'mention',
-				'required' => true,
-			],
-			'text' => [
-				'type' => [RichText::class],
-				'required' => true,
-			],
-			'username' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'mention',
+                'required' => true,
+            ],
+            'text' => [
+                'type' => [RichText::class],
+                'required' => true,
+            ],
+            'username' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “mention”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink
-	*/
+    /**
+     * Required. The text
+     *
+     * @return RichText|string|list<mixed>|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * @param RichText|string|list<mixed>|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	/**
-	* @param RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $value
-	* @return static
-	*/
+    /**
+     * Required. The username
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getUsername(): mixed
+    {
+        return $this->getFieldValue('username');
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getUsername(): mixed
-	{
-		return $this->getFieldValue('username');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setUsername(mixed $value): static
-	{
-		return $this->setFieldValue('username', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUsername(mixed $value): static
+    {
+        return $this->setFieldValue('username', $value);
+    }
 }

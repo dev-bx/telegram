@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,116 +14,126 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents reaction changes on a message with anonymous reactions.
- * @property Chat $chat
- * The chat containing the message
- * @property int $messageId
- * Unique message identifier inside the chat
- * @property int $date
- * Date of the change in Unix time
- * @property Base\ArrayObject|ReactionCount[] $reactions
- * List of reactions that are present on the message
+ *
+ * @link https://core.telegram.org/bots/api#messagereactioncountupdated
+ *
+ * @property-read Chat|null $chat Required. The chat containing the message
+ * @property-write Chat|array<string, mixed> $chat
+ * @property-read int|null $messageId Required. Unique message identifier inside the chat
+ * @property-write int $messageId
+ * @property-read int|null $date Required. Date of the change in Unix time
+ * @property-write int $date
+ * @property-read Base\ArrayObject<ReactionCount> $reactions Required. List of reactions that are present on the message
+ * @property-write list<ReactionCount|array<string, mixed>>|Base\ArrayObject<ReactionCount> $reactions
  */
 class MessageReactionCountUpdated extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'chat' => [
-				'type' => [Chat::class],
-				'required' => true,
-			],
-			'message_id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'date' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'reactions' => [
-				'type' => [ReactionCount::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Chat
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'chat' => [
+                'type' => [Chat::class],
+                'required' => true,
+            ],
+            'message_id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'date' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'reactions' => [
+                'type' => [ReactionCount::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getChat(): mixed
-	{
-		return $this->getFieldValue('chat');
-	}
+    /**
+     * Required. The chat containing the message
+     *
+     * @return Chat|null
+     * @throws Base\TelegramException
+     */
+    public function getChat(): mixed
+    {
+        return $this->getFieldValue('chat');
+    }
 
-	/**
-	* @param Chat $value
-	* @return static
-	*/
+    /**
+     * @param Chat|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChat(mixed $value): static
+    {
+        return $this->setFieldValue('chat', $value);
+    }
 
-	public function setChat(mixed $value): static
-	{
-		return $this->setFieldValue('chat', $value);
-	}
+    /**
+     * Required. Unique message identifier inside the chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getMessageId(): mixed
+    {
+        return $this->getFieldValue('message_id');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessageId(mixed $value): static
+    {
+        return $this->setFieldValue('message_id', $value);
+    }
 
-	public function getMessageId(): mixed
-	{
-		return $this->getFieldValue('message_id');
-	}
+    /**
+     * Required. Date of the change in Unix time
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDate(): mixed
+    {
+        return $this->getFieldValue('date');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDate(mixed $value): static
+    {
+        return $this->setFieldValue('date', $value);
+    }
 
-	public function setMessageId(mixed $value): static
-	{
-		return $this->setFieldValue('message_id', $value);
-	}
+    /**
+     * Required. List of reactions that are present on the message
+     *
+     * @return Base\ArrayObject<ReactionCount>
+     * @throws Base\TelegramException
+     */
+    public function getReactions(): mixed
+    {
+        return $this->getFieldValue('reactions');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getDate(): mixed
-	{
-		return $this->getFieldValue('date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDate(mixed $value): static
-	{
-		return $this->setFieldValue('date', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|ReactionCount[]
-	*/
-
-	public function getReactions(): mixed
-	{
-		return $this->getFieldValue('reactions');
-	}
-
-	/**
-	* @param Base\ArrayObject|ReactionCount[] $value
-	* @return static
-	*/
-
-	public function setReactions(mixed $value): static
-	{
-		return $this->setFieldValue('reactions', $value);
-	}
-
+    /**
+     * @param list<ReactionCount|array<string, mixed>>|Base\ArrayObject<ReactionCount> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setReactions(mixed $value): static
+    {
+        return $this->setFieldValue('reactions', $value);
+    }
 }

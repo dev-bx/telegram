@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,22 +17,26 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Edits a story previously posted by the bot on behalf of a managed business account. Requires the *can\_manage\_stories* business bot right. Returns [Story](#story) on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection
- * @property int $storyId
- * Unique identifier of the story to edit
- * @property Types\InputStoryContent $content
- * Content of the story
- * @property string $caption
- * Caption of the story, 0-2048 characters after entities parsing
- * @property string $parseMode
- * Mode for parsing entities in the story caption. See [formatting options](#formatting-options) for more details.
- * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
- * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
- * @property Base\ArrayObject|Types\StoryArea[] $areas
- * A JSON-serialized list of clickable areas to be shown on the story
- * @method Types\Story send(Api $gateway = null)
+ * Edits a story previously posted by the bot on behalf of a managed business account. Requires the *can_manage_stories* business bot right. Returns `Story` on success.
+ *
+ * @link https://core.telegram.org/bots/api#editstory
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection
+ * @property-write string $businessConnectionId
+ * @property-read int|null $storyId Required. Unique identifier of the story to edit
+ * @property-write int $storyId
+ * @property-read Types\InputStoryContent|null $content Required. Content of the story
+ * @property-write Types\InputStoryContent|array<string, mixed> $content
+ * @property-read string|null $caption Optional. Caption of the story, 0-2048 characters after entities parsing
+ * @property-write string $caption
+ * @property-read string|null $parseMode Optional. Mode for parsing entities in the story caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * @property-write string $parseMode
+ * @property-read Base\ArrayObject<Types\MessageEntity> $captionEntities Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+ * @property-write list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $captionEntities
+ * @property-read Base\ArrayObject<Types\StoryArea> $areas Optional. A JSON-serialized list of clickable areas to be shown on the story
+ * @property-write list<Types\StoryArea|array<string, mixed>>|Base\ArrayObject<Types\StoryArea> $areas
+ *
+ * @method Types\Story send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditStory extends Base\Request
 {
@@ -66,139 +70,153 @@ class EditStory extends Base\Request
                 'isArray' => true,
             ],
             '@return' => [
-                'type' => Types\Story::class,
+                'type' => [Types\Story::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the story to edit
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getStoryId(): mixed
     {
         return $this->getFieldValue('story_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setStoryId(mixed $value): static
     {
         return $this->setFieldValue('story_id', $value);
     }
 
     /**
-    * @return Types\InputStoryContent
-    */
-
+     * Required. Content of the story
+     *
+     * @return Types\InputStoryContent|null
+     * @throws Base\TelegramException
+     */
     public function getContent(): mixed
     {
         return $this->getFieldValue('content');
     }
 
     /**
-    * @param Types\InputStoryContent $value
-    * @return static
-    */
-
+     * @param Types\InputStoryContent|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setContent(mixed $value): static
     {
         return $this->setFieldValue('content', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Caption of the story, 0-2048 characters after entities parsing
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getCaption(): mixed
     {
         return $this->getFieldValue('caption');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCaption(mixed $value): static
     {
         return $this->setFieldValue('caption', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Mode for parsing entities in the story caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getParseMode(): mixed
     {
         return $this->getFieldValue('parse_mode');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setParseMode(mixed $value): static
     {
         return $this->setFieldValue('parse_mode', $value);
     }
 
     /**
-    * @return Base\ArrayObject|Types\MessageEntity[]
-    */
-
+     * Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *
+     * @return Base\ArrayObject<Types\MessageEntity>
+     * @throws Base\TelegramException
+     */
     public function getCaptionEntities(): mixed
     {
         return $this->getFieldValue('caption_entities');
     }
 
     /**
-    * @param Base\ArrayObject|Types\MessageEntity[] $value
-    * @return static
-    */
-
+     * @param list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCaptionEntities(mixed $value): static
     {
         return $this->setFieldValue('caption_entities', $value);
     }
 
     /**
-    * @return Base\ArrayObject|Types\StoryArea[]
-    */
-
+     * Optional. A JSON-serialized list of clickable areas to be shown on the story
+     *
+     * @return Base\ArrayObject<Types\StoryArea>
+     * @throws Base\TelegramException
+     */
     public function getAreas(): mixed
     {
         return $this->getFieldValue('areas');
     }
 
     /**
-    * @param Base\ArrayObject|Types\StoryArea[] $value
-    * @return static
-    */
-
+     * @param list<Types\StoryArea|array<string, mixed>>|Base\ArrayObject<Types\StoryArea> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setAreas(mixed $value): static
     {
         return $this->setFieldValue('areas', $value);
@@ -206,6 +224,6 @@ class EditStory extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditStory';
+        return 'editStory';
     }
 }

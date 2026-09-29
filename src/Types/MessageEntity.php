@@ -14,234 +14,254 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
- * @property string $type
- * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag` or `#hashtag@chatusername`), “cashtag” (`$USD` or `$USD@chatusername`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable\_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers), or “date\_time” (for formatted date and time).
- * @property int $offset
- * Offset in [UTF-16 code units](/api/entities#entity-length) to the start of the entity
- * @property int $length
- * Length of the entity in [UTF-16 code units](/api/entities#entity-length)
- * @property string $url
- * *Optional*. For “text\_link” only, URL that will be opened after user taps on the text
- * @property User $user
- * *Optional*. For “text\_mention” only, the mentioned user
- * @property string $language
- * *Optional*. For “pre” only, the programming language of the entity text
- * @property string $customEmojiId
- * *Optional*. For “custom\_emoji” only, unique identifier of the custom emoji. Use [getCustomEmojiStickers](#getcustomemojistickers) to get full information about the sticker.
- * @property int $unixTime
- * *Optional*. For “date\_time” only, the Unix time associated with the entity
- * @property string $dateTimeFormat
- * *Optional*. For “date\_time” only, the string that defines the formatting of the date and time. See [date-time entity formatting](#date-time-entity-formatting) for more details.
+ *
+ * @link https://core.telegram.org/bots/api#messageentity
+ *
+ * @property-read string|null $type Required. Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag` or `#hashtag@chatusername`), “cashtag” (`$USD` or `$USD@chatusername`), “bot_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+ * @property-write string $type
+ * @property-read int|null $offset Required. Offset in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length) to the start of the entity
+ * @property-write int $offset
+ * @property-read int|null $length Required. Length of the entity in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length)
+ * @property-write int $length
+ * @property-read string|null $url Optional. For “text_link” only, URL that will be opened after user taps on the text
+ * @property-write string $url
+ * @property-read User|null $user Optional. For “text_mention” only, the mentioned user
+ * @property-write User|array<string, mixed> $user
+ * @property-read string|null $language Optional. For “pre” only, the programming language of the entity text
+ * @property-write string $language
+ * @property-read string|null $customEmojiId Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use `getCustomEmojiStickers` to get full information about the sticker.
+ * @property-write string $customEmojiId
+ * @property-read int|null $unixTime Optional. For “date_time” only, the Unix time associated with the entity
+ * @property-write int $unixTime
+ * @property-read string|null $dateTimeFormat Optional. For “date_time” only, the string that defines the formatting of the date and time. See [date-time entity formatting](https://core.telegram.org/bots/api#date-time-entity-formatting) for more details.
+ * @property-write string $dateTimeFormat
  */
 class MessageEntity extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'offset' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'length' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'url' => [
-				'type' => ['string'],
-			],
-			'user' => [
-				'type' => [User::class],
-			],
-			'language' => [
-				'type' => ['string'],
-			],
-			'custom_emoji_id' => [
-				'type' => ['string'],
-			],
-			'unix_time' => [
-				'type' => ['int'],
-			],
-			'date_time_format' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'offset' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'length' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'url' => [
+                'type' => ['string'],
+            ],
+            'user' => [
+                'type' => [User::class],
+            ],
+            'language' => [
+                'type' => ['string'],
+            ],
+            'custom_emoji_id' => [
+                'type' => ['string'],
+            ],
+            'unix_time' => [
+                'type' => ['int'],
+            ],
+            'date_time_format' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    /**
+     * Required. Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag` or `#hashtag@chatusername`), “cashtag” (`$USD` or `$USD@chatusername`), “bot_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * Required. Offset in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length) to the start of the entity
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getOffset(): mixed
+    {
+        return $this->getFieldValue('offset');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setOffset(mixed $value): static
+    {
+        return $this->setFieldValue('offset', $value);
+    }
 
-	public function getOffset(): mixed
-	{
-		return $this->getFieldValue('offset');
-	}
+    /**
+     * Required. Length of the entity in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length)
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getLength(): mixed
+    {
+        return $this->getFieldValue('length');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLength(mixed $value): static
+    {
+        return $this->setFieldValue('length', $value);
+    }
 
-	public function setOffset(mixed $value): static
-	{
-		return $this->setFieldValue('offset', $value);
-	}
+    /**
+     * Optional. For “text_link” only, URL that will be opened after user taps on the text
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getUrl(): mixed
+    {
+        return $this->getFieldValue('url');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUrl(mixed $value): static
+    {
+        return $this->setFieldValue('url', $value);
+    }
 
-	public function getLength(): mixed
-	{
-		return $this->getFieldValue('length');
-	}
+    /**
+     * Optional. For “text_mention” only, the mentioned user
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getUser(): mixed
+    {
+        return $this->getFieldValue('user');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUser(mixed $value): static
+    {
+        return $this->setFieldValue('user', $value);
+    }
 
-	public function setLength(mixed $value): static
-	{
-		return $this->setFieldValue('length', $value);
-	}
+    /**
+     * Optional. For “pre” only, the programming language of the entity text
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getLanguage(): mixed
+    {
+        return $this->getFieldValue('language');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLanguage(mixed $value): static
+    {
+        return $this->setFieldValue('language', $value);
+    }
 
-	public function getUrl(): mixed
-	{
-		return $this->getFieldValue('url');
-	}
+    /**
+     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use `getCustomEmojiStickers` to get full information about the sticker.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCustomEmojiId(): mixed
+    {
+        return $this->getFieldValue('custom_emoji_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCustomEmojiId(mixed $value): static
+    {
+        return $this->setFieldValue('custom_emoji_id', $value);
+    }
 
-	public function setUrl(mixed $value): static
-	{
-		return $this->setFieldValue('url', $value);
-	}
+    /**
+     * Optional. For “date_time” only, the Unix time associated with the entity
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getUnixTime(): mixed
+    {
+        return $this->getFieldValue('unix_time');
+    }
 
-	/**
-	* @return User
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUnixTime(mixed $value): static
+    {
+        return $this->setFieldValue('unix_time', $value);
+    }
 
-	public function getUser(): mixed
-	{
-		return $this->getFieldValue('user');
-	}
+    /**
+     * Optional. For “date_time” only, the string that defines the formatting of the date and time. See [date-time entity formatting](https://core.telegram.org/bots/api#date-time-entity-formatting) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getDateTimeFormat(): mixed
+    {
+        return $this->getFieldValue('date_time_format');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setUser(mixed $value): static
-	{
-		return $this->setFieldValue('user', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getLanguage(): mixed
-	{
-		return $this->getFieldValue('language');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setLanguage(mixed $value): static
-	{
-		return $this->setFieldValue('language', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getCustomEmojiId(): mixed
-	{
-		return $this->getFieldValue('custom_emoji_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setCustomEmojiId(mixed $value): static
-	{
-		return $this->setFieldValue('custom_emoji_id', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getUnixTime(): mixed
-	{
-		return $this->getFieldValue('unix_time');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setUnixTime(mixed $value): static
-	{
-		return $this->setFieldValue('unix_time', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getDateTimeFormat(): mixed
-	{
-		return $this->getFieldValue('date_time_format');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setDateTimeFormat(mixed $value): static
-	{
-		return $this->setFieldValue('date_time_format', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDateTimeFormat(mixed $value): static
+    {
+        return $this->setFieldValue('date_time_format', $value);
+    }
 }

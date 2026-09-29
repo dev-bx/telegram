@@ -17,26 +17,30 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
- * @property string $businessConnectionId
- * Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
- * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message to edit.
- * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
- * @property string $caption
- * New caption of the message, 0-1024 characters after entities parsing
- * @property string $parseMode
- * Mode for parsing entities in the message caption. See [formatting options](#formatting-options) for more details.
- * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
- * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
- * @property bool $showCaptionAboveMedia
- * Pass *True* if the caption must be shown above the message media. Supported only for animation, photo and video messages.
- * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
- * @method Types\Message|bool send(Api $gateway = null)
+ * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited `Message` is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+ *
+ * @link https://core.telegram.org/bots/api#editmessagecaption
+ *
+ * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+ * @property-write string $businessConnectionId
+ * @property-read int|string|null $chatId Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+ * @property-write int|string $chatId
+ * @property-read int|null $messageId Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
+ * @property-write int $messageId
+ * @property-read string|null $inlineMessageId Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
+ * @property-write string $inlineMessageId
+ * @property-read string|null $caption Optional. New caption of the message, 0-1024 characters after entities parsing
+ * @property-write string $caption
+ * @property-read string|null $parseMode Optional. Mode for parsing entities in the message caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * @property-write string $parseMode
+ * @property-read Base\ArrayObject<Types\MessageEntity> $captionEntities Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+ * @property-write list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $captionEntities
+ * @property-read bool|null $showCaptionAboveMedia Optional. Pass *True* if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+ * @property-write bool $showCaptionAboveMedia
+ * @property-read Types\InlineKeyboardMarkup|null $replyMarkup Optional. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+ * @property-write Types\InlineKeyboardMarkup|array<string, mixed> $replyMarkup
+ *
+ * @method Types\Message|bool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditMessageCaption extends Base\Request
 {
@@ -72,178 +76,196 @@ class EditMessageCaption extends Base\Request
                 'type' => [Types\InlineKeyboardMarkup::class],
             ],
             '@return' => [
-                'type' => Types\Message::class,
+                'type' => [Types\Message::class],
                 'canReturnBool' => true,
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return int|string
-    */
-
+     * Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getInlineMessageId(): mixed
     {
         return $this->getFieldValue('inline_message_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setInlineMessageId(mixed $value): static
     {
         return $this->setFieldValue('inline_message_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New caption of the message, 0-1024 characters after entities parsing
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getCaption(): mixed
     {
         return $this->getFieldValue('caption');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCaption(mixed $value): static
     {
         return $this->setFieldValue('caption', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Mode for parsing entities in the message caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getParseMode(): mixed
     {
         return $this->getFieldValue('parse_mode');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setParseMode(mixed $value): static
     {
         return $this->setFieldValue('parse_mode', $value);
     }
 
     /**
-    * @return Base\ArrayObject|Types\MessageEntity[]
-    */
-
+     * Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *
+     * @return Base\ArrayObject<Types\MessageEntity>
+     * @throws Base\TelegramException
+     */
     public function getCaptionEntities(): mixed
     {
         return $this->getFieldValue('caption_entities');
     }
 
     /**
-    * @param Base\ArrayObject|Types\MessageEntity[] $value
-    * @return static
-    */
-
+     * @param list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setCaptionEntities(mixed $value): static
     {
         return $this->setFieldValue('caption_entities', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getShowCaptionAboveMedia(): mixed
     {
         return $this->getFieldValue('show_caption_above_media');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setShowCaptionAboveMedia(mixed $value): static
     {
         return $this->setFieldValue('show_caption_above_media', $value);
     }
 
     /**
-    * @return Types\InlineKeyboardMarkup
-    */
-
+     * Optional. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+     *
+     * @return Types\InlineKeyboardMarkup|null
+     * @throws Base\TelegramException
+     */
     public function getReplyMarkup(): mixed
     {
         return $this->getFieldValue('reply_markup');
     }
 
     /**
-    * @param Types\InlineKeyboardMarkup $value
-    * @return static
-    */
-
+     * @param Types\InlineKeyboardMarkup|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReplyMarkup(mixed $value): static
     {
         return $this->setFieldValue('reply_markup', $value);
@@ -251,6 +273,6 @@ class EditMessageCaption extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditMessageCaption';
+        return 'editMessageCaption';
     }
 }

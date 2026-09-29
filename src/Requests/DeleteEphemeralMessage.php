@@ -17,13 +17,17 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property int $receiverUserId
- * Identifier of the user who received the message
- * @property int $ephemeralMessageId
- * Identifier of the ephemeral message to delete
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#deleteephemeralmessage
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $receiverUserId Required. Identifier of the user who received the message
+ * @property-write int $receiverUserId
+ * @property-read int|null $ephemeralMessageId Required. Identifier of the ephemeral message to delete
+ * @property-write int $ephemeralMessageId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteEphemeralMessage extends Base\Request
 {
@@ -42,61 +46,70 @@ class DeleteEphemeralMessage extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the user who received the message
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getReceiverUserId(): mixed
     {
         return $this->getFieldValue('receiver_user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReceiverUserId(mixed $value): static
     {
         return $this->setFieldValue('receiver_user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the ephemeral message to delete
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getEphemeralMessageId(): mixed
     {
         return $this->getFieldValue('ephemeral_message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setEphemeralMessageId(mixed $value): static
     {
         return $this->setFieldValue('ephemeral_message_id', $value);
@@ -104,6 +117,6 @@ class DeleteEphemeralMessage extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteEphemeralMessage';
+        return 'deleteEphemeralMessage';
     }
 }

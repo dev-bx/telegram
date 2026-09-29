@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,382 +15,414 @@ namespace DevBX\Telegram\Stickers;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * This object represents a sticker.
- * @property string $fileId
- * Identifier for this file, which can be used to download or reuse the file
- * @property string $fileUniqueId
- * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
- * @property string $type
- * Type of the sticker, currently one of “regular”, “mask”, “custom\_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*.
- * @property int $width
- * Sticker width
- * @property int $height
- * Sticker height
- * @property bool $isAnimated
- * *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
- * @property bool $isVideo
- * *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
- * @property Types\PhotoSize $thumbnail
- * *Optional*. Sticker thumbnail in the .WEBP or .JPG format
- * @property string $emoji
- * *Optional*. Emoji associated with the sticker
- * @property string $setName
- * *Optional*. Name of the sticker set to which the sticker belongs
- * @property Types\File $premiumAnimation
- * *Optional*. For premium regular stickers, premium animation for the sticker
- * @property MaskPosition $maskPosition
- * *Optional*. For mask stickers, the position where the mask should be placed
- * @property string $customEmojiId
- * *Optional*. For custom emoji stickers, unique identifier of the custom emoji
- * @property bool $needsRepainting
- * *Optional*. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
- * @property int $fileSize
- * *Optional*. File size in bytes
+ *
+ * @link https://core.telegram.org/bots/api#sticker
+ *
+ * @property-read string|null $fileId Required. Identifier for this file, which can be used to download or reuse the file
+ * @property-write string $fileId
+ * @property-read string|null $fileUniqueId Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+ * @property-write string $fileUniqueId
+ * @property-read string|null $type Required. Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is_animated* and *is_video*.
+ * @property-write string $type
+ * @property-read int|null $width Required. Sticker width
+ * @property-write int $width
+ * @property-read int|null $height Required. Sticker height
+ * @property-write int $height
+ * @property-read bool|null $isAnimated Required. *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
+ * @property-write bool $isAnimated
+ * @property-read bool|null $isVideo Required. *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
+ * @property-write bool $isVideo
+ * @property-read Types\PhotoSize|null $thumbnail Optional. Sticker thumbnail in the .WEBP or .JPG format
+ * @property-write Types\PhotoSize|array<string, mixed> $thumbnail
+ * @property-read string|null $emoji Optional. Emoji associated with the sticker
+ * @property-write string $emoji
+ * @property-read string|null $setName Optional. Name of the sticker set to which the sticker belongs
+ * @property-write string $setName
+ * @property-read Types\File|null $premiumAnimation Optional. For premium regular stickers, premium animation for the sticker
+ * @property-write Types\File|array<string, mixed> $premiumAnimation
+ * @property-read MaskPosition|null $maskPosition Optional. For mask stickers, the position where the mask should be placed
+ * @property-write MaskPosition|array<string, mixed> $maskPosition
+ * @property-read string|null $customEmojiId Optional. For custom emoji stickers, unique identifier of the custom emoji
+ * @property-write string $customEmojiId
+ * @property-read bool|null $needsRepainting Optional. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+ * @property-write bool $needsRepainting
+ * @property-read int|null $fileSize Optional. File size in bytes
+ * @property-write int $fileSize
  */
 class Sticker extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'file_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'file_unique_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'type' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'width' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'height' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'is_animated' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'is_video' => [
-				'type' => ['bool'],
-				'required' => true,
-			],
-			'thumbnail' => [
-				'type' => [Types\PhotoSize::class],
-			],
-			'emoji' => [
-				'type' => ['string'],
-			],
-			'set_name' => [
-				'type' => ['string'],
-			],
-			'premium_animation' => [
-				'type' => [Types\File::class],
-			],
-			'mask_position' => [
-				'type' => [MaskPosition::class],
-			],
-			'custom_emoji_id' => [
-				'type' => ['string'],
-			],
-			'needs_repainting' => [
-				'type' => ['bool'],
-			],
-			'file_size' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'file_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'file_unique_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'type' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'width' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'height' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'is_animated' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'is_video' => [
+                'type' => ['bool'],
+                'required' => true,
+            ],
+            'thumbnail' => [
+                'type' => [Types\PhotoSize::class],
+            ],
+            'emoji' => [
+                'type' => ['string'],
+            ],
+            'set_name' => [
+                'type' => ['string'],
+            ],
+            'premium_animation' => [
+                'type' => [Types\File::class],
+            ],
+            'mask_position' => [
+                'type' => [MaskPosition::class],
+            ],
+            'custom_emoji_id' => [
+                'type' => ['string'],
+            ],
+            'needs_repainting' => [
+                'type' => ['bool'],
+            ],
+            'file_size' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getFileId(): mixed
-	{
-		return $this->getFieldValue('file_id');
-	}
+    /**
+     * Required. Identifier for this file, which can be used to download or reuse the file
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileId(): mixed
+    {
+        return $this->getFieldValue('file_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileId(mixed $value): static
+    {
+        return $this->setFieldValue('file_id', $value);
+    }
 
-	public function setFileId(mixed $value): static
-	{
-		return $this->setFieldValue('file_id', $value);
-	}
+    /**
+     * Required. Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getFileUniqueId(): mixed
+    {
+        return $this->getFieldValue('file_unique_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileUniqueId(mixed $value): static
+    {
+        return $this->setFieldValue('file_unique_id', $value);
+    }
 
-	public function getFileUniqueId(): mixed
-	{
-		return $this->getFieldValue('file_unique_id');
-	}
+    /**
+     * Required. Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is_animated* and *is_video*.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	public function setFileUniqueId(mixed $value): static
-	{
-		return $this->setFieldValue('file_unique_id', $value);
-	}
+    /**
+     * Required. Sticker width
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getWidth(): mixed
+    {
+        return $this->getFieldValue('width');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWidth(mixed $value): static
+    {
+        return $this->setFieldValue('width', $value);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    /**
+     * Required. Sticker height
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getHeight(): mixed
+    {
+        return $this->getFieldValue('height');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHeight(mixed $value): static
+    {
+        return $this->setFieldValue('height', $value);
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * Required. *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsAnimated(): mixed
+    {
+        return $this->getFieldValue('is_animated');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsAnimated(mixed $value): static
+    {
+        return $this->setFieldValue('is_animated', $value);
+    }
 
-	public function getWidth(): mixed
-	{
-		return $this->getFieldValue('width');
-	}
+    /**
+     * Required. *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsVideo(): mixed
+    {
+        return $this->getFieldValue('is_video');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsVideo(mixed $value): static
+    {
+        return $this->setFieldValue('is_video', $value);
+    }
 
-	public function setWidth(mixed $value): static
-	{
-		return $this->setFieldValue('width', $value);
-	}
+    /**
+     * Optional. Sticker thumbnail in the .WEBP or .JPG format
+     *
+     * @return Types\PhotoSize|null
+     * @throws Base\TelegramException
+     */
+    public function getThumbnail(): mixed
+    {
+        return $this->getFieldValue('thumbnail');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param Types\PhotoSize|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setThumbnail(mixed $value): static
+    {
+        return $this->setFieldValue('thumbnail', $value);
+    }
 
-	public function getHeight(): mixed
-	{
-		return $this->getFieldValue('height');
-	}
+    /**
+     * Optional. Emoji associated with the sticker
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getEmoji(): mixed
+    {
+        return $this->getFieldValue('emoji');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setEmoji(mixed $value): static
+    {
+        return $this->setFieldValue('emoji', $value);
+    }
 
-	public function setHeight(mixed $value): static
-	{
-		return $this->setFieldValue('height', $value);
-	}
+    /**
+     * Optional. Name of the sticker set to which the sticker belongs
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getSetName(): mixed
+    {
+        return $this->getFieldValue('set_name');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSetName(mixed $value): static
+    {
+        return $this->setFieldValue('set_name', $value);
+    }
 
-	public function getIsAnimated(): mixed
-	{
-		return $this->getFieldValue('is_animated');
-	}
+    /**
+     * Optional. For premium regular stickers, premium animation for the sticker
+     *
+     * @return Types\File|null
+     * @throws Base\TelegramException
+     */
+    public function getPremiumAnimation(): mixed
+    {
+        return $this->getFieldValue('premium_animation');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param Types\File|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPremiumAnimation(mixed $value): static
+    {
+        return $this->setFieldValue('premium_animation', $value);
+    }
 
-	public function setIsAnimated(mixed $value): static
-	{
-		return $this->setFieldValue('is_animated', $value);
-	}
+    /**
+     * Optional. For mask stickers, the position where the mask should be placed
+     *
+     * @return MaskPosition|null
+     * @throws Base\TelegramException
+     */
+    public function getMaskPosition(): mixed
+    {
+        return $this->getFieldValue('mask_position');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param MaskPosition|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMaskPosition(mixed $value): static
+    {
+        return $this->setFieldValue('mask_position', $value);
+    }
 
-	public function getIsVideo(): mixed
-	{
-		return $this->getFieldValue('is_video');
-	}
+    /**
+     * Optional. For custom emoji stickers, unique identifier of the custom emoji
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCustomEmojiId(): mixed
+    {
+        return $this->getFieldValue('custom_emoji_id');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCustomEmojiId(mixed $value): static
+    {
+        return $this->setFieldValue('custom_emoji_id', $value);
+    }
 
-	public function setIsVideo(mixed $value): static
-	{
-		return $this->setFieldValue('is_video', $value);
-	}
+    /**
+     * Optional. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getNeedsRepainting(): mixed
+    {
+        return $this->getFieldValue('needs_repainting');
+    }
 
-	/**
-	* @return Types\PhotoSize
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setNeedsRepainting(mixed $value): static
+    {
+        return $this->setFieldValue('needs_repainting', $value);
+    }
 
-	public function getThumbnail(): mixed
-	{
-		return $this->getFieldValue('thumbnail');
-	}
+    /**
+     * Optional. File size in bytes
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getFileSize(): mixed
+    {
+        return $this->getFieldValue('file_size');
+    }
 
-	/**
-	* @param Types\PhotoSize $value
-	* @return static
-	*/
-
-	public function setThumbnail(mixed $value): static
-	{
-		return $this->setFieldValue('thumbnail', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getEmoji(): mixed
-	{
-		return $this->getFieldValue('emoji');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setEmoji(mixed $value): static
-	{
-		return $this->setFieldValue('emoji', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getSetName(): mixed
-	{
-		return $this->getFieldValue('set_name');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setSetName(mixed $value): static
-	{
-		return $this->setFieldValue('set_name', $value);
-	}
-
-	/**
-	* @return Types\File
-	*/
-
-	public function getPremiumAnimation(): mixed
-	{
-		return $this->getFieldValue('premium_animation');
-	}
-
-	/**
-	* @param Types\File $value
-	* @return static
-	*/
-
-	public function setPremiumAnimation(mixed $value): static
-	{
-		return $this->setFieldValue('premium_animation', $value);
-	}
-
-	/**
-	* @return MaskPosition
-	*/
-
-	public function getMaskPosition(): mixed
-	{
-		return $this->getFieldValue('mask_position');
-	}
-
-	/**
-	* @param MaskPosition $value
-	* @return static
-	*/
-
-	public function setMaskPosition(mixed $value): static
-	{
-		return $this->setFieldValue('mask_position', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getCustomEmojiId(): mixed
-	{
-		return $this->getFieldValue('custom_emoji_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setCustomEmojiId(mixed $value): static
-	{
-		return $this->setFieldValue('custom_emoji_id', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getNeedsRepainting(): mixed
-	{
-		return $this->getFieldValue('needs_repainting');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setNeedsRepainting(mixed $value): static
-	{
-		return $this->setFieldValue('needs_repainting', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getFileSize(): mixed
-	{
-		return $this->getFieldValue('file_size');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setFileSize(mixed $value): static
-	{
-		return $this->setFieldValue('file_size', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileSize(mixed $value): static
+    {
+        return $this->setFieldValue('file_size', $value);
+    }
 }

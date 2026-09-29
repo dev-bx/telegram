@@ -14,112 +14,122 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about a successful payment for a suggested post.
- * @property Message $suggestedPostMessage
- * *Optional*. Message containing the suggested post. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property string $currency
- * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
- * @property int $amount
- * *Optional*. The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
- * @property StarAmount $starAmount
- * *Optional*. The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
+ *
+ * @link https://core.telegram.org/bots/api#suggestedpostpaid
+ *
+ * @property-read Message|null $suggestedPostMessage Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write Message|array<string, mixed> $suggestedPostMessage
+ * @property-read string|null $currency Required. Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
+ * @property-write string $currency
+ * @property-read int|null $amount Optional. The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
+ * @property-write int $amount
+ * @property-read StarAmount|null $starAmount Optional. The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
+ * @property-write StarAmount|array<string, mixed> $starAmount
  */
 class SuggestedPostPaid extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'suggested_post_message' => [
-				'type' => [Message::class],
-			],
-			'currency' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'amount' => [
-				'type' => ['int'],
-			],
-			'star_amount' => [
-				'type' => [StarAmount::class],
-			],
-		];
-	}
-	/**
-	* @return Message
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'suggested_post_message' => [
+                'type' => [Message::class],
+            ],
+            'currency' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'amount' => [
+                'type' => ['int'],
+            ],
+            'star_amount' => [
+                'type' => [StarAmount::class],
+            ],
+        ];
+    }
 
-	public function getSuggestedPostMessage(): mixed
-	{
-		return $this->getFieldValue('suggested_post_message');
-	}
+    /**
+     * Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return Message|null
+     * @throws Base\TelegramException
+     */
+    public function getSuggestedPostMessage(): mixed
+    {
+        return $this->getFieldValue('suggested_post_message');
+    }
 
-	/**
-	* @param Message $value
-	* @return static
-	*/
+    /**
+     * @param Message|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSuggestedPostMessage(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_message', $value);
+    }
 
-	public function setSuggestedPostMessage(mixed $value): static
-	{
-		return $this->setFieldValue('suggested_post_message', $value);
-	}
+    /**
+     * Required. Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCurrency(): mixed
+    {
+        return $this->getFieldValue('currency');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCurrency(mixed $value): static
+    {
+        return $this->setFieldValue('currency', $value);
+    }
 
-	public function getCurrency(): mixed
-	{
-		return $this->getFieldValue('currency');
-	}
+    /**
+     * Optional. The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getAmount(): mixed
+    {
+        return $this->getFieldValue('amount');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAmount(mixed $value): static
+    {
+        return $this->setFieldValue('amount', $value);
+    }
 
-	public function setCurrency(mixed $value): static
-	{
-		return $this->setFieldValue('currency', $value);
-	}
+    /**
+     * Optional. The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
+     *
+     * @return StarAmount|null
+     * @throws Base\TelegramException
+     */
+    public function getStarAmount(): mixed
+    {
+        return $this->getFieldValue('star_amount');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getAmount(): mixed
-	{
-		return $this->getFieldValue('amount');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setAmount(mixed $value): static
-	{
-		return $this->setFieldValue('amount', $value);
-	}
-
-	/**
-	* @return StarAmount
-	*/
-
-	public function getStarAmount(): mixed
-	{
-		return $this->getFieldValue('star_amount');
-	}
-
-	/**
-	* @param StarAmount $value
-	* @return static
-	*/
-
-	public function setStarAmount(mixed $value): static
-	{
-		return $this->setFieldValue('star_amount', $value);
-	}
-
+    /**
+     * @param StarAmount|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setStarAmount(mixed $value): static
+    {
+        return $this->setFieldValue('star_amount', $value);
+    }
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,117 +14,136 @@ namespace DevBX\Telegram\Passport;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
- * @property string $source
- * Error source, must be *files*
- * @property string $type
- * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
- * @property string[] $fileHashes
- * List of base64-encoded file hashes
- * @property string $message
- * Error message
+ *
+ * @link https://core.telegram.org/bots/api#passportelementerrorfiles
+ *
+ * @property-read string|null $source Required. Error source, must be *files*
+ * @property-write string $source
+ * @property-read string|null $type Required. The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<Base\ParameterString> $fileHashes Required. List of base64-encoded file hashes
+ * @property-write list<string>|Base\ArrayObject<Base\ParameterString> $fileHashes
+ * @property-read string|null $message Required. Error message
+ * @property-write string $message
  */
 class PassportElementErrorFiles extends PassportElementError
 {
-	public static function getFields(): array
-	{
-		return [
-			'source' => [
-				'type' => ['string'],
-				'value' => 'files',
-				'required' => true,
-			],
-			'type' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'file_hashes' => [
-				'type' => ['string'],
-				'isArray' => true,
-				'required' => true,
-			],
-			'message' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getSource(): mixed
-	{
-		return $this->getFieldValue('source');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'source' => [
+                'type' => ['string'],
+                'value' => 'files',
+                'required' => true,
+            ],
+            'type' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'file_hashes' => [
+                'type' => ['string'],
+                'isArray' => true,
+                'required' => true,
+            ],
+            'message' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Error source, must be *files*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getSource(): mixed
+    {
+        return $this->getFieldValue('source');
+    }
 
-	public function setSource(mixed $value): static
-	{
-		return $this->setFieldValue('source', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSource(mixed $value): static
+    {
+        return $this->setFieldValue('source', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. List of base64-encoded file hashes
+     *
+     * @return Base\ArrayObject<Base\ParameterString>
+     * @throws Base\TelegramException
+     */
+    public function getFileHashes(): mixed
+    {
+        return $this->getFieldValue('file_hashes');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param list<string>|Base\ArrayObject<Base\ParameterString> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFileHashes(mixed $value): static
+    {
+        return $this->setFieldValue('file_hashes', $value);
+    }
 
-	/**
-	* @return string[]
-	*/
+    /**
+     * Required. Error message
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMessage(): mixed
+    {
+        return $this->getFieldValue('message');
+    }
 
-	public function getFileHashes(): mixed
-	{
-		return $this->getFieldValue('file_hashes');
-	}
-
-	/**
-	* @param string[] $value
-	* @return static
-	*/
-
-	public function setFileHashes(mixed $value): static
-	{
-		return $this->setFieldValue('file_hashes', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getMessage(): mixed
-	{
-		return $this->getFieldValue('message');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setMessage(mixed $value): static
-	{
-		return $this->setFieldValue('message', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessage(mixed $value): static
+    {
+        return $this->setFieldValue('message', $value);
+    }
 }

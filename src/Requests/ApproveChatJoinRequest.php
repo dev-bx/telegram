@@ -16,12 +16,16 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the *can\_invite\_users* administrator right. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @property int $userId
- * Unique identifier of the target user
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the *can_invite_users* administrator right. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#approvechatjoinrequest
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class ApproveChatJoinRequest extends Base\Request
 {
@@ -36,42 +40,49 @@ class ApproveChatJoinRequest extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
@@ -79,6 +90,6 @@ class ApproveChatJoinRequest extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'ApproveChatJoinRequest';
+        return 'approveChatJoinRequest';
     }
 }

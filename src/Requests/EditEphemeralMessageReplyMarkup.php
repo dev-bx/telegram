@@ -18,15 +18,19 @@ use DevBX\Telegram\Types;
 
 /**
  * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, *True* is returned.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup in the format `@username`
- * @property int $receiverUserId
- * Identifier of the user who received the message
- * @property int $ephemeralMessageId
- * Identifier of the ephemeral message to edit
- * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#editephemeralmessagereplymarkup
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read int|null $receiverUserId Required. Identifier of the user who received the message
+ * @property-write int $receiverUserId
+ * @property-read int|null $ephemeralMessageId Required. Identifier of the ephemeral message to edit
+ * @property-write int $ephemeralMessageId
+ * @property-read Types\InlineKeyboardMarkup|null $replyMarkup Optional. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+ * @property-write Types\InlineKeyboardMarkup|array<string, mixed> $replyMarkup
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditEphemeralMessageReplyMarkup extends Base\Request
 {
@@ -48,80 +52,91 @@ class EditEphemeralMessageReplyMarkup extends Base\Request
             'reply_markup' => [
                 'type' => [Types\InlineKeyboardMarkup::class],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the user who received the message
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getReceiverUserId(): mixed
     {
         return $this->getFieldValue('receiver_user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReceiverUserId(mixed $value): static
     {
         return $this->setFieldValue('receiver_user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of the ephemeral message to edit
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getEphemeralMessageId(): mixed
     {
         return $this->getFieldValue('ephemeral_message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setEphemeralMessageId(mixed $value): static
     {
         return $this->setFieldValue('ephemeral_message_id', $value);
     }
 
     /**
-    * @return Types\InlineKeyboardMarkup
-    */
-
+     * Optional. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+     *
+     * @return Types\InlineKeyboardMarkup|null
+     * @throws Base\TelegramException
+     */
     public function getReplyMarkup(): mixed
     {
         return $this->getFieldValue('reply_markup');
     }
 
     /**
-    * @param Types\InlineKeyboardMarkup $value
-    * @return static
-    */
-
+     * @param Types\InlineKeyboardMarkup|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setReplyMarkup(mixed $value): static
     {
         return $this->setFieldValue('reply_markup', $value);
@@ -129,6 +144,6 @@ class EditEphemeralMessageReplyMarkup extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditEphemeralMessageReplyMarkup';
+        return 'editEphemeralMessageReplyMarkup';
     }
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,67 +14,82 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The paid media is a photo.
- * @property string $type
- * Type of the paid media, always “photo”
- * @property Base\ArrayObject|PhotoSize[] $photo
- * The photo
+ *
+ * @link https://core.telegram.org/bots/api#paidmediaphoto
+ *
+ * @property-read string|null $type Required. Type of the paid media, always “photo”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<PhotoSize> $photo Required. The photo
+ * @property-write list<PhotoSize|array<string, mixed>>|Base\ArrayObject<PhotoSize> $photo
  */
 class PaidMediaPhoto extends PaidMedia
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'photo',
-				'required' => true,
-			],
-			'photo' => [
-				'type' => [PhotoSize::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'photo',
+                'required' => true,
+            ],
+            'photo' => [
+                'type' => [PhotoSize::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the paid media, always “photo”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Base\ArrayObject|PhotoSize[]
-	*/
+    /**
+     * Required. The photo
+     *
+     * @return Base\ArrayObject<PhotoSize>
+     * @throws Base\TelegramException
+     */
+    public function getPhoto(): mixed
+    {
+        return $this->getFieldValue('photo');
+    }
 
-	public function getPhoto(): mixed
-	{
-		return $this->getFieldValue('photo');
-	}
-
-	/**
-	* @param Base\ArrayObject|PhotoSize[] $value
-	* @return static
-	*/
-
-	public function setPhoto(mixed $value): static
-	{
-		return $this->setFieldValue('photo', $value);
-	}
-
+    /**
+     * @param list<PhotoSize|array<string, mixed>>|Base\ArrayObject<PhotoSize> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPhoto(mixed $value): static
+    {
+        return $this->setFieldValue('photo', $value);
+    }
 }

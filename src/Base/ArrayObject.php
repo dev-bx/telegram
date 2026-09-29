@@ -2,31 +2,49 @@
 
 namespace DevBX\Telegram\Base;
 
-class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
+/**
+ * Типизированный список значений поля-массива. Элементы хранятся объектами BaseType
+ * (скаляры — ParameterInt/ParameterString/…; значение скаляра — getEntityValue()).
+ *
+ * @template T of BaseType
+ * @implements \Iterator<int, T>
+ */
+class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable, \Countable {
 
+    /** @var list<class-string<T>> Допустимые классы элементов (скаляры — Parameter*, см. BaseType::resolveFieldTypes()) */
     protected $types;
+
+    /** @var list<T> */
     protected $arrayData = [];
+
+    /** @var int */
     protected $position = 0;
 
+    /**
+     * @param list<class-string<T>> $types
+     */
     public function __construct(array $types)
     {
         $this->types = $types;
     }
 
     /**
-     * @param BaseObject|array $data
+     * Добавляет элемент: объект, массив полей или скаляр — он приводится к первому подходящему типу.
+     *
      * @return $this
      * @throws TelegramException
      */
-    public function add(mixed $data, $ignoreUnknownFields = false): static
+    public function add(mixed $data, bool $ignoreUnknownFields = false): static
     {
-        /* @var BaseType $type */
         foreach ($this->types as $type) {
-            $type = BaseType::getFieldTypeClass($type);
-
             if ($type::isCompatible($data))
             {
-                $this->arrayData[] = $type::create($data, $ignoreUnknownFields);
+                $item = $type::create($data, $ignoreUnknownFields);
+
+                if ($item !== null) {
+                    $this->arrayData[] = $item;
+                }
+
                 return $this;
             }
         }
@@ -35,47 +53,40 @@ class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
     }
 
     /**
-     * @return mixed
+     * @return T
      */
     public function current(): BaseObject
     {
         return $this->arrayData[$this->position];
     }
 
-    /**
-     * @return void
-     */
     public function next(): void
     {
         $this->position++;
     }
 
-    /**
-     * @return int
-     */
     public function key(): int
     {
         return $this->position;
     }
 
-    /**
-     * @return bool
-     */
     public function valid(): bool
     {
         return isset($this->arrayData[$this->position]);
     }
 
-    /**
-     * @return void
-     */
     public function rewind(): void
     {
         $this->position = 0;
     }
 
+    public function count(): int
+    {
+        return count($this->arrayData);
+    }
+
     /**
-     * @return array
+     * @return list<mixed>
      */
     public function jsonSerialize(): array
     {
@@ -89,9 +100,6 @@ class ArrayObject extends BaseObject implements \Iterator, \JsonSerializable {
         return $result;
     }
 
-    /**
-     * @return bool
-     */
     public function validate(): bool
     {
         foreach ($this->arrayData as $obj) {

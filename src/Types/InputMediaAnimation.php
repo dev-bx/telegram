@@ -14,283 +14,316 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
- * @property string $type
- * Type of the media, must be *animation*
- * @property string $media
- * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
- * @property string $thumbnail
- * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
- * @property string $caption
- * *Optional*. Caption of the animation to be sent, 0-1024 characters after entities parsing
- * @property string $parseMode
- * *Optional*. Mode for parsing entities in the animation caption. See [formatting options](#formatting-options) for more details.
- * @property Base\ArrayObject|MessageEntity[] $captionEntities
- * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
- * @property bool $showCaptionAboveMedia
- * *Optional*. Pass *True* if the caption must be shown above the message media
- * @property int $width
- * *Optional*. Animation width
- * @property int $height
- * *Optional*. Animation height
- * @property int $duration
- * *Optional*. Animation duration in seconds
- * @property bool $hasSpoiler
- * *Optional*. Pass *True* if the animation needs to be covered with a spoiler animation
+ *
+ * @link https://core.telegram.org/bots/api#inputmediaanimation
+ *
+ * @property-read string|null $type Required. Type of the media, must be *animation*
+ * @property-write string $type
+ * @property-read string|null $media Required. File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)
+ * @property-write string $media
+ * @property-read string|null $thumbnail Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)
+ * @property-write string $thumbnail
+ * @property-read string|null $caption Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
+ * @property-write string $caption
+ * @property-read string|null $parseMode Optional. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * @property-write string $parseMode
+ * @property-read Base\ArrayObject<MessageEntity> $captionEntities Optional. List of special entities that appear in the caption, which can be specified instead of *parse_mode*
+ * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $captionEntities
+ * @property-read bool|null $showCaptionAboveMedia Optional. Pass *True* if the caption must be shown above the message media
+ * @property-write bool $showCaptionAboveMedia
+ * @property-read int|null $width Optional. Animation width
+ * @property-write int $width
+ * @property-read int|null $height Optional. Animation height
+ * @property-write int $height
+ * @property-read int|null $duration Optional. Animation duration in seconds
+ * @property-write int $duration
+ * @property-read bool|null $hasSpoiler Optional. Pass *True* if the animation needs to be covered with a spoiler animation
+ * @property-write bool $hasSpoiler
  */
 class InputMediaAnimation extends InputMedia
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'animation',
-				'required' => true,
-			],
-			'media' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'thumbnail' => [
-				'type' => ['string'],
-			],
-			'caption' => [
-				'type' => ['string'],
-			],
-			'parse_mode' => [
-				'type' => ['string'],
-			],
-			'caption_entities' => [
-				'type' => [MessageEntity::class],
-				'isArray' => true,
-			],
-			'show_caption_above_media' => [
-				'type' => ['bool'],
-			],
-			'width' => [
-				'type' => ['int'],
-			],
-			'height' => [
-				'type' => ['int'],
-			],
-			'duration' => [
-				'type' => ['int'],
-			],
-			'has_spoiler' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'animation',
+                'required' => true,
+            ],
+            'media' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'thumbnail' => [
+                'type' => ['string'],
+            ],
+            'caption' => [
+                'type' => ['string'],
+            ],
+            'parse_mode' => [
+                'type' => ['string'],
+            ],
+            'caption_entities' => [
+                'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+            'show_caption_above_media' => [
+                'type' => ['bool'],
+            ],
+            'width' => [
+                'type' => ['int'],
+            ],
+            'height' => [
+                'type' => ['int'],
+            ],
+            'duration' => [
+                'type' => ['int'],
+            ],
+            'has_spoiler' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the media, must be *animation*
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Required. File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getMedia(): mixed
+    {
+        return $this->getFieldValue('media');
+    }
 
-	public function getMedia(): mixed
-	{
-		return $this->getFieldValue('media');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMedia(mixed $value): static
+    {
+        return $this->setFieldValue('media', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getThumbnail(): mixed
+    {
+        return $this->getFieldValue('thumbnail');
+    }
 
-	public function setMedia(mixed $value): static
-	{
-		return $this->setFieldValue('media', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setThumbnail(mixed $value): static
+    {
+        return $this->setFieldValue('thumbnail', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCaption(): mixed
+    {
+        return $this->getFieldValue('caption');
+    }
 
-	public function getThumbnail(): mixed
-	{
-		return $this->getFieldValue('thumbnail');
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaption(mixed $value): static
+    {
+        return $this->setFieldValue('caption', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getParseMode(): mixed
+    {
+        return $this->getFieldValue('parse_mode');
+    }
 
-	public function setThumbnail(mixed $value): static
-	{
-		return $this->setFieldValue('thumbnail', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setParseMode(mixed $value): static
+    {
+        return $this->setFieldValue('parse_mode', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. List of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *
+     * @return Base\ArrayObject<MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getCaptionEntities(): mixed
+    {
+        return $this->getFieldValue('caption_entities');
+    }
 
-	public function getCaption(): mixed
-	{
-		return $this->getFieldValue('caption');
-	}
+    /**
+     * @param list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaptionEntities(mixed $value): static
+    {
+        return $this->setFieldValue('caption_entities', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Pass *True* if the caption must be shown above the message media
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getShowCaptionAboveMedia(): mixed
+    {
+        return $this->getFieldValue('show_caption_above_media');
+    }
 
-	public function setCaption(mixed $value): static
-	{
-		return $this->setFieldValue('caption', $value);
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setShowCaptionAboveMedia(mixed $value): static
+    {
+        return $this->setFieldValue('show_caption_above_media', $value);
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * Optional. Animation width
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getWidth(): mixed
+    {
+        return $this->getFieldValue('width');
+    }
 
-	public function getParseMode(): mixed
-	{
-		return $this->getFieldValue('parse_mode');
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWidth(mixed $value): static
+    {
+        return $this->setFieldValue('width', $value);
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Optional. Animation height
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getHeight(): mixed
+    {
+        return $this->getFieldValue('height');
+    }
 
-	public function setParseMode(mixed $value): static
-	{
-		return $this->setFieldValue('parse_mode', $value);
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHeight(mixed $value): static
+    {
+        return $this->setFieldValue('height', $value);
+    }
 
-	/**
-	* @return Base\ArrayObject|MessageEntity[]
-	*/
+    /**
+     * Optional. Animation duration in seconds
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDuration(): mixed
+    {
+        return $this->getFieldValue('duration');
+    }
 
-	public function getCaptionEntities(): mixed
-	{
-		return $this->getFieldValue('caption_entities');
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDuration(mixed $value): static
+    {
+        return $this->setFieldValue('duration', $value);
+    }
 
-	/**
-	* @param Base\ArrayObject|MessageEntity[] $value
-	* @return static
-	*/
+    /**
+     * Optional. Pass *True* if the animation needs to be covered with a spoiler animation
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getHasSpoiler(): mixed
+    {
+        return $this->getFieldValue('has_spoiler');
+    }
 
-	public function setCaptionEntities(mixed $value): static
-	{
-		return $this->setFieldValue('caption_entities', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getShowCaptionAboveMedia(): mixed
-	{
-		return $this->getFieldValue('show_caption_above_media');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setShowCaptionAboveMedia(mixed $value): static
-	{
-		return $this->setFieldValue('show_caption_above_media', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getWidth(): mixed
-	{
-		return $this->getFieldValue('width');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setWidth(mixed $value): static
-	{
-		return $this->setFieldValue('width', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getHeight(): mixed
-	{
-		return $this->getFieldValue('height');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setHeight(mixed $value): static
-	{
-		return $this->setFieldValue('height', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getDuration(): mixed
-	{
-		return $this->getFieldValue('duration');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDuration(mixed $value): static
-	{
-		return $this->setFieldValue('duration', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getHasSpoiler(): mixed
-	{
-		return $this->getFieldValue('has_spoiler');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setHasSpoiler(mixed $value): static
-	{
-		return $this->setFieldValue('has_spoiler', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHasSpoiler(mixed $value): static
+    {
+        return $this->setFieldValue('has_spoiler', $value);
+    }
 }

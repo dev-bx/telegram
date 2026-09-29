@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,91 +14,108 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The background is automatically filled based on the selected colors.
- * @property string $type
- * Type of the background, always “fill”
- * @property BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $fill
- * The background fill
- * @property int $darkThemeDimming
- * Dimming of the background in dark themes, as a percentage; 0-100
+ *
+ * @link https://core.telegram.org/bots/api#backgroundtypefill
+ *
+ * @property-read string|null $type Required. Type of the background, always “fill”
+ * @property-write string $type
+ * @property-read BackgroundFill|null $fill Required. The background fill
+ * @property-write BackgroundFill|array<string, mixed> $fill
+ * @property-read int|null $darkThemeDimming Required. Dimming of the background in dark themes, as a percentage; 0-100
+ * @property-write int $darkThemeDimming
  */
 class BackgroundTypeFill extends BackgroundType
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'fill',
-				'required' => true,
-			],
-			'fill' => [
-				'type' => [BackgroundFill::class],
-				'required' => true,
-			],
-			'dark_theme_dimming' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'fill',
+                'required' => true,
+            ],
+            'fill' => [
+                'type' => [BackgroundFill::class],
+                'required' => true,
+            ],
+            'dark_theme_dimming' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the background, always “fill”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient
-	*/
+    /**
+     * Required. The background fill
+     *
+     * @return BackgroundFill|null
+     * @throws Base\TelegramException
+     */
+    public function getFill(): mixed
+    {
+        return $this->getFieldValue('fill');
+    }
 
-	public function getFill(): mixed
-	{
-		return $this->getFieldValue('fill');
-	}
+    /**
+     * @param BackgroundFill|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFill(mixed $value): static
+    {
+        return $this->setFieldValue('fill', $value);
+    }
 
-	/**
-	* @param BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $value
-	* @return static
-	*/
+    /**
+     * Required. Dimming of the background in dark themes, as a percentage; 0-100
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDarkThemeDimming(): mixed
+    {
+        return $this->getFieldValue('dark_theme_dimming');
+    }
 
-	public function setFill(mixed $value): static
-	{
-		return $this->setFieldValue('fill', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getDarkThemeDimming(): mixed
-	{
-		return $this->getFieldValue('dark_theme_dimming');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDarkThemeDimming(mixed $value): static
-	{
-		return $this->setFieldValue('dark_theme_dimming', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDarkThemeDimming(mixed $value): static
+    {
+        return $this->setFieldValue('dark_theme_dimming', $value);
+    }
 }

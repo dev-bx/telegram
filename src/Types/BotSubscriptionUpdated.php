@@ -14,90 +14,98 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains information about changes to a user payment subscription toward the current bot.
- * @property User $user
- * User who subscribed for payments toward the bot
- * @property string $invoicePayload
- * Bot-specified invoice payload
- * @property string $state
- * The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
+ *
+ * @link https://core.telegram.org/bots/api#botsubscriptionupdated
+ *
+ * @property-read User|null $user Required. User who subscribed for payments toward the bot
+ * @property-write User|array<string, mixed> $user
+ * @property-read string|null $invoicePayload Required. Bot-specified invoice payload
+ * @property-write string $invoicePayload
+ * @property-read string|null $state Required. The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
+ * @property-write string $state
  */
 class BotSubscriptionUpdated extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'user' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-			'invoice_payload' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'state' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return User
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'user' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+            'invoice_payload' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'state' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getUser(): mixed
-	{
-		return $this->getFieldValue('user');
-	}
+    /**
+     * Required. User who subscribed for payments toward the bot
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getUser(): mixed
+    {
+        return $this->getFieldValue('user');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUser(mixed $value): static
+    {
+        return $this->setFieldValue('user', $value);
+    }
 
-	public function setUser(mixed $value): static
-	{
-		return $this->setFieldValue('user', $value);
-	}
+    /**
+     * Required. Bot-specified invoice payload
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInvoicePayload(): mixed
+    {
+        return $this->getFieldValue('invoice_payload');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInvoicePayload(mixed $value): static
+    {
+        return $this->setFieldValue('invoice_payload', $value);
+    }
 
-	public function getInvoicePayload(): mixed
-	{
-		return $this->getFieldValue('invoice_payload');
-	}
+    /**
+     * Required. The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getState(): mixed
+    {
+        return $this->getFieldValue('state');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setInvoicePayload(mixed $value): static
-	{
-		return $this->setFieldValue('invoice_payload', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getState(): mixed
-	{
-		return $this->getFieldValue('state');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setState(mixed $value): static
-	{
-		return $this->setFieldValue('state', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setState(mixed $value): static
+    {
+        return $this->setFieldValue('state', $value);
+    }
 }

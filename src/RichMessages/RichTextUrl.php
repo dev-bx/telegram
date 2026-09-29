@@ -14,91 +14,108 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A text with a link.
- * @property string $type
- * Type of the rich text, always “url”
- * @property RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $text
- * The text
- * @property string $url
- * URL of the link
+ *
+ * @link https://core.telegram.org/bots/api#richtexturl
+ *
+ * @property-read string|null $type Required. Type of the rich text, always “url”
+ * @property-write string $type
+ * @property-read RichText|string|list<mixed>|null $text Required. The text
+ * @property-write RichText|string|list<mixed>|array<string, mixed> $text
+ * @property-read string|null $url Required. URL of the link
+ * @property-write string $url
  */
 class RichTextUrl extends RichText
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'url',
-				'required' => true,
-			],
-			'text' => [
-				'type' => [RichText::class],
-				'required' => true,
-			],
-			'url' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'url',
+                'required' => true,
+            ],
+            'text' => [
+                'type' => [RichText::class],
+                'required' => true,
+            ],
+            'url' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the rich text, always “url”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink
-	*/
+    /**
+     * Required. The text
+     *
+     * @return RichText|string|list<mixed>|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * @param RichText|string|list<mixed>|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	/**
-	* @param RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $value
-	* @return static
-	*/
+    /**
+     * Required. URL of the link
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getUrl(): mixed
+    {
+        return $this->getFieldValue('url');
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getUrl(): mixed
-	{
-		return $this->getFieldValue('url');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setUrl(mixed $value): static
-	{
-		return $this->setFieldValue('url', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUrl(mixed $value): static
+    {
+        return $this->setFieldValue('url', $value);
+    }
 }

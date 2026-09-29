@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,90 +15,107 @@ namespace DevBX\Telegram\Payments;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * Describes a transaction with a chat.
- * @property string $type
- * Type of the transaction partner, always “chat”
- * @property Types\Chat $chat
- * Information about the chat
- * @property Types\Gift $gift
- * *Optional*. The gift sent to the chat by the bot
+ *
+ * @link https://core.telegram.org/bots/api#transactionpartnerchat
+ *
+ * @property-read string|null $type Required. Type of the transaction partner, always “chat”
+ * @property-write string $type
+ * @property-read Types\Chat|null $chat Required. Information about the chat
+ * @property-write Types\Chat|array<string, mixed> $chat
+ * @property-read Types\Gift|null $gift Optional. The gift sent to the chat by the bot
+ * @property-write Types\Gift|array<string, mixed> $gift
  */
 class TransactionPartnerChat extends TransactionPartner
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'chat',
-				'required' => true,
-			],
-			'chat' => [
-				'type' => [Types\Chat::class],
-				'required' => true,
-			],
-			'gift' => [
-				'type' => [Types\Gift::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'chat',
+                'required' => true,
+            ],
+            'chat' => [
+                'type' => [Types\Chat::class],
+                'required' => true,
+            ],
+            'gift' => [
+                'type' => [Types\Gift::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the transaction partner, always “chat”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Types\Chat
-	*/
+    /**
+     * Required. Information about the chat
+     *
+     * @return Types\Chat|null
+     * @throws Base\TelegramException
+     */
+    public function getChat(): mixed
+    {
+        return $this->getFieldValue('chat');
+    }
 
-	public function getChat(): mixed
-	{
-		return $this->getFieldValue('chat');
-	}
+    /**
+     * @param Types\Chat|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChat(mixed $value): static
+    {
+        return $this->setFieldValue('chat', $value);
+    }
 
-	/**
-	* @param Types\Chat $value
-	* @return static
-	*/
+    /**
+     * Optional. The gift sent to the chat by the bot
+     *
+     * @return Types\Gift|null
+     * @throws Base\TelegramException
+     */
+    public function getGift(): mixed
+    {
+        return $this->getFieldValue('gift');
+    }
 
-	public function setChat(mixed $value): static
-	{
-		return $this->setFieldValue('chat', $value);
-	}
-
-	/**
-	* @return Types\Gift
-	*/
-
-	public function getGift(): mixed
-	{
-		return $this->getFieldValue('gift');
-	}
-
-	/**
-	* @param Types\Gift $value
-	* @return static
-	*/
-
-	public function setGift(mixed $value): static
-	{
-		return $this->setFieldValue('gift', $value);
-	}
-
+    /**
+     * @param Types\Gift|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setGift(mixed $value): static
+    {
+        return $this->setFieldValue('gift', $value);
+    }
 }

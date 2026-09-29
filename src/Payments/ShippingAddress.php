@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,165 +14,179 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents a shipping address.
- * @property string $countryCode
- * Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
- * @property string $state
- * State, if applicable
- * @property string $city
- * City
- * @property string $streetLine1
- * First line for the address
- * @property string $streetLine2
- * Second line for the address
- * @property string $postCode
- * Address post code
+ *
+ * @link https://core.telegram.org/bots/api#shippingaddress
+ *
+ * @property-read string|null $countryCode Required. Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
+ * @property-write string $countryCode
+ * @property-read string|null $state Required. State, if applicable
+ * @property-write string $state
+ * @property-read string|null $city Required. City
+ * @property-write string $city
+ * @property-read string|null $streetLine1 Required. First line for the address
+ * @property-write string $streetLine1
+ * @property-read string|null $streetLine2 Required. Second line for the address
+ * @property-write string $streetLine2
+ * @property-read string|null $postCode Required. Address post code
+ * @property-write string $postCode
  */
 class ShippingAddress extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'country_code' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'state' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'city' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'street_line1' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'street_line2' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'post_code' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'country_code' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'state' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'city' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'street_line1' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'street_line2' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'post_code' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getCountryCode(): mixed
-	{
-		return $this->getFieldValue('country_code');
-	}
+    /**
+     * Required. Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCountryCode(): mixed
+    {
+        return $this->getFieldValue('country_code');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCountryCode(mixed $value): static
+    {
+        return $this->setFieldValue('country_code', $value);
+    }
 
-	public function setCountryCode(mixed $value): static
-	{
-		return $this->setFieldValue('country_code', $value);
-	}
+    /**
+     * Required. State, if applicable
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getState(): mixed
+    {
+        return $this->getFieldValue('state');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setState(mixed $value): static
+    {
+        return $this->setFieldValue('state', $value);
+    }
 
-	public function getState(): mixed
-	{
-		return $this->getFieldValue('state');
-	}
+    /**
+     * Required. City
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCity(): mixed
+    {
+        return $this->getFieldValue('city');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCity(mixed $value): static
+    {
+        return $this->setFieldValue('city', $value);
+    }
 
-	public function setState(mixed $value): static
-	{
-		return $this->setFieldValue('state', $value);
-	}
+    /**
+     * Required. First line for the address
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getStreetLine1(): mixed
+    {
+        return $this->getFieldValue('street_line1');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setStreetLine1(mixed $value): static
+    {
+        return $this->setFieldValue('street_line1', $value);
+    }
 
-	public function getCity(): mixed
-	{
-		return $this->getFieldValue('city');
-	}
+    /**
+     * Required. Second line for the address
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getStreetLine2(): mixed
+    {
+        return $this->getFieldValue('street_line2');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setStreetLine2(mixed $value): static
+    {
+        return $this->setFieldValue('street_line2', $value);
+    }
 
-	public function setCity(mixed $value): static
-	{
-		return $this->setFieldValue('city', $value);
-	}
+    /**
+     * Required. Address post code
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getPostCode(): mixed
+    {
+        return $this->getFieldValue('post_code');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getStreetLine1(): mixed
-	{
-		return $this->getFieldValue('street_line1');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setStreetLine1(mixed $value): static
-	{
-		return $this->setFieldValue('street_line1', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getStreetLine2(): mixed
-	{
-		return $this->getFieldValue('street_line2');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setStreetLine2(mixed $value): static
-	{
-		return $this->setFieldValue('street_line2', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getPostCode(): mixed
-	{
-		return $this->getFieldValue('post_code');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setPostCode(mixed $value): static
-	{
-		return $this->setFieldValue('post_code', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPostCode(mixed $value): static
+    {
+        return $this->setFieldValue('post_code', $value);
+    }
 }

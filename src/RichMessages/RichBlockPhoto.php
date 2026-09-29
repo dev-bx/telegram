@@ -15,115 +15,134 @@ namespace DevBX\Telegram\RichMessages;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Types;
 
-
 /**
  * A block with a photo, corresponding to the HTML tag `<img>`.
- * @property string $type
- * Type of the block, always “photo”
- * @property Base\ArrayObject|Types\PhotoSize[] $photo
- * Available sizes of the photo
- * @property bool $hasSpoiler
- * *Optional*. *True*, if the media preview is covered by a spoiler animation
- * @property RichBlockCaption $caption
- * *Optional*. Caption of the block
+ *
+ * @link https://core.telegram.org/bots/api#richblockphoto
+ *
+ * @property-read string|null $type Required. Type of the block, always “photo”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<Types\PhotoSize> $photo Required. Available sizes of the photo
+ * @property-write list<Types\PhotoSize|array<string, mixed>>|Base\ArrayObject<Types\PhotoSize> $photo
+ * @property-read bool|null $hasSpoiler Optional. *True*, if the media preview is covered by a spoiler animation
+ * @property-write bool $hasSpoiler
+ * @property-read RichBlockCaption|null $caption Optional. Caption of the block
+ * @property-write RichBlockCaption|array<string, mixed> $caption
  */
 class RichBlockPhoto extends RichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'photo',
-				'required' => true,
-			],
-			'photo' => [
-				'type' => [Types\PhotoSize::class],
-				'isArray' => true,
-				'required' => true,
-			],
-			'has_spoiler' => [
-				'type' => ['bool'],
-			],
-			'caption' => [
-				'type' => [RichBlockCaption::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'photo',
+                'required' => true,
+            ],
+            'photo' => [
+                'type' => [Types\PhotoSize::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+            'has_spoiler' => [
+                'type' => ['bool'],
+            ],
+            'caption' => [
+                'type' => [RichBlockCaption::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “photo”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Base\ArrayObject|Types\PhotoSize[]
-	*/
+    /**
+     * Required. Available sizes of the photo
+     *
+     * @return Base\ArrayObject<Types\PhotoSize>
+     * @throws Base\TelegramException
+     */
+    public function getPhoto(): mixed
+    {
+        return $this->getFieldValue('photo');
+    }
 
-	public function getPhoto(): mixed
-	{
-		return $this->getFieldValue('photo');
-	}
+    /**
+     * @param list<Types\PhotoSize|array<string, mixed>>|Base\ArrayObject<Types\PhotoSize> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPhoto(mixed $value): static
+    {
+        return $this->setFieldValue('photo', $value);
+    }
 
-	/**
-	* @param Base\ArrayObject|Types\PhotoSize[] $value
-	* @return static
-	*/
+    /**
+     * Optional. *True*, if the media preview is covered by a spoiler animation
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getHasSpoiler(): mixed
+    {
+        return $this->getFieldValue('has_spoiler');
+    }
 
-	public function setPhoto(mixed $value): static
-	{
-		return $this->setFieldValue('photo', $value);
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setHasSpoiler(mixed $value): static
+    {
+        return $this->setFieldValue('has_spoiler', $value);
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * Optional. Caption of the block
+     *
+     * @return RichBlockCaption|null
+     * @throws Base\TelegramException
+     */
+    public function getCaption(): mixed
+    {
+        return $this->getFieldValue('caption');
+    }
 
-	public function getHasSpoiler(): mixed
-	{
-		return $this->getFieldValue('has_spoiler');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setHasSpoiler(mixed $value): static
-	{
-		return $this->setFieldValue('has_spoiler', $value);
-	}
-
-	/**
-	* @return RichBlockCaption
-	*/
-
-	public function getCaption(): mixed
-	{
-		return $this->getFieldValue('caption');
-	}
-
-	/**
-	* @param RichBlockCaption $value
-	* @return static
-	*/
-
-	public function setCaption(mixed $value): static
-	{
-		return $this->setFieldValue('caption', $value);
-	}
-
+    /**
+     * @param RichBlockCaption|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCaption(mixed $value): static
+    {
+        return $this->setFieldValue('caption', $value);
+    }
 }

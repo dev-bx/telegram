@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Stickers;
 
 /**
- * Use this method to get a sticker set. On success, a [StickerSet](#stickerset) object is returned.
- * @property string $name
- * Name of the sticker set
- * @method Stickers\StickerSet send(Api $gateway = null)
+ * Use this method to get a sticker set. On success, a `StickerSet` object is returned.
+ *
+ * @link https://core.telegram.org/bots/api#getstickerset
+ *
+ * @property-read string|null $name Required. Name of the sticker set
+ * @property-write string $name
+ *
+ * @method Stickers\StickerSet send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetStickerSet extends Base\Request
 {
@@ -32,25 +36,27 @@ class GetStickerSet extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Stickers\StickerSet::class,
+                'type' => [Stickers\StickerSet::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Name of the sticker set
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
@@ -58,6 +64,6 @@ class GetStickerSet extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetStickerSet';
+        return 'getStickerSet';
     }
 }

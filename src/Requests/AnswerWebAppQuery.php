@@ -18,12 +18,16 @@ use DevBX\Telegram\InlineMode;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to set the result of an interaction with a [Web App](/bots/webapps) and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a [SentWebAppMessage](#sentwebappmessage) object is returned.
- * @property string $webAppQueryId
- * Unique identifier for the query to be answered
- * @property InlineMode\InlineQueryResult $result
- * A JSON-serialized object describing the message to be sent
- * @method Types\SentWebAppMessage send(Api $gateway = null)
+ * Use this method to set the result of an interaction with a [Web App](https://core.telegram.org/bots/webapps) and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a `SentWebAppMessage` object is returned.
+ *
+ * @link https://core.telegram.org/bots/api#answerwebappquery
+ *
+ * @property-read string|null $webAppQueryId Required. Unique identifier for the query to be answered
+ * @property-write string $webAppQueryId
+ * @property-read InlineMode\InlineQueryResult|null $result Required. A JSON-serialized object describing the message to be sent
+ * @property-write InlineMode\InlineQueryResult|array<string, mixed> $result
+ *
+ * @method Types\SentWebAppMessage send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class AnswerWebAppQuery extends Base\Request
 {
@@ -39,44 +43,48 @@ class AnswerWebAppQuery extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\SentWebAppMessage::class,
+                'type' => [Types\SentWebAppMessage::class],
             ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier for the query to be answered
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getWebAppQueryId(): mixed
     {
         return $this->getFieldValue('web_app_query_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setWebAppQueryId(mixed $value): static
     {
         return $this->setFieldValue('web_app_query_id', $value);
     }
 
     /**
-    * @return InlineMode\InlineQueryResult
-    */
-
+     * Required. A JSON-serialized object describing the message to be sent
+     *
+     * @return InlineMode\InlineQueryResult|null
+     * @throws Base\TelegramException
+     */
     public function getResult(): mixed
     {
         return $this->getFieldValue('result');
     }
 
     /**
-    * @param InlineMode\InlineQueryResult $value
-    * @return static
-    */
-
+     * @param InlineMode\InlineQueryResult|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setResult(mixed $value): static
     {
         return $this->setFieldValue('result', $value);
@@ -84,6 +92,6 @@ class AnswerWebAppQuery extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'AnswerWebAppQuery';
+        return 'answerWebAppQuery';
     }
 }

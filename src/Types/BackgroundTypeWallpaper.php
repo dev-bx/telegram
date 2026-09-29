@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,139 +14,160 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The background is a wallpaper in the JPEG format.
- * @property string $type
- * Type of the background, always “wallpaper”
- * @property Document $document
- * Document with the wallpaper
- * @property int $darkThemeDimming
- * Dimming of the background in dark themes, as a percentage; 0-100
- * @property bool $isBlurred
- * *Optional*. *True*, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12
- * @property bool $isMoving
- * *Optional*. *True*, if the background moves slightly when the device is tilted
+ *
+ * @link https://core.telegram.org/bots/api#backgroundtypewallpaper
+ *
+ * @property-read string|null $type Required. Type of the background, always “wallpaper”
+ * @property-write string $type
+ * @property-read Document|null $document Required. Document with the wallpaper
+ * @property-write Document|array<string, mixed> $document
+ * @property-read int|null $darkThemeDimming Required. Dimming of the background in dark themes, as a percentage; 0-100
+ * @property-write int $darkThemeDimming
+ * @property-read bool|null $isBlurred Optional. *True*, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12
+ * @property-write bool $isBlurred
+ * @property-read bool|null $isMoving Optional. *True*, if the background moves slightly when the device is tilted
+ * @property-write bool $isMoving
  */
 class BackgroundTypeWallpaper extends BackgroundType
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'wallpaper',
-				'required' => true,
-			],
-			'document' => [
-				'type' => [Document::class],
-				'required' => true,
-			],
-			'dark_theme_dimming' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'is_blurred' => [
-				'type' => ['bool'],
-			],
-			'is_moving' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'wallpaper',
+                'required' => true,
+            ],
+            'document' => [
+                'type' => [Document::class],
+                'required' => true,
+            ],
+            'dark_theme_dimming' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'is_blurred' => [
+                'type' => ['bool'],
+            ],
+            'is_moving' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the background, always “wallpaper”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Document
-	*/
+    /**
+     * Required. Document with the wallpaper
+     *
+     * @return Document|null
+     * @throws Base\TelegramException
+     */
+    public function getDocument(): mixed
+    {
+        return $this->getFieldValue('document');
+    }
 
-	public function getDocument(): mixed
-	{
-		return $this->getFieldValue('document');
-	}
+    /**
+     * @param Document|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDocument(mixed $value): static
+    {
+        return $this->setFieldValue('document', $value);
+    }
 
-	/**
-	* @param Document $value
-	* @return static
-	*/
+    /**
+     * Required. Dimming of the background in dark themes, as a percentage; 0-100
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDarkThemeDimming(): mixed
+    {
+        return $this->getFieldValue('dark_theme_dimming');
+    }
 
-	public function setDocument(mixed $value): static
-	{
-		return $this->setFieldValue('document', $value);
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDarkThemeDimming(mixed $value): static
+    {
+        return $this->setFieldValue('dark_theme_dimming', $value);
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * Optional. *True*, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsBlurred(): mixed
+    {
+        return $this->getFieldValue('is_blurred');
+    }
 
-	public function getDarkThemeDimming(): mixed
-	{
-		return $this->getFieldValue('dark_theme_dimming');
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsBlurred(mixed $value): static
+    {
+        return $this->setFieldValue('is_blurred', $value);
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * Optional. *True*, if the background moves slightly when the device is tilted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsMoving(): mixed
+    {
+        return $this->getFieldValue('is_moving');
+    }
 
-	public function setDarkThemeDimming(mixed $value): static
-	{
-		return $this->setFieldValue('dark_theme_dimming', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsBlurred(): mixed
-	{
-		return $this->getFieldValue('is_blurred');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsBlurred(mixed $value): static
-	{
-		return $this->setFieldValue('is_blurred', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsMoving(): mixed
-	{
-		return $this->getFieldValue('is_moving');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsMoving(mixed $value): static
-	{
-		return $this->setFieldValue('is_moving', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsMoving(mixed $value): static
+    {
+        return $this->setFieldValue('is_moving', $value);
+    }
 }

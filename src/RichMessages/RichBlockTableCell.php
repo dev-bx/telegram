@@ -14,161 +14,175 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Cell in a table.
- * @property RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $text
- * *Optional*. Text in the cell. If omitted, then the cell is invisible.
- * @property bool $isHeader
- * *Optional*. *True*, if the cell is a header cell
- * @property int $colspan
- * *Optional*. The number of columns the cell spans if it is bigger than 1
- * @property int $rowspan
- * *Optional*. The number of rows the cell spans if it is bigger than 1
- * @property string $align
- * Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
- * @property string $valign
- * Vertical cell content alignment. Currently, must be one of “top”, “middle”, or “bottom”.
+ *
+ * @link https://core.telegram.org/bots/api#richblocktablecell
+ *
+ * @property-read RichText|string|list<mixed>|null $text Optional. Text in the cell. If omitted, then the cell is invisible.
+ * @property-write RichText|string|list<mixed>|array<string, mixed> $text
+ * @property-read bool|null $isHeader Optional. *True*, if the cell is a header cell
+ * @property-write bool $isHeader
+ * @property-read int|null $colspan Optional. The number of columns the cell spans if it is bigger than 1
+ * @property-write int $colspan
+ * @property-read int|null $rowspan Optional. The number of rows the cell spans if it is bigger than 1
+ * @property-write int $rowspan
+ * @property-read string|null $align Required. Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
+ * @property-write string $align
+ * @property-read string|null $valign Required. Vertical cell content alignment. Currently, must be one of “top”, “middle”, or “bottom”.
+ * @property-write string $valign
  */
 class RichBlockTableCell extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'text' => [
-				'type' => [RichText::class],
-			],
-			'is_header' => [
-				'type' => ['bool'],
-			],
-			'colspan' => [
-				'type' => ['int'],
-			],
-			'rowspan' => [
-				'type' => ['int'],
-			],
-			'align' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'valign' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'text' => [
+                'type' => [RichText::class],
+            ],
+            'is_header' => [
+                'type' => ['bool'],
+            ],
+            'colspan' => [
+                'type' => ['int'],
+            ],
+            'rowspan' => [
+                'type' => ['int'],
+            ],
+            'align' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'valign' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * Optional. Text in the cell. If omitted, then the cell is invisible.
+     *
+     * @return RichText|string|list<mixed>|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	/**
-	* @param RichText|RichTextBold|RichTextItalic|RichTextUnderline|RichTextStrikethrough|RichTextSpoiler|RichTextDateTime|RichTextTextMention|RichTextSubscript|RichTextSuperscript|RichTextMarked|RichTextCode|RichTextCustomEmoji|RichTextMathematicalExpression|RichTextUrl|RichTextEmailAddress|RichTextPhoneNumber|RichTextBankCardNumber|RichTextMention|RichTextHashtag|RichTextCashtag|RichTextBotCommand|RichTextButton|RichTextAnchor|RichTextAnchorLink|RichTextReference|RichTextReferenceLink $value
-	* @return static
-	*/
+    /**
+     * @param RichText|string|list<mixed>|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
+    /**
+     * Optional. *True*, if the cell is a header cell
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsHeader(): mixed
+    {
+        return $this->getFieldValue('is_header');
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsHeader(mixed $value): static
+    {
+        return $this->setFieldValue('is_header', $value);
+    }
 
-	public function getIsHeader(): mixed
-	{
-		return $this->getFieldValue('is_header');
-	}
+    /**
+     * Optional. The number of columns the cell spans if it is bigger than 1
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getColspan(): mixed
+    {
+        return $this->getFieldValue('colspan');
+    }
 
-	/**
-	* @param bool $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setColspan(mixed $value): static
+    {
+        return $this->setFieldValue('colspan', $value);
+    }
 
-	public function setIsHeader(mixed $value): static
-	{
-		return $this->setFieldValue('is_header', $value);
-	}
+    /**
+     * Optional. The number of rows the cell spans if it is bigger than 1
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getRowspan(): mixed
+    {
+        return $this->getFieldValue('rowspan');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setRowspan(mixed $value): static
+    {
+        return $this->setFieldValue('rowspan', $value);
+    }
 
-	public function getColspan(): mixed
-	{
-		return $this->getFieldValue('colspan');
-	}
+    /**
+     * Required. Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getAlign(): mixed
+    {
+        return $this->getFieldValue('align');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAlign(mixed $value): static
+    {
+        return $this->setFieldValue('align', $value);
+    }
 
-	public function setColspan(mixed $value): static
-	{
-		return $this->setFieldValue('colspan', $value);
-	}
+    /**
+     * Required. Vertical cell content alignment. Currently, must be one of “top”, “middle”, or “bottom”.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getValign(): mixed
+    {
+        return $this->getFieldValue('valign');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getRowspan(): mixed
-	{
-		return $this->getFieldValue('rowspan');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setRowspan(mixed $value): static
-	{
-		return $this->setFieldValue('rowspan', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getAlign(): mixed
-	{
-		return $this->getFieldValue('align');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setAlign(mixed $value): static
-	{
-		return $this->setFieldValue('align', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getValign(): mixed
-	{
-		return $this->getFieldValue('valign');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setValign(mixed $value): static
-	{
-		return $this->setFieldValue('valign', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setValign(mixed $value): static
+    {
+        return $this->setFieldValue('valign', $value);
+    }
 }

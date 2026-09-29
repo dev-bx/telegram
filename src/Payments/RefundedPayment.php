@@ -14,139 +14,151 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains basic information about a refunded payment.
- * @property string $currency
- * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90). Currently, always “XTR”.
- * @property int $totalAmount
- * Total refunded price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45`, `total_amount = 145`. See the *exp* parameter in [currencies.json](/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
- * @property string $invoicePayload
- * Bot-specified invoice payload
- * @property string $telegramPaymentChargeId
- * Telegram payment identifier
- * @property string $providerPaymentChargeId
- * *Optional*. Provider payment identifier
+ *
+ * @link https://core.telegram.org/bots/api#refundedpayment
+ *
+ * @property-read string|null $currency Required. Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90). Currently, always “XTR”.
+ * @property-write string $currency
+ * @property-read int|null $totalAmount Required. Total refunded price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45`, `total_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+ * @property-write int $totalAmount
+ * @property-read string|null $invoicePayload Required. Bot-specified invoice payload
+ * @property-write string $invoicePayload
+ * @property-read string|null $telegramPaymentChargeId Required. Telegram payment identifier
+ * @property-write string $telegramPaymentChargeId
+ * @property-read string|null $providerPaymentChargeId Optional. Provider payment identifier
+ * @property-write string $providerPaymentChargeId
  */
 class RefundedPayment extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'currency' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'total_amount' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'invoice_payload' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'telegram_payment_charge_id' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'provider_payment_charge_id' => [
-				'type' => ['string'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'currency' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'total_amount' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'invoice_payload' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'telegram_payment_charge_id' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'provider_payment_charge_id' => [
+                'type' => ['string'],
+            ],
+        ];
+    }
 
-	public function getCurrency(): mixed
-	{
-		return $this->getFieldValue('currency');
-	}
+    /**
+     * Required. Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90). Currently, always “XTR”.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getCurrency(): mixed
+    {
+        return $this->getFieldValue('currency');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCurrency(mixed $value): static
+    {
+        return $this->setFieldValue('currency', $value);
+    }
 
-	public function setCurrency(mixed $value): static
-	{
-		return $this->setFieldValue('currency', $value);
-	}
+    /**
+     * Required. Total refunded price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45`, `total_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getTotalAmount(): mixed
+    {
+        return $this->getFieldValue('total_amount');
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTotalAmount(mixed $value): static
+    {
+        return $this->setFieldValue('total_amount', $value);
+    }
 
-	public function getTotalAmount(): mixed
-	{
-		return $this->getFieldValue('total_amount');
-	}
+    /**
+     * Required. Bot-specified invoice payload
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getInvoicePayload(): mixed
+    {
+        return $this->getFieldValue('invoice_payload');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setInvoicePayload(mixed $value): static
+    {
+        return $this->setFieldValue('invoice_payload', $value);
+    }
 
-	public function setTotalAmount(mixed $value): static
-	{
-		return $this->setFieldValue('total_amount', $value);
-	}
+    /**
+     * Required. Telegram payment identifier
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getTelegramPaymentChargeId(): mixed
+    {
+        return $this->getFieldValue('telegram_payment_charge_id');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTelegramPaymentChargeId(mixed $value): static
+    {
+        return $this->setFieldValue('telegram_payment_charge_id', $value);
+    }
 
-	public function getInvoicePayload(): mixed
-	{
-		return $this->getFieldValue('invoice_payload');
-	}
+    /**
+     * Optional. Provider payment identifier
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getProviderPaymentChargeId(): mixed
+    {
+        return $this->getFieldValue('provider_payment_charge_id');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setInvoicePayload(mixed $value): static
-	{
-		return $this->setFieldValue('invoice_payload', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getTelegramPaymentChargeId(): mixed
-	{
-		return $this->getFieldValue('telegram_payment_charge_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setTelegramPaymentChargeId(mixed $value): static
-	{
-		return $this->setFieldValue('telegram_payment_charge_id', $value);
-	}
-
-	/**
-	* @return string
-	*/
-
-	public function getProviderPaymentChargeId(): mixed
-	{
-		return $this->getFieldValue('provider_payment_charge_id');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setProviderPaymentChargeId(mixed $value): static
-	{
-		return $this->setFieldValue('provider_payment_charge_id', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setProviderPaymentChargeId(mixed $value): static
+    {
+        return $this->setFieldValue('provider_payment_charge_id', $value);
+    }
 }

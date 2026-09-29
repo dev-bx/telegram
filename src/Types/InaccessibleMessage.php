@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,91 +14,108 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object describes a message that was deleted or is otherwise inaccessible to the bot.
- * @property Chat $chat
- * Chat the message belonged to
- * @property int $messageId
- * Unique message identifier inside the chat
- * @property int $date
- * Always 0. The field can be used to differentiate regular and inaccessible messages.
+ *
+ * @link https://core.telegram.org/bots/api#inaccessiblemessage
+ *
+ * @property-read Chat|null $chat Required. Chat the message belonged to
+ * @property-write Chat|array<string, mixed> $chat
+ * @property-read int|null $messageId Required. Unique message identifier inside the chat
+ * @property-write int $messageId
+ * @property-read int|null $date Required. Always 0. The field can be used to differentiate regular and inaccessible messages.
+ * @property-write int $date
  */
 class InaccessibleMessage extends MaybeInaccessibleMessage
 {
-	public static function getFields(): array
-	{
-		return [
-			'chat' => [
-				'type' => [Chat::class],
-				'required' => true,
-			],
-			'message_id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'date' => [
-				'type' => ['int'],
-				'value' => 0,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Chat
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getChat(): mixed
-	{
-		return $this->getFieldValue('chat');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'chat' => [
+                'type' => [Chat::class],
+                'required' => true,
+            ],
+            'message_id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'date' => [
+                'type' => ['int'],
+                'value' => 0,
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param Chat $value
-	* @return static
-	*/
+    /**
+     * Required. Chat the message belonged to
+     *
+     * @return Chat|null
+     * @throws Base\TelegramException
+     */
+    public function getChat(): mixed
+    {
+        return $this->getFieldValue('chat');
+    }
 
-	public function setChat(mixed $value): static
-	{
-		return $this->setFieldValue('chat', $value);
-	}
+    /**
+     * @param Chat|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChat(mixed $value): static
+    {
+        return $this->setFieldValue('chat', $value);
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * Required. Unique message identifier inside the chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getMessageId(): mixed
+    {
+        return $this->getFieldValue('message_id');
+    }
 
-	public function getMessageId(): mixed
-	{
-		return $this->getFieldValue('message_id');
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMessageId(mixed $value): static
+    {
+        return $this->setFieldValue('message_id', $value);
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * Required. Always 0. The field can be used to differentiate regular and inaccessible messages.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getDate(): mixed
+    {
+        return $this->getFieldValue('date');
+    }
 
-	public function setMessageId(mixed $value): static
-	{
-		return $this->setFieldValue('message_id', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getDate(): mixed
-	{
-		return $this->getFieldValue('date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setDate(mixed $value): static
-	{
-		return $this->setFieldValue('date', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDate(mixed $value): static
+    {
+        return $this->setFieldValue('date', $value);
+    }
 }

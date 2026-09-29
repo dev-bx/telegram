@@ -4,8 +4,13 @@ namespace DevBX\Telegram\Base;
 
 class TelegramException extends \Exception
 {
-    protected array|null $data = null;
-    public function __construct($message, $errorCode = null, array $data = null, $previous = null)
+    /** @var array<string, mixed>|null Ответ Telegram целиком (включая `parameters`) */
+    protected ?array $data = null;
+
+    /**
+     * @param array<string, mixed>|null $data
+     */
+    public function __construct(string $message, int|string|null $errorCode = null, ?array $data = null, ?\Throwable $previous = null)
     {
         parent::__construct($message, (int)$errorCode, $previous);
 
@@ -13,10 +18,11 @@ class TelegramException extends \Exception
     }
 
     /**
-     * @param $message
-     * @return string|static
+     * Подбирает класс исключения по тексту ошибки Telegram.
+     *
+     * @return class-string<TelegramException>
      */
-    static function getExceptionClass($message): string
+    public static function getExceptionClass(string $message): string
     {
         static $classMap = [
             '#^Forbidden: bot was blocked by the user$#' => BlockedByUserException::class,
@@ -37,53 +43,27 @@ class TelegramException extends \Exception
         return static::class;
     }
 
+    /**
+     * Доступ к `parameters` ответа Telegram: `$e->retryAfter`, `$e->migrateToChatId`.
+     *
+     * @return mixed
+     */
     public function __get(string $name)
     {
-        if (!is_array($this->data) || !is_array($this->data['parameters'] ?? false))
+        $parameters = $this->data['parameters'] ?? null;
+
+        if (!is_array($parameters))
             return null;
 
-        if (array_key_exists($name, $this->data['parameters'])) {
-            return $this->data['parameters'][$name];
+        if (array_key_exists($name, $parameters)) {
+            return $parameters[$name];
         }
 
         $name = BaseObject::camel2snake($name);
-        if (array_key_exists($name, $this->data['parameters'])) {
-            return $this->data['parameters'][$name];
+        if (array_key_exists($name, $parameters)) {
+            return $parameters[$name];
         }
 
         return null;
     }
-}
-
-class BlockedByUserException extends TelegramException
-{
-
-}
-
-/**
- * @property int $retryAfter
- */
-
-class TooManyRequestsException extends TelegramException
-{
-
-}
-
-class MessageNotFoundException extends TelegramException
-{
-
-}
-
-class MessageToBeRepliedNotFoundException extends MessageNotFoundException
-{
-
-}
-
-class MessageToEditNotFoundException extends MessageNotFoundException
-{
-}
-
-class DimensionsPhotoTooBigException extends TelegramException
-{
-
 }

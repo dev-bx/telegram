@@ -14,66 +14,72 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents the audios displayed on a user's profile.
- * @property int $totalCount
- * Total number of profile audios for the target user
- * @property Base\ArrayObject|Audio[] $audios
- * Requested profile audios
+ *
+ * @link https://core.telegram.org/bots/api#userprofileaudios
+ *
+ * @property-read int|null $totalCount Required. Total number of profile audios for the target user
+ * @property-write int $totalCount
+ * @property-read Base\ArrayObject<Audio> $audios Required. Requested profile audios
+ * @property-write list<Audio|array<string, mixed>>|Base\ArrayObject<Audio> $audios
  */
 class UserProfileAudios extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'total_count' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'audios' => [
-				'type' => [Audio::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'total_count' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'audios' => [
+                'type' => [Audio::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getTotalCount(): mixed
-	{
-		return $this->getFieldValue('total_count');
-	}
+    /**
+     * Required. Total number of profile audios for the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getTotalCount(): mixed
+    {
+        return $this->getFieldValue('total_count');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTotalCount(mixed $value): static
+    {
+        return $this->setFieldValue('total_count', $value);
+    }
 
-	public function setTotalCount(mixed $value): static
-	{
-		return $this->setFieldValue('total_count', $value);
-	}
+    /**
+     * Required. Requested profile audios
+     *
+     * @return Base\ArrayObject<Audio>
+     * @throws Base\TelegramException
+     */
+    public function getAudios(): mixed
+    {
+        return $this->getFieldValue('audios');
+    }
 
-	/**
-	* @return Base\ArrayObject|Audio[]
-	*/
-
-	public function getAudios(): mixed
-	{
-		return $this->getFieldValue('audios');
-	}
-
-	/**
-	* @param Base\ArrayObject|Audio[] $value
-	* @return static
-	*/
-
-	public function setAudios(mixed $value): static
-	{
-		return $this->setFieldValue('audios', $value);
-	}
-
+    /**
+     * @param list<Audio|array<string, mixed>>|Base\ArrayObject<Audio> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAudios(mixed $value): static
+    {
+        return $this->setFieldValue('audios', $value);
+    }
 }

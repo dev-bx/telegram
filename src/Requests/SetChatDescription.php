@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @property string $description
- * New chat description, 0-255 characters
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setchatdescription
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read string|null $description Optional. New chat description, 0-255 characters
+ * @property-write string $description
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetChatDescription extends Base\Request
 {
@@ -35,42 +39,49 @@ class SetChatDescription extends Base\Request
             'description' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. New chat description, 0-255 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getDescription(): mixed
     {
         return $this->getFieldValue('description');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDescription(mixed $value): static
     {
         return $this->setFieldValue('description', $value);
@@ -78,6 +89,6 @@ class SetChatDescription extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetChatDescription';
+        return 'setChatDescription';
     }
 }

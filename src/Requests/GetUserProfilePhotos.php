@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,14 +17,18 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get a list of profile pictures for a user. Returns a [UserProfilePhotos](#userprofilephotos) object.
- * @property int $userId
- * Unique identifier of the target user
- * @property int $offset
- * Sequential number of the first photo to be returned. By default, all photos are returned.
- * @property int $limit
- * Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
- * @method Types\UserProfilePhotos send(Api $gateway = null)
+ * Use this method to get a list of profile pictures for a user. Returns a `UserProfilePhotos` object.
+ *
+ * @link https://core.telegram.org/bots/api#getuserprofilephotos
+ *
+ * @property-read int|null $userId Required. Unique identifier of the target user
+ * @property-write int $userId
+ * @property-read int|null $offset Optional. Sequential number of the first photo to be returned. By default, all photos are returned.
+ * @property-write int $offset
+ * @property-read int|null $limit Optional. Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+ * @property-write int $limit
+ *
+ * @method Types\UserProfilePhotos send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetUserProfilePhotos extends Base\Request
 {
@@ -42,63 +46,69 @@ class GetUserProfilePhotos extends Base\Request
                 'type' => ['int'],
             ],
             '@return' => [
-                'type' => Types\UserProfilePhotos::class,
+                'type' => [Types\UserProfilePhotos::class],
             ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the target user
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getUserId(): mixed
     {
         return $this->getFieldValue('user_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setUserId(mixed $value): static
     {
         return $this->setFieldValue('user_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Sequential number of the first photo to be returned. By default, all photos are returned.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getOffset(): mixed
     {
         return $this->getFieldValue('offset');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setOffset(mixed $value): static
     {
         return $this->setFieldValue('offset', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getLimit(): mixed
     {
         return $this->getFieldValue('limit');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setLimit(mixed $value): static
     {
         return $this->setFieldValue('limit', $value);
@@ -106,6 +116,6 @@ class GetUserProfilePhotos extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetUserProfilePhotos';
+        return 'getUserProfilePhotos';
     }
 }

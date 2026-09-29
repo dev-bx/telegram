@@ -17,12 +17,16 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as [ChatInviteLink](#chatinvitelink) object.
- * @property int|string $chatId
- * Unique identifier of the target chat or username of the target channel in the format `@username`
- * @property string $inviteLink
- * The invite link to revoke
- * @method Types\ChatInviteLink send(Api $gateway = null)
+ * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as `ChatInviteLink` object.
+ *
+ * @link https://core.telegram.org/bots/api#revokechatinvitelink
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier of the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read string|null $inviteLink Required. The invite link to revoke
+ * @property-write string $inviteLink
+ *
+ * @method Types\ChatInviteLink send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class RevokeChatInviteLink extends Base\Request
 {
@@ -38,44 +42,48 @@ class RevokeChatInviteLink extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\ChatInviteLink::class,
+                'type' => [Types\ChatInviteLink::class],
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier of the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. The invite link to revoke
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getInviteLink(): mixed
     {
         return $this->getFieldValue('invite_link');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setInviteLink(mixed $value): static
     {
         return $this->setFieldValue('invite_link', $value);
@@ -83,6 +91,6 @@ class RevokeChatInviteLink extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'RevokeChatInviteLink';
+        return 'revokeChatInviteLink';
     }
 }

@@ -18,9 +18,13 @@ use DevBX\Telegram\Types;
 
 /**
  * Changes the profile photo of the bot. Returns *True* on success.
- * @property Types\InputProfilePhoto $photo
- * The new profile photo to set
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setmyprofilephoto
+ *
+ * @property-read Types\InputProfilePhoto|null $photo Required. The new profile photo to set
+ * @property-write Types\InputProfilePhoto|array<string, mixed> $photo
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetMyProfilePhoto extends Base\Request
 {
@@ -31,23 +35,28 @@ class SetMyProfilePhoto extends Base\Request
                 'type' => [Types\InputProfilePhoto::class],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return Types\InputProfilePhoto
-    */
-
+     * Required. The new profile photo to set
+     *
+     * @return Types\InputProfilePhoto|null
+     * @throws Base\TelegramException
+     */
     public function getPhoto(): mixed
     {
         return $this->getFieldValue('photo');
     }
 
     /**
-    * @param Types\InputProfilePhoto $value
-    * @return static
-    */
-
+     * @param Types\InputProfilePhoto|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhoto(mixed $value): static
     {
         return $this->setFieldValue('photo', $value);
@@ -55,6 +64,6 @@ class SetMyProfilePhoto extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetMyProfilePhoto';
+        return 'setMyProfilePhoto';
     }
 }

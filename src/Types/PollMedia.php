@@ -15,256 +15,278 @@ namespace DevBX\Telegram\Types;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Stickers;
 
-
 /**
  * At most **one** of the optional fields can be present in any given object.
- * @property Animation $animation
- * *Optional*. Media is an animation, information about the animation
- * @property Audio $audio
- * *Optional*. Media is an audio file, information about the file; currently, can't be received in a poll option
- * @property Document $document
- * *Optional*. Media is a general file, information about the file; currently, can't be received in a poll option
- * @property Link $link
- * *Optional*. The HTTP link attached to the poll option
- * @property LivePhoto $livePhoto
- * *Optional*. Media is a live photo, information about the live photo
- * @property Location $location
- * *Optional*. Media is a shared location, information about the location
- * @property Base\ArrayObject|PhotoSize[] $photo
- * *Optional*. Media is a photo, available sizes of the photo
- * @property Stickers\Sticker $sticker
- * *Optional*. Media is a sticker, information about the sticker; currently, for poll options only
- * @property Venue $venue
- * *Optional*. Media is a venue, information about the venue
- * @property Video $video
- * *Optional*. Media is a video, information about the video
+ *
+ * @link https://core.telegram.org/bots/api#pollmedia
+ *
+ * @property-read Animation|null $animation Optional. Media is an animation, information about the animation
+ * @property-write Animation|array<string, mixed> $animation
+ * @property-read Audio|null $audio Optional. Media is an audio file, information about the file; currently, can't be received in a poll option
+ * @property-write Audio|array<string, mixed> $audio
+ * @property-read Document|null $document Optional. Media is a general file, information about the file; currently, can't be received in a poll option
+ * @property-write Document|array<string, mixed> $document
+ * @property-read Link|null $link Optional. The HTTP link attached to the poll option
+ * @property-write Link|array<string, mixed> $link
+ * @property-read LivePhoto|null $livePhoto Optional. Media is a live photo, information about the live photo
+ * @property-write LivePhoto|array<string, mixed> $livePhoto
+ * @property-read Location|null $location Optional. Media is a shared location, information about the location
+ * @property-write Location|array<string, mixed> $location
+ * @property-read Base\ArrayObject<PhotoSize> $photo Optional. Media is a photo, available sizes of the photo
+ * @property-write list<PhotoSize|array<string, mixed>>|Base\ArrayObject<PhotoSize> $photo
+ * @property-read Stickers\Sticker|null $sticker Optional. Media is a sticker, information about the sticker; currently, for poll options only
+ * @property-write Stickers\Sticker|array<string, mixed> $sticker
+ * @property-read Venue|null $venue Optional. Media is a venue, information about the venue
+ * @property-write Venue|array<string, mixed> $venue
+ * @property-read Video|null $video Optional. Media is a video, information about the video
+ * @property-write Video|array<string, mixed> $video
  */
 class PollMedia extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'animation' => [
-				'type' => [Animation::class],
-			],
-			'audio' => [
-				'type' => [Audio::class],
-			],
-			'document' => [
-				'type' => [Document::class],
-			],
-			'link' => [
-				'type' => [Link::class],
-			],
-			'live_photo' => [
-				'type' => [LivePhoto::class],
-			],
-			'location' => [
-				'type' => [Location::class],
-			],
-			'photo' => [
-				'type' => [PhotoSize::class],
-				'isArray' => true,
-			],
-			'sticker' => [
-				'type' => [Stickers\Sticker::class],
-			],
-			'venue' => [
-				'type' => [Venue::class],
-			],
-			'video' => [
-				'type' => [Video::class],
-			],
-		];
-	}
-	/**
-	* @return Animation
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'animation' => [
+                'type' => [Animation::class],
+            ],
+            'audio' => [
+                'type' => [Audio::class],
+            ],
+            'document' => [
+                'type' => [Document::class],
+            ],
+            'link' => [
+                'type' => [Link::class],
+            ],
+            'live_photo' => [
+                'type' => [LivePhoto::class],
+            ],
+            'location' => [
+                'type' => [Location::class],
+            ],
+            'photo' => [
+                'type' => [PhotoSize::class],
+                'isArray' => true,
+            ],
+            'sticker' => [
+                'type' => [Stickers\Sticker::class],
+            ],
+            'venue' => [
+                'type' => [Venue::class],
+            ],
+            'video' => [
+                'type' => [Video::class],
+            ],
+        ];
+    }
 
-	public function getAnimation(): mixed
-	{
-		return $this->getFieldValue('animation');
-	}
+    /**
+     * Optional. Media is an animation, information about the animation
+     *
+     * @return Animation|null
+     * @throws Base\TelegramException
+     */
+    public function getAnimation(): mixed
+    {
+        return $this->getFieldValue('animation');
+    }
 
-	/**
-	* @param Animation $value
-	* @return static
-	*/
+    /**
+     * @param Animation|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAnimation(mixed $value): static
+    {
+        return $this->setFieldValue('animation', $value);
+    }
 
-	public function setAnimation(mixed $value): static
-	{
-		return $this->setFieldValue('animation', $value);
-	}
+    /**
+     * Optional. Media is an audio file, information about the file; currently, can't be received in a poll option
+     *
+     * @return Audio|null
+     * @throws Base\TelegramException
+     */
+    public function getAudio(): mixed
+    {
+        return $this->getFieldValue('audio');
+    }
 
-	/**
-	* @return Audio
-	*/
+    /**
+     * @param Audio|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setAudio(mixed $value): static
+    {
+        return $this->setFieldValue('audio', $value);
+    }
 
-	public function getAudio(): mixed
-	{
-		return $this->getFieldValue('audio');
-	}
+    /**
+     * Optional. Media is a general file, information about the file; currently, can't be received in a poll option
+     *
+     * @return Document|null
+     * @throws Base\TelegramException
+     */
+    public function getDocument(): mixed
+    {
+        return $this->getFieldValue('document');
+    }
 
-	/**
-	* @param Audio $value
-	* @return static
-	*/
+    /**
+     * @param Document|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDocument(mixed $value): static
+    {
+        return $this->setFieldValue('document', $value);
+    }
 
-	public function setAudio(mixed $value): static
-	{
-		return $this->setFieldValue('audio', $value);
-	}
+    /**
+     * Optional. The HTTP link attached to the poll option
+     *
+     * @return Link|null
+     * @throws Base\TelegramException
+     */
+    public function getLink(): mixed
+    {
+        return $this->getFieldValue('link');
+    }
 
-	/**
-	* @return Document
-	*/
+    /**
+     * @param Link|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLink(mixed $value): static
+    {
+        return $this->setFieldValue('link', $value);
+    }
 
-	public function getDocument(): mixed
-	{
-		return $this->getFieldValue('document');
-	}
+    /**
+     * Optional. Media is a live photo, information about the live photo
+     *
+     * @return LivePhoto|null
+     * @throws Base\TelegramException
+     */
+    public function getLivePhoto(): mixed
+    {
+        return $this->getFieldValue('live_photo');
+    }
 
-	/**
-	* @param Document $value
-	* @return static
-	*/
+    /**
+     * @param LivePhoto|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLivePhoto(mixed $value): static
+    {
+        return $this->setFieldValue('live_photo', $value);
+    }
 
-	public function setDocument(mixed $value): static
-	{
-		return $this->setFieldValue('document', $value);
-	}
+    /**
+     * Optional. Media is a shared location, information about the location
+     *
+     * @return Location|null
+     * @throws Base\TelegramException
+     */
+    public function getLocation(): mixed
+    {
+        return $this->getFieldValue('location');
+    }
 
-	/**
-	* @return Link
-	*/
+    /**
+     * @param Location|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setLocation(mixed $value): static
+    {
+        return $this->setFieldValue('location', $value);
+    }
 
-	public function getLink(): mixed
-	{
-		return $this->getFieldValue('link');
-	}
+    /**
+     * Optional. Media is a photo, available sizes of the photo
+     *
+     * @return Base\ArrayObject<PhotoSize>
+     * @throws Base\TelegramException
+     */
+    public function getPhoto(): mixed
+    {
+        return $this->getFieldValue('photo');
+    }
 
-	/**
-	* @param Link $value
-	* @return static
-	*/
+    /**
+     * @param list<PhotoSize|array<string, mixed>>|Base\ArrayObject<PhotoSize> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPhoto(mixed $value): static
+    {
+        return $this->setFieldValue('photo', $value);
+    }
 
-	public function setLink(mixed $value): static
-	{
-		return $this->setFieldValue('link', $value);
-	}
+    /**
+     * Optional. Media is a sticker, information about the sticker; currently, for poll options only
+     *
+     * @return Stickers\Sticker|null
+     * @throws Base\TelegramException
+     */
+    public function getSticker(): mixed
+    {
+        return $this->getFieldValue('sticker');
+    }
 
-	/**
-	* @return LivePhoto
-	*/
+    /**
+     * @param Stickers\Sticker|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSticker(mixed $value): static
+    {
+        return $this->setFieldValue('sticker', $value);
+    }
 
-	public function getLivePhoto(): mixed
-	{
-		return $this->getFieldValue('live_photo');
-	}
+    /**
+     * Optional. Media is a venue, information about the venue
+     *
+     * @return Venue|null
+     * @throws Base\TelegramException
+     */
+    public function getVenue(): mixed
+    {
+        return $this->getFieldValue('venue');
+    }
 
-	/**
-	* @param LivePhoto $value
-	* @return static
-	*/
+    /**
+     * @param Venue|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setVenue(mixed $value): static
+    {
+        return $this->setFieldValue('venue', $value);
+    }
 
-	public function setLivePhoto(mixed $value): static
-	{
-		return $this->setFieldValue('live_photo', $value);
-	}
+    /**
+     * Optional. Media is a video, information about the video
+     *
+     * @return Video|null
+     * @throws Base\TelegramException
+     */
+    public function getVideo(): mixed
+    {
+        return $this->getFieldValue('video');
+    }
 
-	/**
-	* @return Location
-	*/
-
-	public function getLocation(): mixed
-	{
-		return $this->getFieldValue('location');
-	}
-
-	/**
-	* @param Location $value
-	* @return static
-	*/
-
-	public function setLocation(mixed $value): static
-	{
-		return $this->setFieldValue('location', $value);
-	}
-
-	/**
-	* @return Base\ArrayObject|PhotoSize[]
-	*/
-
-	public function getPhoto(): mixed
-	{
-		return $this->getFieldValue('photo');
-	}
-
-	/**
-	* @param Base\ArrayObject|PhotoSize[] $value
-	* @return static
-	*/
-
-	public function setPhoto(mixed $value): static
-	{
-		return $this->setFieldValue('photo', $value);
-	}
-
-	/**
-	* @return Stickers\Sticker
-	*/
-
-	public function getSticker(): mixed
-	{
-		return $this->getFieldValue('sticker');
-	}
-
-	/**
-	* @param Stickers\Sticker $value
-	* @return static
-	*/
-
-	public function setSticker(mixed $value): static
-	{
-		return $this->setFieldValue('sticker', $value);
-	}
-
-	/**
-	* @return Venue
-	*/
-
-	public function getVenue(): mixed
-	{
-		return $this->getFieldValue('venue');
-	}
-
-	/**
-	* @param Venue $value
-	* @return static
-	*/
-
-	public function setVenue(mixed $value): static
-	{
-		return $this->setFieldValue('venue', $value);
-	}
-
-	/**
-	* @return Video
-	*/
-
-	public function getVideo(): mixed
-	{
-		return $this->getFieldValue('video');
-	}
-
-	/**
-	* @param Video $value
-	* @return static
-	*/
-
-	public function setVideo(mixed $value): static
-	{
-		return $this->setFieldValue('video', $value);
-	}
-
+    /**
+     * @param Video|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setVideo(mixed $value): static
+    {
+        return $this->setFieldValue('video', $value);
+    }
 }

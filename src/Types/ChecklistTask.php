@@ -14,162 +14,176 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a task in a checklist.
- * @property int $id
- * Unique identifier of the task
- * @property string $text
- * Text of the task
- * @property Base\ArrayObject|MessageEntity[] $textEntities
- * *Optional*. Special entities that appear in the task text
- * @property User $completedByUser
- * *Optional*. User that completed the task; omitted if the task wasn't completed by a user
- * @property Chat $completedByChat
- * *Optional*. Chat that completed the task; omitted if the task wasn't completed by a chat
- * @property int $completionDate
- * *Optional*. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
+ *
+ * @link https://core.telegram.org/bots/api#checklisttask
+ *
+ * @property-read int|null $id Required. Unique identifier of the task
+ * @property-write int $id
+ * @property-read string|null $text Required. Text of the task
+ * @property-write string $text
+ * @property-read Base\ArrayObject<MessageEntity> $textEntities Optional. Special entities that appear in the task text
+ * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $textEntities
+ * @property-read User|null $completedByUser Optional. User that completed the task; omitted if the task wasn't completed by a user
+ * @property-write User|array<string, mixed> $completedByUser
+ * @property-read Chat|null $completedByChat Optional. Chat that completed the task; omitted if the task wasn't completed by a chat
+ * @property-write Chat|array<string, mixed> $completedByChat
+ * @property-read int|null $completionDate Optional. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
+ * @property-write int $completionDate
  */
 class ChecklistTask extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'id' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'text' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'text_entities' => [
-				'type' => [MessageEntity::class],
-				'isArray' => true,
-			],
-			'completed_by_user' => [
-				'type' => [User::class],
-			],
-			'completed_by_chat' => [
-				'type' => [Chat::class],
-			],
-			'completion_date' => [
-				'type' => ['int'],
-			],
-		];
-	}
-	/**
-	* @return int
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'id' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'text' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'text_entities' => [
+                'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+            'completed_by_user' => [
+                'type' => [User::class],
+            ],
+            'completed_by_chat' => [
+                'type' => [Chat::class],
+            ],
+            'completion_date' => [
+                'type' => ['int'],
+            ],
+        ];
+    }
 
-	public function getId(): mixed
-	{
-		return $this->getFieldValue('id');
-	}
+    /**
+     * Required. Unique identifier of the task
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getId(): mixed
+    {
+        return $this->getFieldValue('id');
+    }
 
-	/**
-	* @param int $value
-	* @return static
-	*/
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setId(mixed $value): static
+    {
+        return $this->setFieldValue('id', $value);
+    }
 
-	public function setId(mixed $value): static
-	{
-		return $this->setFieldValue('id', $value);
-	}
+    /**
+     * Required. Text of the task
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getText(): mixed
+    {
+        return $this->getFieldValue('text');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setText(mixed $value): static
+    {
+        return $this->setFieldValue('text', $value);
+    }
 
-	public function getText(): mixed
-	{
-		return $this->getFieldValue('text');
-	}
+    /**
+     * Optional. Special entities that appear in the task text
+     *
+     * @return Base\ArrayObject<MessageEntity>
+     * @throws Base\TelegramException
+     */
+    public function getTextEntities(): mixed
+    {
+        return $this->getFieldValue('text_entities');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTextEntities(mixed $value): static
+    {
+        return $this->setFieldValue('text_entities', $value);
+    }
 
-	public function setText(mixed $value): static
-	{
-		return $this->setFieldValue('text', $value);
-	}
+    /**
+     * Optional. User that completed the task; omitted if the task wasn't completed by a user
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getCompletedByUser(): mixed
+    {
+        return $this->getFieldValue('completed_by_user');
+    }
 
-	/**
-	* @return Base\ArrayObject|MessageEntity[]
-	*/
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCompletedByUser(mixed $value): static
+    {
+        return $this->setFieldValue('completed_by_user', $value);
+    }
 
-	public function getTextEntities(): mixed
-	{
-		return $this->getFieldValue('text_entities');
-	}
+    /**
+     * Optional. Chat that completed the task; omitted if the task wasn't completed by a chat
+     *
+     * @return Chat|null
+     * @throws Base\TelegramException
+     */
+    public function getCompletedByChat(): mixed
+    {
+        return $this->getFieldValue('completed_by_chat');
+    }
 
-	/**
-	* @param Base\ArrayObject|MessageEntity[] $value
-	* @return static
-	*/
+    /**
+     * @param Chat|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCompletedByChat(mixed $value): static
+    {
+        return $this->setFieldValue('completed_by_chat', $value);
+    }
 
-	public function setTextEntities(mixed $value): static
-	{
-		return $this->setFieldValue('text_entities', $value);
-	}
+    /**
+     * Optional. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getCompletionDate(): mixed
+    {
+        return $this->getFieldValue('completion_date');
+    }
 
-	/**
-	* @return User
-	*/
-
-	public function getCompletedByUser(): mixed
-	{
-		return $this->getFieldValue('completed_by_user');
-	}
-
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setCompletedByUser(mixed $value): static
-	{
-		return $this->setFieldValue('completed_by_user', $value);
-	}
-
-	/**
-	* @return Chat
-	*/
-
-	public function getCompletedByChat(): mixed
-	{
-		return $this->getFieldValue('completed_by_chat');
-	}
-
-	/**
-	* @param Chat $value
-	* @return static
-	*/
-
-	public function setCompletedByChat(mixed $value): static
-	{
-		return $this->setFieldValue('completed_by_chat', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getCompletionDate(): mixed
-	{
-		return $this->getFieldValue('completion_date');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setCompletionDate(mixed $value): static
-	{
-		return $this->setFieldValue('completion_date', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setCompletionDate(mixed $value): static
+    {
+        return $this->setFieldValue('completion_date', $value);
+    }
 }

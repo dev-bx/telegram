@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,8 +17,11 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get current webhook status. Requires no parameters. On success, returns a [WebhookInfo](#webhookinfo) object. If the bot is using [getUpdates](#getupdates), will return an object with the *url* field empty.
- * @method Types\WebhookInfo send(Api $gateway = null)
+ * Use this method to get current webhook status. Requires no parameters. On success, returns a `WebhookInfo` object. If the bot is using `getUpdates`, will return an object with the *url* field empty.
+ *
+ * @link https://core.telegram.org/bots/api#getwebhookinfo
+ *
+ * @method Types\WebhookInfo send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetWebhookInfo extends Base\Request
 {
@@ -26,13 +29,13 @@ class GetWebhookInfo extends Base\Request
     {
         return [
             '@return' => [
-                'type' => Types\WebhookInfo::class,
+                'type' => [Types\WebhookInfo::class],
             ],
         ];
     }
 
     protected function getRequestMethod(): string
     {
-        return 'GetWebhookInfo';
+        return 'getWebhookInfo';
     }
 }

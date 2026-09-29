@@ -14,64 +14,70 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about a payment refund for a suggested post.
- * @property Message $suggestedPostMessage
- * *Optional*. Message containing the suggested post. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property string $reason
- * Reason for the refund. Currently, one of “post\_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment\_refunded” if the payer refunded their payment.
+ *
+ * @link https://core.telegram.org/bots/api#suggestedpostrefunded
+ *
+ * @property-read Message|null $suggestedPostMessage Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write Message|array<string, mixed> $suggestedPostMessage
+ * @property-read string|null $reason Required. Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
+ * @property-write string $reason
  */
 class SuggestedPostRefunded extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'suggested_post_message' => [
-				'type' => [Message::class],
-			],
-			'reason' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return Message
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'suggested_post_message' => [
+                'type' => [Message::class],
+            ],
+            'reason' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getSuggestedPostMessage(): mixed
-	{
-		return $this->getFieldValue('suggested_post_message');
-	}
+    /**
+     * Optional. Message containing the suggested post. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return Message|null
+     * @throws Base\TelegramException
+     */
+    public function getSuggestedPostMessage(): mixed
+    {
+        return $this->getFieldValue('suggested_post_message');
+    }
 
-	/**
-	* @param Message $value
-	* @return static
-	*/
+    /**
+     * @param Message|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSuggestedPostMessage(mixed $value): static
+    {
+        return $this->setFieldValue('suggested_post_message', $value);
+    }
 
-	public function setSuggestedPostMessage(mixed $value): static
-	{
-		return $this->setFieldValue('suggested_post_message', $value);
-	}
+    /**
+     * Required. Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getReason(): mixed
+    {
+        return $this->getFieldValue('reason');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getReason(): mixed
-	{
-		return $this->getFieldValue('reason');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setReason(mixed $value): static
-	{
-		return $this->setFieldValue('reason', $value);
-	}
-
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setReason(mixed $value): static
+    {
+        return $this->setFieldValue('reason', $value);
+    }
 }

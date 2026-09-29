@@ -14,164 +14,187 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * The background is a .PNG or .TGV (gzipped subset of SVG with MIME type “application/x-tgwallpattern”) pattern to be combined with the background fill chosen by the user.
- * @property string $type
- * Type of the background, always “pattern”
- * @property Document $document
- * Document with the pattern
- * @property BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $fill
- * The background fill that is combined with the pattern
- * @property int $intensity
- * Intensity of the pattern when it is shown above the filled background; 0-100
- * @property bool $isInverted
- * *Optional*. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
- * @property bool $isMoving
- * *Optional*. *True*, if the background moves slightly when the device is tilted
+ *
+ * @link https://core.telegram.org/bots/api#backgroundtypepattern
+ *
+ * @property-read string|null $type Required. Type of the background, always “pattern”
+ * @property-write string $type
+ * @property-read Document|null $document Required. Document with the pattern
+ * @property-write Document|array<string, mixed> $document
+ * @property-read BackgroundFill|null $fill Required. The background fill that is combined with the pattern
+ * @property-write BackgroundFill|array<string, mixed> $fill
+ * @property-read int|null $intensity Required. Intensity of the pattern when it is shown above the filled background; 0-100
+ * @property-write int $intensity
+ * @property-read bool|null $isInverted Optional. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
+ * @property-write bool $isInverted
+ * @property-read bool|null $isMoving Optional. *True*, if the background moves slightly when the device is tilted
+ * @property-write bool $isMoving
  */
 class BackgroundTypePattern extends BackgroundType
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'pattern',
-				'required' => true,
-			],
-			'document' => [
-				'type' => [Document::class],
-				'required' => true,
-			],
-			'fill' => [
-				'type' => [BackgroundFill::class],
-				'required' => true,
-			],
-			'intensity' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-			'is_inverted' => [
-				'type' => ['bool'],
-			],
-			'is_moving' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'pattern',
+                'required' => true,
+            ],
+            'document' => [
+                'type' => [Document::class],
+                'required' => true,
+            ],
+            'fill' => [
+                'type' => [BackgroundFill::class],
+                'required' => true,
+            ],
+            'intensity' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+            'is_inverted' => [
+                'type' => ['bool'],
+            ],
+            'is_moving' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the background, always “pattern”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Document
-	*/
+    /**
+     * Required. Document with the pattern
+     *
+     * @return Document|null
+     * @throws Base\TelegramException
+     */
+    public function getDocument(): mixed
+    {
+        return $this->getFieldValue('document');
+    }
 
-	public function getDocument(): mixed
-	{
-		return $this->getFieldValue('document');
-	}
+    /**
+     * @param Document|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setDocument(mixed $value): static
+    {
+        return $this->setFieldValue('document', $value);
+    }
 
-	/**
-	* @param Document $value
-	* @return static
-	*/
+    /**
+     * Required. The background fill that is combined with the pattern
+     *
+     * @return BackgroundFill|null
+     * @throws Base\TelegramException
+     */
+    public function getFill(): mixed
+    {
+        return $this->getFieldValue('fill');
+    }
 
-	public function setDocument(mixed $value): static
-	{
-		return $this->setFieldValue('document', $value);
-	}
+    /**
+     * @param BackgroundFill|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setFill(mixed $value): static
+    {
+        return $this->setFieldValue('fill', $value);
+    }
 
-	/**
-	* @return BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient
-	*/
+    /**
+     * Required. Intensity of the pattern when it is shown above the filled background; 0-100
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getIntensity(): mixed
+    {
+        return $this->getFieldValue('intensity');
+    }
 
-	public function getFill(): mixed
-	{
-		return $this->getFieldValue('fill');
-	}
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIntensity(mixed $value): static
+    {
+        return $this->setFieldValue('intensity', $value);
+    }
 
-	/**
-	* @param BackgroundFill|BackgroundFillSolid|BackgroundFillGradient|BackgroundFillFreeformGradient $value
-	* @return static
-	*/
+    /**
+     * Optional. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsInverted(): mixed
+    {
+        return $this->getFieldValue('is_inverted');
+    }
 
-	public function setFill(mixed $value): static
-	{
-		return $this->setFieldValue('fill', $value);
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsInverted(mixed $value): static
+    {
+        return $this->setFieldValue('is_inverted', $value);
+    }
 
-	/**
-	* @return int
-	*/
+    /**
+     * Optional. *True*, if the background moves slightly when the device is tilted
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsMoving(): mixed
+    {
+        return $this->getFieldValue('is_moving');
+    }
 
-	public function getIntensity(): mixed
-	{
-		return $this->getFieldValue('intensity');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setIntensity(mixed $value): static
-	{
-		return $this->setFieldValue('intensity', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsInverted(): mixed
-	{
-		return $this->getFieldValue('is_inverted');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsInverted(mixed $value): static
-	{
-		return $this->setFieldValue('is_inverted', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsMoving(): mixed
-	{
-		return $this->getFieldValue('is_moving');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsMoving(mixed $value): static
-	{
-		return $this->setFieldValue('is_moving', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsMoving(mixed $value): static
+    {
+        return $this->setFieldValue('is_moving', $value);
+    }
 }

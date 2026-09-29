@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,65 +14,80 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a withdrawal transaction with Fragment.
- * @property string $type
- * Type of the transaction partner, always “fragment”
- * @property RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $withdrawalState
- * *Optional*. State of the transaction if the transaction is outgoing
+ *
+ * @link https://core.telegram.org/bots/api#transactionpartnerfragment
+ *
+ * @property-read string|null $type Required. Type of the transaction partner, always “fragment”
+ * @property-write string $type
+ * @property-read RevenueWithdrawalState|null $withdrawalState Optional. State of the transaction if the transaction is outgoing
+ * @property-write RevenueWithdrawalState|array<string, mixed> $withdrawalState
  */
 class TransactionPartnerFragment extends TransactionPartner
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'fragment',
-				'required' => true,
-			],
-			'withdrawal_state' => [
-				'type' => [RevenueWithdrawalState::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'fragment',
+                'required' => true,
+            ],
+            'withdrawal_state' => [
+                'type' => [RevenueWithdrawalState::class],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the transaction partner, always “fragment”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed
-	*/
+    /**
+     * Optional. State of the transaction if the transaction is outgoing
+     *
+     * @return RevenueWithdrawalState|null
+     * @throws Base\TelegramException
+     */
+    public function getWithdrawalState(): mixed
+    {
+        return $this->getFieldValue('withdrawal_state');
+    }
 
-	public function getWithdrawalState(): mixed
-	{
-		return $this->getFieldValue('withdrawal_state');
-	}
-
-	/**
-	* @param RevenueWithdrawalState|RevenueWithdrawalStatePending|RevenueWithdrawalStateSucceeded|RevenueWithdrawalStateFailed $value
-	* @return static
-	*/
-
-	public function setWithdrawalState(mixed $value): static
-	{
-		return $this->setFieldValue('withdrawal_state', $value);
-	}
-
+    /**
+     * @param RevenueWithdrawalState|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWithdrawalState(mixed $value): static
+    {
+        return $this->setFieldValue('withdrawal_state', $value);
+    }
 }

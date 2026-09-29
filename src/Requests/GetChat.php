@@ -17,10 +17,14 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to get up-to-date information about the chat. Returns a [ChatFullInfo](#chatfullinfo) object on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
- * @method Types\ChatFullInfo send(Api $gateway = null)
+ * Use this method to get up-to-date information about the chat. Returns a `ChatFullInfo` object on success.
+ *
+ * @link https://core.telegram.org/bots/api#getchat
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+ * @property-write int|string $chatId
+ *
+ * @method Types\ChatFullInfo send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetChat extends Base\Request
 {
@@ -32,25 +36,27 @@ class GetChat extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => Types\ChatFullInfo::class,
+                'type' => [Types\ChatFullInfo::class],
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
@@ -58,6 +64,6 @@ class GetChat extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetChat';
+        return 'getChat';
     }
 }

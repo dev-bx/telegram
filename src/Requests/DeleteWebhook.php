@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,10 +16,14 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to remove webhook integration if you decide to switch back to [getUpdates](#getupdates). Returns *True* on success.
- * @property bool $dropPendingUpdates
- * Pass *True* to drop all pending updates
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to remove webhook integration if you decide to switch back to `getUpdates`. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#deletewebhook
+ *
+ * @property-read bool|null $dropPendingUpdates Optional. Pass *True* to drop all pending updates
+ * @property-write bool $dropPendingUpdates
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeleteWebhook extends Base\Request
 {
@@ -29,23 +33,28 @@ class DeleteWebhook extends Base\Request
             'drop_pending_updates' => [
                 'type' => ['bool'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to drop all pending updates
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getDropPendingUpdates(): mixed
     {
         return $this->getFieldValue('drop_pending_updates');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setDropPendingUpdates(mixed $value): static
     {
         return $this->setFieldValue('drop_pending_updates', $value);
@@ -53,6 +62,6 @@ class DeleteWebhook extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeleteWebhook';
+        return 'deleteWebhook';
     }
 }

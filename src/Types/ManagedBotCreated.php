@@ -14,40 +14,44 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object contains information about the bot that was created to be managed by the current bot.
- * @property User $bot
- * Information about the bot. The bot's token can be fetched using the method [getManagedBotToken](#getmanagedbottoken).
+ *
+ * @link https://core.telegram.org/bots/api#managedbotcreated
+ *
+ * @property-read User|null $bot Required. Information about the bot. The bot's token can be fetched using the method `getManagedBotToken`.
+ * @property-write User|array<string, mixed> $bot
  */
 class ManagedBotCreated extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'bot' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return User
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'bot' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getBot(): mixed
-	{
-		return $this->getFieldValue('bot');
-	}
+    /**
+     * Required. Information about the bot. The bot's token can be fetched using the method `getManagedBotToken`.
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getBot(): mixed
+    {
+        return $this->getFieldValue('bot');
+    }
 
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setBot(mixed $value): static
-	{
-		return $this->setFieldValue('bot', $value);
-	}
-
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setBot(mixed $value): static
+    {
+        return $this->setFieldValue('bot', $value);
+    }
 }

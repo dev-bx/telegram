@@ -17,14 +17,18 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to edit a subscription invite link created by the bot. The bot must have the *can\_invite\_users* administrator rights. Returns the edited invite link as a [ChatInviteLink](#chatinvitelink) object.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel in the format `@username`
- * @property string $inviteLink
- * The invite link to edit
- * @property string $name
- * Invite link name; 0-32 characters
- * @method Types\ChatInviteLink send(Api $gateway = null)
+ * Use this method to edit a subscription invite link created by the bot. The bot must have the *can_invite_users* administrator rights. Returns the edited invite link as a `ChatInviteLink` object.
+ *
+ * @link https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+ * @property-write int|string $chatId
+ * @property-read string|null $inviteLink Required. The invite link to edit
+ * @property-write string $inviteLink
+ * @property-read string|null $name Optional. Invite link name; 0-32 characters
+ * @property-write string $name
+ *
+ * @method Types\ChatInviteLink send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class EditChatSubscriptionInviteLink extends Base\Request
 {
@@ -43,63 +47,69 @@ class EditChatSubscriptionInviteLink extends Base\Request
                 'type' => ['string'],
             ],
             '@return' => [
-                'type' => Types\ChatInviteLink::class,
+                'type' => [Types\ChatInviteLink::class],
             ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. The invite link to edit
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getInviteLink(): mixed
     {
         return $this->getFieldValue('invite_link');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setInviteLink(mixed $value): static
     {
         return $this->setFieldValue('invite_link', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Invite link name; 0-32 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getName(): mixed
     {
         return $this->getFieldValue('name');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setName(mixed $value): static
     {
         return $this->setFieldValue('name', $value);
@@ -107,6 +117,6 @@ class EditChatSubscriptionInviteLink extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'EditChatSubscriptionInviteLink';
+        return 'editChatSubscriptionInviteLink';
     }
 }

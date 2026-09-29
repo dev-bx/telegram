@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,111 +14,121 @@ namespace DevBX\Telegram\Payments;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents information about an order.
- * @property string $name
- * *Optional*. User name
- * @property string $phoneNumber
- * *Optional*. User's phone number
- * @property string $email
- * *Optional*. User email
- * @property ShippingAddress $shippingAddress
- * *Optional*. User shipping address
+ *
+ * @link https://core.telegram.org/bots/api#orderinfo
+ *
+ * @property-read string|null $name Optional. User name
+ * @property-write string $name
+ * @property-read string|null $phoneNumber Optional. User's phone number
+ * @property-write string $phoneNumber
+ * @property-read string|null $email Optional. User email
+ * @property-write string $email
+ * @property-read ShippingAddress|null $shippingAddress Optional. User shipping address
+ * @property-write ShippingAddress|array<string, mixed> $shippingAddress
  */
 class OrderInfo extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'name' => [
-				'type' => ['string'],
-			],
-			'phone_number' => [
-				'type' => ['string'],
-			],
-			'email' => [
-				'type' => ['string'],
-			],
-			'shipping_address' => [
-				'type' => [ShippingAddress::class],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'name' => [
+                'type' => ['string'],
+            ],
+            'phone_number' => [
+                'type' => ['string'],
+            ],
+            'email' => [
+                'type' => ['string'],
+            ],
+            'shipping_address' => [
+                'type' => [ShippingAddress::class],
+            ],
+        ];
+    }
 
-	public function getName(): mixed
-	{
-		return $this->getFieldValue('name');
-	}
+    /**
+     * Optional. User name
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getName(): mixed
+    {
+        return $this->getFieldValue('name');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setName(mixed $value): static
+    {
+        return $this->setFieldValue('name', $value);
+    }
 
-	public function setName(mixed $value): static
-	{
-		return $this->setFieldValue('name', $value);
-	}
+    /**
+     * Optional. User's phone number
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getPhoneNumber(): mixed
+    {
+        return $this->getFieldValue('phone_number');
+    }
 
-	/**
-	* @return string
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPhoneNumber(mixed $value): static
+    {
+        return $this->setFieldValue('phone_number', $value);
+    }
 
-	public function getPhoneNumber(): mixed
-	{
-		return $this->getFieldValue('phone_number');
-	}
+    /**
+     * Optional. User email
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getEmail(): mixed
+    {
+        return $this->getFieldValue('email');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setEmail(mixed $value): static
+    {
+        return $this->setFieldValue('email', $value);
+    }
 
-	public function setPhoneNumber(mixed $value): static
-	{
-		return $this->setFieldValue('phone_number', $value);
-	}
+    /**
+     * Optional. User shipping address
+     *
+     * @return ShippingAddress|null
+     * @throws Base\TelegramException
+     */
+    public function getShippingAddress(): mixed
+    {
+        return $this->getFieldValue('shipping_address');
+    }
 
-	/**
-	* @return string
-	*/
-
-	public function getEmail(): mixed
-	{
-		return $this->getFieldValue('email');
-	}
-
-	/**
-	* @param string $value
-	* @return static
-	*/
-
-	public function setEmail(mixed $value): static
-	{
-		return $this->setFieldValue('email', $value);
-	}
-
-	/**
-	* @return ShippingAddress
-	*/
-
-	public function getShippingAddress(): mixed
-	{
-		return $this->getFieldValue('shipping_address');
-	}
-
-	/**
-	* @param ShippingAddress $value
-	* @return static
-	*/
-
-	public function setShippingAddress(mixed $value): static
-	{
-		return $this->setFieldValue('shipping_address', $value);
-	}
-
+    /**
+     * @param ShippingAddress|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setShippingAddress(mixed $value): static
+    {
+        return $this->setFieldValue('shipping_address', $value);
+    }
 }

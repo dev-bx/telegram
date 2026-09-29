@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,14 +17,18 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Changes the profile photo of a managed business account. Requires the *can\_edit\_profile\_photo* business bot right. Returns *True* on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection
- * @property Types\InputProfilePhoto $photo
- * The new profile photo to set
- * @property bool $isPublic
- * Pass *True* to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
- * @method Base\BaseType send(Api $gateway = null)
+ * Changes the profile photo of a managed business account. Requires the *can_edit_profile_photo* business bot right. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection
+ * @property-write string $businessConnectionId
+ * @property-read Types\InputProfilePhoto|null $photo Required. The new profile photo to set
+ * @property-write Types\InputProfilePhoto|array<string, mixed> $photo
+ * @property-read bool|null $isPublic Optional. Pass *True* to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
+ * @property-write bool $isPublic
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetBusinessAccountProfilePhoto extends Base\Request
 {
@@ -42,61 +46,70 @@ class SetBusinessAccountProfilePhoto extends Base\Request
             'is_public' => [
                 'type' => ['bool'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return Types\InputProfilePhoto
-    */
-
+     * Required. The new profile photo to set
+     *
+     * @return Types\InputProfilePhoto|null
+     * @throws Base\TelegramException
+     */
     public function getPhoto(): mixed
     {
         return $this->getFieldValue('photo');
     }
 
     /**
-    * @param Types\InputProfilePhoto $value
-    * @return static
-    */
-
+     * @param Types\InputProfilePhoto|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setPhoto(mixed $value): static
     {
         return $this->setFieldValue('photo', $value);
     }
 
     /**
-    * @return bool
-    */
-
+     * Optional. Pass *True* to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
     public function getIsPublic(): mixed
     {
         return $this->getFieldValue('is_public');
     }
 
     /**
-    * @param bool $value
-    * @return static
-    */
-
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setIsPublic(mixed $value): static
     {
         return $this->setFieldValue('is_public', $value);
@@ -104,6 +117,6 @@ class SetBusinessAccountProfilePhoto extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetBusinessAccountProfilePhoto';
+        return 'setBusinessAccountProfilePhoto';
     }
 }

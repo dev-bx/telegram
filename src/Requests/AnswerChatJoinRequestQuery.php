@@ -17,11 +17,15 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to process a received chat join request query. Returns *True* on success.
- * @property string $chatJoinRequestQueryId
- * Unique identifier of the join request query
- * @property string $result
- * Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#answerchatjoinrequestquery
+ *
+ * @property-read string|null $chatJoinRequestQueryId Required. Unique identifier of the join request query
+ * @property-write string $chatJoinRequestQueryId
+ * @property-read string|null $result Required. Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
+ * @property-write string $result
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class AnswerChatJoinRequestQuery extends Base\Request
 {
@@ -36,42 +40,49 @@ class AnswerChatJoinRequestQuery extends Base\Request
                 'type' => ['string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the join request query
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getChatJoinRequestQueryId(): mixed
     {
         return $this->getFieldValue('chat_join_request_query_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatJoinRequestQueryId(mixed $value): static
     {
         return $this->setFieldValue('chat_join_request_query_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getResult(): mixed
     {
         return $this->getFieldValue('result');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setResult(mixed $value): static
     {
         return $this->setFieldValue('result', $value);
@@ -79,6 +90,6 @@ class AnswerChatJoinRequestQuery extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'AnswerChatJoinRequestQuery';
+        return 'answerChatJoinRequestQuery';
     }
 }

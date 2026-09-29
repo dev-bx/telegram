@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,14 +16,18 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Marks incoming message as read on behalf of a business account. Requires the *can\_read\_messages* business bot right. Returns *True* on success.
- * @property string $businessConnectionId
- * Unique identifier of the business connection on behalf of which to read the message
- * @property int $chatId
- * Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
- * @property int $messageId
- * Unique identifier of the message to mark as read
- * @method Base\BaseType send(Api $gateway = null)
+ * Marks incoming message as read on behalf of a business account. Requires the *can_read_messages* business bot right. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#readbusinessmessage
+ *
+ * @property-read string|null $businessConnectionId Required. Unique identifier of the business connection on behalf of which to read the message
+ * @property-write string $businessConnectionId
+ * @property-read int|null $chatId Required. Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+ * @property-write int $chatId
+ * @property-read int|null $messageId Required. Unique identifier of the message to mark as read
+ * @property-write int $messageId
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class ReadBusinessMessage extends Base\Request
 {
@@ -42,61 +46,70 @@ class ReadBusinessMessage extends Base\Request
                 'type' => ['int'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return string
-    */
-
+     * Required. Unique identifier of the business connection on behalf of which to read the message
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getBusinessConnectionId(): mixed
     {
         return $this->getFieldValue('business_connection_id');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setBusinessConnectionId(mixed $value): static
     {
         return $this->setFieldValue('business_connection_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier of the message to mark as read
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
@@ -104,6 +117,6 @@ class ReadBusinessMessage extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'ReadBusinessMessage';
+        return 'readBusinessMessage';
     }
 }

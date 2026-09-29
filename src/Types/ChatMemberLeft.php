@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,66 +14,81 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
- * Represents a [chat member](#chatmember) that isn't currently a member of the chat, but may join it themselves.
- * @property string $status
- * The member's status in the chat, always “left”
- * @property User $user
- * Information about the user
+ * Represents a `ChatMember` that isn't currently a member of the chat, but may join it themselves.
+ *
+ * @link https://core.telegram.org/bots/api#chatmemberleft
+ *
+ * @property-read string|null $status Required. The member's status in the chat, always “left”
+ * @property-write string $status
+ * @property-read User|null $user Required. Information about the user
+ * @property-write User|array<string, mixed> $user
  */
 class ChatMemberLeft extends ChatMember
 {
-	public static function getFields(): array
-	{
-		return [
-			'status' => [
-				'type' => ['string'],
-				'value' => 'left',
-				'required' => true,
-			],
-			'user' => [
-				'type' => [User::class],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getStatus(): mixed
-	{
-		return $this->getFieldValue('status');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'status' => [
+                'type' => ['string'],
+                'value' => 'left',
+                'required' => true,
+            ],
+            'user' => [
+                'type' => [User::class],
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. The member's status in the chat, always “left”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getStatus(): mixed
+    {
+        return $this->getFieldValue('status');
+    }
 
-	public function setStatus(mixed $value): static
-	{
-		return $this->setFieldValue('status', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setStatus(mixed $value): static
+    {
+        return $this->setFieldValue('status', $value);
+    }
 
-	/**
-	* @return User
-	*/
+    /**
+     * Required. Information about the user
+     *
+     * @return User|null
+     * @throws Base\TelegramException
+     */
+    public function getUser(): mixed
+    {
+        return $this->getFieldValue('user');
+    }
 
-	public function getUser(): mixed
-	{
-		return $this->getFieldValue('user');
-	}
-
-	/**
-	* @param User $value
-	* @return static
-	*/
-
-	public function setUser(mixed $value): static
-	{
-		return $this->setFieldValue('user', $value);
-	}
-
+    /**
+     * @param User|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setUser(mixed $value): static
+    {
+        return $this->setFieldValue('user', $value);
+    }
 }

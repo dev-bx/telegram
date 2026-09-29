@@ -14,67 +14,82 @@ namespace DevBX\Telegram\RichMessages;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * A list of blocks, corresponding to the HTML tag `<ul>` or `<ol>` with multiple nested tags `<li>`.
- * @property string $type
- * Type of the block, always “list”
- * @property Base\ArrayObject|RichBlockListItem[] $items
- * Items of the list
+ *
+ * @link https://core.telegram.org/bots/api#richblocklist
+ *
+ * @property-read string|null $type Required. Type of the block, always “list”
+ * @property-write string $type
+ * @property-read Base\ArrayObject<RichBlockListItem> $items Required. Items of the list
+ * @property-write list<RichBlockListItem|array<string, mixed>>|Base\ArrayObject<RichBlockListItem> $items
  */
 class RichBlockList extends RichBlock
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'list',
-				'required' => true,
-			],
-			'items' => [
-				'type' => [RichBlockListItem::class],
-				'isArray' => true,
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'list',
+                'required' => true,
+            ],
+            'items' => [
+                'type' => [RichBlockListItem::class],
+                'isArray' => true,
+                'required' => true,
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the block, always “list”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return Base\ArrayObject|RichBlockListItem[]
-	*/
+    /**
+     * Required. Items of the list
+     *
+     * @return Base\ArrayObject<RichBlockListItem>
+     * @throws Base\TelegramException
+     */
+    public function getItems(): mixed
+    {
+        return $this->getFieldValue('items');
+    }
 
-	public function getItems(): mixed
-	{
-		return $this->getFieldValue('items');
-	}
-
-	/**
-	* @param Base\ArrayObject|RichBlockListItem[] $value
-	* @return static
-	*/
-
-	public function setItems(mixed $value): static
-	{
-		return $this->setFieldValue('items', $value);
-	}
-
+    /**
+     * @param list<RichBlockListItem|array<string, mixed>>|Base\ArrayObject<RichBlockListItem> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setItems(mixed $value): static
+    {
+        return $this->setFieldValue('items', $value);
+    }
 }

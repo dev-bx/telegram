@@ -17,9 +17,13 @@ use DevBX\Telegram\Api;
 
 /**
  * Use this method to get the number of members in a chat. Returns *Integer* on success.
- * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#getchatmembercount
+ *
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+ * @property-write int|string $chatId
+ *
+ * @method Base\ParameterInt send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class GetChatMemberCount extends Base\Request
 {
@@ -30,23 +34,28 @@ class GetChatMemberCount extends Base\Request
                 'type' => ['int', 'string'],
                 'required' => true,
             ],
+            '@return' => [
+                'type' => ['int'],
+            ],
         ];
     }
 
     /**
-    * @return int|string
-    */
-
+     * Required. Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
+     *
+     * @return int|string|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int|string $value
-    * @return static
-    */
-
+     * @param int|string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
@@ -54,6 +63,6 @@ class GetChatMemberCount extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'GetChatMemberCount';
+        return 'getChatMemberCount';
     }
 }

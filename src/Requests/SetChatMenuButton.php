@@ -18,11 +18,15 @@ use DevBX\Telegram\Types;
 
 /**
  * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
- * @property int $chatId
- * Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
- * @property Types\MenuButton $menuButton
- * A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](#menubuttondefault).
- * @method Base\BaseType send(Api $gateway = null)
+ *
+ * @link https://core.telegram.org/bots/api#setchatmenubutton
+ *
+ * @property-read int|null $chatId Optional. Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
+ * @property-write int $chatId
+ * @property-read Types\MenuButton|null $menuButton Optional. A JSON-serialized object for the bot's new menu button. Defaults to `MenuButtonDefault`.
+ * @property-write Types\MenuButton|array<string, mixed> $menuButton
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class SetChatMenuButton extends Base\Request
 {
@@ -35,42 +39,49 @@ class SetChatMenuButton extends Base\Request
             'menu_button' => [
                 'type' => [Types\MenuButton::class],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Optional. Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return Types\MenuButton
-    */
-
+     * Optional. A JSON-serialized object for the bot's new menu button. Defaults to `MenuButtonDefault`.
+     *
+     * @return Types\MenuButton|null
+     * @throws Base\TelegramException
+     */
     public function getMenuButton(): mixed
     {
         return $this->getFieldValue('menu_button');
     }
 
     /**
-    * @param Types\MenuButton $value
-    * @return static
-    */
-
+     * @param Types\MenuButton|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMenuButton(mixed $value): static
     {
         return $this->setFieldValue('menu_button', $value);
@@ -78,6 +89,6 @@ class SetChatMenuButton extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'SetChatMenuButton';
+        return 'setChatMenuButton';
     }
 }

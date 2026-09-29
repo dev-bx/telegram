@@ -16,14 +16,18 @@ use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 
 /**
- * Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can\_manage\_direct\_messages' administrator right in the corresponding channel chat. Returns *True* on success.
- * @property int $chatId
- * Unique identifier for the target direct messages chat
- * @property int $messageId
- * Identifier of a suggested post message to decline
- * @property string $comment
- * Comment for the creator of the suggested post; 0-128 characters
- * @method Base\BaseType send(Api $gateway = null)
+ * Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can_manage_direct_messages' administrator right in the corresponding channel chat. Returns *True* on success.
+ *
+ * @link https://core.telegram.org/bots/api#declinesuggestedpost
+ *
+ * @property-read int|null $chatId Required. Unique identifier for the target direct messages chat
+ * @property-write int $chatId
+ * @property-read int|null $messageId Required. Identifier of a suggested post message to decline
+ * @property-write int $messageId
+ * @property-read string|null $comment Optional. Comment for the creator of the suggested post; 0-128 characters
+ * @property-write string $comment
+ *
+ * @method Base\ParameterBool send(?Api $gateway = null) Выполняет запрос через $gateway (по умолчанию — Api::getInstance())
  */
 class DeclineSuggestedPost extends Base\Request
 {
@@ -41,61 +45,70 @@ class DeclineSuggestedPost extends Base\Request
             'comment' => [
                 'type' => ['string'],
             ],
+            '@return' => [
+                'type' => ['bool'],
+            ],
         ];
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Unique identifier for the target direct messages chat
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getChatId(): mixed
     {
         return $this->getFieldValue('chat_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setChatId(mixed $value): static
     {
         return $this->setFieldValue('chat_id', $value);
     }
 
     /**
-    * @return int
-    */
-
+     * Required. Identifier of a suggested post message to decline
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
     public function getMessageId(): mixed
     {
         return $this->getFieldValue('message_id');
     }
 
     /**
-    * @param int $value
-    * @return static
-    */
-
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setMessageId(mixed $value): static
     {
         return $this->setFieldValue('message_id', $value);
     }
 
     /**
-    * @return string
-    */
-
+     * Optional. Comment for the creator of the suggested post; 0-128 characters
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
     public function getComment(): mixed
     {
         return $this->getFieldValue('comment');
     }
 
     /**
-    * @param string $value
-    * @return static
-    */
-
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
     public function setComment(mixed $value): static
     {
         return $this->setFieldValue('comment', $value);
@@ -103,6 +116,6 @@ class DeclineSuggestedPost extends Base\Request
 
     protected function getRequestMethod(): string
     {
-        return 'DeclineSuggestedPost';
+        return 'declineSuggestedPost';
     }
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,114 +14,133 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a story area pointing to a suggested reaction. Currently, a story can have up to 5 suggested reaction areas.
- * @property string $type
- * Type of the area, always “suggested\_reaction”
- * @property ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $reactionType
- * Type of the reaction
- * @property bool $isDark
- * *Optional*. Pass *True* if the reaction area has a dark background
- * @property bool $isFlipped
- * *Optional*. Pass *True* if reaction area corner is flipped
+ *
+ * @link https://core.telegram.org/bots/api#storyareatypesuggestedreaction
+ *
+ * @property-read string|null $type Required. Type of the area, always “suggested_reaction”
+ * @property-write string $type
+ * @property-read ReactionType|null $reactionType Required. Type of the reaction
+ * @property-write ReactionType|array<string, mixed> $reactionType
+ * @property-read bool|null $isDark Optional. Pass *True* if the reaction area has a dark background
+ * @property-write bool $isDark
+ * @property-read bool|null $isFlipped Optional. Pass *True* if reaction area corner is flipped
+ * @property-write bool $isFlipped
  */
 class StoryAreaTypeSuggestedReaction extends StoryAreaType
 {
-	public static function getFields(): array
-	{
-		return [
-			'type' => [
-				'type' => ['string'],
-				'value' => 'suggested_reaction',
-				'required' => true,
-			],
-			'reaction_type' => [
-				'type' => [ReactionType::class],
-				'required' => true,
-			],
-			'is_dark' => [
-				'type' => ['bool'],
-			],
-			'is_flipped' => [
-				'type' => ['bool'],
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    /**
+     * @return static
+     * @throws Base\TelegramException
+     */
+    public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
+    {
+        return static::createInstance($value, $ignoreUnknownFields);
+    }
 
-	public function getType(): mixed
-	{
-		return $this->getFieldValue('type');
-	}
+    public static function getFields(): array
+    {
+        return [
+            'type' => [
+                'type' => ['string'],
+                'value' => 'suggested_reaction',
+                'required' => true,
+            ],
+            'reaction_type' => [
+                'type' => [ReactionType::class],
+                'required' => true,
+            ],
+            'is_dark' => [
+                'type' => ['bool'],
+            ],
+            'is_flipped' => [
+                'type' => ['bool'],
+            ],
+        ];
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * Required. Type of the area, always “suggested_reaction”
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getType(): mixed
+    {
+        return $this->getFieldValue('type');
+    }
 
-	public function setType(mixed $value): static
-	{
-		return $this->setFieldValue('type', $value);
-	}
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setType(mixed $value): static
+    {
+        return $this->setFieldValue('type', $value);
+    }
 
-	/**
-	* @return ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid
-	*/
+    /**
+     * Required. Type of the reaction
+     *
+     * @return ReactionType|null
+     * @throws Base\TelegramException
+     */
+    public function getReactionType(): mixed
+    {
+        return $this->getFieldValue('reaction_type');
+    }
 
-	public function getReactionType(): mixed
-	{
-		return $this->getFieldValue('reaction_type');
-	}
+    /**
+     * @param ReactionType|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setReactionType(mixed $value): static
+    {
+        return $this->setFieldValue('reaction_type', $value);
+    }
 
-	/**
-	* @param ReactionType|ReactionTypeEmoji|ReactionTypeCustomEmoji|ReactionTypePaid $value
-	* @return static
-	*/
+    /**
+     * Optional. Pass *True* if the reaction area has a dark background
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsDark(): mixed
+    {
+        return $this->getFieldValue('is_dark');
+    }
 
-	public function setReactionType(mixed $value): static
-	{
-		return $this->setFieldValue('reaction_type', $value);
-	}
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsDark(mixed $value): static
+    {
+        return $this->setFieldValue('is_dark', $value);
+    }
 
-	/**
-	* @return bool
-	*/
+    /**
+     * Optional. Pass *True* if reaction area corner is flipped
+     *
+     * @return bool|null
+     * @throws Base\TelegramException
+     */
+    public function getIsFlipped(): mixed
+    {
+        return $this->getFieldValue('is_flipped');
+    }
 
-	public function getIsDark(): mixed
-	{
-		return $this->getFieldValue('is_dark');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsDark(mixed $value): static
-	{
-		return $this->setFieldValue('is_dark', $value);
-	}
-
-	/**
-	* @return bool
-	*/
-
-	public function getIsFlipped(): mixed
-	{
-		return $this->getFieldValue('is_flipped');
-	}
-
-	/**
-	* @param bool $value
-	* @return static
-	*/
-
-	public function setIsFlipped(mixed $value): static
-	{
-		return $this->setFieldValue('is_flipped', $value);
-	}
-
+    /**
+     * @param bool $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setIsFlipped(mixed $value): static
+    {
+        return $this->setFieldValue('is_flipped', $value);
+    }
 }

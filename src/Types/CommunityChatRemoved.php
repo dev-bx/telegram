@@ -14,16 +14,15 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about a chat or a bot being removed from a community. Currently holds no information.
+ *
+ * @link https://core.telegram.org/bots/api#communitychatremoved
  */
 class CommunityChatRemoved extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-
-		];
-	}
+    public static function getFields(): array
+    {
+        return [];
+    }
 }

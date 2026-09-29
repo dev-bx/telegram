@@ -14,89 +14,97 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * Describes a service message about checklist tasks marked as done or not done.
- * @property Message $checklistMessage
- * *Optional*. Message containing the checklist whose tasks were marked as done or not done. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
- * @property int[] $markedAsDoneTaskIds
- * *Optional*. Identifiers of the tasks that were marked as done
- * @property int[] $markedAsNotDoneTaskIds
- * *Optional*. Identifiers of the tasks that were marked as not done
+ *
+ * @link https://core.telegram.org/bots/api#checklisttasksdone
+ *
+ * @property-read Message|null $checklistMessage Optional. Message containing the checklist whose tasks were marked as done or not done. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+ * @property-write Message|array<string, mixed> $checklistMessage
+ * @property-read Base\ArrayObject<Base\ParameterInt> $markedAsDoneTaskIds Optional. Identifiers of the tasks that were marked as done
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $markedAsDoneTaskIds
+ * @property-read Base\ArrayObject<Base\ParameterInt> $markedAsNotDoneTaskIds Optional. Identifiers of the tasks that were marked as not done
+ * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $markedAsNotDoneTaskIds
  */
 class ChecklistTasksDone extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'checklist_message' => [
-				'type' => [Message::class],
-			],
-			'marked_as_done_task_ids' => [
-				'type' => ['int'],
-				'isArray' => true,
-			],
-			'marked_as_not_done_task_ids' => [
-				'type' => ['int'],
-				'isArray' => true,
-			],
-		];
-	}
-	/**
-	* @return Message
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'checklist_message' => [
+                'type' => [Message::class],
+            ],
+            'marked_as_done_task_ids' => [
+                'type' => ['int'],
+                'isArray' => true,
+            ],
+            'marked_as_not_done_task_ids' => [
+                'type' => ['int'],
+                'isArray' => true,
+            ],
+        ];
+    }
 
-	public function getChecklistMessage(): mixed
-	{
-		return $this->getFieldValue('checklist_message');
-	}
+    /**
+     * Optional. Message containing the checklist whose tasks were marked as done or not done. Note that the `Message` object in this field will not contain the *reply_to_message* field even if it itself is a reply.
+     *
+     * @return Message|null
+     * @throws Base\TelegramException
+     */
+    public function getChecklistMessage(): mixed
+    {
+        return $this->getFieldValue('checklist_message');
+    }
 
-	/**
-	* @param Message $value
-	* @return static
-	*/
+    /**
+     * @param Message|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setChecklistMessage(mixed $value): static
+    {
+        return $this->setFieldValue('checklist_message', $value);
+    }
 
-	public function setChecklistMessage(mixed $value): static
-	{
-		return $this->setFieldValue('checklist_message', $value);
-	}
+    /**
+     * Optional. Identifiers of the tasks that were marked as done
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
+    public function getMarkedAsDoneTaskIds(): mixed
+    {
+        return $this->getFieldValue('marked_as_done_task_ids');
+    }
 
-	/**
-	* @return int[]
-	*/
+    /**
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMarkedAsDoneTaskIds(mixed $value): static
+    {
+        return $this->setFieldValue('marked_as_done_task_ids', $value);
+    }
 
-	public function getMarkedAsDoneTaskIds(): mixed
-	{
-		return $this->getFieldValue('marked_as_done_task_ids');
-	}
+    /**
+     * Optional. Identifiers of the tasks that were marked as not done
+     *
+     * @return Base\ArrayObject<Base\ParameterInt>
+     * @throws Base\TelegramException
+     */
+    public function getMarkedAsNotDoneTaskIds(): mixed
+    {
+        return $this->getFieldValue('marked_as_not_done_task_ids');
+    }
 
-	/**
-	* @param int[] $value
-	* @return static
-	*/
-
-	public function setMarkedAsDoneTaskIds(mixed $value): static
-	{
-		return $this->setFieldValue('marked_as_done_task_ids', $value);
-	}
-
-	/**
-	* @return int[]
-	*/
-
-	public function getMarkedAsNotDoneTaskIds(): mixed
-	{
-		return $this->getFieldValue('marked_as_not_done_task_ids');
-	}
-
-	/**
-	* @param int[] $value
-	* @return static
-	*/
-
-	public function setMarkedAsNotDoneTaskIds(mixed $value): static
-	{
-		return $this->setFieldValue('marked_as_not_done_task_ids', $value);
-	}
-
+    /**
+     * @param list<int>|Base\ArrayObject<Base\ParameterInt> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setMarkedAsNotDoneTaskIds(mixed $value): static
+    {
+        return $this->setFieldValue('marked_as_not_done_task_ids', $value);
+    }
 }

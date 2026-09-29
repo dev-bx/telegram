@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,90 +15,98 @@ namespace DevBX\Telegram\Types;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Stickers;
 
-
 /**
  * This object describes the symbol shown on the pattern of a unique gift.
- * @property string $name
- * Name of the symbol
- * @property Stickers\Sticker $sticker
- * The sticker that represents the unique gift
- * @property int $rarityPerMille
- * The number of unique gifts that receive this model for every 1000 gifts upgraded
+ *
+ * @link https://core.telegram.org/bots/api#uniquegiftsymbol
+ *
+ * @property-read string|null $name Required. Name of the symbol
+ * @property-write string $name
+ * @property-read Stickers\Sticker|null $sticker Required. The sticker that represents the unique gift
+ * @property-write Stickers\Sticker|array<string, mixed> $sticker
+ * @property-read int|null $rarityPerMille Required. The number of unique gifts that receive this model for every 1000 gifts upgraded
+ * @property-write int $rarityPerMille
  */
 class UniqueGiftSymbol extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'name' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'sticker' => [
-				'type' => [Stickers\Sticker::class],
-				'required' => true,
-			],
-			'rarity_per_mille' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'name' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'sticker' => [
+                'type' => [Stickers\Sticker::class],
+                'required' => true,
+            ],
+            'rarity_per_mille' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getName(): mixed
-	{
-		return $this->getFieldValue('name');
-	}
+    /**
+     * Required. Name of the symbol
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getName(): mixed
+    {
+        return $this->getFieldValue('name');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setName(mixed $value): static
+    {
+        return $this->setFieldValue('name', $value);
+    }
 
-	public function setName(mixed $value): static
-	{
-		return $this->setFieldValue('name', $value);
-	}
+    /**
+     * Required. The sticker that represents the unique gift
+     *
+     * @return Stickers\Sticker|null
+     * @throws Base\TelegramException
+     */
+    public function getSticker(): mixed
+    {
+        return $this->getFieldValue('sticker');
+    }
 
-	/**
-	* @return Stickers\Sticker
-	*/
+    /**
+     * @param Stickers\Sticker|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSticker(mixed $value): static
+    {
+        return $this->setFieldValue('sticker', $value);
+    }
 
-	public function getSticker(): mixed
-	{
-		return $this->getFieldValue('sticker');
-	}
+    /**
+     * Required. The number of unique gifts that receive this model for every 1000 gifts upgraded
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getRarityPerMille(): mixed
+    {
+        return $this->getFieldValue('rarity_per_mille');
+    }
 
-	/**
-	* @param Stickers\Sticker $value
-	* @return static
-	*/
-
-	public function setSticker(mixed $value): static
-	{
-		return $this->setFieldValue('sticker', $value);
-	}
-
-	/**
-	* @return int
-	*/
-
-	public function getRarityPerMille(): mixed
-	{
-		return $this->getFieldValue('rarity_per_mille');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setRarityPerMille(mixed $value): static
-	{
-		return $this->setFieldValue('rarity_per_mille', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setRarityPerMille(mixed $value): static
+    {
+        return $this->setFieldValue('rarity_per_mille', $value);
+    }
 }

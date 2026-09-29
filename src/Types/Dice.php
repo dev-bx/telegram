@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -14,65 +14,71 @@ namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
-
 /**
  * This object represents an animated emoji that displays a random value.
- * @property string $emoji
- * Emoji on which the dice throw animation is based
- * @property int $value
- * Value of the dice, 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)” base emoji, 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)” base emoji, 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)” base emoji
+ *
+ * @link https://core.telegram.org/bots/api#dice
+ *
+ * @property-read string|null $emoji Required. Emoji on which the dice throw animation is based
+ * @property-write string $emoji
+ * @property-read int|null $value Required. Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
+ * @property-write int $value
  */
 class Dice extends Base\BaseType
 {
-	public static function getFields(): array
-	{
-		return [
-			'emoji' => [
-				'type' => ['string'],
-				'required' => true,
-			],
-			'value' => [
-				'type' => ['int'],
-				'required' => true,
-			],
-		];
-	}
-	/**
-	* @return string
-	*/
+    public static function getFields(): array
+    {
+        return [
+            'emoji' => [
+                'type' => ['string'],
+                'required' => true,
+            ],
+            'value' => [
+                'type' => ['int'],
+                'required' => true,
+            ],
+        ];
+    }
 
-	public function getEmoji(): mixed
-	{
-		return $this->getFieldValue('emoji');
-	}
+    /**
+     * Required. Emoji on which the dice throw animation is based
+     *
+     * @return string|null
+     * @throws Base\TelegramException
+     */
+    public function getEmoji(): mixed
+    {
+        return $this->getFieldValue('emoji');
+    }
 
-	/**
-	* @param string $value
-	* @return static
-	*/
+    /**
+     * @param string $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setEmoji(mixed $value): static
+    {
+        return $this->setFieldValue('emoji', $value);
+    }
 
-	public function setEmoji(mixed $value): static
-	{
-		return $this->setFieldValue('emoji', $value);
-	}
+    /**
+     * Required. Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
+     *
+     * @return int|null
+     * @throws Base\TelegramException
+     */
+    public function getValue(): mixed
+    {
+        return $this->getFieldValue('value');
+    }
 
-	/**
-	* @return int
-	*/
-
-	public function getValue(): mixed
-	{
-		return $this->getFieldValue('value');
-	}
-
-	/**
-	* @param int $value
-	* @return static
-	*/
-
-	public function setValue(mixed $value): static
-	{
-		return $this->setFieldValue('value', $value);
-	}
-
+    /**
+     * @param int $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setValue(mixed $value): static
+    {
+        return $this->setFieldValue('value', $value);
+    }
 }
