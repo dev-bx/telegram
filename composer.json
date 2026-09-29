@@ -1,7 +1,6 @@
 {
   "name": "devbx/telegram",
   "description": "Telegram BOT Api",
-  "version": "10.3",
   "license": "MIT",
   "authors": [
     {
