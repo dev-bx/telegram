@@ -9,6 +9,11 @@ designed to be used with the Bitrix CMS or the GuzzleHTTP client.
 - **Full API Coverage**: Supports all <b>Telegram Bot API 10.3</b> methods.
 - **Customizable**: Easily extendable and customizable to fit your specific needs.
 
+- **Typed**: PHPStan level 7 clean; method parameters are documented as array shapes, fields as typed properties.
+- **AI-ready**: [`llms.txt`](llms.txt) (usage guide) and [`llms-full.txt`](llms-full.txt) (every method and type with PHP
+  types) are shipped with the package — point Claude Code or another coding agent to
+  `vendor/devbx/telegram/llms.txt`.
+
 ## Installation
 
 You can install the package via Composer:

@@ -1,0 +1,122 @@
+# devbx/telegram
+
+> PHP 8.0+ client for Telegram Bot API 10.3 (Composer package `devbx/telegram`, namespace `DevBX\Telegram`).
+> Every Bot API method (185) is a method of `DevBX\Telegram\Api`, every Bot API object (400) is a class.
+> Classes are generated from https://core.telegram.org/bots/api, so names and fields match the official docs 1:1.
+
+## Naming rules
+
+- Bot API method `sendMessage` → `$api->sendMessage(array $params)` and request class `Requests\SendMessage`.
+- Bot API object `Message` → class `Types\Message`. Namespaces follow the doc chapters: `Types`, `Stickers`,
+  `RichMessages`, `InlineMode`, `Payments`, `Passport`, `Games` (all under `DevBX\Telegram`).
+- Parameters in `$params` arrays use the original snake_case names (`chat_id`, `reply_markup`).
+- Object fields: property `$message->messageId` (camelCase), getter `getMessageId()`, fluent setter `setMessageId($v)`.
+  `setFieldValue()`/`getFieldValue()` accept snake_case or camelCase names.
+
+## Clients (transport)
+
+```php
+use DevBX\Telegram;
+
+$api = new Telegram\GuzzleClient([          // requires guzzlehttp/guzzle
+    'token' => getenv('TELEGRAM_BOT_TOKEN'),  // from @BotFather; never hardcode
+    'client_options' => ['timeout' => 60],     // passed to the HTTP client as is
+    // 'api_url' => 'http://localhost:8081/bot', // local Bot API server
+]);
+// Telegram\BitrixClient — 1C-Bitrix Bitrix\Main\Web\HttpClient; Telegram\PsrClient — any PSR-18 client
+// (override getHttpClient() and createPsrRequest()).
+```
+
+The last created client is also available as `Telegram\Api::getInstance()`; `Requests\*::send()` uses it by default.
+
+## Calling methods
+
+```php
+$message = $api->sendMessage([
+    'chat_id' => 123456789,
+    'text' => 'Hello',
+    'reply_markup' => ['inline_keyboard' => [[['text' => 'Open', 'url' => 'https://example.com']]]],
+]);
+echo $message->messageId;                 // Types\Message
+```
+
+- `$params` is documented as a PHPStan array shape: required keys have no `?`. Missing required parameters are
+  rejected before the HTTP call.
+- A nested object can be passed as an array of its fields (as in JSON) or as an object:
+  `'reply_markup' => Types\InlineKeyboardMarkup::create()->setInlineKeyboard([[$button]])`.
+- Equivalent request object: `Requests\SendMessage::create(['chat_id' => 1, 'text' => 'Hi'])->send($api)`.
+
+## Results
+
+| Documentation says | PHP result |
+|---|---|
+| "the sent Message is returned" | `Types\Message` |
+| "Returns an Array of Update objects" | `Base\ArrayObject<Types\Update>` (iterable, countable) |
+| "Returns True on success" | `Base\ParameterBool` — value in `->getEntityValue()` |
+| "Returns String / Integer" | `Base\ParameterString` / `Base\ParameterInt` — `->getEntityValue()` |
+| "the edited Message is returned, otherwise True" | `Types\Message|bool` |
+
+`->jsonSerialize()` of any object returns the plain Bot API array (snake_case keys).
+
+## Objects
+
+- Create: `Types\X::create(array|null $fields = null, bool $ignoreUnknownFields = false)`; keys may be snake_case or camelCase.
+- Read: `$obj->field` / `$obj->getField()` — scalar, object, or `null` when absent. `isset($obj->field)` works.
+- Array fields are never null: `Base\ArrayObject` (items are objects; scalar items are `Base\ParameterString` etc.,
+  value via `->getEntityValue()`). Arrays of arrays (keyboards) are `Base\ArrayOfArrayObject`; `->add([$b1, $b2])`
+  appends a row.
+- Unions ("It can be one of …", e.g. `ChatMember`, `InputMedia`, `RichBlock`): `Union::create($data)` returns the
+  matching variant chosen by the discriminator field (`status`, `type`, `source`); check with `instanceof`.
+  Create variants directly: `Types\InputMediaPhoto::create(['media' => $fileId])` (the `type` field is filled
+  automatically). `RichMessages\RichText` also accepts a plain string or a list of RichText values.
+
+## Files
+
+An `InputFile` parameter accepts a `file_id`/URL string or an upload array:
+`['filename' => 'photo.jpg', 'resource' => fopen($path, 'r'), 'contentType' => 'image/jpeg']`
+(or `'content' => $bytes` instead of `resource`). Files referenced as `attach://<name>` inside media arrays go to
+the second argument: `$api->sendMediaGroup($params, ['name' => $uploadArray])`.
+
+## Errors
+
+- Strict mode (default): errors throw `Base\TelegramException` (code = Telegram `error_code`). Subclasses:
+  `Base\TooManyRequestsException` (`$e->retryAfter` seconds), `Base\BlockedByUserException`,
+  `Base\MessageToEditNotFoundException`, `Base\MessageToBeRepliedNotFoundException`,
+  `Base\DimensionsPhotoTooBigException`. Any response `parameters` field: `$e->migrateToChatId` etc.
+- `Base\BaseObject::setStrictMode(false)`: no exceptions; check `$result->isSuccess()` and `$result->getErrorMessages()`.
+
+## Receiving updates
+
+```php
+$update = Telegram\Api::getWebhookUpdate();          // Types\Update from php://input
+if (isset($update->message)) { $text = $update->message->text; }
+
+foreach ($api->getUpdates(['timeout' => 30]) as $update) { /* Types\Update */ }
+```
+
+## Rich messages (Bot API 10.1+)
+
+```php
+use DevBX\Telegram\RichMessages as Rich;
+
+$api->sendRichMessage([
+    'chat_id' => $chatId,
+    'rich_message' => Rich\InputRichMessage::create()->setBlocks([
+        Rich\InputRichBlockSectionHeading::create(['text' => 'Report', 'size' => 1]),
+        Rich\InputRichBlockParagraph::create()->setText(['Total: ', Rich\RichTextBold::create(['text' => '42'])]),
+        Rich\InputRichBlockDivider::create(),
+    ]),
+]);
+// or 'rich_message' => ['markdown' => '# Report\n**42**'] / ['html' => '...']
+```
+
+## Helpers
+
+- `Telegram\Api::escapeMarkdownV2($text)` — escape text for `parse_mode` MarkdownV2.
+- Hooks on the client: `setOnBeforeRequest()`, `setCallbackResponse()`, `setCallbackResult()`.
+
+## Reference
+
+- [llms-full.txt](llms-full.txt): all methods (PHP signature, parameters with types, result) and all types
+  (fields, PHP read/write types, accessors, union variants).
+- Source of truth: https://core.telegram.org/bots/api (Bot API 10.3).
