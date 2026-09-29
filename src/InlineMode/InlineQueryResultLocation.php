@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -31,14 +31,14 @@ use DevBX\Telegram\Types;
  * @property float $horizontalAccuracy
  * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
  * @property int $livePeriod
- * *Optional*. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+ * *Optional*. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
  * @property int $heading
  * *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
  * @property int $proximityAlertRadius
  * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
  * @property Types\InlineKeyboardMarkup $replyMarkup
  * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
- * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * @property InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
  * *Optional*. Content of the message to be sent instead of the location
  * @property string $thumbnailUrl
  * *Optional*. Url of the thumbnail for the result
@@ -293,7 +293,7 @@ class InlineQueryResultLocation extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -302,7 +302,7 @@ class InlineQueryResultLocation extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

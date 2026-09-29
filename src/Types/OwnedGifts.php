@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -22,7 +22,7 @@ use DevBX\Telegram\Base;
  * @property Base\ArrayObject|OwnedGift[] $gifts
  * The list of gifts
  * @property string $nextOffset
- * *Optional*. Offset for the next request. If empty, then there are no more results
+ * *Optional*. Offset for the next request. If empty, then there are no more results.
  */
 class OwnedGifts extends Base\BaseType
 {

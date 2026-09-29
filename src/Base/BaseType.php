@@ -32,6 +32,22 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
             return new static($value, $ignoreUnknownFields);
         }
 
+        $rawForms = static::getRawForms();
+
+        if (is_string($value) && in_array(self::RAW_FORM_STRING, $rawForms, true)) {
+            return new static($value, $ignoreUnknownFields);
+        }
+
+        if (is_array($value) && self::isList($value) && in_array(self::RAW_FORM_LIST, $rawForms, true)) {
+            $items = [];
+
+            foreach ($value as $item) {
+                $items[] = static::create($item, $ignoreUnknownFields)?->jsonSerialize();
+            }
+
+            return new static($items, $ignoreUnknownFields);
+        }
+
         usort($relations, function ($a, $b) {
             /** @var BaseType $a */
             /** @var BaseType $b */
@@ -56,6 +72,32 @@ class BaseType extends BaseObject implements \Iterator, \JsonSerializable
         }
 
         return null;
+    }
+
+    /** Объединение допускает обычную строку (например, RichText — просто текст). */
+    public const RAW_FORM_STRING = 'string';
+
+    /** Объединение допускает список значений того же объединения (например, RichText — массив RichText). */
+    public const RAW_FORM_LIST = 'list';
+
+    /**
+     * Примитивные формы, которые объединение (класс с getRelations()) принимает помимо объектов-вариантов.
+     *
+     * @return list<self::RAW_FORM_*>
+     */
+    public static function getRawForms(): array
+    {
+        return [];
+    }
+
+    /**
+     * array_is_list() для PHP 8.0.
+     *
+     * @param array<mixed> $value
+     */
+    protected static function isList(array $value): bool
+    {
+        return $value === [] || array_keys($value) === range(0, count($value) - 1);
     }
 
     /**

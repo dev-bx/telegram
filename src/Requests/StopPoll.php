@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,11 +21,11 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageId
  * Identifier of the original message with the poll
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for a new message [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for a new message [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Poll send(Api $gateway = null)
  */
 class StopPoll extends Base\Request

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageId
  * Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
  * @property Base\ArrayObject|Types\ReactionType[] $reaction

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,19 +17,19 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+ * Required if *inline\_message\_id* is not specified. Identifier of the message to edit.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @property Types\InputMedia $media
- * A JSON-serialized object for a new media content of the message
+ * A JSON-serialized object for the new media content of the message
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message|bool send(Api $gateway = null)
  */
 class EditMessageMedia extends Base\Request

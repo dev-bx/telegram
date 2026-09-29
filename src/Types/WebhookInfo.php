@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -34,7 +34,7 @@ use DevBX\Telegram\Base;
  * @property int $maxConnections
  * *Optional*. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
  * @property string[] $allowedUpdates
- * *Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*
+ * *Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*, *message\_reaction*, and *message\_reaction\_count*.
  */
 class WebhookInfo extends Base\BaseType
 {

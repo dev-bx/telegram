@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -22,7 +22,7 @@ use DevBX\Telegram\Base;
  * @property User $user
  * Information about the user
  * @property int $untilDate
- * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
+ * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever.
  */
 class ChatMemberBanned extends ChatMember
 {

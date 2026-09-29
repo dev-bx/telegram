@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -33,10 +33,10 @@ use DevBX\Telegram\Types;
  * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
  * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
  * @property bool $showCaptionAboveMedia
- * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * *Optional*. Pass *True* if the caption must be shown above the message media
  * @property Types\InlineKeyboardMarkup $replyMarkup
  * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
- * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * @property InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
  * *Optional*. Content of the message to be sent instead of the video animation
  */
 class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
@@ -253,7 +253,7 @@ class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -262,7 +262,7 @@ class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

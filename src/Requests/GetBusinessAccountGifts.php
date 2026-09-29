@@ -39,7 +39,7 @@ use DevBX\Telegram\Types;
  * @property string $offset
  * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
  * @property int $limit
- * The maximum number of gifts to be returned; 1-100. Defaults to 100
+ * The maximum number of gifts to be returned; 1-100. Defaults to 100.
  * @method Types\OwnedGifts send(Api $gateway = null)
  */
 class GetBusinessAccountGifts extends Base\Request

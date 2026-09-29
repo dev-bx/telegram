@@ -3,14 +3,14 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
  * This file is part of the project Telegram Bot Api Class Generator.
  */
 
-namespace DevBX\Telegram\InlineMode;
+namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
@@ -20,7 +20,7 @@ use DevBX\Telegram\Base;
  * @property string $id
  * Unique identifier of the prepared message
  * @property int $expirationDate
- * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
+ * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used.
  */
 class PreparedInlineMessage extends Base\BaseType
 {

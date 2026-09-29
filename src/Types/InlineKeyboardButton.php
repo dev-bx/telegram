@@ -29,19 +29,19 @@ use DevBX\Telegram\Games;
  * @property string $callbackData
  * *Optional*. Data to be sent in a [callback query](#callbackquery) to the bot when the button is pressed, 1-64 bytes
  * @property WebAppInfo $webApp
- * *Optional*. Description of the [Web App](/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](#answerwebappquery). Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a Telegram Business account.
+ * *Optional*. Description of the [Web App](/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](#answerwebappquery). Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
  * @property LoginUrl $loginUrl
- * *Optional*. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](/widgets/login).
+ * *Optional*. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](/widgets/login). Not supported for ephemeral messages.
  * @property string $switchInlineQuery
- * *Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+ * *Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
  * @property string $switchInlineQueryCurrentChat
  * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.  
   
-This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
  * @property SwitchInlineQueryChosenChat $switchInlineQueryChosenChat
- * *Optional*. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+ * *Optional*. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
  * @property CopyTextButton $copyText
- * *Optional*. Description of the button that copies the specified text to the clipboard.
+ * *Optional*. Description of the button that copies the specified text to the clipboard
  * @property Games\CallbackGame $callbackGame
  * *Optional*. Description of the game that will be launched when the user presses the button.  
   
@@ -50,6 +50,8 @@ This offers a quick way for the user to open your bot in inline mode in the same
  * *Optional*. Specify *True*, to send a [Pay button](#payments). Substrings “![⭐](//telegram.org/img/emoji/40/E2AD90.png)” and “XTR” in the buttons's text will be replaced with a Telegram Star icon.  
   
 **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
+ * @property DisabledButton $disabled
+ * *Optional*. If set, then the button is disabled and does nothing
  */
 class InlineKeyboardButton extends Base\BaseType
 {
@@ -95,6 +97,9 @@ class InlineKeyboardButton extends Base\BaseType
 			],
 			'pay' => [
 				'type' => ['bool'],
+			],
+			'disabled' => [
+				'type' => [DisabledButton::class],
 			],
 		];
 	}
@@ -343,6 +348,25 @@ class InlineKeyboardButton extends Base\BaseType
 	public function setPay(mixed $value): static
 	{
 		return $this->setFieldValue('pay', $value);
+	}
+
+	/**
+	* @return DisabledButton
+	*/
+
+	public function getDisabled(): mixed
+	{
+		return $this->getFieldValue('disabled');
+	}
+
+	/**
+	* @param DisabledButton $value
+	* @return static
+	*/
+
+	public function setDisabled(mixed $value): static
+	{
+		return $this->setFieldValue('disabled', $value);
 	}
 
 }

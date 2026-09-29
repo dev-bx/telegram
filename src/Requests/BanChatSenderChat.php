@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is [unbanned](#unbanchatsenderchat), the owner of the banned chat won't be able to send messages on behalf of **any of their channels**. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target channel in the format `@username`
  * @property int $senderChatId
  * Unique identifier of the target sender chat
  * @method Base\BaseType send(Api $gateway = null)

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  * @property string $name
  * Sticker set name
  * @property string $customEmojiId
- * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+ * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail
  * @method Base\BaseType send(Api $gateway = null)
  */
 class SetCustomEmojiStickerSetThumbnail extends Base\Request

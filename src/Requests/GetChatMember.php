@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a [ChatMember](#chatmember) object on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
  * @property int $userId
  * Unique identifier of the target user
  * @method Types\ChatMember send(Api $gateway = null)

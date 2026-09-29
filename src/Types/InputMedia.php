@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -24,8 +24,9 @@ class InputMedia extends Base\BaseType
 	{
 		return [
 			InputMediaAnimation::class,
-			InputMediaDocument::class,
 			InputMediaAudio::class,
+			InputMediaDocument::class,
+			InputMediaLivePhoto::class,
 			InputMediaPhoto::class,
 			InputMediaVideo::class,
 		];

@@ -22,9 +22,9 @@ use DevBX\Telegram\Base;
  * @property string $text
  * Text of the task; 1-100 characters after entities parsing
  * @property string $parseMode
- * *Optional*. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+ * *Optional*. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details.
  * @property Base\ArrayObject|MessageEntity[] $textEntities
- * *Optional*. List of special entities that appear in the text, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are allowed.
+ * *Optional*. List of special entities that appear in the text, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom\_emoji*, and *date\_time* entities are allowed.
  */
 class InputChecklistTask extends Base\BaseType
 {

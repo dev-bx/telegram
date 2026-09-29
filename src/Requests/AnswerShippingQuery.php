@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,7 +23,7 @@ use DevBX\Telegram\Payments;
  * @property bool $ok
  * Pass *True* if delivery to the specified address is possible and *False* if there are any problems (for example, if delivery to the specified address is not possible)
  * @property Base\ArrayObject|Payments\ShippingOption[] $shippingOptions
- * Required if *ok* is *True*. A JSON-serialized array of available shipping options.
+ * Required if *ok* is *True*. A JSON-serialized Array of available shipping options.
  * @property string $errorMessage
  * Required if *ok* is *False*. Error message in human readable form that explains why it is impossible to complete the order (e.g. “Sorry, delivery to your desired address is unavailable”). Telegram will display this message to the user.
  * @method Base\ParameterBool send(Api $gateway = null)

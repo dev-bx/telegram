@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target channel in the format `@username`
  * @property int $userId
  * Unique identifier of the target user
  * @property bool $isAnonymous
@@ -30,7 +30,7 @@ use DevBX\Telegram\Api;
  * @property bool $canManageVideoChats
  * Pass *True* if the administrator can manage video chats
  * @property bool $canRestrictMembers
- * Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators
+ * Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators.
  * @property bool $canPromoteMembers
  * Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
  * @property bool $canChangeInfo
@@ -55,6 +55,8 @@ use DevBX\Telegram\Api;
  * Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
  * @property bool $canManageTags
  * Pass *True* if the administrator can edit the tags of regular members; for groups and supergroups only
+ * @property bool $canSendWelcomeMessages
+ * Pass *True* if the administrator can manage chat welcome messages or directly send them in the case of bots
  * @method Base\BaseType send(Api $gateway = null)
  */
 class PromoteChatMember extends Base\Request
@@ -119,6 +121,9 @@ class PromoteChatMember extends Base\Request
                 'type' => ['bool'],
             ],
             'can_manage_tags' => [
+                'type' => ['bool'],
+            ],
+            'can_send_welcome_messages' => [
                 'type' => ['bool'],
             ],
         ];
@@ -483,6 +488,25 @@ class PromoteChatMember extends Base\Request
     public function setCanManageTags(mixed $value): static
     {
         return $this->setFieldValue('can_manage_tags', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getCanSendWelcomeMessages(): mixed
+    {
+        return $this->getFieldValue('can_send_welcome_messages');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setCanSendWelcomeMessages(mixed $value): static
+    {
+        return $this->setFieldValue('can_send_welcome_messages', $value);
     }
 
     protected function getRequestMethod(): string

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,9 +16,9 @@ use DevBX\Telegram\Base;
 
 
 /**
- * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](/bots/features#privacy-mode). Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](/bots/features#privacy-mode). Not supported in channels and for messages sent on behalf of a user account.
  * @property bool $forceReply
- * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'
+ * Shows reply interface to the user, as if they had manually selected the bot's message and tapped 'Reply'
  * @property string $inputFieldPlaceholder
  * *Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters
  * @property bool $selective

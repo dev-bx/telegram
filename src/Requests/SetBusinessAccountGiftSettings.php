@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,7 +21,7 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection
  * @property bool $showGiftButton
- * Pass *True*, if a button for sending a gift to the user or by the business account must always be shown in the input field
+ * Pass *True* if a button for sending a gift to the user or by the business account must always be shown in the input field
  * @property Types\AcceptedGiftTypes $acceptedGiftTypes
  * Types of gifts accepted by the business account
  * @method Base\BaseType send(Api $gateway = null)

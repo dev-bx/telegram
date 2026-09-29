@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). Channel direct messages chats can't be verified.
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Channel direct messages chats can't be verified.
  * @property string $customDescription
  * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
  * @method Base\BaseType send(Api $gateway = null)

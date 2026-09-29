@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -34,6 +34,8 @@ use DevBX\Telegram\Payments;
  * *Optional*. Message is an audio file, information about the file
  * @property Document $document
  * *Optional*. Message is a general file, information about the file
+ * @property LivePhoto $livePhoto
+ * *Optional*. Message is a live photo, information about the live photo
  * @property PaidMediaInfo $paidMedia
  * *Optional*. Message contains paid media; information about the paid media
  * @property Base\ArrayObject|PhotoSize[] $photo
@@ -97,6 +99,9 @@ class ExternalReplyInfo extends Base\BaseType
 			],
 			'document' => [
 				'type' => [Document::class],
+			],
+			'live_photo' => [
+				'type' => [LivePhoto::class],
 			],
 			'paid_media' => [
 				'type' => [PaidMediaInfo::class],
@@ -286,6 +291,25 @@ class ExternalReplyInfo extends Base\BaseType
 	public function setDocument(mixed $value): static
 	{
 		return $this->setFieldValue('document', $value);
+	}
+
+	/**
+	* @return LivePhoto
+	*/
+
+	public function getLivePhoto(): mixed
+	{
+		return $this->getFieldValue('live_photo');
+	}
+
+	/**
+	* @param LivePhoto $value
+	* @return static
+	*/
+
+	public function setLivePhoto(mixed $value): static
+	{
+		return $this->setFieldValue('live_photo', $value);
 	}
 
 	/**

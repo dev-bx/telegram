@@ -13,6 +13,7 @@
 namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
+use DevBX\Telegram\RichMessages;
 use DevBX\Telegram\Stickers;
 use DevBX\Telegram\Games;
 use DevBX\Telegram\Payments;
@@ -22,13 +23,13 @@ use DevBX\Telegram\Passport;
 /**
  * This object represents a message.
  * @property int $messageId
- * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+ * Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
  * @property int $messageThreadId
  * *Optional*. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
  * @property DirectMessagesTopic $directMessagesTopic
  * *Optional*. Information about the direct messages chat topic that contains the message
  * @property User $from
- * *Optional*. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+ * *Optional*. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
  * @property Chat $senderChat
  * *Optional*. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field *from* contains a fake sender user in non-channel chats.
  * @property int $senderBoostCount
@@ -37,8 +38,14 @@ use DevBX\Telegram\Passport;
  * *Optional*. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
  * @property string $senderTag
  * *Optional*. Tag or custom title of the sender of the message; for supergroups only
+ * @property User $receiverUser
+ * *Optional*. For ephemeral messages, the user who received the message
+ * @property int $ephemeralMessageId
+ * *Optional*. For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
  * @property int $date
  * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+ * @property string $guestQueryId
+ * *Optional*. The unique identifier for the guest query. Use this identifier with the method [answerGuestQuery](#answerguestquery) to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
  * @property string $businessConnectionId
  * *Optional*. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
  * @property Chat $chat
@@ -50,7 +57,7 @@ use DevBX\Telegram\Passport;
  * @property bool $isAutomaticForward
  * *Optional*. *True*, if the message is a channel post that was automatically forwarded to the connected discussion group
  * @property Message $replyToMessage
- * *Optional*. For replies in the same chat and message thread, the original message. Note that the [Message](#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
+ * *Optional*. For replies in the same chat and message thread, the original message. Note that the [Message](#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
  * @property ExternalReplyInfo $externalReply
  * *Optional*. Information about the message that is being replied to, which may come from another chat or forum topic
  * @property TextQuote $quote
@@ -59,8 +66,14 @@ use DevBX\Telegram\Passport;
  * *Optional*. For replies to a story, the original story
  * @property int $replyToChecklistTaskId
  * *Optional*. Identifier of the specific checklist task that is being replied to
+ * @property string $replyToPollOptionId
+ * *Optional*. Persistent identifier of the specific poll option that is being replied to
  * @property User $viaBot
  * *Optional*. Bot through which the message was sent
+ * @property User $guestBotCallerUser
+ * *Optional*. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+ * @property Chat $guestBotCallerChat
+ * *Optional*. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
  * @property int $editDate
  * *Optional*. Date the message was last edited in Unix time
  * @property bool $hasProtectedContent
@@ -85,12 +98,16 @@ use DevBX\Telegram\Passport;
  * *Optional*. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
  * @property string $effectId
  * *Optional*. Unique identifier of the message effect added to the message
+ * @property RichMessages\RichMessage $richMessage
+ * *Optional*. Message is a rich formatted message
  * @property Animation $animation
- * *Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set
+ * *Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set.
  * @property Audio $audio
  * *Optional*. Message is an audio file, information about the file
  * @property Document $document
  * *Optional*. Message is a general file, information about the file
+ * @property LivePhoto $livePhoto
+ * *Optional*. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the *photo* field will also be set.
  * @property PaidMediaInfo $paidMedia
  * *Optional*. Message contains paid media; information about the paid media
  * @property Base\ArrayObject|PhotoSize[] $photo
@@ -124,7 +141,7 @@ use DevBX\Telegram\Passport;
  * @property Poll $poll
  * *Optional*. Message is a native poll, information about the poll
  * @property Venue $venue
- * *Optional*. Message is a venue, information about the venue. For backward compatibility, when this field is set, the *location* field will also be set
+ * *Optional*. Message is a venue, information about the venue. For backward compatibility, when this field is set, the *location* field will also be set.
  * @property Location $location
  * *Optional*. Message is a shared location, information about the location
  * @property Base\ArrayObject|User[] $newChatMembers
@@ -178,7 +195,7 @@ use DevBX\Telegram\Passport;
  * @property Passport\PassportData $passportData
  * *Optional*. Telegram Passport data
  * @property ProximityAlertTriggered $proximityAlertTriggered
- * *Optional*. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+ * *Optional*. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
  * @property ChatBoostAdded $boostAdded
  * *Optional*. Service message: user boosted the chat
  * @property ChatBackground $chatBackgroundSet
@@ -187,6 +204,12 @@ use DevBX\Telegram\Passport;
  * *Optional*. Service message: some tasks in a checklist were marked as done or not done
  * @property ChecklistTasksAdded $checklistTasksAdded
  * *Optional*. Service message: tasks were added to a checklist
+ * @property CommunityChatAdded $communityChatAdded
+ * *Optional*. Service message: chat or bot added to a [Community](#community)
+ * @property CommunityChatJoined $communityChatJoined
+ * *Optional*. Service message: chat was joined by a user from a [Community](#community)
+ * @property CommunityChatRemoved $communityChatRemoved
+ * *Optional*. Service message: chat or bot removed from a [Community](#community)
  * @property DirectMessagePriceChanged $directMessagePriceChanged
  * *Optional*. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
  * @property ForumTopicCreated $forumTopicCreated
@@ -209,8 +232,14 @@ use DevBX\Telegram\Passport;
  * *Optional*. A giveaway with public winners was completed
  * @property GiveawayCompleted $giveawayCompleted
  * *Optional*. Service message: a giveaway without public winners was completed
+ * @property ManagedBotCreated $managedBotCreated
+ * *Optional*. Service message: user created a bot that will be managed by the current bot
  * @property PaidMessagePriceChanged $paidMessagePriceChanged
  * *Optional*. Service message: the price for paid messages has changed in the chat
+ * @property PollOptionAdded $pollOptionAdded
+ * *Optional*. Service message: answer option was added to a poll
+ * @property PollOptionDeleted $pollOptionDeleted
+ * *Optional*. Service message: answer option was deleted from a poll
  * @property SuggestedPostApproved $suggestedPostApproved
  * *Optional*. Service message: a suggested post was approved
  * @property SuggestedPostApprovalFailed $suggestedPostApprovalFailed
@@ -264,9 +293,18 @@ class Message extends MaybeInaccessibleMessage
 			'sender_tag' => [
 				'type' => ['string'],
 			],
+			'receiver_user' => [
+				'type' => [User::class],
+			],
+			'ephemeral_message_id' => [
+				'type' => ['int'],
+			],
 			'date' => [
 				'type' => ['int'],
 				'required' => true,
+			],
+			'guest_query_id' => [
+				'type' => ['string'],
 			],
 			'business_connection_id' => [
 				'type' => ['string'],
@@ -299,8 +337,17 @@ class Message extends MaybeInaccessibleMessage
 			'reply_to_checklist_task_id' => [
 				'type' => ['int'],
 			],
+			'reply_to_poll_option_id' => [
+				'type' => ['string'],
+			],
 			'via_bot' => [
 				'type' => [User::class],
+			],
+			'guest_bot_caller_user' => [
+				'type' => [User::class],
+			],
+			'guest_bot_caller_chat' => [
+				'type' => [Chat::class],
 			],
 			'edit_date' => [
 				'type' => ['int'],
@@ -339,6 +386,9 @@ class Message extends MaybeInaccessibleMessage
 			'effect_id' => [
 				'type' => ['string'],
 			],
+			'rich_message' => [
+				'type' => [RichMessages\RichMessage::class],
+			],
 			'animation' => [
 				'type' => [Animation::class],
 			],
@@ -347,6 +397,9 @@ class Message extends MaybeInaccessibleMessage
 			],
 			'document' => [
 				'type' => [Document::class],
+			],
+			'live_photo' => [
+				'type' => [LivePhoto::class],
 			],
 			'paid_media' => [
 				'type' => [PaidMediaInfo::class],
@@ -496,6 +549,15 @@ class Message extends MaybeInaccessibleMessage
 			'checklist_tasks_added' => [
 				'type' => [ChecklistTasksAdded::class],
 			],
+			'community_chat_added' => [
+				'type' => [CommunityChatAdded::class],
+			],
+			'community_chat_joined' => [
+				'type' => [CommunityChatJoined::class],
+			],
+			'community_chat_removed' => [
+				'type' => [CommunityChatRemoved::class],
+			],
 			'direct_message_price_changed' => [
 				'type' => [DirectMessagePriceChanged::class],
 			],
@@ -529,8 +591,17 @@ class Message extends MaybeInaccessibleMessage
 			'giveaway_completed' => [
 				'type' => [GiveawayCompleted::class],
 			],
+			'managed_bot_created' => [
+				'type' => [ManagedBotCreated::class],
+			],
 			'paid_message_price_changed' => [
 				'type' => [PaidMessagePriceChanged::class],
+			],
+			'poll_option_added' => [
+				'type' => [PollOptionAdded::class],
+			],
+			'poll_option_deleted' => [
+				'type' => [PollOptionDeleted::class],
 			],
 			'suggested_post_approved' => [
 				'type' => [SuggestedPostApproved::class],
@@ -720,6 +791,44 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return User
+	*/
+
+	public function getReceiverUser(): mixed
+	{
+		return $this->getFieldValue('receiver_user');
+	}
+
+	/**
+	* @param User $value
+	* @return static
+	*/
+
+	public function setReceiverUser(mixed $value): static
+	{
+		return $this->setFieldValue('receiver_user', $value);
+	}
+
+	/**
+	* @return int
+	*/
+
+	public function getEphemeralMessageId(): mixed
+	{
+		return $this->getFieldValue('ephemeral_message_id');
+	}
+
+	/**
+	* @param int $value
+	* @return static
+	*/
+
+	public function setEphemeralMessageId(mixed $value): static
+	{
+		return $this->setFieldValue('ephemeral_message_id', $value);
+	}
+
+	/**
 	* @return int
 	*/
 
@@ -736,6 +845,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setDate(mixed $value): static
 	{
 		return $this->setFieldValue('date', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getGuestQueryId(): mixed
+	{
+		return $this->getFieldValue('guest_query_id');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setGuestQueryId(mixed $value): static
+	{
+		return $this->setFieldValue('guest_query_id', $value);
 	}
 
 	/**
@@ -929,6 +1057,25 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return string
+	*/
+
+	public function getReplyToPollOptionId(): mixed
+	{
+		return $this->getFieldValue('reply_to_poll_option_id');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setReplyToPollOptionId(mixed $value): static
+	{
+		return $this->setFieldValue('reply_to_poll_option_id', $value);
+	}
+
+	/**
 	* @return User
 	*/
 
@@ -945,6 +1092,44 @@ class Message extends MaybeInaccessibleMessage
 	public function setViaBot(mixed $value): static
 	{
 		return $this->setFieldValue('via_bot', $value);
+	}
+
+	/**
+	* @return User
+	*/
+
+	public function getGuestBotCallerUser(): mixed
+	{
+		return $this->getFieldValue('guest_bot_caller_user');
+	}
+
+	/**
+	* @param User $value
+	* @return static
+	*/
+
+	public function setGuestBotCallerUser(mixed $value): static
+	{
+		return $this->setFieldValue('guest_bot_caller_user', $value);
+	}
+
+	/**
+	* @return Chat
+	*/
+
+	public function getGuestBotCallerChat(): mixed
+	{
+		return $this->getFieldValue('guest_bot_caller_chat');
+	}
+
+	/**
+	* @param Chat $value
+	* @return static
+	*/
+
+	public function setGuestBotCallerChat(mixed $value): static
+	{
+		return $this->setFieldValue('guest_bot_caller_chat', $value);
 	}
 
 	/**
@@ -1176,6 +1361,25 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return RichMessages\RichMessage
+	*/
+
+	public function getRichMessage(): mixed
+	{
+		return $this->getFieldValue('rich_message');
+	}
+
+	/**
+	* @param RichMessages\RichMessage $value
+	* @return static
+	*/
+
+	public function setRichMessage(mixed $value): static
+	{
+		return $this->setFieldValue('rich_message', $value);
+	}
+
+	/**
 	* @return Animation
 	*/
 
@@ -1230,6 +1434,25 @@ class Message extends MaybeInaccessibleMessage
 	public function setDocument(mixed $value): static
 	{
 		return $this->setFieldValue('document', $value);
+	}
+
+	/**
+	* @return LivePhoto
+	*/
+
+	public function getLivePhoto(): mixed
+	{
+		return $this->getFieldValue('live_photo');
+	}
+
+	/**
+	* @param LivePhoto $value
+	* @return static
+	*/
+
+	public function setLivePhoto(mixed $value): static
+	{
+		return $this->setFieldValue('live_photo', $value);
 	}
 
 	/**
@@ -2145,6 +2368,63 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return CommunityChatAdded
+	*/
+
+	public function getCommunityChatAdded(): mixed
+	{
+		return $this->getFieldValue('community_chat_added');
+	}
+
+	/**
+	* @param CommunityChatAdded $value
+	* @return static
+	*/
+
+	public function setCommunityChatAdded(mixed $value): static
+	{
+		return $this->setFieldValue('community_chat_added', $value);
+	}
+
+	/**
+	* @return CommunityChatJoined
+	*/
+
+	public function getCommunityChatJoined(): mixed
+	{
+		return $this->getFieldValue('community_chat_joined');
+	}
+
+	/**
+	* @param CommunityChatJoined $value
+	* @return static
+	*/
+
+	public function setCommunityChatJoined(mixed $value): static
+	{
+		return $this->setFieldValue('community_chat_joined', $value);
+	}
+
+	/**
+	* @return CommunityChatRemoved
+	*/
+
+	public function getCommunityChatRemoved(): mixed
+	{
+		return $this->getFieldValue('community_chat_removed');
+	}
+
+	/**
+	* @param CommunityChatRemoved $value
+	* @return static
+	*/
+
+	public function setCommunityChatRemoved(mixed $value): static
+	{
+		return $this->setFieldValue('community_chat_removed', $value);
+	}
+
+	/**
 	* @return DirectMessagePriceChanged
 	*/
 
@@ -2354,6 +2634,25 @@ class Message extends MaybeInaccessibleMessage
 	}
 
 	/**
+	* @return ManagedBotCreated
+	*/
+
+	public function getManagedBotCreated(): mixed
+	{
+		return $this->getFieldValue('managed_bot_created');
+	}
+
+	/**
+	* @param ManagedBotCreated $value
+	* @return static
+	*/
+
+	public function setManagedBotCreated(mixed $value): static
+	{
+		return $this->setFieldValue('managed_bot_created', $value);
+	}
+
+	/**
 	* @return PaidMessagePriceChanged
 	*/
 
@@ -2370,6 +2669,44 @@ class Message extends MaybeInaccessibleMessage
 	public function setPaidMessagePriceChanged(mixed $value): static
 	{
 		return $this->setFieldValue('paid_message_price_changed', $value);
+	}
+
+	/**
+	* @return PollOptionAdded
+	*/
+
+	public function getPollOptionAdded(): mixed
+	{
+		return $this->getFieldValue('poll_option_added');
+	}
+
+	/**
+	* @param PollOptionAdded $value
+	* @return static
+	*/
+
+	public function setPollOptionAdded(mixed $value): static
+	{
+		return $this->setFieldValue('poll_option_added', $value);
+	}
+
+	/**
+	* @return PollOptionDeleted
+	*/
+
+	public function getPollOptionDeleted(): mixed
+	{
+		return $this->getFieldValue('poll_option_deleted');
+	}
+
+	/**
+	* @param PollOptionDeleted $value
+	* @return static
+	*/
+
+	public function setPollOptionDeleted(mixed $value): static
+	{
+		return $this->setFieldValue('poll_option_deleted', $value);
 	}
 
 	/**

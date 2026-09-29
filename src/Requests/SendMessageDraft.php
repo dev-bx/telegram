@@ -17,19 +17,23 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to stream a partial message to a user while the message is being generated. Returns *True* on success.
+ * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you **must** call [sendMessage](#sendmessage) with the complete message to persist it in the user's chat. Returns *True* on success.
  * @property int $chatId
  * Unique identifier for the target private chat
  * @property int $messageThreadId
  * Unique identifier for the target message thread
  * @property int $draftId
- * Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+ * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
  * @property string $text
- * Text of the message to be sent, 1-4096 characters after entities parsing
+ * Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a “Thinking…” placeholder.
  * @property string $parseMode
  * Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
  * @property Base\ArrayObject|Types\MessageEntity[] $entities
  * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
+ * @property bool $canStop
+ * Pass *True* to show the user a button to stop further drafts. The bot will receive an [Update](#update) “stopped\_message\_generation” if the user presses the button.
+ * @property bool $keepOnStop
+ * Pass *True* to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
  * @method Base\BaseType send(Api $gateway = null)
  */
 class SendMessageDraft extends Base\Request
@@ -50,7 +54,6 @@ class SendMessageDraft extends Base\Request
             ],
             'text' => [
                 'type' => ['string'],
-                'required' => true,
             ],
             'parse_mode' => [
                 'type' => ['string'],
@@ -58,6 +61,12 @@ class SendMessageDraft extends Base\Request
             'entities' => [
                 'type' => [Types\MessageEntity::class],
                 'isArray' => true,
+            ],
+            'can_stop' => [
+                'type' => ['bool'],
+            ],
+            'keep_on_stop' => [
+                'type' => ['bool'],
             ],
         ];
     }
@@ -174,6 +183,44 @@ class SendMessageDraft extends Base\Request
     public function setEntities(mixed $value): static
     {
         return $this->setFieldValue('entities', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getCanStop(): mixed
+    {
+        return $this->getFieldValue('can_stop');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setCanStop(mixed $value): static
+    {
+        return $this->setFieldValue('can_stop', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getKeepOnStop(): mixed
+    {
+        return $this->getFieldValue('keep_on_stop');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setKeepOnStop(mixed $value): static
+    {
+        return $this->setFieldValue('keep_on_stop', $value);
     }
 
     protected function getRequestMethod(): string

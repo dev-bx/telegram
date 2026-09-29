@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * This object represents a venue.
  * @property Location $location
- * Venue location. Can't be a live location
+ * Venue location. Can't be a live location.
  * @property string $title
  * Name of the venue
  * @property string $address

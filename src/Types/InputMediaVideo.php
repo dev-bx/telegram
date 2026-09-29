@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * Represents a video to be sent.
  * @property string $type
- * Type of the result, must be *video*
+ * Type of the media, must be *video*
  * @property string $media
  * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. [More information on Sending Files »](#sending-files)</file_attach_name></file_attach_name>
  * @property string $thumbnail
@@ -34,7 +34,7 @@ use DevBX\Telegram\Base;
  * @property Base\ArrayObject|MessageEntity[] $captionEntities
  * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
  * @property bool $showCaptionAboveMedia
- * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * *Optional*. Pass *True* if the caption must be shown above the message media
  * @property int $width
  * *Optional*. Video width
  * @property int $height

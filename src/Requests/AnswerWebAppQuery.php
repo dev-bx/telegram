@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,6 +15,7 @@ namespace DevBX\Telegram\Requests;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 use DevBX\Telegram\InlineMode;
+use DevBX\Telegram\Types;
 
 /**
  * Use this method to set the result of an interaction with a [Web App](/bots/webapps) and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a [SentWebAppMessage](#sentwebappmessage) object is returned.
@@ -22,7 +23,7 @@ use DevBX\Telegram\InlineMode;
  * Unique identifier for the query to be answered
  * @property InlineMode\InlineQueryResult $result
  * A JSON-serialized object describing the message to be sent
- * @method InlineMode\SentWebAppMessage send(Api $gateway = null)
+ * @method Types\SentWebAppMessage send(Api $gateway = null)
  */
 class AnswerWebAppQuery extends Base\Request
 {
@@ -38,7 +39,7 @@ class AnswerWebAppQuery extends Base\Request
                 'required' => true,
             ],
             '@return' => [
-                'type' => InlineMode\SentWebAppMessage::class,
+                'type' => Types\SentWebAppMessage::class,
             ],
         ];
     }

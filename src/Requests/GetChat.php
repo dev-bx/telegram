@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to get up-to-date information about the chat. Returns a [ChatFullInfo](#chatfullinfo) object on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
  * @method Types\ChatFullInfo send(Api $gateway = null)
  */
 class GetChat extends Base\Request

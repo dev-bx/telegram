@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Base;
  * @property bool $isDisabled
  * *Optional*. *True*, if the link preview is disabled
  * @property string $url
- * *Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used
+ * *Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used.
  * @property bool $preferSmallMedia
  * *Optional*. *True*, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
  * @property bool $preferLargeMedia

@@ -20,17 +20,23 @@ use DevBX\Telegram\Base;
  * @property UniqueGift $gift
  * Information about the gift
  * @property string $origin
- * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted\_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
+ * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted\_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers.
+ * @property string $text
+ * *Optional*. Text of the message that was added to the gift
+ * @property Base\ArrayObject|MessageEntity[] $entities
+ * *Optional*. Special entities that appear in the text
+ * @property bool $isPrivate
+ * *Optional*. *True*, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
  * @property string $lastResaleCurrency
- * *Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
+ * *Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
  * @property int $lastResaleAmount
- * *Optional*. For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins
+ * *Optional*. For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanograms
  * @property string $ownedGiftId
  * *Optional*. Unique identifier of the received gift for the bot; only present for gifts received on behalf of business accounts
  * @property int $transferStarCount
  * *Optional*. Number of Telegram Stars that must be paid to transfer the gift; omitted if the bot cannot transfer the gift
  * @property int $nextTransferDate
- * *Optional*. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+ * *Optional*. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
  */
 class UniqueGiftInfo extends Base\BaseType
 {
@@ -44,6 +50,16 @@ class UniqueGiftInfo extends Base\BaseType
 			'origin' => [
 				'type' => ['string'],
 				'required' => true,
+			],
+			'text' => [
+				'type' => ['string'],
+			],
+			'entities' => [
+				'type' => [MessageEntity::class],
+				'isArray' => true,
+			],
+			'is_private' => [
+				'type' => ['bool'],
 			],
 			'last_resale_currency' => [
 				'type' => ['string'],
@@ -98,6 +114,63 @@ class UniqueGiftInfo extends Base\BaseType
 	public function setOrigin(mixed $value): static
 	{
 		return $this->setFieldValue('origin', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getText(): mixed
+	{
+		return $this->getFieldValue('text');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setText(mixed $value): static
+	{
+		return $this->setFieldValue('text', $value);
+	}
+
+	/**
+	* @return Base\ArrayObject|MessageEntity[]
+	*/
+
+	public function getEntities(): mixed
+	{
+		return $this->getFieldValue('entities');
+	}
+
+	/**
+	* @param Base\ArrayObject|MessageEntity[] $value
+	* @return static
+	*/
+
+	public function setEntities(mixed $value): static
+	{
+		return $this->setFieldValue('entities', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsPrivate(): mixed
+	{
+		return $this->getFieldValue('is_private');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsPrivate(mixed $value): static
+	{
+		return $this->setFieldValue('is_private', $value);
 	}
 
 	/**

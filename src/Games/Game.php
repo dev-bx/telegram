@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,13 +23,13 @@ use DevBX\Telegram\Types;
  * @property string $description
  * Description of the game
  * @property Base\ArrayObject|Types\PhotoSize[] $photo
- * Photo that will be displayed in the game message in chats.
+ * Photo that will be displayed in the game message in chats
  * @property string $text
  * *Optional*. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls [setGameScore](#setgamescore), or manually edited using [editMessageText](#editmessagetext). 0-4096 characters.
  * @property Base\ArrayObject|Types\MessageEntity[] $textEntities
  * *Optional*. Special entities that appear in *text*, such as usernames, URLs, bot commands, etc.
  * @property Types\Animation $animation
- * *Optional*. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
+ * *Optional*. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather).
  */
 class Game extends Base\BaseType
 {

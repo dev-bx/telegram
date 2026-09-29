@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -34,7 +34,7 @@ use DevBX\Telegram\Types;
  * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
  * @property Types\InlineKeyboardMarkup $replyMarkup
  * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
- * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * @property InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
  * *Optional*. Content of the message to be sent instead of the voice message
  */
 class InlineQueryResultCachedVoice extends InlineQueryResult
@@ -230,7 +230,7 @@ class InlineQueryResultCachedVoice extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -239,7 +239,7 @@ class InlineQueryResultCachedVoice extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

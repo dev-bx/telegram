@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns [MenuButton](#menubutton) on success.
  * @property int $chatId
- * Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+ * Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
  * @method Types\MenuButton send(Api $gateway = null)
  */
 class GetChatMenuButton extends Base\Request

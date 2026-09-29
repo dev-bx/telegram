@@ -21,7 +21,7 @@ use DevBX\Telegram\Types;
  * @property int $userId
  * Required if *chat\_id* is not specified. Unique identifier of the target user who will receive the gift.
  * @property int|string $chatId
- * Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@channelusername`) that will receive the gift.
+ * Required if *user\_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
  * @property string $giftId
  * Identifier of the gift; limited gifts can't be sent to channel chats
  * @property bool $payForUpgrade
@@ -29,9 +29,9 @@ use DevBX\Telegram\Types;
  * @property string $text
  * Text that will be shown along with the gift; 0-128 characters
  * @property string $textParseMode
- * Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+ * Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom\_emoji”, and “date\_time” are ignored.
  * @property Base\ArrayObject|Types\MessageEntity[] $textEntities
- * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom\_emoji” are ignored.
+ * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom\_emoji”, and “date\_time” are ignored.
  * @method Base\BaseType send(Api $gateway = null)
  */
 class SendGift extends Base\Request

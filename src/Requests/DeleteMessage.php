@@ -28,7 +28,7 @@ use DevBX\Telegram\Api;
 - If the bot has *can\_manage\_direct\_messages* administrator right in a channel, it can delete any message in the corresponding direct messages chat.  
 Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageId
  * Identifier of the message to delete
  * @method Base\BaseType send(Api $gateway = null)

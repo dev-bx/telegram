@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,9 +18,9 @@ use DevBX\Telegram\Base;
 /**
  * This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the chat if appropriate. [More about requesting chats »](/bots/features#chat-and-user-selection).
  * @property int $requestId
- * Signed 32-bit identifier of the request, which will be received back in the [ChatShared](#chatshared) object. Must be unique within the message
+ * Signed 32-bit identifier of the request, which will be received back in the [ChatShared](#chatshared) object. Must be unique within the message.
  * @property bool $chatIsChannel
- * Pass *True* to request a channel chat, pass *False* to request a group or a supergroup chat.
+ * Pass *True* to request a channel chat, pass *False* to request a group or a supergroup chat
  * @property bool $chatIsForum
  * *Optional*. Pass *True* to request a forum supergroup, pass *False* to request a non-forum chat. If not specified, no additional restrictions are applied.
  * @property bool $chatHasUsername

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method [revokeChatInviteLink](#revokechatinvitelink). Returns the new invite link as [ChatInviteLink](#chatinvitelink) object.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target channel in the format `@username`
  * @property string $name
  * Invite link name; 0-32 characters
  * @property int $expireDate
@@ -27,7 +27,7 @@ use DevBX\Telegram\Types;
  * @property int $memberLimit
  * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
  * @property bool $createsJoinRequest
- * *True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified
+ * *True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified.
  * @method Types\ChatInviteLink send(Api $gateway = null)
  */
 class CreateChatInviteLink extends Base\Request

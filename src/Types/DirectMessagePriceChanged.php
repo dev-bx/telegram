@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * Describes a service message about a change in the price of direct messages sent to a channel chat.
  * @property bool $areDirectMessagesEnabled
- * *True*, if direct messages are enabled for the channel chat; false otherwise
+ * *True*, if direct messages are enabled for the channel chat; *False* otherwise
  * @property int $directMessageStarCount
  * *Optional*. The new number of Telegram Stars that must be paid by users for each direct message sent to the channel. Does not apply to users who have been exempted by administrators. Defaults to 0.
  */

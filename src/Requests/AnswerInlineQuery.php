@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -22,7 +22,7 @@ No more than **50** results per query are allowed.
  * @property string $inlineQueryId
  * Unique identifier for the answered query
  * @property Base\ArrayObject|InlineMode\InlineQueryResult[] $results
- * A JSON-serialized array of results for the inline query
+ * A JSON-serialized Array of results for the inline query
  * @property int $cacheTime
  * The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
  * @property bool $isPersonal

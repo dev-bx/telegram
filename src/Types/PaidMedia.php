@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,8 +23,9 @@ class PaidMedia extends Base\BaseType
 	public static function getRelations(): array
 	{
 		return [
-			PaidMediaPreview::class,
+			PaidMediaLivePhoto::class,
 			PaidMediaPhoto::class,
+			PaidMediaPreview::class,
 			PaidMediaVideo::class,
 		];
 	}

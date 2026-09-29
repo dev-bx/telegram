@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Payments;
 
 /**
  * This [object](#available-types) represents an incoming update.  
-At most **one** of the optional parameters can be present in any given update.
+At most **one** of the optional fields can be present in any given update.
  * @property int $updateId
  * The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using [webhooks](#setwebhook), since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
  * @property Message $message
@@ -38,6 +38,8 @@ At most **one** of the optional parameters can be present in any given update.
  * *Optional*. New version of a message from a connected business account
  * @property BusinessMessagesDeleted $deletedBusinessMessages
  * *Optional*. Messages were deleted from a connected business account
+ * @property Message $guestMessage
+ * *Optional*. New guest message. The bot can use the field *Message.guest\_query\_id* and the method [answerGuestQuery](#answerguestquery) to send a message in response.
  * @property MessageReactionUpdated $messageReaction
  * *Optional*. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify `"message_reaction"` in the list of *allowed\_updates* to receive these updates. The update isn't received for reactions set by bots.
  * @property MessageReactionCountUpdated $messageReactionCount
@@ -49,13 +51,13 @@ At most **one** of the optional parameters can be present in any given update.
  * @property CallbackQuery $callbackQuery
  * *Optional*. New incoming callback query
  * @property Payments\ShippingQuery $shippingQuery
- * *Optional*. New incoming shipping query. Only for invoices with flexible price
+ * *Optional*. New incoming shipping query. Only for invoices with flexible price.
  * @property Payments\PreCheckoutQuery $preCheckoutQuery
- * *Optional*. New incoming pre-checkout query. Contains full information about checkout
+ * *Optional*. New incoming pre-checkout query. Contains full information about checkout.
  * @property Payments\PaidMediaPurchased $purchasedPaidMedia
  * *Optional*. A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat
  * @property Poll $poll
- * *Optional*. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
+ * *Optional*. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.
  * @property PollAnswer $pollAnswer
  * *Optional*. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
  * @property ChatMemberUpdated $myChatMember
@@ -68,6 +70,12 @@ At most **one** of the optional parameters can be present in any given update.
  * *Optional*. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
  * @property ChatBoostRemoved $removedChatBoost
  * *Optional*. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
+ * @property ManagedBotUpdated $managedBot
+ * *Optional*. A new bot was created to be managed by the bot, or token or owner of a managed bot was changed
+ * @property BotSubscriptionUpdated $subscription
+ * *Optional*. User payment subscription has changed
+ * @property MessageGenerationStopped $stoppedMessageGeneration
+ * *Optional*. A user asked the bot to stop the generation of a message
  */
 class Update extends Base\BaseType
 {
@@ -101,6 +109,9 @@ class Update extends Base\BaseType
 			],
 			'deleted_business_messages' => [
 				'type' => [BusinessMessagesDeleted::class],
+			],
+			'guest_message' => [
+				'type' => [Message::class],
 			],
 			'message_reaction' => [
 				'type' => [MessageReactionUpdated::class],
@@ -146,6 +157,15 @@ class Update extends Base\BaseType
 			],
 			'removed_chat_boost' => [
 				'type' => [ChatBoostRemoved::class],
+			],
+			'managed_bot' => [
+				'type' => [ManagedBotUpdated::class],
+			],
+			'subscription' => [
+				'type' => [BotSubscriptionUpdated::class],
+			],
+			'stopped_message_generation' => [
+				'type' => [MessageGenerationStopped::class],
 			],
 		];
 	}
@@ -318,6 +338,25 @@ class Update extends Base\BaseType
 	public function setDeletedBusinessMessages(mixed $value): static
 	{
 		return $this->setFieldValue('deleted_business_messages', $value);
+	}
+
+	/**
+	* @return Message
+	*/
+
+	public function getGuestMessage(): mixed
+	{
+		return $this->getFieldValue('guest_message');
+	}
+
+	/**
+	* @param Message $value
+	* @return static
+	*/
+
+	public function setGuestMessage(mixed $value): static
+	{
+		return $this->setFieldValue('guest_message', $value);
 	}
 
 	/**
@@ -603,6 +642,63 @@ class Update extends Base\BaseType
 	public function setRemovedChatBoost(mixed $value): static
 	{
 		return $this->setFieldValue('removed_chat_boost', $value);
+	}
+
+	/**
+	* @return ManagedBotUpdated
+	*/
+
+	public function getManagedBot(): mixed
+	{
+		return $this->getFieldValue('managed_bot');
+	}
+
+	/**
+	* @param ManagedBotUpdated $value
+	* @return static
+	*/
+
+	public function setManagedBot(mixed $value): static
+	{
+		return $this->setFieldValue('managed_bot', $value);
+	}
+
+	/**
+	* @return BotSubscriptionUpdated
+	*/
+
+	public function getSubscription(): mixed
+	{
+		return $this->getFieldValue('subscription');
+	}
+
+	/**
+	* @param BotSubscriptionUpdated $value
+	* @return static
+	*/
+
+	public function setSubscription(mixed $value): static
+	{
+		return $this->setFieldValue('subscription', $value);
+	}
+
+	/**
+	* @return MessageGenerationStopped
+	*/
+
+	public function getStoppedMessageGeneration(): mixed
+	{
+		return $this->getFieldValue('stopped_message_generation');
+	}
+
+	/**
+	* @param MessageGenerationStopped $value
+	* @return static
+	*/
+
+	public function setStoppedMessageGeneration(mixed $value): static
+	{
+		return $this->setFieldValue('stopped_message_generation', $value);
 	}
 
 }

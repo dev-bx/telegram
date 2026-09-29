@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,13 +21,13 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop
+ * Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message|bool send(Api $gateway = null)
  */
 class StopMessageLiveLocation extends Base\Request

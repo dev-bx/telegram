@@ -17,28 +17,28 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Message](#message) objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of [Message](#message) objects that were sent is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property int $directMessagesTopicId
  * Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
- * @property Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo $media
- * A JSON-serialized array describing messages to be sent, must include 2-10 items
+ * @property Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaLivePhoto|Types\InputMediaPhoto|Types\InputMediaVideo $media
+ * A JSON-serialized Array describing messages to be sent, must include 2-10 items
  * @property bool $disableNotification
  * Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
  * @property bool $protectContent
  * Protects the contents of the sent messages from forwarding and saving
  * @property bool $allowPaidBroadcast
- * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+ * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
  * @property string $messageEffectId
  * Unique identifier of the message effect to be added to the message; for private chats only
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
- * @method Types\Message[]|Base\BaseType send(Api $gateway = null)
+ * @method Types\Message send(Api $gateway = null)
  */
 class SendMediaGroup extends Base\Request
 {
@@ -59,7 +59,7 @@ class SendMediaGroup extends Base\Request
                 'type' => ['int'],
             ],
             'media' => [
-                'type' => [Types\InputMediaAudio::class, Types\InputMediaDocument::class, Types\InputMediaPhoto::class, Types\InputMediaVideo::class],
+                'type' => [Types\InputMediaAudio::class, Types\InputMediaDocument::class, Types\InputMediaLivePhoto::class, Types\InputMediaPhoto::class, Types\InputMediaVideo::class],
                 'isArray' => true,
                 'required' => true,
             ],
@@ -80,7 +80,6 @@ class SendMediaGroup extends Base\Request
             ],
             '@return' => [
                 'type' => Types\Message::class,
-                'isArray' => true,
             ],
         ];
     }
@@ -162,7 +161,7 @@ class SendMediaGroup extends Base\Request
     }
 
     /**
-    * @return Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo
+    * @return Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaLivePhoto|Types\InputMediaPhoto|Types\InputMediaVideo
     */
 
     public function getMedia(): mixed
@@ -171,7 +170,7 @@ class SendMediaGroup extends Base\Request
     }
 
     /**
-    * @param Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaPhoto|Types\InputMediaVideo $value
+    * @param Base\ArrayObject|Types\InputMediaAudio[]|Types\InputMediaDocument|Types\InputMediaLivePhoto|Types\InputMediaPhoto|Types\InputMediaVideo $value
     * @return static
     */
 

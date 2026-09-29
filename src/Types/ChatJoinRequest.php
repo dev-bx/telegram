@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -26,9 +26,11 @@ use DevBX\Telegram\Base;
  * @property int $date
  * Date the request was sent in Unix time
  * @property string $bio
- * *Optional*. Bio of the user.
+ * *Optional*. Bio of the user
  * @property ChatInviteLink $inviteLink
  * *Optional*. Chat invite link that was used by the user to send the join request
+ * @property string $queryId
+ * *Optional*. Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call [sendChatJoinRequestWebApp](#sendchatjoinrequestwebapp) or directly call [answerChatJoinRequestQuery](#answerchatjoinrequestquery) within 10 seconds.
  */
 class ChatJoinRequest extends Base\BaseType
 {
@@ -56,6 +58,9 @@ class ChatJoinRequest extends Base\BaseType
 			],
 			'invite_link' => [
 				'type' => [ChatInviteLink::class],
+			],
+			'query_id' => [
+				'type' => ['string'],
 			],
 		];
 	}
@@ -171,6 +176,25 @@ class ChatJoinRequest extends Base\BaseType
 	public function setInviteLink(mixed $value): static
 	{
 		return $this->setFieldValue('invite_link', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getQueryId(): mixed
+	{
+		return $this->getFieldValue('query_id');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setQueryId(mixed $value): static
+	{
+		return $this->setFieldValue('query_id', $value);
 	}
 
 }

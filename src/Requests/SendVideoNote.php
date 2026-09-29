@@ -17,17 +17,19 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](#message) is returned.
+ * Use this method to send a rounded square MPEG4 video of up to 1 minute long. On success, the sent [Message](#message) is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property int $directMessagesTopicId
  * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+ * @property Types\EphemeralMessageParameters $ephemeralMessageParameters
+ * A JSON-serialized object containing the parameters of the ephemeral message to send
  * @property Types\InputFile|string $videoNote
- * Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files). Sending video notes by a URL is currently unsupported
+ * Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](#sending-files). Sending video notes by a URL is currently unsupported.
  * @property int $duration
  * Duration of sent video in seconds
  * @property int $length
@@ -39,7 +41,7 @@ use DevBX\Telegram\Types;
  * @property bool $protectContent
  * Protects the contents of the sent message from forwarding and saving
  * @property bool $allowPaidBroadcast
- * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+ * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
  * @property string $messageEffectId
  * Unique identifier of the message effect to be added to the message; for private chats only
  * @property Types\SuggestedPostParameters $suggestedPostParameters
@@ -47,7 +49,7 @@ use DevBX\Telegram\Types;
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
  * @property Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $replyMarkup
- * Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+ * Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user.
  * @method Types\Message send(Api $gateway = null)
  */
 class SendVideoNote extends Base\Request
@@ -67,6 +69,9 @@ class SendVideoNote extends Base\Request
             ],
             'direct_messages_topic_id' => [
                 'type' => ['int'],
+            ],
+            'ephemeral_message_parameters' => [
+                'type' => [Types\EphemeralMessageParameters::class],
             ],
             'video_note' => [
                 'type' => ['string', Types\InputFile::class],
@@ -182,6 +187,25 @@ class SendVideoNote extends Base\Request
     public function setDirectMessagesTopicId(mixed $value): static
     {
         return $this->setFieldValue('direct_messages_topic_id', $value);
+    }
+
+    /**
+    * @return Types\EphemeralMessageParameters
+    */
+
+    public function getEphemeralMessageParameters(): mixed
+    {
+        return $this->getFieldValue('ephemeral_message_parameters');
+    }
+
+    /**
+    * @param Types\EphemeralMessageParameters $value
+    * @return static
+    */
+
+    public function setEphemeralMessageParameters(mixed $value): static
+    {
+        return $this->setFieldValue('ephemeral_message_parameters', $value);
     }
 
     /**

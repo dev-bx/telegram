@@ -37,16 +37,22 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the bot can be invited to groups. Returned only in [getMe](#getme).
  * @property bool $canReadAllGroupMessages
  * *Optional*. *True*, if [privacy mode](/bots/features#privacy-mode) is disabled for the bot. Returned only in [getMe](#getme).
+ * @property bool $supportsGuestQueries
+ * *Optional*. *True*, if the bot supports guest queries from chats it is not a member of. Returned only in [getMe](#getme).
  * @property bool $supportsInlineQueries
  * *Optional*. *True*, if the bot supports inline queries. Returned only in [getMe](#getme).
  * @property bool $canConnectToBusiness
- * *Optional*. *True*, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in [getMe](#getme).
+ * *Optional*. *True*, if the bot can be connected to a user account to manage it. Returned only in [getMe](#getme).
  * @property bool $hasMainWebApp
  * *Optional*. *True*, if the bot has a main Web App. Returned only in [getMe](#getme).
  * @property bool $hasTopicsEnabled
  * *Optional*. *True*, if the bot has forum topic mode enabled in private chats. Returned only in [getMe](#getme).
  * @property bool $allowsUsersToCreateTopics
  * *Optional*. *True*, if the bot allows users to create and delete topics in private chats. Returned only in [getMe](#getme).
+ * @property bool $canManageBots
+ * *Optional*. *True*, if other bots can be created to be controlled by the bot. Returned only in [getMe](#getme).
+ * @property bool $supportsJoinRequestQueries
+ * *Optional*. *True*, if the bot supports join request queries and can be assigned to process them. Returned only in [getMe](#getme).
  */
 class User extends Base\BaseType
 {
@@ -86,6 +92,9 @@ class User extends Base\BaseType
 			'can_read_all_group_messages' => [
 				'type' => ['bool'],
 			],
+			'supports_guest_queries' => [
+				'type' => ['bool'],
+			],
 			'supports_inline_queries' => [
 				'type' => ['bool'],
 			],
@@ -99,6 +108,12 @@ class User extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'allows_users_to_create_topics' => [
+				'type' => ['bool'],
+			],
+			'can_manage_bots' => [
+				'type' => ['bool'],
+			],
+			'supports_join_request_queries' => [
 				'type' => ['bool'],
 			],
 		];
@@ -297,6 +312,25 @@ class User extends Base\BaseType
 	* @return bool
 	*/
 
+	public function getSupportsGuestQueries(): mixed
+	{
+		return $this->getFieldValue('supports_guest_queries');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setSupportsGuestQueries(mixed $value): static
+	{
+		return $this->setFieldValue('supports_guest_queries', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
 	public function getSupportsInlineQueries(): mixed
 	{
 		return $this->getFieldValue('supports_inline_queries');
@@ -386,6 +420,44 @@ class User extends Base\BaseType
 	public function setAllowsUsersToCreateTopics(mixed $value): static
 	{
 		return $this->setFieldValue('allows_users_to_create_topics', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanManageBots(): mixed
+	{
+		return $this->getFieldValue('can_manage_bots');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanManageBots(mixed $value): static
+	{
+		return $this->setFieldValue('can_manage_bots', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getSupportsJoinRequestQueries(): mixed
+	{
+		return $this->getFieldValue('supports_join_request_queries');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setSupportsJoinRequestQueries(mixed $value): static
+	{
+		return $this->setFieldValue('supports_join_request_queries', $value);
 	}
 
 }

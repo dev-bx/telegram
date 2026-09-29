@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  * @property string $id
  * Unique identifier for this result, 1-64 bytes
  * @property string $photoUrl
- * A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB
+ * A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB.
  * @property string $thumbnailUrl
  * URL of the thumbnail for the photo
  * @property int $photoWidth
@@ -41,10 +41,10 @@ use DevBX\Telegram\Types;
  * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
  * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
  * @property bool $showCaptionAboveMedia
- * *Optional*. Pass *True*, if the caption must be shown above the message media
+ * *Optional*. Pass *True* if the caption must be shown above the message media
  * @property Types\InlineKeyboardMarkup $replyMarkup
  * *Optional*. [Inline keyboard](/bots/features#inline-keyboards) attached to the message
- * @property InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
+ * @property InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $inputMessageContent
  * *Optional*. Content of the message to be sent instead of the photo
  */
 class InlineQueryResultPhoto extends InlineQueryResult
@@ -350,7 +350,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
 	}
 
 	/**
-	* @return InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
+	* @return InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
 	*/
 
 	public function getInputMessageContent(): mixed
@@ -359,7 +359,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
 	}
 
 	/**
-	* @param InputMessageContent|InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
+	* @param InputMessageContent|InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent $value
 	* @return static
 	*/
 

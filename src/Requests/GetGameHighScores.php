@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,11 +21,11 @@ use DevBX\Telegram\Games;
  * @property int $userId
  * Target user id
  * @property int $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the sent message
+ * Required if *inline\_message\_id* is not specified. Identifier of the sent message.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @method Games\GameHighScore[]|Base\BaseType send(Api $gateway = null)
  */
 class GetGameHighScores extends Base\Request

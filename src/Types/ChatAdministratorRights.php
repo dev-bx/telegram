@@ -50,7 +50,9 @@ use DevBX\Telegram\Base;
  * @property bool $canManageDirectMessages
  * *Optional*. *True*, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
  * @property bool $canManageTags
- * *Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can\_pin\_messages.
+ * *Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only
+ * @property bool $canSendWelcomeMessages
+ * *True*, if the administrator can manage chat welcome messages or directly send them in the case of bots
  */
 class ChatAdministratorRights extends Base\BaseType
 {
@@ -118,6 +120,10 @@ class ChatAdministratorRights extends Base\BaseType
 			],
 			'can_manage_tags' => [
 				'type' => ['bool'],
+			],
+			'can_send_welcome_messages' => [
+				'type' => ['bool'],
+				'required' => true,
 			],
 		];
 	}
@@ -442,6 +448,25 @@ class ChatAdministratorRights extends Base\BaseType
 	public function setCanManageTags(mixed $value): static
 	{
 		return $this->setFieldValue('can_manage_tags', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanSendWelcomeMessages(): mixed
+	{
+		return $this->getFieldValue('can_send_welcome_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanSendWelcomeMessages(mixed $value): static
+	{
+		return $this->setFieldValue('can_send_welcome_messages', $value);
 	}
 
 }

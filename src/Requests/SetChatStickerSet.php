@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](#getchat) requests to check if the bot can use this method. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ * Unique identifier for the target chat or username of the target supergroup in the format `@username`
  * @property string $stickerSetName
  * Name of the sticker set to be set as the group sticker set
  * @method Base\BaseType send(Api $gateway = null)

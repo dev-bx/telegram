@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -25,6 +25,8 @@ use DevBX\Telegram\Base;
  * *Optional*. The user that changed the answer to the poll, if the voter isn't anonymous
  * @property int[] $optionIds
  * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
+ * @property string[] $optionPersistentIds
+ * Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
  */
 class PollAnswer extends Base\BaseType
 {
@@ -43,6 +45,11 @@ class PollAnswer extends Base\BaseType
 			],
 			'option_ids' => [
 				'type' => ['int'],
+				'isArray' => true,
+				'required' => true,
+			],
+			'option_persistent_ids' => [
+				'type' => ['string'],
 				'isArray' => true,
 				'required' => true,
 			],
@@ -122,6 +129,25 @@ class PollAnswer extends Base\BaseType
 	public function setOptionIds(mixed $value): static
 	{
 		return $this->setFieldValue('option_ids', $value);
+	}
+
+	/**
+	* @return string[]
+	*/
+
+	public function getOptionPersistentIds(): mixed
+	{
+		return $this->getFieldValue('option_persistent_ids');
+	}
+
+	/**
+	* @param string[] $value
+	* @return static
+	*/
+
+	public function setOptionPersistentIds(mixed $value): static
+	{
+		return $this->setFieldValue('option_persistent_ids', $value);
 	}
 
 }

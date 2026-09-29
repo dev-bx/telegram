@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,9 +19,9 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
  * @property int $chatId
- * Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+ * Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
  * @property Types\MenuButton $menuButton
- * A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](#menubuttondefault)
+ * A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](#menubuttondefault).
  * @method Base\BaseType send(Api $gateway = null)
  */
 class SetChatMenuButton extends Base\Request

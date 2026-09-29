@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as [ChatInviteLink](#chatinvitelink) object.
  * @property int|string $chatId
- * Unique identifier of the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier of the target chat or username of the target channel in the format `@username`
  * @property string $inviteLink
  * The invite link to revoke
  * @method Types\ChatInviteLink send(Api $gateway = null)

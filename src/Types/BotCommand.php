@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,9 @@ use DevBX\Telegram\Base;
  * @property string $command
  * Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
  * @property string $description
- * Description of the command; 1-256 characters.
+ * Description of the command; 1-256 characters
+ * @property bool $isEphemeral
+ * *Optional*. *True*, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
  */
 class BotCommand extends Base\BaseType
 {
@@ -34,6 +36,9 @@ class BotCommand extends Base\BaseType
 			'description' => [
 				'type' => ['string'],
 				'required' => true,
+			],
+			'is_ephemeral' => [
+				'type' => ['bool'],
 			],
 		];
 	}
@@ -73,6 +78,25 @@ class BotCommand extends Base\BaseType
 	public function setDescription(mixed $value): static
 	{
 		return $this->setFieldValue('description', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getIsEphemeral(): mixed
+	{
+		return $this->getFieldValue('is_ephemeral');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setIsEphemeral(mixed $value): static
+	{
+		return $this->setFieldValue('is_ephemeral', $value);
 	}
 
 }

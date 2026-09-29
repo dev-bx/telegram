@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,6 +15,7 @@ namespace DevBX\Telegram\Requests;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 use DevBX\Telegram\InlineMode;
+use DevBX\Telegram\Types;
 
 /**
  * Stores a message that can be sent by a user of a Mini App. Returns a [PreparedInlineMessage](#preparedinlinemessage) object.
@@ -30,7 +31,7 @@ use DevBX\Telegram\InlineMode;
  * Pass *True* if the message can be sent to group and supergroup chats
  * @property bool $allowChannelChats
  * Pass *True* if the message can be sent to channel chats
- * @method InlineMode\PreparedInlineMessage send(Api $gateway = null)
+ * @method Types\PreparedInlineMessage send(Api $gateway = null)
  */
 class SavePreparedInlineMessage extends Base\Request
 {
@@ -58,7 +59,7 @@ class SavePreparedInlineMessage extends Base\Request
                 'type' => ['bool'],
             ],
             '@return' => [
-                'type' => InlineMode\PreparedInlineMessage::class,
+                'type' => Types\PreparedInlineMessage::class,
             ],
         ];
     }

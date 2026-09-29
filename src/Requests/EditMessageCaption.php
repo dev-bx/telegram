@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,11 +21,11 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+ * Required if *inline\_message\_id* is not specified. Identifier of the message to edit.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @property string $caption
  * New caption of the message, 0-1024 characters after entities parsing
  * @property string $parseMode
@@ -33,9 +33,9 @@ use DevBX\Telegram\Types;
  * @property Base\ArrayObject|Types\MessageEntity[] $captionEntities
  * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
  * @property bool $showCaptionAboveMedia
- * Pass *True*, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+ * Pass *True* if the caption must be shown above the message media. Supported only for animation, photo and video messages.
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message|bool send(Api $gateway = null)
  */
 class EditMessageCaption extends Base\Request

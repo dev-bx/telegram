@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which to delete the messages
  * @property int[] $messageIds
- * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted
+ * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See [deleteMessage](#deletemessage) for limitations on which messages can be deleted.
  * @method Base\BaseType send(Api $gateway = null)
  */
 class DeleteBusinessMessages extends Base\Request

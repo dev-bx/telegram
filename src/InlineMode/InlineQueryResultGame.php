@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -17,7 +17,7 @@ use DevBX\Telegram\Types;
 
 
 /**
- * Represents a [Game](#games).
+ * Represents a [Game](#game).
  * @property string $type
  * Type of the result, must be *game*
  * @property string $id

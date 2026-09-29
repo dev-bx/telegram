@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. [More about requesting users »](/bots/features#chat-and-user-selection)
  * @property int $requestId
- * Signed 32-bit identifier of the request that will be received back in the [UsersShared](#usersshared) object. Must be unique within the message
+ * Signed 32-bit identifier of the request that will be received back in the [UsersShared](#usersshared) object. Must be unique within the message.
  * @property bool $userIsBot
  * *Optional*. Pass *True* to request bots, pass *False* to request regular users. If not specified, no additional restrictions are applied.
  * @property bool $userIsPremium

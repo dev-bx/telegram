@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -15,27 +15,30 @@ namespace DevBX\Telegram\Requests;
 use DevBX\Telegram\Base;
 use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
+use DevBX\Telegram\RichMessages;
 
 /**
- * Use this method to edit text and [game](#games) messages. On success, if the edited message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
+ * Use this method to edit text, rich and [game](#games) messages. On success, if the edited message is not an inline message, the edited [Message](#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+ * Required if *inline\_message\_id* is not specified. Identifier of the message to edit.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @property string $text
- * New text of the message, 1-4096 characters after entities parsing
+ * New text of the message, 1-4096 characters after entity parsing; required if *rich\_message* isn't specified
  * @property string $parseMode
  * Mode for parsing entities in the message text. See [formatting options](#formatting-options) for more details.
  * @property Base\ArrayObject|Types\MessageEntity[] $entities
  * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
  * @property Types\LinkPreviewOptions $linkPreviewOptions
  * Link preview generation options for the message
+ * @property RichMessages\InputRichMessage $richMessage
+ * New rich content of the message; required if *text* isn't specified. Direct upload of new files and explicit upload of files by a URL isn't supported when an inline message is edited.
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message|bool send(Api $gateway = null)
  */
 class EditMessageText extends Base\Request
@@ -57,7 +60,6 @@ class EditMessageText extends Base\Request
             ],
             'text' => [
                 'type' => ['string'],
-                'required' => true,
             ],
             'parse_mode' => [
                 'type' => ['string'],
@@ -68,6 +70,9 @@ class EditMessageText extends Base\Request
             ],
             'link_preview_options' => [
                 'type' => [Types\LinkPreviewOptions::class],
+            ],
+            'rich_message' => [
+                'type' => [RichMessages\InputRichMessage::class],
             ],
             'reply_markup' => [
                 'type' => [Types\InlineKeyboardMarkup::class],
@@ -229,6 +234,25 @@ class EditMessageText extends Base\Request
     public function setLinkPreviewOptions(mixed $value): static
     {
         return $this->setFieldValue('link_preview_options', $value);
+    }
+
+    /**
+    * @return RichMessages\InputRichMessage
+    */
+
+    public function getRichMessage(): mixed
+    {
+        return $this->getFieldValue('rich_message');
+    }
+
+    /**
+    * @param RichMessages\InputRichMessage $value
+    * @return static
+    */
+
+    public function setRichMessage(mixed $value): static
+    {
+        return $this->setFieldValue('rich_message', $value);
     }
 
     /**

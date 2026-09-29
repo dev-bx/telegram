@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ * Unique identifier for the target chat or username of the target supergroup in the format `@username`
  * @property int $userId
  * Unique identifier of the target user
  * @property string $customTitle

@@ -118,7 +118,11 @@ use DevBX\Telegram\Base;
  * @property UniqueGiftColors $uniqueGiftColors
  * *Optional*. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
  * @property int $paidMessageStarCount
- * *Optional*. The number of Telegram Stars a general user have to pay to send a message to the chat
+ * *Optional*. The number of Telegram Stars a general user has to pay to send a message to the chat
+ * @property User $guardBot
+ * *Optional*. The bot that processes join request queries in the chat. The field is only available to chat administrators.
+ * @property Community $community
+ * *Optional*. The [Community](#community) to which the chat belongs
  */
 class ChatFullInfo extends Base\BaseType
 {
@@ -284,6 +288,12 @@ class ChatFullInfo extends Base\BaseType
 			],
 			'paid_message_star_count' => [
 				'type' => ['int'],
+			],
+			'guard_bot' => [
+				'type' => [User::class],
+			],
+			'community' => [
+				'type' => [Community::class],
 			],
 		];
 	}
@@ -1254,6 +1264,44 @@ class ChatFullInfo extends Base\BaseType
 	public function setPaidMessageStarCount(mixed $value): static
 	{
 		return $this->setFieldValue('paid_message_star_count', $value);
+	}
+
+	/**
+	* @return User
+	*/
+
+	public function getGuardBot(): mixed
+	{
+		return $this->getFieldValue('guard_bot');
+	}
+
+	/**
+	* @param User $value
+	* @return static
+	*/
+
+	public function setGuardBot(mixed $value): static
+	{
+		return $this->setFieldValue('guard_bot', $value);
+	}
+
+	/**
+	* @return Community
+	*/
+
+	public function getCommunity(): mixed
+	{
+		return $this->getFieldValue('community');
+	}
+
+	/**
+	* @param Community $value
+	* @return static
+	*/
+
+	public function setCommunity(mixed $value): static
+	{
+		return $this->setFieldValue('community', $value);
 	}
 
 }

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,7 +20,7 @@ use DevBX\Telegram\Base;
  * @property int $requestId
  * Identifier of the request
  * @property Base\ArrayObject|SharedUser[] $users
- * Information about users shared with the bot.
+ * Information about users shared with the bot
  */
 class UsersShared extends Base\BaseType
 {

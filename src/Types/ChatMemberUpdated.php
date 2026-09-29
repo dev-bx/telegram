@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -28,7 +28,7 @@ use DevBX\Telegram\Base;
  * @property ChatMember|ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned $newChatMember
  * New information about the chat member
  * @property ChatInviteLink $inviteLink
- * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+ * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only
  * @property bool $viaJoinRequest
  * *Optional*. *True*, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator
  * @property bool $viaChatFolderInviteLink

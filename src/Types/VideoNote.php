@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,7 +16,7 @@ use DevBX\Telegram\Base;
 
 
 /**
- * This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope) (available in Telegram apps as of [v.4.0](https://telegram.org/blog/video-messages-and-telescope)).
+ * This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope).
  * @property string $fileId
  * Identifier for this file, which can be used to download or reuse the file
  * @property string $fileUniqueId

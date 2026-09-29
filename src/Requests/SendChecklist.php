@@ -20,8 +20,8 @@ use DevBX\Telegram\Types;
  * Use this method to send a checklist on behalf of a connected business account. On success, the sent [Message](#message) is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
- * @property int $chatId
- * Unique identifier for the target chat
+ * @property int|string $chatId
+ * Unique identifier for the target chat or username of the target bot in the format `@username`
  * @property Types\InputChecklist $checklist
  * A JSON-serialized object for the checklist to send
  * @property bool $disableNotification
@@ -46,7 +46,7 @@ class SendChecklist extends Base\Request
                 'required' => true,
             ],
             'chat_id' => [
-                'type' => ['int'],
+                'type' => ['int', 'string'],
                 'required' => true,
             ],
             'checklist' => [
@@ -94,7 +94,7 @@ class SendChecklist extends Base\Request
     }
 
     /**
-    * @return int
+    * @return int|string
     */
 
     public function getChatId(): mixed
@@ -103,7 +103,7 @@ class SendChecklist extends Base\Request
     }
 
     /**
-    * @param int $value
+    * @param int|string $value
     * @return static
     */
 

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,15 +20,15 @@ use DevBX\Telegram\Api;
  * @property string $callbackQueryId
  * Unique identifier for the query to be answered
  * @property string $text
- * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
+ * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters.
  * @property bool $showAlert
- * If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*.
+ * If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *False*.
  * @property string $url
  * URL that will be opened by the user's client. If you have created a [Game](#game) and accepted the conditions via [@BotFather](https://t.me/botfather), specify the URL that opens your game - note that this will only work if the query comes from a [*callback\_game*](#inlinekeyboardbutton) button.  
   
 Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
  * @property int $cacheTime
- * The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
+ * The maximum amount of time in seconds that the result of the callback query may be cached client-side. Defaults to 0.
  * @method Base\BaseType send(Api $gateway = null)
  */
 class AnswerCallbackQuery extends Base\Request

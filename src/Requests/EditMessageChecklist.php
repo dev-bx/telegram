@@ -20,8 +20,8 @@ use DevBX\Telegram\Types;
  * Use this method to edit a checklist on behalf of a connected business account. On success, the edited [Message](#message) is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
- * @property int $chatId
- * Unique identifier for the target chat
+ * @property int|string $chatId
+ * Unique identifier for the target chat or username of the target bot in the format `@username`
  * @property int $messageId
  * Unique identifier for the target message
  * @property Types\InputChecklist $checklist
@@ -40,7 +40,7 @@ class EditMessageChecklist extends Base\Request
                 'required' => true,
             ],
             'chat_id' => [
-                'type' => ['int'],
+                'type' => ['int', 'string'],
                 'required' => true,
             ],
             'message_id' => [
@@ -80,7 +80,7 @@ class EditMessageChecklist extends Base\Request
     }
 
     /**
-    * @return int
+    * @return int|string
     */
 
     public function getChatId(): mixed
@@ -89,7 +89,7 @@ class EditMessageChecklist extends Base\Request
     }
 
     /**
-    * @param int $value
+    * @param int|string $value
     * @return static
     */
 

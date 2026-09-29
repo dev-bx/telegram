@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -22,9 +22,9 @@ use DevBX\Telegram\Base;
  * @property int $chatId
  * Identifier of the shared chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the chat and could be unable to use this identifier, unless the chat is already known to the bot by some other means.
  * @property string $title
- * *Optional*. Title of the chat, if the title was requested by the bot.
+ * *Optional*. Title of the chat, if the title was requested by the bot
  * @property string $username
- * *Optional*. Username of the chat, if the username was requested by the bot and available.
+ * *Optional*. Username of the chat, if the username was requested by the bot and available
  * @property Base\ArrayObject|PhotoSize[] $photo
  * *Optional*. Available sizes of the chat photo, if the photo was requested by the bot
  */

@@ -26,7 +26,7 @@ use DevBX\Telegram\Base;
  * @property bool $isMember
  * *True*, if the user is a member of the chat at the moment of the request
  * @property bool $canSendMessages
- * *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+ * *True*, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
  * @property bool $canSendAudios
  * *True*, if the user is allowed to send audios
  * @property bool $canSendDocuments
@@ -45,6 +45,8 @@ use DevBX\Telegram\Base;
  * *True*, if the user is allowed to send animations, games, stickers and use inline bots
  * @property bool $canAddWebPagePreviews
  * *True*, if the user is allowed to add web page previews to their messages
+ * @property bool $canReactToMessages
+ * *True*, if the user is allowed to react to messages
  * @property bool $canEditTag
  * *True*, if the user is allowed to edit their own tag
  * @property bool $canChangeInfo
@@ -56,7 +58,7 @@ use DevBX\Telegram\Base;
  * @property bool $canManageTopics
  * *True*, if the user is allowed to create forum topics
  * @property int $untilDate
- * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
+ * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever.
  */
 class ChatMemberRestricted extends ChatMember
 {
@@ -116,6 +118,10 @@ class ChatMemberRestricted extends ChatMember
 				'required' => true,
 			],
 			'can_add_web_page_previews' => [
+				'type' => ['bool'],
+				'required' => true,
+			],
+			'can_react_to_messages' => [
 				'type' => ['bool'],
 				'required' => true,
 			],
@@ -409,6 +415,25 @@ class ChatMemberRestricted extends ChatMember
 	public function setCanAddWebPagePreviews(mixed $value): static
 	{
 		return $this->setFieldValue('can_add_web_page_previews', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanReactToMessages(): mixed
+	{
+		return $this->getFieldValue('can_react_to_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanReactToMessages(mixed $value): static
+	{
+		return $this->setFieldValue('can_react_to_messages', $value);
 	}
 
 	/**

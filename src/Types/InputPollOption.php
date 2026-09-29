@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -20,9 +20,11 @@ use DevBX\Telegram\Base;
  * @property string $text
  * Option text, 1-100 characters
  * @property string $textParseMode
- * *Optional*. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed
+ * *Optional*. Mode for parsing entities in the text. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed.
  * @property Base\ArrayObject|MessageEntity[] $textEntities
- * *Optional*. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of *text\_parse\_mode*
+ * *Optional*. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of *text\_parse\_mode*.
+ * @property InputPollOptionMedia|InputMediaAnimation|InputMediaLink|InputMediaLivePhoto|InputMediaLocation|InputMediaPhoto|InputMediaSticker|InputMediaVenue|InputMediaVideo $media
+ * *Optional*. Media added to the poll option
  */
 class InputPollOption extends Base\BaseType
 {
@@ -39,6 +41,9 @@ class InputPollOption extends Base\BaseType
 			'text_entities' => [
 				'type' => [MessageEntity::class],
 				'isArray' => true,
+			],
+			'media' => [
+				'type' => [InputPollOptionMedia::class],
 			],
 		];
 	}
@@ -97,6 +102,25 @@ class InputPollOption extends Base\BaseType
 	public function setTextEntities(mixed $value): static
 	{
 		return $this->setFieldValue('text_entities', $value);
+	}
+
+	/**
+	* @return InputPollOptionMedia|InputMediaAnimation|InputMediaLink|InputMediaLivePhoto|InputMediaLocation|InputMediaPhoto|InputMediaSticker|InputMediaVenue|InputMediaVideo
+	*/
+
+	public function getMedia(): mixed
+	{
+		return $this->getFieldValue('media');
+	}
+
+	/**
+	* @param InputPollOptionMedia|InputMediaAnimation|InputMediaLink|InputMediaLivePhoto|InputMediaLocation|InputMediaPhoto|InputMediaSticker|InputMediaVenue|InputMediaVideo $value
+	* @return static
+	*/
+
+	public function setMedia(mixed $value): static
+	{
+		return $this->setFieldValue('media', $value);
 	}
 
 }

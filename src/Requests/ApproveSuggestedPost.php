@@ -22,7 +22,7 @@ use DevBX\Telegram\Api;
  * @property int $messageId
  * Identifier of a suggested post message to approve
  * @property int $sendDate
- * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+ * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future.
  * @method Base\BaseType send(Api $gateway = null)
  */
 class ApproveSuggestedPost extends Base\Request

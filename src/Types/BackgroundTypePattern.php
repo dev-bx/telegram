@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -26,7 +26,7 @@ use DevBX\Telegram\Base;
  * @property int $intensity
  * Intensity of the pattern when it is shown above the filled background; 0-100
  * @property bool $isInverted
- * *Optional*. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only
+ * *Optional*. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
  * @property bool $isMoving
  * *Optional*. *True*, if the background moves slightly when the device is tilted
  */

@@ -18,7 +18,7 @@ use DevBX\Telegram\Base;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  * @property bool $canSendMessages
- * *Optional*. *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+ * *Optional*. *True*, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
  * @property bool $canSendAudios
  * *Optional*. *True*, if the user is allowed to send audios
  * @property bool $canSendDocuments
@@ -37,16 +37,18 @@ use DevBX\Telegram\Base;
  * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots
  * @property bool $canAddWebPagePreviews
  * *Optional*. *True*, if the user is allowed to add web page previews to their messages
+ * @property bool $canReactToMessages
+ * *Optional*. *True*, if the user is allowed to react to messages. If omitted, defaults to the value of *can\_send\_messages*.
  * @property bool $canEditTag
- * *Optional*. *True*, if the user is allowed to edit their own tag
+ * *Optional*. *True*, if the user is allowed to edit their own tag. If omitted, defaults to the value of *can\_pin\_messages*.
  * @property bool $canChangeInfo
- * *Optional*. *True*, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+ * *Optional*. *True*, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.
  * @property bool $canInviteUsers
  * *Optional*. *True*, if the user is allowed to invite new users to the chat
  * @property bool $canPinMessages
- * *Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups
+ * *Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups.
  * @property bool $canManageTopics
- * *Optional*. *True*, if the user is allowed to create forum topics. If omitted defaults to the value of can\_pin\_messages
+ * *Optional*. *True*, if the user is allowed to create forum topics. If omitted, defaults to the value of can\_pin\_messages.
  */
 class ChatPermissions extends Base\BaseType
 {
@@ -81,6 +83,9 @@ class ChatPermissions extends Base\BaseType
 				'type' => ['bool'],
 			],
 			'can_add_web_page_previews' => [
+				'type' => ['bool'],
+			],
+			'can_react_to_messages' => [
 				'type' => ['bool'],
 			],
 			'can_edit_tag' => [
@@ -288,6 +293,25 @@ class ChatPermissions extends Base\BaseType
 	public function setCanAddWebPagePreviews(mixed $value): static
 	{
 		return $this->setFieldValue('can_add_web_page_previews', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getCanReactToMessages(): mixed
+	{
+		return $this->getFieldValue('can_react_to_messages');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setCanReactToMessages(mixed $value): static
+	{
+		return $this->setFieldValue('can_react_to_messages', $value);
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -21,17 +21,17 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property int|string $chatId
- * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
  * @property int $messageId
- * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+ * Required if *inline\_message\_id* is not specified. Identifier of the message to edit.
  * @property string $inlineMessageId
- * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+ * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message.
  * @property float $latitude
  * Latitude of new location
  * @property float $longitude
  * Longitude of new location
  * @property int $livePeriod
- * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged
+ * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged.
  * @property float $horizontalAccuracy
  * The radius of uncertainty for the location, measured in meters; 0-1500
  * @property int $heading
@@ -39,7 +39,7 @@ use DevBX\Telegram\Types;
  * @property int $proximityAlertRadius
  * The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
  * @property Types\InlineKeyboardMarkup $replyMarkup
- * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards).
+ * A JSON-serialized object for a new [inline keyboard](/bots/features#inline-keyboards)
  * @method Types\Message|bool send(Api $gateway = null)
  */
 class EditMessageLiveLocation extends Base\Request

@@ -46,7 +46,7 @@ use DevBX\Telegram\Base;
  * @property bool $isUpgradeSeparate
  * *Optional*. *True*, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only
  * @property int $uniqueGiftNumber
- * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift)
+ * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift).
  */
 class OwnedGiftRegular extends OwnedGift
 {

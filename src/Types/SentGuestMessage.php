@@ -3,30 +3,31 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
  * This file is part of the project Telegram Bot Api Class Generator.
  */
 
-namespace DevBX\Telegram\InlineMode;
+namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
 
 
 /**
- * Describes an inline message sent by a [Web App](/bots/webapps) on behalf of a user.
+ * Describes an inline message sent by a guest bot.
  * @property string $inlineMessageId
- * *Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](#inlinekeyboardmarkup) attached to the message.
+ * Identifier of the sent inline message
  */
-class SentWebAppMessage extends Base\BaseType
+class SentGuestMessage extends Base\BaseType
 {
 	public static function getFields(): array
 	{
 		return [
 			'inline_message_id' => [
 				'type' => ['string'],
+				'required' => true,
 			],
 		];
 	}

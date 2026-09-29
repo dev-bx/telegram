@@ -17,15 +17,15 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](#messageid) of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](#poll) can be copied only if the value of the field *correct\_option\_ids* is known to the bot. The method is analogous to the method [forwardMessages](#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of [MessageId](#messageid) of the sent messages is returned.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property int $directMessagesTopicId
  * Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
  * @property int|string $fromChatId
- * Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
+ * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
  * @property int[] $messageIds
  * A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to copy. The identifiers must be specified in a strictly increasing order.
  * @property bool $disableNotification
@@ -34,7 +34,7 @@ use DevBX\Telegram\Types;
  * Protects the contents of the sent messages from forwarding and saving
  * @property bool $removeCaption
  * Pass *True* to copy the messages without their captions
- * @method Types\MessageId[]|Base\BaseType send(Api $gateway = null)
+ * @method Types\MessageId send(Api $gateway = null)
  */
 class CopyMessages extends Base\Request
 {
@@ -71,7 +71,6 @@ class CopyMessages extends Base\Request
             ],
             '@return' => [
                 'type' => Types\MessageId::class,
-                'isArray' => true,
             ],
         ];
     }

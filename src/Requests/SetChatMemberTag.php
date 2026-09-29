@@ -18,7 +18,7 @@ use DevBX\Telegram\Api;
 /**
  * Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_tags* administrator right. Returns *True* on success.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+ * Unique identifier for the target chat or username of the target supergroup in the format `@username`
  * @property int $userId
  * Unique identifier of the target user
  * @property string $tag

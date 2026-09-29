@@ -20,9 +20,9 @@ use DevBX\Telegram\Base;
  * @property Message $suggestedPostMessage
  * *Optional*. Message containing the suggested post. Note that the [Message](#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply.
  * @property string $currency
- * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins
+ * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
  * @property int $amount
- * *Optional*. The amount of the currency that was received by the channel in nanotoncoins; for payments in toncoins only
+ * *Optional*. The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
  * @property StarAmount $starAmount
  * *Optional*. The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
  */

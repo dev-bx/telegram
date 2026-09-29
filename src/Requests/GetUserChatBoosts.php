@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -19,7 +19,7 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a [UserChatBoosts](#userchatboosts) object.
  * @property int|string $chatId
- * Unique identifier for the chat or username of the channel (in the format `@channelusername`)
+ * Unique identifier for the chat or username of the channel in the format `@username`
  * @property int $userId
  * Unique identifier of the target user
  * @method Types\UserChatBoosts send(Api $gateway = null)

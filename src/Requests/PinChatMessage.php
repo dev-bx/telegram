@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be pinned
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target channel in the format `@username`
  * @property int $messageId
  * Identifier of a message to pin
  * @property bool $disableNotification

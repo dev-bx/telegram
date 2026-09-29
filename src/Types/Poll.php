@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -35,16 +35,30 @@ use DevBX\Telegram\Base;
  * Poll type, currently can be “regular” or “quiz”
  * @property bool $allowsMultipleAnswers
  * *True*, if the poll allows multiple answers
- * @property int $correctOptionId
- * *Optional*. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+ * @property bool $allowsRevoting
+ * *True*, if the poll allows to change the chosen answer options
+ * @property bool $membersOnly
+ * *True* if voting is limited to users who have been members of the chat where the poll was originally sent for more than 24 hours
+ * @property string[] $countryCodes
+ * *Optional*. A list of two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
+ * @property int[] $correctOptionIds
+ * *Optional*. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
  * @property string $explanation
  * *Optional*. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
  * @property Base\ArrayObject|MessageEntity[] $explanationEntities
  * *Optional*. Special entities like usernames, URLs, bot commands, etc. that appear in the *explanation*
+ * @property PollMedia $explanationMedia
+ * *Optional*. Media added to the quiz explanation
  * @property int $openPeriod
  * *Optional*. Amount of time in seconds the poll will be active after creation
  * @property int $closeDate
  * *Optional*. Point in time (Unix timestamp) when the poll will be automatically closed
+ * @property string $description
+ * *Optional*. Description of the poll; for polls inside the [Message](#message) object only
+ * @property Base\ArrayObject|MessageEntity[] $descriptionEntities
+ * *Optional*. Special entities like usernames, URLs, bot commands, etc. that appear in the description
+ * @property PollMedia $media
+ * *Optional*. Media added to the poll description; for polls inside the [Message](#message) object only
  */
 class Poll extends Base\BaseType
 {
@@ -88,8 +102,21 @@ class Poll extends Base\BaseType
 				'type' => ['bool'],
 				'required' => true,
 			],
-			'correct_option_id' => [
+			'allows_revoting' => [
+				'type' => ['bool'],
+				'required' => true,
+			],
+			'members_only' => [
+				'type' => ['bool'],
+				'required' => true,
+			],
+			'country_codes' => [
+				'type' => ['string'],
+				'isArray' => true,
+			],
+			'correct_option_ids' => [
 				'type' => ['int'],
+				'isArray' => true,
 			],
 			'explanation' => [
 				'type' => ['string'],
@@ -98,11 +125,24 @@ class Poll extends Base\BaseType
 				'type' => [MessageEntity::class],
 				'isArray' => true,
 			],
+			'explanation_media' => [
+				'type' => [PollMedia::class],
+			],
 			'open_period' => [
 				'type' => ['int'],
 			],
 			'close_date' => [
 				'type' => ['int'],
+			],
+			'description' => [
+				'type' => ['string'],
+			],
+			'description_entities' => [
+				'type' => [MessageEntity::class],
+				'isArray' => true,
+			],
+			'media' => [
+				'type' => [PollMedia::class],
 			],
 		];
 	}
@@ -278,22 +318,79 @@ class Poll extends Base\BaseType
 	}
 
 	/**
-	* @return int
+	* @return bool
 	*/
 
-	public function getCorrectOptionId(): mixed
+	public function getAllowsRevoting(): mixed
 	{
-		return $this->getFieldValue('correct_option_id');
+		return $this->getFieldValue('allows_revoting');
 	}
 
 	/**
-	* @param int $value
+	* @param bool $value
 	* @return static
 	*/
 
-	public function setCorrectOptionId(mixed $value): static
+	public function setAllowsRevoting(mixed $value): static
 	{
-		return $this->setFieldValue('correct_option_id', $value);
+		return $this->setFieldValue('allows_revoting', $value);
+	}
+
+	/**
+	* @return bool
+	*/
+
+	public function getMembersOnly(): mixed
+	{
+		return $this->getFieldValue('members_only');
+	}
+
+	/**
+	* @param bool $value
+	* @return static
+	*/
+
+	public function setMembersOnly(mixed $value): static
+	{
+		return $this->setFieldValue('members_only', $value);
+	}
+
+	/**
+	* @return string[]
+	*/
+
+	public function getCountryCodes(): mixed
+	{
+		return $this->getFieldValue('country_codes');
+	}
+
+	/**
+	* @param string[] $value
+	* @return static
+	*/
+
+	public function setCountryCodes(mixed $value): static
+	{
+		return $this->setFieldValue('country_codes', $value);
+	}
+
+	/**
+	* @return int[]
+	*/
+
+	public function getCorrectOptionIds(): mixed
+	{
+		return $this->getFieldValue('correct_option_ids');
+	}
+
+	/**
+	* @param int[] $value
+	* @return static
+	*/
+
+	public function setCorrectOptionIds(mixed $value): static
+	{
+		return $this->setFieldValue('correct_option_ids', $value);
 	}
 
 	/**
@@ -335,6 +432,25 @@ class Poll extends Base\BaseType
 	}
 
 	/**
+	* @return PollMedia
+	*/
+
+	public function getExplanationMedia(): mixed
+	{
+		return $this->getFieldValue('explanation_media');
+	}
+
+	/**
+	* @param PollMedia $value
+	* @return static
+	*/
+
+	public function setExplanationMedia(mixed $value): static
+	{
+		return $this->setFieldValue('explanation_media', $value);
+	}
+
+	/**
 	* @return int
 	*/
 
@@ -370,6 +486,63 @@ class Poll extends Base\BaseType
 	public function setCloseDate(mixed $value): static
 	{
 		return $this->setFieldValue('close_date', $value);
+	}
+
+	/**
+	* @return string
+	*/
+
+	public function getDescription(): mixed
+	{
+		return $this->getFieldValue('description');
+	}
+
+	/**
+	* @param string $value
+	* @return static
+	*/
+
+	public function setDescription(mixed $value): static
+	{
+		return $this->setFieldValue('description', $value);
+	}
+
+	/**
+	* @return Base\ArrayObject|MessageEntity[]
+	*/
+
+	public function getDescriptionEntities(): mixed
+	{
+		return $this->getFieldValue('description_entities');
+	}
+
+	/**
+	* @param Base\ArrayObject|MessageEntity[] $value
+	* @return static
+	*/
+
+	public function setDescriptionEntities(mixed $value): static
+	{
+		return $this->setFieldValue('description_entities', $value);
+	}
+
+	/**
+	* @return PollMedia
+	*/
+
+	public function getMedia(): mixed
+	{
+		return $this->getFieldValue('media');
+	}
+
+	/**
+	* @param PollMedia $value
+	* @return static
+	*/
+
+	public function setMedia(mixed $value): static
+	{
+		return $this->setFieldValue('media', $value);
 	}
 
 }

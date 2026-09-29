@@ -3,7 +3,7 @@
 /**
  * @project Telegram Bot Api
  * @author Kubeev Ruslan <ruslan@dev-bx.ru>
- * @copyright 2025 Kubeev Ruslan
+ * @copyright 2026 Kubeev Ruslan
  * @license MIT
  * @link https://dev-bx.ru/
  *
@@ -16,7 +16,7 @@ use DevBX\Telegram\Base;
 
 
 /**
- * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
+ * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following types:
  */
 class InputMessageContent extends Base\BaseType
 {
@@ -24,6 +24,7 @@ class InputMessageContent extends Base\BaseType
 	{
 		return [
 			InputTextMessageContent::class,
+			InputRichMessageContent::class,
 			InputLocationMessageContent::class,
 			InputVenueMessageContent::class,
 			InputContactMessageContent::class,

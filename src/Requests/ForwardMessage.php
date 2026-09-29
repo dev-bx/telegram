@@ -19,13 +19,13 @@ use DevBX\Telegram\Types;
 /**
  * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent [Message](#message) is returned.
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property int $directMessagesTopicId
  * Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
  * @property int|string $fromChatId
- * Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
+ * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
  * @property int $videoStartTimestamp
  * New start timestamp for the forwarded video in the message
  * @property bool $disableNotification

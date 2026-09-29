@@ -36,7 +36,7 @@ use DevBX\Telegram\Base;
  * @property bool $isPrivate
  * *Optional*. *True*, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
  * @property int $uniqueGiftNumber
- * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift)
+ * *Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](#uniquegift).
  */
 class GiftInfo extends Base\BaseType
 {

@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be unpinned
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+ * Unique identifier for the target chat or username of the target channel in the format `@username`
  * @property int $messageId
  * Identifier of the message to unpin. Required if *business\_connection\_id* is specified. If not specified, the most recent pinned message (by sending date) will be unpinned.
  * @method Base\BaseType send(Api $gateway = null)

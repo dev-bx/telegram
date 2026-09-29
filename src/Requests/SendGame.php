@@ -20,8 +20,8 @@ use DevBX\Telegram\Types;
  * Use this method to send a game. On success, the sent [Message](#message) is returned.
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
- * @property int $chatId
- * Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
+ * @property int|string $chatId
+ * Unique identifier for the target chat or username of the target bot in the format `@username`. Games can't be sent to channel direct messages chats and channel chats.
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property string $gameShortName
@@ -31,7 +31,7 @@ use DevBX\Telegram\Types;
  * @property bool $protectContent
  * Protects the contents of the sent message from forwarding and saving
  * @property bool $allowPaidBroadcast
- * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+ * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
  * @property string $messageEffectId
  * Unique identifier of the message effect to be added to the message; for private chats only
  * @property Types\ReplyParameters $replyParameters
@@ -49,7 +49,7 @@ class SendGame extends Base\Request
                 'type' => ['string'],
             ],
             'chat_id' => [
-                'type' => ['int'],
+                'type' => ['int', 'string'],
                 'required' => true,
             ],
             'message_thread_id' => [
@@ -103,7 +103,7 @@ class SendGame extends Base\Request
     }
 
     /**
-    * @return int
+    * @return int|string
     */
 
     public function getChatId(): mixed
@@ -112,7 +112,7 @@ class SendGame extends Base\Request
     }
 
     /**
-    * @param int $value
+    * @param int|string $value
     * @return static
     */
 

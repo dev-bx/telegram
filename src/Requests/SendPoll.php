@@ -21,49 +21,71 @@ use DevBX\Telegram\Types;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the message will be sent
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). Polls can't be sent to channel direct messages chats.
+ * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
  * @property int $messageThreadId
  * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property string $question
  * Poll question, 1-300 characters
  * @property string $questionParseMode
- * Mode for parsing entities in the question. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed
+ * Mode for parsing entities in the question. See [formatting options](#formatting-options) for more details. Currently, only custom emoji entities are allowed.
  * @property Base\ArrayObject|Types\MessageEntity[] $questionEntities
- * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of *question\_parse\_mode*
+ * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of *question\_parse\_mode*.
  * @property Base\ArrayObject|Types\InputPollOption[] $options
- * A JSON-serialized list of 2-12 answer options
+ * A JSON-serialized list of 1-12 answer options
  * @property bool $isAnonymous
  * *True*, if the poll needs to be anonymous, defaults to *True*
  * @property string $type
  * Poll type, “quiz” or “regular”, defaults to “regular”
  * @property bool $allowsMultipleAnswers
- * *True*, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*
- * @property int $correctOptionId
- * 0-based identifier of the correct answer option, required for polls in quiz mode
+ * Pass *True* if the poll allows multiple answers, defaults to *False*
+ * @property bool $allowsRevoting
+ * Pass *True* if the poll allows to change chosen answer options, defaults to *False* for quizzes and to *True* for regular polls
+ * @property bool $shuffleOptions
+ * Pass *True* if the poll options must be shown in random order
+ * @property bool $allowAddingOptions
+ * Pass *True* if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+ * @property bool $hideResultsUntilCloses
+ * Pass *True* if poll results must be shown only after the poll closes
+ * @property bool $membersOnly
+ * Pass *True* if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only
+ * @property string[] $countryCodes
+ * A JSON-serialized list of 0-12 two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country codes indicating the countries from which users can vote in the poll; for channel chats only. Use “FT” as a country code to allow users with anonymous numbers to vote. If omitted or empty, then users from any country can participate in the poll.
+ * @property int[] $correctOptionIds
+ * A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
  * @property string $explanation
  * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
  * @property string $explanationParseMode
  * Mode for parsing entities in the explanation. See [formatting options](#formatting-options) for more details.
  * @property Base\ArrayObject|Types\MessageEntity[] $explanationEntities
- * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of *explanation\_parse\_mode*
+ * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of *explanation\_parse\_mode*.
+ * @property Types\InputPollMedia $explanationMedia
+ * Media added to the quiz explanation
  * @property int $openPeriod
- * Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with *close\_date*.
+ * Amount of time in seconds the poll will be active after creation, 5-2628000. Can't be used together with *close\_date*.
  * @property int $closeDate
- * Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with *open\_period*.
+ * Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 2628000 seconds in the future. Can't be used together with *open\_period*.
  * @property bool $isClosed
  * Pass *True* if the poll needs to be immediately closed. This can be useful for poll preview.
+ * @property string $description
+ * Description of the poll to be sent, 0-1024 characters after entities parsing
+ * @property string $descriptionParseMode
+ * Mode for parsing entities in the poll description. See [formatting options](#formatting-options) for more details.
+ * @property Base\ArrayObject|Types\MessageEntity[] $descriptionEntities
+ * A JSON-serialized list of special entities that appear in the poll description, which can be specified instead of *description\_parse\_mode*
+ * @property Types\InputPollMedia $media
+ * Media added to the poll description
  * @property bool $disableNotification
  * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
  * @property bool $protectContent
  * Protects the contents of the sent message from forwarding and saving
  * @property bool $allowPaidBroadcast
- * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+ * Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
  * @property string $messageEffectId
  * Unique identifier of the message effect to be added to the message; for private chats only
  * @property Types\ReplyParameters $replyParameters
  * Description of the message to reply to
  * @property Types\InlineKeyboardMarkup|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply $replyMarkup
- * Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user
+ * Additional interface options. A JSON-serialized object for an [inline keyboard](/bots/features#inline-keyboards), [custom reply keyboard](/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user.
  * @method Types\Message send(Api $gateway = null)
  */
 class SendPoll extends Base\Request
@@ -106,8 +128,28 @@ class SendPoll extends Base\Request
             'allows_multiple_answers' => [
                 'type' => ['bool'],
             ],
-            'correct_option_id' => [
+            'allows_revoting' => [
+                'type' => ['bool'],
+            ],
+            'shuffle_options' => [
+                'type' => ['bool'],
+            ],
+            'allow_adding_options' => [
+                'type' => ['bool'],
+            ],
+            'hide_results_until_closes' => [
+                'type' => ['bool'],
+            ],
+            'members_only' => [
+                'type' => ['bool'],
+            ],
+            'country_codes' => [
+                'type' => ['string'],
+                'isArray' => true,
+            ],
+            'correct_option_ids' => [
                 'type' => ['int'],
+                'isArray' => true,
             ],
             'explanation' => [
                 'type' => ['string'],
@@ -119,6 +161,9 @@ class SendPoll extends Base\Request
                 'type' => [Types\MessageEntity::class],
                 'isArray' => true,
             ],
+            'explanation_media' => [
+                'type' => [Types\InputPollMedia::class],
+            ],
             'open_period' => [
                 'type' => ['int'],
             ],
@@ -127,6 +172,19 @@ class SendPoll extends Base\Request
             ],
             'is_closed' => [
                 'type' => ['bool'],
+            ],
+            'description' => [
+                'type' => ['string'],
+            ],
+            'description_parse_mode' => [
+                'type' => ['string'],
+            ],
+            'description_entities' => [
+                'type' => [Types\MessageEntity::class],
+                'isArray' => true,
+            ],
+            'media' => [
+                'type' => [Types\InputPollMedia::class],
             ],
             'disable_notification' => [
                 'type' => ['bool'],
@@ -343,22 +401,136 @@ class SendPoll extends Base\Request
     }
 
     /**
-    * @return int
+    * @return bool
     */
 
-    public function getCorrectOptionId(): mixed
+    public function getAllowsRevoting(): mixed
     {
-        return $this->getFieldValue('correct_option_id');
+        return $this->getFieldValue('allows_revoting');
     }
 
     /**
-    * @param int $value
+    * @param bool $value
     * @return static
     */
 
-    public function setCorrectOptionId(mixed $value): static
+    public function setAllowsRevoting(mixed $value): static
     {
-        return $this->setFieldValue('correct_option_id', $value);
+        return $this->setFieldValue('allows_revoting', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getShuffleOptions(): mixed
+    {
+        return $this->getFieldValue('shuffle_options');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setShuffleOptions(mixed $value): static
+    {
+        return $this->setFieldValue('shuffle_options', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getAllowAddingOptions(): mixed
+    {
+        return $this->getFieldValue('allow_adding_options');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setAllowAddingOptions(mixed $value): static
+    {
+        return $this->setFieldValue('allow_adding_options', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getHideResultsUntilCloses(): mixed
+    {
+        return $this->getFieldValue('hide_results_until_closes');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setHideResultsUntilCloses(mixed $value): static
+    {
+        return $this->setFieldValue('hide_results_until_closes', $value);
+    }
+
+    /**
+    * @return bool
+    */
+
+    public function getMembersOnly(): mixed
+    {
+        return $this->getFieldValue('members_only');
+    }
+
+    /**
+    * @param bool $value
+    * @return static
+    */
+
+    public function setMembersOnly(mixed $value): static
+    {
+        return $this->setFieldValue('members_only', $value);
+    }
+
+    /**
+    * @return string[]
+    */
+
+    public function getCountryCodes(): mixed
+    {
+        return $this->getFieldValue('country_codes');
+    }
+
+    /**
+    * @param string[] $value
+    * @return static
+    */
+
+    public function setCountryCodes(mixed $value): static
+    {
+        return $this->setFieldValue('country_codes', $value);
+    }
+
+    /**
+    * @return int[]
+    */
+
+    public function getCorrectOptionIds(): mixed
+    {
+        return $this->getFieldValue('correct_option_ids');
+    }
+
+    /**
+    * @param int[] $value
+    * @return static
+    */
+
+    public function setCorrectOptionIds(mixed $value): static
+    {
+        return $this->setFieldValue('correct_option_ids', $value);
     }
 
     /**
@@ -419,6 +591,25 @@ class SendPoll extends Base\Request
     }
 
     /**
+    * @return Types\InputPollMedia
+    */
+
+    public function getExplanationMedia(): mixed
+    {
+        return $this->getFieldValue('explanation_media');
+    }
+
+    /**
+    * @param Types\InputPollMedia $value
+    * @return static
+    */
+
+    public function setExplanationMedia(mixed $value): static
+    {
+        return $this->setFieldValue('explanation_media', $value);
+    }
+
+    /**
     * @return int
     */
 
@@ -473,6 +664,82 @@ class SendPoll extends Base\Request
     public function setIsClosed(mixed $value): static
     {
         return $this->setFieldValue('is_closed', $value);
+    }
+
+    /**
+    * @return string
+    */
+
+    public function getDescription(): mixed
+    {
+        return $this->getFieldValue('description');
+    }
+
+    /**
+    * @param string $value
+    * @return static
+    */
+
+    public function setDescription(mixed $value): static
+    {
+        return $this->setFieldValue('description', $value);
+    }
+
+    /**
+    * @return string
+    */
+
+    public function getDescriptionParseMode(): mixed
+    {
+        return $this->getFieldValue('description_parse_mode');
+    }
+
+    /**
+    * @param string $value
+    * @return static
+    */
+
+    public function setDescriptionParseMode(mixed $value): static
+    {
+        return $this->setFieldValue('description_parse_mode', $value);
+    }
+
+    /**
+    * @return Base\ArrayObject|Types\MessageEntity[]
+    */
+
+    public function getDescriptionEntities(): mixed
+    {
+        return $this->getFieldValue('description_entities');
+    }
+
+    /**
+    * @param Base\ArrayObject|Types\MessageEntity[] $value
+    * @return static
+    */
+
+    public function setDescriptionEntities(mixed $value): static
+    {
+        return $this->setFieldValue('description_entities', $value);
+    }
+
+    /**
+    * @return Types\InputPollMedia
+    */
+
+    public function getMedia(): mixed
+    {
+        return $this->getFieldValue('media');
+    }
+
+    /**
+    * @param Types\InputPollMedia $value
+    * @return static
+    */
+
+    public function setMedia(mixed $value): static
+    {
+        return $this->setFieldValue('media', $value);
     }
 
     /**

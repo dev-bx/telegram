@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  * @property string $businessConnectionId
  * Unique identifier of the business connection on behalf of which the action will be sent
  * @property int|string $chatId
- * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel chats and channel direct messages chats aren't supported.
+ * Unique identifier for the target chat or username of the target bot or supergroup in the format `@username`. Channel chats and channel direct messages chats aren't supported.
  * @property int $messageThreadId
  * Unique identifier for the target message thread or topic of a forum; for supergroups and private chats of bots with forum topic mode enabled only
  * @property string $action

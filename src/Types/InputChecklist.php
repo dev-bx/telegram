@@ -22,7 +22,7 @@ use DevBX\Telegram\Base;
  * @property string $parseMode
  * *Optional*. Mode for parsing entities in the title. See [formatting options](#formatting-options) for more details.
  * @property Base\ArrayObject|MessageEntity[] $titleEntities
- * *Optional*. List of special entities that appear in the title, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are allowed.
+ * *Optional*. List of special entities that appear in the title, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom\_emoji*, and *date\_time* entities are allowed.
  * @property Base\ArrayObject|InputChecklistTask[] $tasks
  * List of 1-30 tasks in the checklist
  * @property bool $othersCanAddTasks
