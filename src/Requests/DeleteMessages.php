@@ -20,7 +20,7 @@ use DevBX\Telegram\Api;
  *
  * @link https://core.telegram.org/bots/api#deletemessages
  *
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
  * @property-write int|string $chatId
  * @property-read Base\ArrayObject<Base\ParameterInt> $messageIds Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See `deleteMessage` for limitations on which messages can be deleted.
  * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $messageIds
@@ -48,7 +48,7 @@ class DeleteMessages extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *
      * @return int|string|null
      * @throws Base\TelegramException

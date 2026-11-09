@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  *
  * @property-read int|null $userId Optional. Required if *chat_id* is not specified. Unique identifier of the target user who will receive the gift.
  * @property-write int $userId
- * @property-read int|string|null $chatId Optional. Required if *user_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
+ * @property-read int|string|null $chatId Optional. Required if *user_id* is not specified. Unique identifier for the chat that will receive the gift or username of the channel in the format `@username`.
  * @property-write int|string $chatId
  * @property-read string|null $giftId Required. Identifier of the gift; limited gifts can't be sent to channel chats
  * @property-write string $giftId
@@ -94,7 +94,7 @@ class SendGift extends Base\Request
     }
 
     /**
-     * Optional. Required if *user_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
+     * Optional. Required if *user_id* is not specified. Unique identifier for the chat that will receive the gift or username of the channel in the format `@username`.
      *
      * @return int|string|null
      * @throws Base\TelegramException

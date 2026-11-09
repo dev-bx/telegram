@@ -13,6 +13,7 @@
 namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
+use DevBX\Telegram\RichMessages;
 
 /**
  * Describes reply parameters for the message that is being sent.
@@ -21,7 +22,7 @@ use DevBX\Telegram\Base;
  *
  * @property-read int|null $messageId Optional. Identifier of the message that will be replied to in the current chat, or in the chat *chat_id* if it is specified. Required if *ephemeral_message_id* isn't specified.
  * @property-write int $messageId
- * @property-read int|string|null $chatId Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
+ * @property-read int|string|null $chatId Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup, or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
  * @property-write int|string $chatId
  * @property-read int|null $ephemeralMessageId Optional. Identifier of the incoming ephemeral message that will be replied to in the current chat. A reply to an ephemeral message must itself be an ephemeral message. An ephemeral message may only be replied to within 15 seconds of being sent. Required if *message_id* isn't specified.
  * @property-write int $ephemeralMessageId
@@ -33,7 +34,9 @@ use DevBX\Telegram\Base;
  * @property-write string $quoteParseMode
  * @property-read Base\ArrayObject<MessageEntity> $quoteEntities Optional. A JSON-serialized list of special entities that appear in the quote. It can be specified instead of *quote_parse_mode*.
  * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $quoteEntities
- * @property-read int|null $quotePosition Optional. Position of the quote in the original message in UTF-16 code units
+ * @property-read Base\ArrayObject<RichMessages\RichText> $quoteRichTexts Optional. A JSON-serialized list of quoted parts of the `RichMessage` to be replied to. Must contain one element for each quoted text of the message in the order of their appearance. Each of the following is a separate quoted text: the text of a paragraph, a heading, a preformatted block, a footer, or a mathematical expression; the text and the credit of a block quotation or a pull quotation; the summary of a details block; the caption and each cell of a table; the text and the credit of a caption of a media block, a collage, a slideshow, or a map. Texts of blocks nested in lists, block quotations, details, collages, and slideshows are separate quoted texts too. The first and the last elements can contain only a part of the corresponding text; all other elements must contain the whole text. Formatting of the quoted parts must be kept, and rich texts must be nested in the same way as in the message received from the server. Mathematical expressions must be quoted entirely. Buttons in `RichBlockButtons`, anchors and dividers can't be quoted. Up to 32 quoted texts with total length up to 1024 characters can be specified. Only plain text, `RichTextBold`, `RichTextItalic`, `RichTextUnderline`, `RichTextStrikethrough`, `RichTextSpoiler`, `RichTextSubscript`, `RichTextSuperscript`, `RichTextDateTime`, `RichTextCustomEmoji`, `RichTextMathematicalExpression`, and arrays of them are kept in the quote; other rich text types are replaced with their text. If non-empty, then *quote*, *quote_parse_mode* and *quote_entities* are ignored.
+ * @property-write list<RichMessages\RichText|string|list<mixed>|array<string, mixed>>|Base\ArrayObject<RichMessages\RichText> $quoteRichTexts
+ * @property-read int|null $quotePosition Optional. Position of the quote in the original message in UTF-16 code units. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
  * @property-write int $quotePosition
  * @property-read int|null $checklistTaskId Optional. Identifier of the specific checklist task to be replied to
  * @property-write int $checklistTaskId
@@ -65,6 +68,10 @@ class ReplyParameters extends Base\BaseType
             ],
             'quote_entities' => [
                 'type' => [MessageEntity::class],
+                'isArray' => true,
+            ],
+            'quote_rich_texts' => [
+                'type' => [RichMessages\RichText::class],
                 'isArray' => true,
             ],
             'quote_position' => [
@@ -101,7 +108,7 @@ class ReplyParameters extends Base\BaseType
     }
 
     /**
-     * Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
+     * Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup, or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
      *
      * @return int|string|null
      * @throws Base\TelegramException
@@ -227,7 +234,28 @@ class ReplyParameters extends Base\BaseType
     }
 
     /**
-     * Optional. Position of the quote in the original message in UTF-16 code units
+     * Optional. A JSON-serialized list of quoted parts of the `RichMessage` to be replied to. Must contain one element for each quoted text of the message in the order of their appearance. Each of the following is a separate quoted text: the text of a paragraph, a heading, a preformatted block, a footer, or a mathematical expression; the text and the credit of a block quotation or a pull quotation; the summary of a details block; the caption and each cell of a table; the text and the credit of a caption of a media block, a collage, a slideshow, or a map. Texts of blocks nested in lists, block quotations, details, collages, and slideshows are separate quoted texts too. The first and the last elements can contain only a part of the corresponding text; all other elements must contain the whole text. Formatting of the quoted parts must be kept, and rich texts must be nested in the same way as in the message received from the server. Mathematical expressions must be quoted entirely. Buttons in `RichBlockButtons`, anchors and dividers can't be quoted. Up to 32 quoted texts with total length up to 1024 characters can be specified. Only plain text, `RichTextBold`, `RichTextItalic`, `RichTextUnderline`, `RichTextStrikethrough`, `RichTextSpoiler`, `RichTextSubscript`, `RichTextSuperscript`, `RichTextDateTime`, `RichTextCustomEmoji`, `RichTextMathematicalExpression`, and arrays of them are kept in the quote; other rich text types are replaced with their text. If non-empty, then *quote*, *quote_parse_mode* and *quote_entities* are ignored.
+     *
+     * @return Base\ArrayObject<RichMessages\RichText>
+     * @throws Base\TelegramException
+     */
+    public function getQuoteRichTexts(): mixed
+    {
+        return $this->getFieldValue('quote_rich_texts');
+    }
+
+    /**
+     * @param list<RichMessages\RichText|string|list<mixed>|array<string, mixed>>|Base\ArrayObject<RichMessages\RichText> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setQuoteRichTexts(mixed $value): static
+    {
+        return $this->setFieldValue('quote_rich_texts', $value);
+    }
+
+    /**
+     * Optional. Position of the quote in the original message in UTF-16 code units. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
      *
      * @return int|null
      * @throws Base\TelegramException

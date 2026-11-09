@@ -19,8 +19,8 @@ use DevBX\Telegram\Base;
  *
  * @link https://core.telegram.org/bots/api#storyarea
  *
- * @property-read StoryAreaPosition|null $position Required. Position of the area
- * @property-write StoryAreaPosition|array<string, mixed> $position
+ * @property-read AreaPosition|null $position Required. Position of the area
+ * @property-write AreaPosition|array<string, mixed> $position
  * @property-read StoryAreaType|null $type Required. Type of the area
  * @property-write StoryAreaType|array<string, mixed> $type
  */
@@ -30,7 +30,7 @@ class StoryArea extends Base\BaseType
     {
         return [
             'position' => [
-                'type' => [StoryAreaPosition::class],
+                'type' => [AreaPosition::class],
                 'required' => true,
             ],
             'type' => [
@@ -43,7 +43,7 @@ class StoryArea extends Base\BaseType
     /**
      * Required. Position of the area
      *
-     * @return StoryAreaPosition|null
+     * @return AreaPosition|null
      * @throws Base\TelegramException
      */
     public function getPosition(): mixed
@@ -52,7 +52,7 @@ class StoryArea extends Base\BaseType
     }
 
     /**
-     * @param StoryAreaPosition|array<string, mixed> $value
+     * @param AreaPosition|array<string, mixed> $value
      * @return $this
      * @throws Base\TelegramException
      */

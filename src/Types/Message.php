@@ -124,11 +124,13 @@ use DevBX\Telegram\Stickers;
  * @property-write VideoNote|array<string, mixed> $videoNote
  * @property-read Voice|null $voice Optional. Message is a voice message, information about the file
  * @property-write Voice|array<string, mixed> $voice
- * @property-read string|null $caption Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+ * @property-read Widget|null $widget Optional. Message is an HTML widget, information about the widget
+ * @property-write Widget|array<string, mixed> $widget
+ * @property-read string|null $caption Optional. Caption for the animation, audio, document, live photo, paid media, photo, video, voice, or widget
  * @property-write string $caption
  * @property-read Base\ArrayObject<MessageEntity> $captionEntities Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
  * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $captionEntities
- * @property-read bool|null $showCaptionAboveMedia Optional. *True*, if the caption must be shown above the message media
+ * @property-read bool|null $showCaptionAboveMedia Optional. *True*, if the caption must be shown above the message media or the widget
  * @property-write bool $showCaptionAboveMedia
  * @property-read bool|null $hasMediaSpoiler Optional. *True*, if the message media is covered by a spoiler animation
  * @property-write bool $hasMediaSpoiler
@@ -238,6 +240,8 @@ use DevBX\Telegram\Stickers;
  * @property-write ManagedBotCreated|array<string, mixed> $managedBotCreated
  * @property-read PaidMessagePriceChanged|null $paidMessagePriceChanged Optional. Service message: the price for paid messages has changed in the chat
  * @property-write PaidMessagePriceChanged|array<string, mixed> $paidMessagePriceChanged
+ * @property-read PaidMessagesWaived|null $paidMessagesWaived Optional. Service message: the sender of the message used a link of the other user, which allows sending messages to the user without paying Telegram Stars
+ * @property-write PaidMessagesWaived|array<string, mixed> $paidMessagesWaived
  * @property-read PollOptionAdded|null $pollOptionAdded Optional. Service message: answer option was added to a poll
  * @property-write PollOptionAdded|array<string, mixed> $pollOptionAdded
  * @property-read PollOptionDeleted|null $pollOptionDeleted Optional. Service message: answer option was deleted from a poll
@@ -252,6 +256,8 @@ use DevBX\Telegram\Stickers;
  * @property-write SuggestedPostPaid|array<string, mixed> $suggestedPostPaid
  * @property-read SuggestedPostRefunded|null $suggestedPostRefunded Optional. Service message: payment for a suggested post was refunded
  * @property-write SuggestedPostRefunded|array<string, mixed> $suggestedPostRefunded
+ * @property-read TonWalletTransfer|null $tonWalletTransfer Optional. Service message: a transfer with a TON wallet
+ * @property-write TonWalletTransfer|array<string, mixed> $tonWalletTransfer
  * @property-read VideoChatScheduled|null $videoChatScheduled Optional. Service message: video chat scheduled
  * @property-write VideoChatScheduled|array<string, mixed> $videoChatScheduled
  * @property-read VideoChatStarted|null $videoChatStarted Optional. Service message: video chat started
@@ -434,6 +440,9 @@ class Message extends MaybeInaccessibleMessage
             'voice' => [
                 'type' => [Voice::class],
             ],
+            'widget' => [
+                'type' => [Widget::class],
+            ],
             'caption' => [
                 'type' => ['string'],
             ],
@@ -608,6 +617,9 @@ class Message extends MaybeInaccessibleMessage
             'paid_message_price_changed' => [
                 'type' => [PaidMessagePriceChanged::class],
             ],
+            'paid_messages_waived' => [
+                'type' => [PaidMessagesWaived::class],
+            ],
             'poll_option_added' => [
                 'type' => [PollOptionAdded::class],
             ],
@@ -628,6 +640,9 @@ class Message extends MaybeInaccessibleMessage
             ],
             'suggested_post_refunded' => [
                 'type' => [SuggestedPostRefunded::class],
+            ],
+            'ton_wallet_transfer' => [
+                'type' => [TonWalletTransfer::class],
             ],
             'video_chat_scheduled' => [
                 'type' => [VideoChatScheduled::class],
@@ -1701,7 +1716,28 @@ class Message extends MaybeInaccessibleMessage
     }
 
     /**
-     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     * Optional. Message is an HTML widget, information about the widget
+     *
+     * @return Widget|null
+     * @throws Base\TelegramException
+     */
+    public function getWidget(): mixed
+    {
+        return $this->getFieldValue('widget');
+    }
+
+    /**
+     * @param Widget|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWidget(mixed $value): static
+    {
+        return $this->setFieldValue('widget', $value);
+    }
+
+    /**
+     * Optional. Caption for the animation, audio, document, live photo, paid media, photo, video, voice, or widget
      *
      * @return string|null
      * @throws Base\TelegramException
@@ -1743,7 +1779,7 @@ class Message extends MaybeInaccessibleMessage
     }
 
     /**
-     * Optional. *True*, if the caption must be shown above the message media
+     * Optional. *True*, if the caption must be shown above the message media or the widget
      *
      * @return bool|null
      * @throws Base\TelegramException
@@ -2898,6 +2934,27 @@ class Message extends MaybeInaccessibleMessage
     }
 
     /**
+     * Optional. Service message: the sender of the message used a link of the other user, which allows sending messages to the user without paying Telegram Stars
+     *
+     * @return PaidMessagesWaived|null
+     * @throws Base\TelegramException
+     */
+    public function getPaidMessagesWaived(): mixed
+    {
+        return $this->getFieldValue('paid_messages_waived');
+    }
+
+    /**
+     * @param PaidMessagesWaived|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setPaidMessagesWaived(mixed $value): static
+    {
+        return $this->setFieldValue('paid_messages_waived', $value);
+    }
+
+    /**
      * Optional. Service message: answer option was added to a poll
      *
      * @return PollOptionAdded|null
@@ -3042,6 +3099,27 @@ class Message extends MaybeInaccessibleMessage
     public function setSuggestedPostRefunded(mixed $value): static
     {
         return $this->setFieldValue('suggested_post_refunded', $value);
+    }
+
+    /**
+     * Optional. Service message: a transfer with a TON wallet
+     *
+     * @return TonWalletTransfer|null
+     * @throws Base\TelegramException
+     */
+    public function getTonWalletTransfer(): mixed
+    {
+        return $this->getFieldValue('ton_wallet_transfer');
+    }
+
+    /**
+     * @param TonWalletTransfer|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTonWalletTransfer(mixed $value): static
+    {
+        return $this->setFieldValue('ton_wallet_transfer', $value);
     }
 
     /**

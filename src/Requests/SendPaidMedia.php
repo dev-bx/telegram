@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  *
  * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message will be sent
  * @property-write string $businessConnectionId
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
  * @property-write int|string $chatId
  * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property-write int $messageThreadId
@@ -147,7 +147,7 @@ class SendPaidMedia extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
      *
      * @return int|string|null
      * @throws Base\TelegramException

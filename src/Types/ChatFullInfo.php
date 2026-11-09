@@ -125,6 +125,10 @@ use DevBX\Telegram\Base;
  * @property-write User|array<string, mixed> $guardBot
  * @property-read Community|null $community Optional. The `Community` to which the chat belongs
  * @property-write Community|array<string, mixed> $community
+ * @property-read TonWalletCard|null $tonWalletCard Optional. For private chats, the TON wallet card of the user, which is shown on their profile page
+ * @property-write TonWalletCard|array<string, mixed> $tonWalletCard
+ * @property-read ChatShareTheme|null $shareTheme Optional. For private chats, supergroups and channels, the theme of the screen for sharing a link to the user or the chat; omitted if the default theme is used
+ * @property-write ChatShareTheme|array<string, mixed> $shareTheme
  */
 class ChatFullInfo extends Base\BaseType
 {
@@ -296,6 +300,12 @@ class ChatFullInfo extends Base\BaseType
             ],
             'community' => [
                 'type' => [Community::class],
+            ],
+            'ton_wallet_card' => [
+                'type' => [TonWalletCard::class],
+            ],
+            'share_theme' => [
+                'type' => [ChatShareTheme::class],
             ],
         ];
     }
@@ -1411,5 +1421,47 @@ class ChatFullInfo extends Base\BaseType
     public function setCommunity(mixed $value): static
     {
         return $this->setFieldValue('community', $value);
+    }
+
+    /**
+     * Optional. For private chats, the TON wallet card of the user, which is shown on their profile page
+     *
+     * @return TonWalletCard|null
+     * @throws Base\TelegramException
+     */
+    public function getTonWalletCard(): mixed
+    {
+        return $this->getFieldValue('ton_wallet_card');
+    }
+
+    /**
+     * @param TonWalletCard|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setTonWalletCard(mixed $value): static
+    {
+        return $this->setFieldValue('ton_wallet_card', $value);
+    }
+
+    /**
+     * Optional. For private chats, supergroups and channels, the theme of the screen for sharing a link to the user or the chat; omitted if the default theme is used
+     *
+     * @return ChatShareTheme|null
+     * @throws Base\TelegramException
+     */
+    public function getShareTheme(): mixed
+    {
+        return $this->getFieldValue('share_theme');
+    }
+
+    /**
+     * @param ChatShareTheme|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setShareTheme(mixed $value): static
+    {
+        return $this->setFieldValue('share_theme', $value);
     }
 }

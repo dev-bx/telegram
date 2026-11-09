@@ -52,6 +52,10 @@ use DevBX\Telegram\Payments;
  * @property-write InlineMode\ChosenInlineResult|array<string, mixed> $chosenInlineResult
  * @property-read CallbackQuery|null $callbackQuery Optional. New incoming callback query
  * @property-write CallbackQuery|array<string, mixed> $callbackQuery
+ * @property-read WidgetQuery|null $widgetQuery Optional. New incoming query from a widget in a message sent by the bot or via the bot
+ * @property-write WidgetQuery|array<string, mixed> $widgetQuery
+ * @property-read SharedWidgetQuery|null $sharedWidgetQuery Optional. New incoming query from a forwarded message with a shared widget
+ * @property-write SharedWidgetQuery|array<string, mixed> $sharedWidgetQuery
  * @property-read Payments\ShippingQuery|null $shippingQuery Optional. New incoming shipping query. Only for invoices with flexible price.
  * @property-write Payments\ShippingQuery|array<string, mixed> $shippingQuery
  * @property-read Payments\PreCheckoutQuery|null $preCheckoutQuery Optional. New incoming pre-checkout query. Contains full information about checkout.
@@ -129,6 +133,12 @@ class Update extends Base\BaseType
             ],
             'callback_query' => [
                 'type' => [CallbackQuery::class],
+            ],
+            'widget_query' => [
+                'type' => [WidgetQuery::class],
+            ],
+            'shared_widget_query' => [
+                'type' => [SharedWidgetQuery::class],
             ],
             'shipping_query' => [
                 'type' => [Payments\ShippingQuery::class],
@@ -485,6 +495,48 @@ class Update extends Base\BaseType
     public function setCallbackQuery(mixed $value): static
     {
         return $this->setFieldValue('callback_query', $value);
+    }
+
+    /**
+     * Optional. New incoming query from a widget in a message sent by the bot or via the bot
+     *
+     * @return WidgetQuery|null
+     * @throws Base\TelegramException
+     */
+    public function getWidgetQuery(): mixed
+    {
+        return $this->getFieldValue('widget_query');
+    }
+
+    /**
+     * @param WidgetQuery|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWidgetQuery(mixed $value): static
+    {
+        return $this->setFieldValue('widget_query', $value);
+    }
+
+    /**
+     * Optional. New incoming query from a forwarded message with a shared widget
+     *
+     * @return SharedWidgetQuery|null
+     * @throws Base\TelegramException
+     */
+    public function getSharedWidgetQuery(): mixed
+    {
+        return $this->getFieldValue('shared_widget_query');
+    }
+
+    /**
+     * @param SharedWidgetQuery|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setSharedWidgetQuery(mixed $value): static
+    {
+        return $this->setFieldValue('shared_widget_query', $value);
     }
 
     /**

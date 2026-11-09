@@ -52,6 +52,8 @@ use DevBX\Telegram\Stickers;
  * @property-write VideoNote|array<string, mixed> $videoNote
  * @property-read Voice|null $voice Optional. Message is a voice message, information about the file
  * @property-write Voice|array<string, mixed> $voice
+ * @property-read Widget|null $widget Optional. Message is an HTML widget, information about the widget
+ * @property-write Widget|array<string, mixed> $widget
  * @property-read bool|null $hasMediaSpoiler Optional. *True*, if the message media is covered by a spoiler animation
  * @property-write bool $hasMediaSpoiler
  * @property-read Checklist|null $checklist Optional. Message is a checklist
@@ -126,6 +128,9 @@ class ExternalReplyInfo extends Base\BaseType
             ],
             'voice' => [
                 'type' => [Voice::class],
+            ],
+            'widget' => [
+                'type' => [Widget::class],
             ],
             'has_media_spoiler' => [
                 'type' => ['bool'],
@@ -476,6 +481,27 @@ class ExternalReplyInfo extends Base\BaseType
     public function setVoice(mixed $value): static
     {
         return $this->setFieldValue('voice', $value);
+    }
+
+    /**
+     * Optional. Message is an HTML widget, information about the widget
+     *
+     * @return Widget|null
+     * @throws Base\TelegramException
+     */
+    public function getWidget(): mixed
+    {
+        return $this->getFieldValue('widget');
+    }
+
+    /**
+     * @param Widget|array<string, mixed> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setWidget(mixed $value): static
+    {
+        return $this->setFieldValue('widget', $value);
     }
 
     /**

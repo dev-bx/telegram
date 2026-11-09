@@ -18,9 +18,9 @@ use DevBX\Telegram\Base;
  *
  * @link https://core.telegram.org/bots/api#ephemeralmessageparameters
  *
- * @property-read int|null $receiverUserId Required. Identifier of the user who will receive the message. It is not guaranteed that the user will receive the message, especially if they are offline. See [here](https://core.telegram.org/bots/api#ephemeral-messages-and-commands) for more details.
+ * @property-read int|null $receiverUserId Optional. Identifier of the user who will receive the message; required unless the message is sent as an ephemeral reply to a callback query. If omitted, then the parameter *chat_id* of the method is ignored. If specified together with *callback_query_id*, then it must be the identifier of the user who pressed the button. Must be omitted for messages sent in chats where the bot isn't a member, unless the message is a reply to an ephemeral message. It is not guaranteed that the user will receive the message, especially if they are offline. See [here](https://core.telegram.org/bots/api#ephemeral-messages-and-commands) for more details.
  * @property-write int $receiverUserId
- * @property-read string|null $callbackQueryId Optional. Identifier of the callback query which triggered the message, if any
+ * @property-read string|null $callbackQueryId Optional. Identifier of the callback query which triggered the message, if any. If specified and *receiver_user_id* is omitted, then the message is sent as an ephemeral reply to the callback query and will be shown only to the user who pressed the button. Ephemeral replies can't be sent to callback queries from messages in channel direct messages chats. The bot must still answer the callback query using `answerCallbackQuery`.
  * @property-write string $callbackQueryId
  * @property-read bool|null $replaceCallbackQueryMessage Optional. Pass *True* if the ephemeral message must be shown in place of the original message. Must be *False* for callback queries from ephemeral messages, which must be edited using regular *editEphemeralMessage…* methods.
  * @property-write bool $replaceCallbackQueryMessage
@@ -32,7 +32,6 @@ class EphemeralMessageParameters extends Base\BaseType
         return [
             'receiver_user_id' => [
                 'type' => ['int'],
-                'required' => true,
             ],
             'callback_query_id' => [
                 'type' => ['string'],
@@ -44,7 +43,7 @@ class EphemeralMessageParameters extends Base\BaseType
     }
 
     /**
-     * Required. Identifier of the user who will receive the message. It is not guaranteed that the user will receive the message, especially if they are offline. See [here](https://core.telegram.org/bots/api#ephemeral-messages-and-commands) for more details.
+     * Optional. Identifier of the user who will receive the message; required unless the message is sent as an ephemeral reply to a callback query. If omitted, then the parameter *chat_id* of the method is ignored. If specified together with *callback_query_id*, then it must be the identifier of the user who pressed the button. Must be omitted for messages sent in chats where the bot isn't a member, unless the message is a reply to an ephemeral message. It is not guaranteed that the user will receive the message, especially if they are offline. See [here](https://core.telegram.org/bots/api#ephemeral-messages-and-commands) for more details.
      *
      * @return int|null
      * @throws Base\TelegramException
@@ -65,7 +64,7 @@ class EphemeralMessageParameters extends Base\BaseType
     }
 
     /**
-     * Optional. Identifier of the callback query which triggered the message, if any
+     * Optional. Identifier of the callback query which triggered the message, if any. If specified and *receiver_user_id* is omitted, then the message is sent as an ephemeral reply to the callback query and will be shown only to the user who pressed the button. Ephemeral replies can't be sent to callback queries from messages in channel direct messages chats. The bot must still answer the callback query using `answerCallbackQuery`.
      *
      * @return string|null
      * @throws Base\TelegramException

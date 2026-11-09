@@ -21,13 +21,13 @@ use DevBX\Telegram\Types;
  *
  * @link https://core.telegram.org/bots/api#forwardmessages
  *
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
  * @property-write int|string $chatId
  * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property-write int $messageThreadId
  * @property-read int|null $directMessagesTopicId Optional. Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
  * @property-write int $directMessagesTopicId
- * @property-read int|string|null $fromChatId Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+ * @property-read int|string|null $fromChatId Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
  * @property-write int|string $fromChatId
  * @property-read Base\ArrayObject<Base\ParameterInt> $messageIds Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from_chat_id* to forward. The identifiers must be specified in a strictly increasing order.
  * @property-write list<int>|Base\ArrayObject<Base\ParameterInt> $messageIds
@@ -76,7 +76,7 @@ class ForwardMessages extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *
      * @return int|string|null
      * @throws Base\TelegramException
@@ -139,7 +139,7 @@ class ForwardMessages extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+     * Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *
      * @return int|string|null
      * @throws Base\TelegramException

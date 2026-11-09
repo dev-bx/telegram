@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  *
  * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property-write string $businessConnectionId
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
  * @property-write int|string $chatId
  * @property-read int|null $messageId Required. Identifier of the original message with the poll
  * @property-write int $messageId
@@ -79,7 +79,7 @@ class StopPoll extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *
      * @return int|string|null
      * @throws Base\TelegramException

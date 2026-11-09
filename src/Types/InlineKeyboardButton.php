@@ -30,7 +30,7 @@ use DevBX\Telegram\Games;
  * @property-write string $url
  * @property-read string|null $callbackData Optional. Data to be sent in a `CallbackQuery` to the bot when the button is pressed, 1-64 bytes
  * @property-write string $callbackData
- * @property-read WebAppInfo|null $webApp Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method `answerWebAppQuery`. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
+ * @property-read WebAppInfo|null $webApp Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method `answerWebAppQuery`. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account and ephemeral messages.
  * @property-write WebAppInfo|array<string, mixed> $webApp
  * @property-read LoginUrl|null $loginUrl Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login). Not supported for ephemeral messages.
  * @property-write LoginUrl|array<string, mixed> $loginUrl
@@ -206,7 +206,7 @@ class InlineKeyboardButton extends Base\BaseType
     }
 
     /**
-     * Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method `answerWebAppQuery`. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
+     * Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method `answerWebAppQuery`. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account and ephemeral messages.
      *
      * @return WebAppInfo|null
      * @throws Base\TelegramException

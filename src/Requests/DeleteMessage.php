@@ -30,7 +30,7 @@ use DevBX\Telegram\Api;
  *
  * @link https://core.telegram.org/bots/api#deletemessage
  *
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
  * @property-write int|string $chatId
  * @property-read int|null $messageId Required. Identifier of the message to delete
  * @property-write int $messageId
@@ -57,7 +57,7 @@ class DeleteMessage extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *
      * @return int|string|null
      * @throws Base\TelegramException

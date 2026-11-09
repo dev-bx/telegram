@@ -17,17 +17,17 @@ use DevBX\Telegram\Api;
 use DevBX\Telegram\Types;
 
 /**
- * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessage`, but the copied message doesn't have a link to the original message. Returns the `MessageId` of the sent message on success.
+ * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessage`, but the copied message doesn't have a link to the original message. Returns the `MessageId` of the sent message on success.
  *
  * @link https://core.telegram.org/bots/api#copymessage
  *
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
  * @property-write int|string $chatId
  * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property-write int $messageThreadId
  * @property-read int|null $directMessagesTopicId Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @property-write int $directMessagesTopicId
- * @property-read int|string|null $fromChatId Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+ * @property-read int|string|null $fromChatId Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
  * @property-write int|string $fromChatId
  * @property-read int|null $messageId Required. Message identifier in the chat specified in *from_chat_id*
  * @property-write int $messageId
@@ -125,7 +125,7 @@ class CopyMessage extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *
      * @return int|string|null
      * @throws Base\TelegramException
@@ -188,7 +188,7 @@ class CopyMessage extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+     * Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *
      * @return int|string|null
      * @throws Base\TelegramException

@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  *
  * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message will be sent
  * @property-write string $businessConnectionId
- * @property-read int|string|null $chatId Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+ * @property-read int|string|null $chatId Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
  * @property-write int|string $chatId
  * @property-read int|null $messageThreadId Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @property-write int $messageThreadId
@@ -66,7 +66,6 @@ class SendVideoNote extends Base\Request
             ],
             'chat_id' => [
                 'type' => ['int', 'string'],
-                'required' => true,
             ],
             'message_thread_id' => [
                 'type' => ['int'],
@@ -139,7 +138,7 @@ class SendVideoNote extends Base\Request
     }
 
     /**
-     * Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     * Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *
      * @return int|string|null
      * @throws Base\TelegramException

@@ -35,7 +35,7 @@ use DevBX\Telegram\Base;
  * @property-write bool $canSendVoiceNotes
  * @property-read bool|null $canSendPolls Optional. *True*, if the user is allowed to send polls and checklists
  * @property-write bool $canSendPolls
- * @property-read bool|null $canSendOtherMessages Optional. *True*, if the user is allowed to send animations, games, stickers and use inline bots
+ * @property-read bool|null $canSendOtherMessages Optional. *True*, if the user is allowed to send animations, games, stickers, widgets and use inline bots
  * @property-write bool $canSendOtherMessages
  * @property-read bool|null $canAddWebPagePreviews Optional. *True*, if the user is allowed to add web page previews to their messages
  * @property-write bool $canAddWebPagePreviews
@@ -277,7 +277,7 @@ class ChatPermissions extends Base\BaseType
     }
 
     /**
-     * Optional. *True*, if the user is allowed to send animations, games, stickers and use inline bots
+     * Optional. *True*, if the user is allowed to send animations, games, stickers, widgets and use inline bots
      *
      * @return bool|null
      * @throws Base\TelegramException

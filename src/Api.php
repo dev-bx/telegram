@@ -13,7 +13,7 @@
 namespace DevBX\Telegram;
 
 /**
- * Клиент Telegram Bot API 10.3: по одному методу на каждый метод Bot API.
+ * Клиент Telegram Bot API 10.4: по одному методу на каждый метод Bot API.
  *
  * Транспорт реализуют наследники: GuzzleClient (Guzzle), PsrClient (любой PSR-18), BitrixClient (1С-Битрикс).
  * Каждый метод собирает запрос Requests\<Метод>, проверяет обязательные параметры и выполняет его.
@@ -152,7 +152,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -182,10 +182,10 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#forwardmessage
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
-     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *     video_start_timestamp?: int, // Optional. New start timestamp for the forwarded video in the message
      *     disable_notification?: bool, // Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
      *     protect_content?: bool, // Optional. Protects the contents of the forwarded message from forwarding and saving
@@ -207,10 +207,10 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#forwardmessages
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
-     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *     message_ids: list<int>|Base\ArrayObject<Base\ParameterInt>, // Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from_chat_id* to forward. The identifiers must be specified in a strictly increasing order.
      *     disable_notification?: bool, // Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
      *     protect_content?: bool, // Optional. Protects the contents of the forwarded messages from forwarding and saving
@@ -224,15 +224,15 @@ class Api extends Base\Api
     }
 
     /**
-     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessage`, but the copied message doesn't have a link to the original message. Returns the `MessageId` of the sent message on success.
+     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessage`, but the copied message doesn't have a link to the original message. Returns the `MessageId` of the sent message on success.
      *
      * @link https://core.telegram.org/bots/api#copymessage
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
-     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *     message_id: int, // Required. Message identifier in the chat specified in *from_chat_id*
      *     video_start_timestamp?: int, // Optional. New start timestamp for the copied video in the message
      *     caption?: string, // Optional. New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.
@@ -256,15 +256,15 @@ class Api extends Base\Api
     }
 
     /**
-     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessages`, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of `MessageId` of the sent messages is returned.
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz `Poll` can be copied only if the value of the field *correct_option_ids* is known to the bot. The method is analogous to the method `forwardMessages`, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of `MessageId` of the sent messages is returned.
      *
      * @link https://core.telegram.org/bots/api#copymessages
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
-     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+     *     from_chat_id: int|string, // Required. Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
      *     message_ids: list<int>|Base\ArrayObject<Base\ParameterInt>, // Required. A JSON-serialized list of 1-100 identifiers of messages in the chat *from_chat_id* to copy. The identifiers must be specified in a strictly increasing order.
      *     disable_notification?: bool, // Optional. Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
      *     protect_content?: bool, // Optional. Protects the contents of the sent messages from forwarding and saving
@@ -285,7 +285,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -318,7 +318,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -354,7 +354,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -390,7 +390,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -424,7 +424,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -465,7 +465,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -503,7 +503,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -535,7 +535,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -561,13 +561,76 @@ class Api extends Base\Api
     }
 
     /**
+     * Use this method to send a message with an [HTML widget](https://core.telegram.org/bots/widgets). Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent `Message` is returned.
+     *
+     * @link https://core.telegram.org/bots/api#sendwidget
+     *
+     * @param array{
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     *     html: string, // Required. HTML code of the widget, 1-32768 bytes. The code must not exceed 4096 bytes when compressed by zlib with the maximum compression level.
+     *     width?: int, // Optional. Width of the widget in logical pixels; omit if the widget must occupy the whole width of the message bubble. The width is clamped by the app to the range from 200 to the maximum width of the message bubble.
+     *     height?: int, // Optional. Height of the widget in logical pixels; omit if the height of the widget isn't fixed. The height is clamped by the app to the range 50-600.
+     *     public_data?: string, // Optional. Public data of the widget, 0-1024 bytes, which will be available wherever the widget is shown. If the widget is shared, then all messages with it will have the same public data.
+     *     chat_data?: string, // Optional. Data of the widget, which is specific to the message, 0-1024 bytes
+     *     caption?: string, // Optional. Widget caption, 0-1024 characters after entities parsing
+     *     parse_mode?: string, // Optional. Mode for parsing entities in the widget caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *     caption_entities?: list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity>, // Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *     show_caption_above_media?: bool, // Optional. Pass *True* if the caption must be shown above the widget
+     *     allow_queries?: bool, // Optional. Pass *True* to allow the widget to send queries to the bot
+     *     is_shared?: bool, // Optional. Pass *True* to create a shared widget, which can be sent again using the method `sendSharedWidget`
+     *     disable_notification?: bool, // Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     *     protect_content?: bool, // Optional. Protects the contents of the sent message from forwarding and saving
+     *     allow_paid_broadcast?: bool, // Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+     *     message_effect_id?: string, // Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     *     reply_parameters?: Types\ReplyParameters|array<string, mixed>, // Optional. Description of the message to reply to
+     *     reply_markup?: Types\InlineKeyboardMarkup|array<string, mixed>|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply, // Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user.
+     * } $params
+     * @return Types\Message
+     * @throws Base\TelegramException
+     */
+    public function sendWidget(array $params): Types\Message
+    {
+        return Requests\SendWidget::create($params)->send($this);
+    }
+
+    /**
+     * Use this method to send again a shared widget created by the bot. Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent `Message` is returned.
+     *
+     * @link https://core.telegram.org/bots/api#sendsharedwidget
+     *
+     * @param array{
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target supergroup in the format `@username`
+     *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     *     widget_id: string, // Required. Unique identifier of the shared widget
+     *     chat_data?: string, // Optional. Data of the widget, which is specific to the message, 0-1024 bytes
+     *     caption?: string, // Optional. Widget caption, 0-1024 characters after entities parsing
+     *     parse_mode?: string, // Optional. Mode for parsing entities in the widget caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.
+     *     caption_entities?: list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity>, // Optional. A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse_mode*
+     *     show_caption_above_media?: bool, // Optional. Pass *True* if the caption must be shown above the widget
+     *     disable_notification?: bool, // Optional. Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+     *     protect_content?: bool, // Optional. Protects the contents of the sent message from forwarding and saving
+     *     allow_paid_broadcast?: bool, // Optional. Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+     *     message_effect_id?: string, // Optional. Unique identifier of the message effect to be added to the message; for private chats only
+     *     reply_parameters?: Types\ReplyParameters|array<string, mixed>, // Optional. Description of the message to reply to
+     *     reply_markup?: Types\InlineKeyboardMarkup|array<string, mixed>|Types\ReplyKeyboardMarkup|Types\ReplyKeyboardRemove|Types\ForceReply, // Optional. Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user.
+     * } $params
+     * @return Types\Message
+     * @throws Base\TelegramException
+     */
+    public function sendSharedWidget(array $params): Types\Message
+    {
+        return Requests\SendSharedWidget::create($params)->send($this);
+    }
+
+    /**
      * Use this method to send paid media. On success, the sent `Message` is returned.
      *
      * @link https://core.telegram.org/bots/api#sendpaidmedia
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     star_count: int, // Required. The number of Telegram Stars that must be paid to buy access to the media; 1-25000
@@ -600,7 +663,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
      *     media: list<Types\InputMediaAudio|array<string, mixed>|Types\InputMediaDocument|Types\InputMediaLivePhoto|Types\InputMediaPhoto|Types\InputMediaVideo>|Base\ArrayObject<Types\InputMediaAudio|Types\InputMediaDocument|Types\InputMediaLivePhoto|Types\InputMediaPhoto|Types\InputMediaVideo>, // Required. A JSON-serialized Array describing messages to be sent, must include 2-10 items
@@ -626,7 +689,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -659,7 +722,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -694,7 +757,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -725,7 +788,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     question: string, // Required. Poll question, 1-300 characters
      *     question_parse_mode?: string, // Optional. Mode for parsing entities in the question. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed.
@@ -798,7 +861,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     emoji?: string, // Optional. Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”.
@@ -870,7 +933,7 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#setmessagereaction
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_id: int, // Required. Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
      *     reaction?: list<Types\ReactionType|array<string, mixed>>|Base\ArrayObject<Types\ReactionType>, // Optional. A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can't be used by bots.
      *     is_big?: bool, // Optional. Pass *True* to set the reaction with a big animation
@@ -1519,6 +1582,19 @@ class Api extends Base\Api
     }
 
     /**
+     * Use this method to get the list of backdrops, which can be used as the background of a theme of the screen for sharing a link to a user or a chat. Requires no parameters. Returns a `ChatShareThemeBackdrops` object.
+     *
+     * @link https://core.telegram.org/bots/api#getchatsharethemebackdrops
+     *
+     * @return Types\ChatShareThemeBackdrops
+     * @throws Base\TelegramException
+     */
+    public function getChatShareThemeBackdrops(): Types\ChatShareThemeBackdrops
+    {
+        return Requests\GetChatShareThemeBackdrops::create()->send($this);
+    }
+
+    /**
      * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of `Message` objects is returned.
      *
      * @link https://core.telegram.org/bots/api#getuserpersonalchatmessages
@@ -1582,7 +1658,7 @@ class Api extends Base\Api
     }
 
     /**
-     * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can_manage_topics* administrator right. Returns information about the created topic as a `ForumTopic` object.
+     * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can_manage_topics* administrator right. In the case of a private chat, a link to the topic can be created in the format `https://t.me/<bot_username>/<message_thread_id>`; the link opens the topic only for the user. Returns information about the created topic as a `ForumTopic` object.
      *
      * @link https://core.telegram.org/bots/api#createforumtopic
      *
@@ -1804,6 +1880,23 @@ class Api extends Base\Api
     public function answerCallbackQuery(array $params): Base\ParameterBool
     {
         return Requests\AnswerCallbackQuery::create($params)->send($this);
+    }
+
+    /**
+     * Use this method to send an answer to a query from a widget. The query must be answered within 15 seconds. The answer is received only by the widget that sent the query and doesn't change data of the widget; use `editMessageWidgetData` or `editSharedWidgetData` to change it. On success, *True* is returned.
+     *
+     * @link https://core.telegram.org/bots/api#answerwidgetquery
+     *
+     * @param array{
+     *     widget_query_id: string, // Required. Unique identifier for the query to be answered
+     *     data?: string, // Optional. Data to be returned to the widget, 0-1024 bytes
+     * } $params
+     * @return Base\ParameterBool
+     * @throws Base\TelegramException
+     */
+    public function answerWidgetQuery(array $params): Base\ParameterBool
+    {
+        return Requests\AnswerWidgetQuery::create($params)->send($this);
     }
 
     /**
@@ -2189,7 +2282,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     user_id?: int, // Optional. Required if *chat_id* is not specified. Unique identifier of the target user who will receive the gift.
-     *     chat_id?: int|string, // Optional. Required if *user_id* is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
+     *     chat_id?: int|string, // Optional. Required if *user_id* is not specified. Unique identifier for the chat that will receive the gift or username of the channel in the format `@username`.
      *     gift_id: string, // Required. Identifier of the gift; limited gifts can't be sent to channel chats
      *     pay_for_upgrade?: bool, // Optional. Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
      *     text?: string, // Optional. Text that will be shown along with the gift; 0-128 characters
@@ -2233,6 +2326,8 @@ class Api extends Base\Api
      * @param array{
      *     user_id: int, // Required. Unique identifier of the target user
      *     custom_description?: string, // Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *     custom_description_parse_mode?: string, // Optional. Mode for parsing entities in the custom description. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Only “text_link” entities are supported.
+     *     custom_description_entities?: list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity>, // Optional. A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of *custom_description_parse_mode*. Only “text_link” entities are supported.
      * } $params
      * @return Base\ParameterBool
      * @throws Base\TelegramException
@@ -2248,8 +2343,10 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#verifychat
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Channel direct messages chats can't be verified.
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. Channel direct messages chats can't be verified.
      *     custom_description?: string, // Optional. Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+     *     custom_description_parse_mode?: string, // Optional. Mode for parsing entities in the custom description. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Only “text_link” entities are supported.
+     *     custom_description_entities?: list<Types\MessageEntity|array<string, mixed>>|Base\ArrayObject<Types\MessageEntity>, // Optional. A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of *custom_description_parse_mode*. Only “text_link” entities are supported.
      * } $params
      * @return Base\ParameterBool
      * @throws Base\TelegramException
@@ -2542,6 +2639,22 @@ class Api extends Base\Api
     }
 
     /**
+     * Use this method to get information about a unique gift by its name. Returns a `UniqueGift` object on success.
+     *
+     * @link https://core.telegram.org/bots/api#getuniquegift
+     *
+     * @param array{
+     *     name: string, // Required. Unique name of the gift
+     * } $params
+     * @return Types\UniqueGift
+     * @throws Base\TelegramException
+     */
+    public function getUniqueGift(array $params): Types\UniqueGift
+    {
+        return Requests\GetUniqueGift::create($params)->send($this);
+    }
+
+    /**
      * Converts a given regular gift to Telegram Stars. Requires the *can_convert_gifts_to_stars* business bot right. Returns *True* on success.
      *
      * @link https://core.telegram.org/bots/api#convertgifttostars
@@ -2594,6 +2707,23 @@ class Api extends Base\Api
     public function transferGift(array $params): Base\ParameterBool
     {
         return Requests\TransferGift::create($params)->send($this);
+    }
+
+    /**
+     * Deletes a regular gift owned by a managed business account without receiving Telegram Stars for it. Requires the *can_convert_gifts_to_stars* business bot right. The gift can be deleted only if it isn't limited (the field *total_count* of the `Gift` is omitted) and wasn't refunded. Returns *True* on success.
+     *
+     * @link https://core.telegram.org/bots/api#deletebusinessaccountgift
+     *
+     * @param array{
+     *     business_connection_id: string, // Required. Unique identifier of the business connection
+     *     owned_gift_id: string, // Required. Unique identifier of the regular gift that should be deleted
+     * } $params
+     * @return Base\ParameterBool
+     * @throws Base\TelegramException
+     */
+    public function deleteBusinessAccountGift(array $params): Base\ParameterBool
+    {
+        return Requests\DeleteBusinessAccountGift::create($params)->send($this);
     }
 
     /**
@@ -2744,7 +2874,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     text?: string, // Optional. New text of the message, 1-4096 characters after entity parsing; required if *rich_message* isn't specified
@@ -2769,7 +2899,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     caption?: string, // Optional. New caption of the message, 0-1024 characters after entities parsing
@@ -2793,7 +2923,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     media: Types\InputMedia|array<string, mixed>, // Required. A JSON-serialized object for the new media content of the message
@@ -2815,7 +2945,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     latitude: float|int, // Required. Latitude of new location
@@ -2841,7 +2971,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message with live location to stop.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     reply_markup?: Types\InlineKeyboardMarkup|array<string, mixed>, // Optional. A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
@@ -2875,13 +3005,51 @@ class Api extends Base\Api
     }
 
     /**
+     * Use this method to edit data of a widget in a message sent by the bot or via the bot (for inline bots). Public data of a shared widget can be changed at most once per second. On success, *True* is returned.
+     *
+     * @link https://core.telegram.org/bots/api#editmessagewidgetdata
+     *
+     * @param array{
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target supergroup in the format `@username`.
+     *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message with the widget.
+     *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
+     *     public_data?: string, // Optional. New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data. If omitted, then the public data isn't changed.
+     *     chat_data?: string, // Optional. New data of the widget, which is specific to the message, 0-1024 bytes; pass an empty string to remove the data. If omitted, then the data isn't changed.
+     * } $params
+     * @return Base\ParameterBool
+     * @throws Base\TelegramException
+     */
+    public function editMessageWidgetData(array $params = []): Base\ParameterBool
+    {
+        return Requests\EditMessageWidgetData::create($params)->send($this);
+    }
+
+    /**
+     * Use this method to edit public data of a shared widget created by the bot. A shared widget can be edited at most once per second. On success, *True* is returned.
+     *
+     * @link https://core.telegram.org/bots/api#editsharedwidgetdata
+     *
+     * @param array{
+     *     widget_id: string, // Required. Unique identifier of the shared widget
+     *     public_data: string, // Required. New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data
+     *     cache_time?: int, // Optional. The maximum amount of time in seconds that the public data of the widget may be cached client-side; 5-3600. If omitted, then the current value is kept, which is 30 by default.
+     * } $params
+     * @return Base\ParameterBool
+     * @throws Base\TelegramException
+     */
+    public function editSharedWidgetData(array $params): Base\ParameterBool
+    {
+        return Requests\EditSharedWidgetData::create($params)->send($this);
+    }
+
+    /**
      * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited `Message` is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
      *
      * @link https://core.telegram.org/bots/api#editmessagereplymarkup
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     *     chat_id?: int|string, // Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *     message_id?: int, // Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
      *     inline_message_id?: string, // Optional. Required if *chat_id* and *message_id* are not specified. Identifier of the inline message.
      *     reply_markup?: Types\InlineKeyboardMarkup|array<string, mixed>, // Optional. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
@@ -2901,7 +3069,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_id: int, // Required. Identifier of the original message with the poll
      *     reply_markup?: Types\InlineKeyboardMarkup|array<string, mixed>, // Optional. A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
      * } $params
@@ -3052,7 +3220,7 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#deletemessage
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_id: int, // Required. Identifier of the message to delete
      * } $params
      * @return Base\ParameterBool
@@ -3069,7 +3237,7 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#deletemessages
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_ids: list<int>|Base\ArrayObject<Base\ParameterInt>, // Required. A JSON-serialized list of 1-100 identifiers of messages to delete. See `deleteMessage` for limitations on which messages can be deleted.
      * } $params
      * @return Base\ParameterBool
@@ -3142,7 +3310,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -3435,7 +3603,7 @@ class Api extends Base\Api
      *
      * @param array{
      *     business_connection_id?: string, // Optional. Unique identifier of the business connection on behalf of which the message will be sent. Bot can send rich messages on behalf of a business account only if the corresponding user can send rich messages.
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id?: int|string, // Optional. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     ephemeral_message_parameters?: Types\EphemeralMessageParameters|array<string, mixed>, // Optional. A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -3505,7 +3673,7 @@ class Api extends Base\Api
      * @link https://core.telegram.org/bots/api#sendinvoice
      *
      * @param array{
-     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+     *     chat_id: int|string, // Required. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
      *     message_thread_id?: int, // Optional. Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      *     direct_messages_topic_id?: int, // Optional. Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      *     title: string, // Required. Product name, 1-32 characters

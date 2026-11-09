@@ -12,5 +12,5 @@
 
 namespace DevBX\Telegram\InlineMode;
 
-// Обратная совместимость: тип перенесён документацией Bot API, используйте DevBX\Telegram\Types\PreparedInlineMessage.
+// Обратная совместимость: тип перенесён или переименован документацией Bot API, используйте DevBX\Telegram\Types\PreparedInlineMessage.
 class_alias(\DevBX\Telegram\Types\PreparedInlineMessage::class, __NAMESPACE__ . '\\PreparedInlineMessage');

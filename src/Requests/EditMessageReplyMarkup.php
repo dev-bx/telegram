@@ -23,7 +23,7 @@ use DevBX\Telegram\Types;
  *
  * @property-read string|null $businessConnectionId Optional. Unique identifier of the business connection on behalf of which the message to be edited was sent
  * @property-write string $businessConnectionId
- * @property-read int|string|null $chatId Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+ * @property-read int|string|null $chatId Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
  * @property-write int|string $chatId
  * @property-read int|null $messageId Optional. Required if *inline_message_id* is not specified. Identifier of the message to edit.
  * @property-write int $messageId
@@ -83,7 +83,7 @@ class EditMessageReplyMarkup extends Base\Request
     }
 
     /**
-     * Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+     * Optional. Required if *inline_message_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
      *
      * @return int|string|null
      * @throws Base\TelegramException

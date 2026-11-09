@@ -13,17 +13,20 @@
 namespace DevBX\Telegram\Types;
 
 use DevBX\Telegram\Base;
+use DevBX\Telegram\RichMessages;
 
 /**
  * This object contains information about the quoted part of a message that is replied to by the given message.
  *
  * @link https://core.telegram.org/bots/api#textquote
  *
- * @property-read string|null $text Required. Text of the quoted part of a message that is replied to by the given message
+ * @property-read string|null $text Required. Text of the quoted part of a message that is replied to by the given message; may be empty if the quote was chosen from a rich message
  * @property-write string $text
  * @property-read Base\ArrayObject<MessageEntity> $entities Optional. Special entities that appear in the quote. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom_emoji*, and *date_time* entities are kept in quotes.
  * @property-write list<MessageEntity|array<string, mixed>>|Base\ArrayObject<MessageEntity> $entities
- * @property-read int|null $position Required. Approximate quote position in the original message in UTF-16 code units as specified by the sender
+ * @property-read Base\ArrayObject<RichMessages\RichText> $richTexts Optional. Rich text of the quote if it was chosen from a `RichMessage`. May contain only plain text, `RichTextBold`, `RichTextItalic`, `RichTextUnderline`, `RichTextStrikethrough`, `RichTextSpoiler`, `RichTextSubscript`, `RichTextSuperscript`, `RichTextDateTime`, `RichTextCustomEmoji`, `RichTextMathematicalExpression`, and arrays of them.
+ * @property-write list<RichMessages\RichText|string|list<mixed>|array<string, mixed>>|Base\ArrayObject<RichMessages\RichText> $richTexts
+ * @property-read int|null $position Required. Approximate quote position in the original message in UTF-16 code units as specified by the sender. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
  * @property-write int $position
  * @property-read bool|null $isManual Optional. *True*, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server.
  * @property-write bool $isManual
@@ -41,6 +44,10 @@ class TextQuote extends Base\BaseType
                 'type' => [MessageEntity::class],
                 'isArray' => true,
             ],
+            'rich_texts' => [
+                'type' => [RichMessages\RichText::class],
+                'isArray' => true,
+            ],
             'position' => [
                 'type' => ['int'],
                 'required' => true,
@@ -52,7 +59,7 @@ class TextQuote extends Base\BaseType
     }
 
     /**
-     * Required. Text of the quoted part of a message that is replied to by the given message
+     * Required. Text of the quoted part of a message that is replied to by the given message; may be empty if the quote was chosen from a rich message
      *
      * @return string|null
      * @throws Base\TelegramException
@@ -94,7 +101,28 @@ class TextQuote extends Base\BaseType
     }
 
     /**
-     * Required. Approximate quote position in the original message in UTF-16 code units as specified by the sender
+     * Optional. Rich text of the quote if it was chosen from a `RichMessage`. May contain only plain text, `RichTextBold`, `RichTextItalic`, `RichTextUnderline`, `RichTextStrikethrough`, `RichTextSpoiler`, `RichTextSubscript`, `RichTextSuperscript`, `RichTextDateTime`, `RichTextCustomEmoji`, `RichTextMathematicalExpression`, and arrays of them.
+     *
+     * @return Base\ArrayObject<RichMessages\RichText>
+     * @throws Base\TelegramException
+     */
+    public function getRichTexts(): mixed
+    {
+        return $this->getFieldValue('rich_texts');
+    }
+
+    /**
+     * @param list<RichMessages\RichText|string|list<mixed>|array<string, mixed>>|Base\ArrayObject<RichMessages\RichText> $value
+     * @return $this
+     * @throws Base\TelegramException
+     */
+    public function setRichTexts(mixed $value): static
+    {
+        return $this->setFieldValue('rich_texts', $value);
+    }
+
+    /**
+     * Required. Approximate quote position in the original message in UTF-16 code units as specified by the sender. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
      *
      * @return int|null
      * @throws Base\TelegramException

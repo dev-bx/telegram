@@ -1,7 +1,7 @@
 # devbx/telegram
 
-> PHP 8.0+ client for Telegram Bot API 10.3 (Composer package `devbx/telegram`, namespace `DevBX\Telegram`).
-> Every Bot API method (185) is a method of `DevBX\Telegram\Api`, every Bot API object (400) is a class.
+> PHP 8.0+ client for Telegram Bot API 10.4 (Composer package `devbx/telegram`, namespace `DevBX\Telegram`).
+> Every Bot API method (193) is a method of `DevBX\Telegram\Api`, every Bot API object (425) is a class.
 > Classes are generated from https://core.telegram.org/bots/api, so names and fields match the official docs 1:1.
 
 ## Naming rules
@@ -119,4 +119,4 @@ $api->sendRichMessage([
 
 - [llms-full.txt](llms-full.txt): all methods (PHP signature, parameters with types, result) and all types
   (fields, PHP read/write types, accessors, union variants).
-- Source of truth: https://core.telegram.org/bots/api (Bot API 10.3).
+- Source of truth: https://core.telegram.org/bots/api (Bot API 10.4).

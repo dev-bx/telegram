@@ -23,15 +23,17 @@ use DevBX\Telegram\Base;
  * - `InputVenueMessageContent`
  * - `InputContactMessageContent`
  * - `InputInvoiceMessageContent`
+ * - `InputWidgetMessageContent`
+ * - `InputSharedWidgetMessageContent`
  *
  * @link https://core.telegram.org/bots/api#inputmessagecontent
  *
- * Объединение: create() возвращает подходящий вариант — `InputTextMessageContent`, `InputRichMessageContent`, `InputLocationMessageContent`, `InputVenueMessageContent`, `InputContactMessageContent`, `InputInvoiceMessageContent`.
+ * Объединение: create() возвращает подходящий вариант — `InputTextMessageContent`, `InputRichMessageContent`, `InputLocationMessageContent`, `InputVenueMessageContent`, `InputContactMessageContent`, `InputInvoiceMessageContent`, `InputWidgetMessageContent`, `InputSharedWidgetMessageContent`.
  */
 class InputMessageContent extends Base\BaseType
 {
     /**
-     * @return list<class-string<InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent>>
+     * @return list<class-string<InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent|InputWidgetMessageContent|InputSharedWidgetMessageContent>>
      */
     public static function getRelations(): array
     {
@@ -42,13 +44,15 @@ class InputMessageContent extends Base\BaseType
             InputVenueMessageContent::class,
             InputContactMessageContent::class,
             InputInvoiceMessageContent::class,
+            InputWidgetMessageContent::class,
+            InputSharedWidgetMessageContent::class,
         ];
     }
 
     /**
      * Создаёт вариант объединения, подходящий под значение (по полю-дискриминатору и обязательным полям).
      *
-     * @return InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent|null null — значение не подошло ни одному варианту (только в нестрогом режиме)
+     * @return InputTextMessageContent|InputRichMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent|InputWidgetMessageContent|InputSharedWidgetMessageContent|null null — значение не подошло ни одному варианту (только в нестрогом режиме)
      * @throws Base\TelegramException
      */
     public static function create(mixed $value = null, bool $ignoreUnknownFields = false): ?Base\BaseType
