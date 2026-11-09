@@ -40,12 +40,26 @@ class PsrClient extends \DevBX\Telegram\Api
             return false;
         }
 
-        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300)
+        $body = (string)$response->getBody();
+        $status = $response->getStatusCode();
+
+        // Ошибки Bot API приходят с кодами 4xx и JSON-телом {"ok":false,"description":…}: его разбирает
+        // Api::query() — оттуда описание ошибки, retry_after и специальные исключения. Голый HTTP-код —
+        // только для ответов не от Bot API (HTML-страница прокси, пустое тело на 502 и т.п.).
+        if (($status < 200 || $status >= 300) && !self::isBotApiResponse($body))
         {
-            $result->addErrorItem(new Error('HTTP status code: ' . $response->getStatusCode()));
+            $result->addErrorItem(new Error('HTTP status code: ' . $status, $status));
+            return false;
         }
 
-        return (string)$response->getBody();
+        return $body;
+    }
+
+    private static function isBotApiResponse(string $body): bool
+    {
+        $decoded = json_decode($body, true);
+
+        return is_array($decoded) && array_key_exists('ok', $decoded);
     }
 
     /**
